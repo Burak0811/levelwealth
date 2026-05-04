@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0f0f0f;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  max-width: 600px;
+  width: 100%;
+  padding: 2rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  color: #00ff88;
+  margin-bottom: 0.5rem;
+}
+
+.xp-bar {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.frage {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.antworten {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.antwort-btn {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  text-align: left;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.antwort-btn:hover {
+  border-color: #00ff88;
+}
+
+.antwort-btn.richtig {
+  border-color: #00ff88;
+  background: #00ff8820;
+}
+
+.antwort-btn.falsch {
+  border-color: #ff4444;
+  background: #ff444420;
+}
+
+.feedback {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+}
+
+.weiter-btn {
+  margin-top: 1rem;
+  background: #00ff88;
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fertig {
+  text-align: center;
+}
+
+.fertig h1 {
+  font-size: 2rem;
+  color: #00ff88;
+  margin-bottom: 1rem;
+}
