@@ -1799,10 +1799,59 @@ function OnboardingFlow({ onComplete }) {
   )
 }
 
-function Startscreen({ xp, streak, onHauptkategorieClick, userName }) {
+const TAGESSPRUECHE = [
+  "Der beste Zeitpunkt zu investieren war gestern. Der zweitbeste ist heute.",
+  "Kleine Schritte, konsequent durchgehalten, führen zu großen Ergebnissen.",
+  "Finanzieller Erfolg beginnt mit dem ersten bewussten Euro.",
+  "Wer spart, erschafft Möglichkeiten.",
+  "Disziplin heute schafft Freiheit morgen.",
+  "Jede Lektion bringt dich deinem Ziel näher.",
+  "Das Wochenende ist perfekt, um Neues zu lernen.",
+]
+
+const HUB_SVGS = {
+  lernen: (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+    </svg>
+  ),
+  news: (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+      <polyline points="14 2 14 8 20 8"/>
+      <line x1="16" y1="13" x2="8" y2="13"/>
+      <line x1="16" y1="17" x2="8" y2="17"/>
+    </svg>
+  ),
+  rechner: (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="2"/>
+      <line x1="8" y1="7" x2="16" y2="7"/>
+      <line x1="8" y1="12" x2="8.01" y2="12"/>
+      <line x1="12" y1="12" x2="12.01" y2="12"/>
+      <line x1="16" y1="12" x2="16.01" y2="12"/>
+      <line x1="8" y1="16" x2="8.01" y2="16"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+      <line x1="16" y1="16" x2="16.01" y2="16"/>
+    </svg>
+  ),
+  challenges: (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <circle cx="12" cy="12" r="6"/>
+      <circle cx="12" cy="12" r="2"/>
+    </svg>
+  ),
+}
+
+function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosseneQuests }) {
   const level = berechneLevel(xp)
   const xpAktuell = xp - (level - 1) * 100
   const xpFortschritt = Math.min((xpAktuell / 100) * 100, 100)
+  const spruch = TAGESSPRUECHE[new Date().getDay()]
+  const heute = getHeute()
+  const questHeute = !!(abgeschlosseneQuests && abgeschlosseneQuests[heute])
 
   return (
     <div className="screen">
@@ -1824,6 +1873,25 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName }) {
         <div className="hero-xp-bar">
           <div className="hero-xp-fill" style={{ width: `${xpFortschritt}%` }} />
         </div>
+        <p className="hero-quote">"{spruch}"</p>
+      </div>
+
+      <p className="hub-section-titel">Dein Fortschritt heute</p>
+      <div className="fortschritt-heute">
+        <div className={`fh-karte ${questHeute ? "done" : ""}`}>
+          <span className="fh-icon">{questHeute ? "✅" : "⚔️"}</span>
+          <div className="fh-text">
+            <span className="fh-label">Daily Quest</span>
+            <span className="fh-value">{questHeute ? "Erledigt!" : "Ausstehend"}</span>
+          </div>
+        </div>
+        <div className="fh-karte">
+          <span className="fh-icon">🔥</span>
+          <div className="fh-text">
+            <span className="fh-label">Streak</span>
+            <span className="fh-value">{streak} {streak === 1 ? "Tag" : "Tage"}</span>
+          </div>
+        </div>
       </div>
 
       <p className="hub-section-titel">Was möchtest du tun?</p>
@@ -1836,13 +1904,15 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName }) {
             onClick={() => k.verfuegbar && onHauptkategorieClick(k.id)}
             style={{ background: k.verfuegbar ? k.gradient : "var(--card)" }}
           >
-            <div className="hub-banner-icon">{k.icon}</div>
+            <div className="hub-svg-icon">
+              {HUB_SVGS[k.id] ?? <span style={{ fontSize: "1.75rem" }}>{k.icon}</span>}
+            </div>
             <div className="hub-banner-text">
               <p className="hub-banner-name">{k.name}</p>
               <p className="hub-banner-beschreibung">{k.verfuegbar ? k.beschreibung : "Bald verfügbar"}</p>
             </div>
             {k.verfuegbar && <div className="hub-banner-arrow">→</div>}
-            {!k.verfuegbar && <div className="hub-banner-lock">🔒</div>}
+            {!k.verfuegbar && <span className="hub-coming-soon">Coming Soon</span>}
           </div>
         ))}
       </div>
@@ -1895,33 +1965,57 @@ function LernpfadeScreen({ xp, onKategorieClick, onZurueck, abgeschlosseneLektio
 
 function KategorieDetail({ kategorie, abgeschlosseneLektionen, onZurueck, onLektionClick }) {
   const lektionen = lernpfad[kategorie.id] || []
+  const abgeschlossenAnzahl = lektionen.filter(l => abgeschlosseneLektionen.includes(l.id)).length
+  const fortschrittPct = lektionen.length > 0 ? Math.round((abgeschlossenAnzahl / lektionen.length) * 100) : 0
+
   return (
     <div className="screen">
       <button className="zurueck-btn" onClick={onZurueck}>← Zurück</button>
-      <div className="screen-header" style={{ marginTop: "1rem" }}>
-        <div className="kategorie-icon-gross" style={{ background: kategorie.farbe + "22", color: kategorie.farbe }}>
-          {kategorie.icon}
+
+      <div className="kd-banner" style={{ background: `linear-gradient(135deg, ${kategorie.farbe}cc, ${kategorie.farbe}66)` }}>
+        <div className="kd-banner-top">
+          <div className="kd-banner-icon">{kategorie.icon}</div>
+          <div className="kd-banner-info">
+            <p className="kd-banner-name">{kategorie.name}</p>
+            <p className="kd-banner-desc">{kategorie.beschreibung}</p>
+          </div>
         </div>
-        <h1>{kategorie.name}</h1>
-        <p className="xp-info">{kategorie.beschreibung}</p>
+        <div className="kd-banner-progress">
+          <div className="kd-banner-bar-bg">
+            <div className="kd-banner-bar-fill" style={{ width: `${fortschrittPct}%` }} />
+          </div>
+          <div className="kd-banner-meta">
+            <span>{abgeschlossenAnzahl} von {lektionen.length} Lektionen</span>
+            <span>{fortschrittPct}%</span>
+          </div>
+        </div>
       </div>
+
       <div className="lektionen-liste">
         {lektionen.map((l, index) => {
           const abgeschlossen = abgeschlosseneLektionen.includes(l.id)
           const gesperrt = index > 0 && !abgeschlosseneLektionen.includes(lektionen[index - 1].id)
+          const isNext = !abgeschlossen && !gesperrt
+          const numStr = String(index + 1).padStart(2, "0")
+          let numClass = "default"
+          if (abgeschlossen) numClass = "done"
+          else if (gesperrt) numClass = "locked"
+          else if (isNext) numClass = "next"
           return (
             <div
               key={l.id}
-              className={`lektion-karte ${gesperrt ? "gesperrt" : ""} ${abgeschlossen ? "abgeschlossen" : ""}`}
+              className={`lektion-karte${gesperrt ? " gesperrt" : ""}${abgeschlossen ? " abgeschlossen" : ""}${isNext ? " aktiv-naechste" : ""}`}
               onClick={() => !gesperrt && onLektionClick(l)}
             >
-              <div className="lektion-status">
-                {abgeschlossen ? "✅" : gesperrt ? "🔒" : "▶️"}
+              <div className={`lektion-nummer ${numClass}`}>
+                {abgeschlossen ? "✓" : numStr}
               </div>
               <div className="lektion-info">
                 <p className="lektion-titel">{l.titel}</p>
-                <p className="lektion-xp">Lesen → Quiz → +{l.xp} XP</p>
+                <p className="lektion-xp">+{l.xp} XP · {l.typ === "cards" ? "Karten" : "Lektion"}</p>
               </div>
+              {isNext && <span className="lektion-start-label">Jetzt starten</span>}
+              {!isNext && <span className="lektion-arrow">›</span>}
             </div>
           )
         })}
@@ -2007,22 +2101,24 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 
     const perfekt = richtige === fragen.length
     const verdientXP = perfekt ? lektion.xp : 0
     return (
-      <div className="screen" style={{ textAlign: "center" }}>
-        <div style={{ fontSize: "3rem", marginTop: "3rem" }}>{perfekt ? "🎉" : "📚"}</div>
-        <h1 style={{ marginTop: "1rem" }}>{perfekt ? "Perfekt!" : "Fast!"}</h1>
-        <p style={{ color: "#888", marginTop: "0.5rem" }}>{richtige} von {fragen.length} Fragen richtig</p>
-        {perfekt
-          ? <p style={{ fontSize: "1.5rem", marginTop: "0.5rem" }}>+{verdientXP} XP</p>
-          : <p style={{ color: "#888", marginTop: "0.5rem" }}>Alle Fragen richtig für XP – versuch es nochmal</p>}
-        {!perfekt && (
-          <button className="weiter-btn" style={{ marginTop: "1.5rem", background: "#2a2040", color: "#fff" }}
-            onClick={() => { setPhase("cards"); setCardIdx(0); setFragenIdx(0); setGewaehlt(null); setRichtige(0) }}>
-            Nochmal lesen
+      <div className="screen">
+        <div className="ergebnis-screen">
+          <div className="ergebnis-emoji">{perfekt ? "🎉" : "📚"}</div>
+          <h1 className="ergebnis-titel">{perfekt ? "Perfekt!" : "Fast!"}</h1>
+          <p className="ergebnis-sub">{richtige} von {fragen.length} Fragen richtig</p>
+          {perfekt
+            ? <p className="ergebnis-xp">+{verdientXP} XP</p>
+            : <p className="ergebnis-sub" style={{ marginTop: "0.25rem" }}>Alle Fragen richtig für XP – versuch es nochmal</p>}
+          {!perfekt && (
+            <button className="weiter-btn" style={{ marginTop: "1.5rem", background: "#2a2040", color: "#fff" }}
+              onClick={() => { setPhase("cards"); setCardIdx(0); setFragenIdx(0); setGewaehlt(null); setRichtige(0) }}>
+              Nochmal lesen
+            </button>
+          )}
+          <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP)}>
+            {perfekt ? "Weiter" : "Trotzdem weiter"}
           </button>
-        )}
-        <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP)}>
-          {perfekt ? "Weiter" : "Trotzdem weiter"}
-        </button>
+        </div>
       </div>
     )
   }
@@ -2161,22 +2257,24 @@ function L301Screen({ lektion, onZurueck, onAbgeschlossen }) {
     const perfekt = richtige === fragen.length
     const verdientXP = perfekt ? lektion.xp : 0
     return (
-      <div className="screen" style={{ textAlign: "center" }}>
-        <div style={{ fontSize: "3rem", marginTop: "3rem" }}>{perfekt ? "🎉" : "📚"}</div>
-        <h1 style={{ marginTop: "1rem" }}>{perfekt ? "Perfekt!" : "Fast!"}</h1>
-        <p style={{ color: "#888", marginTop: "0.5rem" }}>{richtige} von {fragen.length} Fragen richtig</p>
-        {perfekt
-          ? <p style={{ fontSize: "1.5rem", marginTop: "0.5rem" }}>+{verdientXP} XP</p>
-          : <p style={{ color: "#888", marginTop: "0.5rem" }}>Alle Fragen richtig für XP – versuch es nochmal</p>}
-        {!perfekt && (
-          <button className="weiter-btn" style={{ marginTop: "1.5rem", background: "#2a2040", color: "#fff" }}
-            onClick={() => { setPhase("cards"); setCardIdx(0); setFragenIdx(0); setGewaehlt(null); setRichtige(0) }}>
-            Nochmal lesen
+      <div className="screen">
+        <div className="ergebnis-screen">
+          <div className="ergebnis-emoji">{perfekt ? "🎉" : "📚"}</div>
+          <h1 className="ergebnis-titel">{perfekt ? "Perfekt!" : "Fast!"}</h1>
+          <p className="ergebnis-sub">{richtige} von {fragen.length} Fragen richtig</p>
+          {perfekt
+            ? <p className="ergebnis-xp">+{verdientXP} XP</p>
+            : <p className="ergebnis-sub" style={{ marginTop: "0.25rem" }}>Alle Fragen richtig für XP – versuch es nochmal</p>}
+          {!perfekt && (
+            <button className="weiter-btn" style={{ marginTop: "1.5rem", background: "#2a2040", color: "#fff" }}
+              onClick={() => { setPhase("cards"); setCardIdx(0); setFragenIdx(0); setGewaehlt(null); setRichtige(0) }}>
+              Nochmal lesen
+            </button>
+          )}
+          <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP)}>
+            {perfekt ? "Weiter" : "Trotzdem weiter"}
           </button>
-        )}
-        <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP)}>
-          {perfekt ? "Weiter" : "Trotzdem weiter"}
-        </button>
+        </div>
       </div>
     )
   }
@@ -4041,25 +4139,24 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
     const perfekt = richtige === fragen.length
     const verdientXP = perfekt ? lektion.xp : 0
     return (
-      <div className="screen" style={{ textAlign: "center" }}>
-        <div style={{ fontSize: "3rem", marginTop: "3rem" }}>{perfekt ? "🎉" : "📚"}</div>
-        <h1 style={{ marginTop: "1rem" }}>
-          {perfekt ? "Perfekt!" : "Fast!"}
-        </h1>
-        <p style={{ color: "#888", marginTop: "0.5rem" }}>{richtige} von {fragen.length} Fragen richtig</p>
-        {perfekt
-          ? <p style={{ fontSize: "1.5rem", marginTop: "0.5rem" }}>+{verdientXP} XP</p>
-          : <p style={{ color: "#888", marginTop: "0.5rem" }}>Alle Fragen richtig für XP – versuch es nochmal</p>
-        }
-        {!perfekt && (
-          <button className="weiter-btn" style={{ marginTop: "1.5rem", background: "#2a2040", color: "#fff" }}
-            onClick={() => { setPhase("lesen"); setAktualeFrage(0); setGewaehlt(null); setRichtige(0) }}>
-            Nochmal lesen
+      <div className="screen">
+        <div className="ergebnis-screen">
+          <div className="ergebnis-emoji">{perfekt ? "🎉" : "📚"}</div>
+          <h1 className="ergebnis-titel">{perfekt ? "Perfekt!" : "Fast!"}</h1>
+          <p className="ergebnis-sub">{richtige} von {fragen.length} Fragen richtig</p>
+          {perfekt
+            ? <p className="ergebnis-xp">+{verdientXP} XP</p>
+            : <p className="ergebnis-sub" style={{ marginTop: "0.25rem" }}>Alle Fragen richtig für XP – versuch es nochmal</p>}
+          {!perfekt && (
+            <button className="weiter-btn" style={{ marginTop: "1.5rem", background: "#2a2040", color: "#fff" }}
+              onClick={() => { setPhase("lesen"); setAktualeFrage(0); setGewaehlt(null); setRichtige(0) }}>
+              Nochmal lesen
+            </button>
+          )}
+          <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP)}>
+            {perfekt ? "Weiter" : "Trotzdem weiter"}
           </button>
-        )}
-        <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP)}>
-          {perfekt ? "Weiter" : "Trotzdem weiter"}
-        </button>
+        </div>
       </div>
     )
   }
@@ -4210,6 +4307,8 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userZiel,
   const level = berechneLevel(xp)
   const xpAktuell = xp - (level - 1) * 100
   const xpFortschritt = Math.min((xpAktuell / 100) * 100, 100)
+  const circumference = 2 * Math.PI * 44
+  const dashOffset = circumference - (xpFortschritt / 100) * circumference
 
   const etfGesamt = lernpfad[1].length
   const etfAbgeschlossen = lernpfad[1].filter(l => abgeschlosseneLektionen.includes(l.id)).length
@@ -4218,72 +4317,99 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userZiel,
   const kryptoGesamt = lernpfad[3].length
   const kryptoAbgeschlossen = lernpfad[3].filter(l => abgeschlosseneLektionen.includes(l.id)).length
 
-  const zielLabels = { etf: "ETF-Sparplan starten", krypto: "Krypto verstehen", aktien: "Aktien analysieren", wissen: "Finanzwissen aufbauen" }
-  const alterLabels = { "unter18": "Unter 18", "18-24": "18 – 24", "25-34": "25 – 34", "35plus": "35+" }
-  const lebenssituationLabels = { schueler: "Schüler / Student", berufseinsteiger: "Berufseinstieg", berufstaetig: "Berufstätig", selbststaendig: "Selbstständig" }
-  const finanzsituationLabels = { nichts: "Noch gar nichts", wenig: "10–50 € / Monat", mittel: "50–200 € / Monat", viel: "200 €+ / Monat" }
-  const wissensLabel = userWissenslevel ? ["", "Neuling", "Einsteiger", "Fortgeschritten", "Erfahren", "Experte"][userWissenslevel] : null
-
   const badges = [
-    { id: "erste_lektion", name: "Erster Schritt", icon: "🎯", beschreibung: "Erste Lektion abgeschlossen", erreicht: abgeschlosseneLektionen.length >= 1 },
-    { id: "etf_komplett", name: "ETF Experte", icon: "📈", beschreibung: "Alle ETF Lektionen abgeschlossen", erreicht: etfAbgeschlossen === etfGesamt },
-    { id: "aktien_start", name: "Aktien Einsteiger", icon: "📊", beschreibung: "5 Aktien-Lektionen abgeschlossen", erreicht: aktienAbgeschlossen >= 5 },
-    { id: "aktien_komplett", name: "Aktien Profi", icon: "💼", beschreibung: "Alle Aktien-Lektionen abgeschlossen", erreicht: aktienAbgeschlossen === aktienGesamt },
-    { id: "krypto_start", name: "Krypto Einsteiger", icon: "₿", beschreibung: "Erste Krypto-Lektion abgeschlossen", erreicht: kryptoAbgeschlossen >= 1 },
-    { id: "krypto_komplett", name: "Blockchain Master", icon: "⛓️", beschreibung: "Alle Krypto-Lektionen abgeschlossen", erreicht: kryptoAbgeschlossen === kryptoGesamt },
-    { id: "streak_7", name: "7-Tage Streak", icon: "🔥", beschreibung: "7 Tage in Folge gelernt", erreicht: streak >= 7 },
-    { id: "level_5", name: "Aufsteiger", icon: "⭐", beschreibung: "Level 5 erreicht", erreicht: level >= 5 }
+    { id: "erste_lektion", name: "Erster Schritt", icon: "🎯", beschreibung: "Erste Lektion", erreicht: abgeschlosseneLektionen.length >= 1 },
+    { id: "etf_komplett", name: "ETF Experte", icon: "📈", beschreibung: "Alle ETF-Lektionen", erreicht: etfAbgeschlossen === etfGesamt && etfGesamt > 0 },
+    { id: "aktien_start", name: "Aktien Profi", icon: "📊", beschreibung: "5 Aktien-Lektionen", erreicht: aktienAbgeschlossen >= 5 },
+    { id: "aktien_komplett", name: "Wall Street", icon: "💼", beschreibung: "Alle Aktien", erreicht: aktienAbgeschlossen === aktienGesamt && aktienGesamt > 0 },
+    { id: "krypto_start", name: "Krypto Einsteiger", icon: "₿", beschreibung: "1 Krypto-Lektion", erreicht: kryptoAbgeschlossen >= 1 },
+    { id: "krypto_komplett", name: "Blockchain Master", icon: "⛓️", beschreibung: "Alle Krypto", erreicht: kryptoAbgeschlossen === kryptoGesamt && kryptoGesamt > 0 },
+    { id: "streak_7", name: "Feuer-Streak", icon: "🔥", beschreibung: "7 Tage am Stück", erreicht: streak >= 7 },
+    { id: "level_5", name: "Aufsteiger", icon: "⭐", beschreibung: "Level 5 erreicht", erreicht: level >= 5 },
+    { id: "level_10", name: "Veteran", icon: "🏆", beschreibung: "Level 10 erreicht", erreicht: level >= 10 }
   ]
 
   const stats = [
-    { label: "Gesamt Lektionen", wert: abgeschlosseneLektionen.length },
-    { label: "Aktueller Streak", wert: `${streak} Tage` },
-    { label: "Gesamt XP", wert: xp },
-    { label: "ETF", wert: `${etfAbgeschlossen}/${etfGesamt}` },
-    { label: "Aktien", wert: `${aktienAbgeschlossen}/${aktienGesamt}` },
-    { label: "Krypto", wert: `${kryptoAbgeschlossen}/${kryptoGesamt}` }
+    { label: "Lektionen", wert: abgeschlosseneLektionen.length, icon: "📖" },
+    { label: "Streak", wert: `${streak} Tage`, icon: "🔥" },
+    { label: "XP Gesamt", wert: xp, icon: "⚡" },
+    { label: "ETF", wert: `${etfAbgeschlossen}/${etfGesamt}`, icon: "📈" },
+    { label: "Aktien", wert: `${aktienAbgeschlossen}/${aktienGesamt}`, icon: "📊" },
+    { label: "Krypto", wert: `${kryptoAbgeschlossen}/${kryptoGesamt}`, icon: "₿" },
   ]
+
+  const lernpfadItems = kategorien.map(k => {
+    const gesamt = (lernpfad[k.id] || []).length
+    const abg = (lernpfad[k.id] || []).filter(l => abgeschlosseneLektionen.includes(l.id)).length
+    const pct = gesamt > 0 ? Math.round((abg / gesamt) * 100) : 0
+    return { ...k, gesamt, abg, pct }
+  })
+
+  const initials = userName
+    ? userName.trim().split(/\s+/).map(w => w[0]).join("").substring(0, 2).toUpperCase()
+    : "??"
 
   return (
     <div className="screen">
-      <div className="screen-header">
-        <h1>Profil</h1>
-        {userName && <p className="xp-info">👤 {userName}</p>}
-        {userZiel && <p className="xp-info" style={{ marginTop: "0.2rem" }}>🎯 {zielLabels[userZiel] || userZiel}</p>}
-        {userAlter && <p className="xp-info" style={{ marginTop: "0.2rem" }}>🎂 {alterLabels[userAlter] || userAlter}</p>}
-        {userLebenssituation && <p className="xp-info" style={{ marginTop: "0.2rem" }}>🏠 {lebenssituationLabels[userLebenssituation] || userLebenssituation}</p>}
-        {userFinanzsituation && <p className="xp-info" style={{ marginTop: "0.2rem" }}>💰 {finanzsituationLabels[userFinanzsituation] || userFinanzsituation}</p>}
-        {wissensLabel && <p className="xp-info" style={{ marginTop: "0.2rem" }}>🧠 {wissensLabel}</p>}
-      </div>
-      <div className="profil-level-card">
-        <div className="profil-level-kreis">
-          <span className="profil-level-zahl">{level}</span>
-          <span className="profil-level-label">LVL</span>
+      <div className="profil-avatar-wrap">
+        <div className="profil-avatar-ring">
+          <svg className="profil-avatar-svg" viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="lvlGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#7C3AED"/>
+                <stop offset="100%" stopColor="#9D174D"/>
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="44" fill="none" stroke="#2a2040" strokeWidth="7"/>
+            <circle
+              cx="50" cy="50" r="44"
+              fill="none"
+              stroke="url(#lvlGrad)"
+              strokeWidth="7"
+              strokeDasharray={circumference}
+              strokeDashoffset={dashOffset}
+              strokeLinecap="round"
+            />
+          </svg>
+          <div className="profil-avatar-circle">{initials}</div>
         </div>
-        <div className="profil-level-info">
-          <p className="profil-level-titel">Level {level}</p>
-          <p className="profil-xp-text">{xpAktuell} / 100 XP zum nächsten Level</p>
-          <div className="profil-xp-bar">
-            <div className="profil-xp-fill" style={{ width: `${xpFortschritt}%` }} />
-          </div>
+        <p className="profil-avatar-name">{userName || "Unbekannt"}</p>
+        <p className="profil-avatar-level">Level {level} · {xpAktuell}/100 XP</p>
+      </div>
+
+      <div className="profil-xp-section">
+        <div className="profil-xp-row">
+          <span><strong>XP zum nächsten Level</strong></span>
+          <span>{xpAktuell} / 100</span>
+        </div>
+        <div className="profil-xp-bar">
+          <div className="profil-xp-fill" style={{ width: `${xpFortschritt}%` }} />
         </div>
       </div>
-      <div className="profil-streak">
-        <span style={{ fontSize: "1.5rem" }}>🔥</span>
+
+      <div className="profil-streak-card">
+        <span className={`streak-flame${streak > 0 ? " active" : ""}`}>🔥</span>
         <div>
-          <p style={{ fontWeight: 600 }}>{streak} Tage Streak</p>
-          <p style={{ fontSize: "0.8rem", color: "#888" }}>Komm täglich zurück um deinen Streak zu halten</p>
+          <p style={{ fontWeight: 700, fontSize: "1rem" }}>{streak} Tage Streak</p>
+          <p style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: "0.1rem" }}>
+            {streak > 0 ? "Weiter so! Komm morgen wieder." : "Starte deinen Streak heute."}
+          </p>
         </div>
       </div>
+
       <h3 className="profil-section-titel">Statistiken</h3>
       <div className="profil-stats-grid">
         {stats.map((s, i) => (
           <div key={i} className="profil-stat-karte">
-            <p className="profil-stat-wert">{s.wert}</p>
-            <p className="profil-stat-label">{s.label}</p>
+            <span className="profil-stat-icon">{s.icon}</span>
+            <div className="profil-stat-text">
+              <p className="profil-stat-wert">{s.wert}</p>
+              <p className="profil-stat-label">{s.label}</p>
+            </div>
           </div>
         ))}
       </div>
+
       <h3 className="profil-section-titel">Abzeichen</h3>
       <div className="profil-badges">
         {badges.map((b) => (
@@ -4291,6 +4417,22 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userZiel,
             <span className="badge-icon">{b.icon}</span>
             <p className="badge-name">{b.name}</p>
             <p className="badge-beschreibung">{b.beschreibung}</p>
+          </div>
+        ))}
+      </div>
+
+      <h3 className="profil-section-titel">Dein Lernpfad</h3>
+      <div className="profil-lernpfad">
+        {lernpfadItems.map(k => (
+          <div key={k.id} className="profil-lernpfad-item">
+            <div className="plp-icon" style={{ background: k.farbe + "22", color: k.farbe }}>{k.icon}</div>
+            <div className="plp-info">
+              <p className="plp-name">{k.name}</p>
+              <div className="plp-bar-bg">
+                <div className="plp-bar-fill" style={{ width: `${k.pct}%`, background: k.farbe }} />
+              </div>
+            </div>
+            <span className="plp-pct">{k.abg}/{k.gesamt}</span>
           </div>
         ))}
       </div>
@@ -5070,7 +5212,7 @@ function App() {
     <div className="app">
       <div className="content">
         {aktiverTab === "home" && !aktiveHauptkategorie && (
-          <Startscreen xp={xp} streak={streak} onHauptkategorieClick={(id) => setAktiveHauptkategorie(id)} userName={userName} />
+          <Startscreen xp={xp} streak={streak} onHauptkategorieClick={(id) => setAktiveHauptkategorie(id)} userName={userName} abgeschlosseneQuests={abgeschlosseneQuests} />
         )}
         {aktiverTab === "home" && aktiveHauptkategorie === "lernen" && !aktiveKategorie && (
           <LernpfadeScreen xp={xp} abgeschlosseneLektionen={abgeschlosseneLektionen} onKategorieClick={(k) => setAktiveKategorie(k)} onZurueck={() => setAktiveHauptkategorie(null)} />
@@ -5101,17 +5243,29 @@ function App() {
       <LevelUpModal levelUpInfo={levelUpInfo} onClose={() => setLevelUpInfo(null)} />
       <nav className="bottom-nav">
         {[
-          { id: "home", icon: "🏠", label: "Home" },
-          { id: "quest", icon: "⚔️", label: "Quest" },
-          { id: "profil", icon: "👤", label: "Profil" },
-          { id: "rangliste", icon: "🏆", label: "Rangliste" }
+          {
+            id: "home", label: "Home",
+            svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          },
+          {
+            id: "quest", label: "Quest",
+            svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          },
+          {
+            id: "profil", label: "Profil",
+            svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          },
+          {
+            id: "rangliste", label: "Rangliste",
+            svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 21h8M12 17v4M17 5H7l2 7a3 3 0 0 0 6 0l2-7z"/><path d="M17 5c.4 0 5 0 5 3s-3 3-5 3"/><path d="M7 5c-.4 0-5 0-5 3s3 3 5 3"/></svg>
+          }
         ].map((tab) => (
           <button
             key={tab.id}
             className={`nav-btn ${aktiverTab === tab.id ? "aktiv" : ""}`}
             onClick={() => { setAktiverTab(tab.id); resetNav() }}
           >
-            <span>{tab.icon}</span>
+            <div className="nav-icon-pill">{tab.svg}</div>
             <span>{tab.label}</span>
           </button>
         ))}
