@@ -1,5 +1,12 @@
 import { useState, useEffect, useRef } from "react"
 import "./App.css"
+import {
+  HomeIcon, QuestIcon, ProfilIcon, RanglisteIcon,
+  ETFIcon, AktienIcon, KryptoIcon, BudgetIcon, BankingIcon, SteuernIcon, ImmobilienIcon, VersicherungIcon,
+  LernenIcon, NewsIcon, RechnerIcon, ChallengesIcon,
+  CheckIcon, XCircleIcon, LockIcon, ArrowRightIcon, ArrowLeftIcon,
+  FlameIcon, StarIcon, BoltIcon, TrophyIcon, KatIcon,
+} from "./icons.jsx"
 
 console.log("APP VERSION 2.0 GELADEN")
 
@@ -1946,39 +1953,10 @@ const TAGESSPRUECHE = [
 ]
 
 const HUB_SVGS = {
-  lernen: (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-    </svg>
-  ),
-  news: (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-      <polyline points="14 2 14 8 20 8"/>
-      <line x1="16" y1="13" x2="8" y2="13"/>
-      <line x1="16" y1="17" x2="8" y2="17"/>
-    </svg>
-  ),
-  rechner: (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="4" y="2" width="16" height="20" rx="2"/>
-      <line x1="8" y1="7" x2="16" y2="7"/>
-      <line x1="8" y1="12" x2="8.01" y2="12"/>
-      <line x1="12" y1="12" x2="12.01" y2="12"/>
-      <line x1="16" y1="12" x2="16.01" y2="12"/>
-      <line x1="8" y1="16" x2="8.01" y2="16"/>
-      <line x1="12" y1="16" x2="12.01" y2="16"/>
-      <line x1="16" y1="16" x2="16.01" y2="16"/>
-    </svg>
-  ),
-  challenges: (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <circle cx="12" cy="12" r="6"/>
-      <circle cx="12" cy="12" r="2"/>
-    </svg>
-  ),
+  lernen:     <LernenIcon    size={28} color="white" strokeWidth={1.5}/>,
+  news:       <NewsIcon      size={28} color="white" strokeWidth={1.5}/>,
+  rechner:    <RechnerIcon   size={28} color="white" strokeWidth={1.5}/>,
+  challenges: <ChallengesIcon size={28} color="white" strokeWidth={1.5}/>,
 }
 
 function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosseneQuests, xpTaeglich, abgeschlosseneLektionen, userWissenslevel }) {
@@ -2004,7 +1982,7 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
         <div className="hero-top">
           <span className="hero-brand">LUMIO</span>
           <div className={`hero-streak-pill${streak > 0 ? " aktiv" : ""}`}>
-            <span>{streakInfo.flammen || "🔥"}</span>
+            <FlameIcon size={14} color={streak > 0 ? "#f97316" : "#888"}/>
             <span>{streak} {streak === 1 ? "Tag" : "Tage"}</span>
           </div>
         </div>
@@ -2013,7 +1991,7 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
           <span className="hero-gruss-name">{gruss.name}</span>
         </div>
         <div className="hero-level-row">
-          <span className="hero-level-name">{lvl.icon} {lvl.name}</span>
+          <span className="hero-level-name" style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}><StarIcon size={12} color="#EAB308"/> {lvl.name}</span>
           <span className="hero-xp-count">{lvl.xpAktuell} / {lvl.xpBenoetigt} XP</span>
         </div>
         <div className="hero-xp-bar">
@@ -2046,7 +2024,7 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
       {/* ── FORTSCHRITT HEUTE ── */}
       <div className="fortschritt-heute">
         <div className={`fh-karte ${questHeute ? "done" : ""}`}>
-          <span className="fh-icon">{questHeute ? "✅" : "⚔️"}</span>
+          <span className="fh-icon">{questHeute ? <CheckIcon size={20} color="#10B981"/> : <QuestIcon size={20} color="#7C3AED"/>}</span>
           <div className="fh-text">
             <span className="fh-label">Daily Quest</span>
             <span className="fh-value">{questHeute ? "Erledigt ✓" : "Ausstehend"}</span>
@@ -2118,10 +2096,14 @@ function LernpfadeScreen({ xp, onKategorieClick, onZurueck, abgeschlosseneLektio
   const level = berechneLevel(xp)
   return (
     <div className="screen">
-      <button className="zurueck-btn" onClick={onZurueck}>← Zurück</button>
+      <button className="zurueck-btn" onClick={onZurueck}>
+        <ArrowLeftIcon size={16}/> Zurück
+      </button>
       <div className="screen-header" style={{ marginTop: "1rem" }}>
         <h1>Lernpfade</h1>
-        <p className="xp-info">⚡ {xp} XP · Level {level}</p>
+        <p className="xp-info" style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
+          <BoltIcon size={14}/> {xp} XP · Level {level}
+        </p>
       </div>
       <div className="kategorien-liste">
         {kategorien.map((k) => {
@@ -2135,8 +2117,11 @@ function LernpfadeScreen({ xp, onKategorieClick, onZurueck, abgeschlosseneLektio
               className={`kategorie-karte ${gesperrt ? "gesperrt" : ""}`}
               onClick={() => !gesperrt && onKategorieClick(k)}
             >
-              <div className="kategorie-icon" style={{ background: gesperrt ? "#222" : k.farbe + "22", color: gesperrt ? "#444" : k.farbe }}>
-                {gesperrt ? "🔒" : k.icon}
+              <div className="kategorie-icon" style={{ background: gesperrt ? "#1a1525" : k.farbe + "22", color: gesperrt ? "#444" : k.farbe }}>
+                {gesperrt
+                  ? <LockIcon size={22} color="#444"/>
+                  : <KatIcon id={k.id} size={22} color={k.farbe}/>
+                }
               </div>
               <div className="kategorie-info">
                 <div className="kategorie-top">
@@ -2164,11 +2149,15 @@ function KategorieDetail({ kategorie, abgeschlosseneLektionen, onZurueck, onLekt
 
   return (
     <div className="screen">
-      <button className="zurueck-btn" onClick={onZurueck}>← Zurück</button>
+      <button className="zurueck-btn" onClick={onZurueck}>
+        <ArrowLeftIcon size={16}/> Zurück
+      </button>
 
       <div className="kd-banner" style={{ background: `linear-gradient(135deg, ${kategorie.farbe}cc, ${kategorie.farbe}66)` }}>
         <div className="kd-banner-top">
-          <div className="kd-banner-icon">{kategorie.icon}</div>
+          <div className="kd-banner-icon">
+            <KatIcon id={kategorie.id} size={28} color="white"/>
+          </div>
           <div className="kd-banner-info">
             <p className="kd-banner-name">{kategorie.name}</p>
             <p className="kd-banner-desc">{kategorie.beschreibung}</p>
@@ -2202,14 +2191,22 @@ function KategorieDetail({ kategorie, abgeschlosseneLektionen, onZurueck, onLekt
               onClick={() => !gesperrt && onLektionClick(l)}
             >
               <div className={`lektion-nummer ${numClass}`}>
-                {abgeschlossen ? "✓" : numStr}
+                {abgeschlossen
+                  ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="5 13 10 18 19 7"/></svg>
+                  : numStr}
               </div>
               <div className="lektion-info">
                 <p className="lektion-titel">{l.titel}</p>
-                <p className="lektion-xp">+{l.xp} XP · {l.typ === "cards" ? "Karten" : "Lektion"}</p>
+                <p className="lektion-xp" style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
+                  <BoltIcon size={11}/> +{l.xp} XP · {l.typ === "cards" ? "Karten" : "Lektion"}
+                </p>
               </div>
               {isNext && <span className="lektion-start-label">Jetzt starten</span>}
-              {!isNext && <span className="lektion-arrow">›</span>}
+              {!isNext && (
+                <span className="lektion-arrow">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+              )}
             </div>
           )
         })}
@@ -2267,14 +2264,14 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 
     const richtigGewaehlt = gewaehlt === frage.richtig
     return (
       <div className="screen">
-        <button className="zurueck-btn" onClick={() => { setPhase("cards"); setCardIdx(TOTAL - 1) }}>← Zurück</button>
+        <button className="zurueck-btn" onClick={() => { setPhase("cards"); setCardIdx(TOTAL - 1) }}><ArrowLeftIcon size={16}/> Zurück</button>
         <div className="lektion-progress-header">
           <div className="lektion-progress" style={{ flex: 1, margin: 0 }}>
             <div className="lektion-progress-fill" style={{ width: `${((fragenIdx + 1) / fragen.length) * 100}%` }} />
           </div>
           <span className="lektion-progress-label">Quiz · {fragenIdx + 1} / {fragen.length}</span>
         </div>
-        <p className="theorie-label">🧠 Verständnisquiz</p>
+        <p className="theorie-label" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}><StarIcon size={14} color="#7C3AED"/> Verständnisquiz</p>
         <h2 className="frage">{frage.text}</h2>
         <div className="antworten">
           {frage.antworten.map((a, i) => (
@@ -2285,7 +2282,7 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 
         </div>
         {gewaehlt !== null && (
           <div className={`feedback ${richtigGewaehlt ? "feedback-richtig" : "feedback-falsch"}`}>
-            <p>{richtigGewaehlt ? "✅ Richtig!" : "❌ Falsch!"}</p>
+            <p style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>{richtigGewaehlt ? <><CheckIcon size={16} color="#10B981"/> Richtig!</> : <><XCircleIcon size={16} color="#EF4444"/> Falsch!</>}</p>
             <button className="weiter-btn" onClick={naechsteFrage}>
               {fragenIdx + 1 >= fragen.length ? "Ergebnis →" : "Weiter →"}
             </button>
@@ -2301,7 +2298,7 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 
     return (
       <div className="screen">
         <div className="ergebnis-screen">
-          <div className="ergebnis-emoji">{perfekt ? "🎉" : "📚"}</div>
+          <div className="ergebnis-emoji">{perfekt ? <TrophyIcon size={52} color="#EAB308"/> : <LernenIcon size={52} color="#7C3AED"/>}</div>
           <h1 className="ergebnis-titel">{perfekt ? "Perfekt!" : "Fast!"}</h1>
           <p className="ergebnis-sub">{richtige} von {fragen.length} Fragen richtig</p>
           {perfekt
@@ -2427,14 +2424,14 @@ function L301Screen({ lektion, onZurueck, onAbgeschlossen }) {
     const richtigGewaehlt = gewaehlt === frage.richtig
     return (
       <div className="screen">
-        <button className="zurueck-btn" onClick={() => { setPhase("cards"); setCardIdx(TOTAL - 1) }}>← Zurück</button>
+        <button className="zurueck-btn" onClick={() => { setPhase("cards"); setCardIdx(TOTAL - 1) }}><ArrowLeftIcon size={16}/> Zurück</button>
         <div className="lektion-progress-header">
           <div className="lektion-progress" style={{ flex: 1, margin: 0 }}>
             <div className="lektion-progress-fill" style={{ width: `${((fragenIdx + 1) / fragen.length) * 100}%` }} />
           </div>
           <span className="lektion-progress-label">Quiz · {fragenIdx + 1} / {fragen.length}</span>
         </div>
-        <p className="theorie-label">🧠 Verständnisquiz</p>
+        <p className="theorie-label" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}><StarIcon size={14} color="#7C3AED"/> Verständnisquiz</p>
         <h2 className="frage">{frage.text}</h2>
         <div className="antworten">
           {frage.antworten.map((a, i) => (
@@ -2445,7 +2442,7 @@ function L301Screen({ lektion, onZurueck, onAbgeschlossen }) {
         </div>
         {gewaehlt !== null && (
           <div className={`feedback ${richtigGewaehlt ? "feedback-richtig" : "feedback-falsch"}`}>
-            <p>{richtigGewaehlt ? "✅ Richtig!" : "❌ Falsch!"}</p>
+            <p style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>{richtigGewaehlt ? <><CheckIcon size={16} color="#10B981"/> Richtig!</> : <><XCircleIcon size={16} color="#EF4444"/> Falsch!</>}</p>
             <button className="weiter-btn" onClick={naechsteFrage}>
               {fragenIdx + 1 >= fragen.length ? "Ergebnis →" : "Weiter →"}
             </button>
@@ -2461,7 +2458,7 @@ function L301Screen({ lektion, onZurueck, onAbgeschlossen }) {
     return (
       <div className="screen">
         <div className="ergebnis-screen">
-          <div className="ergebnis-emoji">{perfekt ? "🎉" : "📚"}</div>
+          <div className="ergebnis-emoji">{perfekt ? <TrophyIcon size={52} color="#EAB308"/> : <LernenIcon size={52} color="#7C3AED"/>}</div>
           <h1 className="ergebnis-titel">{perfekt ? "Perfekt!" : "Fast!"}</h1>
           <p className="ergebnis-sub">{richtige} von {fragen.length} Fragen richtig</p>
           {perfekt
@@ -4291,14 +4288,14 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
   if (phase === "lesen") {
     return (
       <div className="screen">
-        <button className="zurueck-btn" onClick={onZurueck}>← Zurück</button>
+        <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>
         <div className="lektion-progress-header">
           <div className="lektion-progress" style={{ flex: 1, margin: 0 }}>
             <div className="lektion-progress-fill" style={{ width: "40%" }} />
           </div>
           <span className="lektion-progress-label">Lesen · ~5 Min</span>
         </div>
-        <p className="theorie-label">📖 Lerneinheit</p>
+        <p className="theorie-label" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}><LernenIcon size={14} color="#7C3AED"/> Lerneinheit</p>
         <h2 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "1.25rem", letterSpacing: "-0.02em" }}>{lektion.titel}</h2>
         {lektion.inhalt.split("\n\n").map((absatz, i) => (
           <p key={i} style={{ color: "#ccc", lineHeight: 1.85, marginBottom: "1.25rem", fontSize: "0.95rem" }}>{absatz}</p>
@@ -4312,14 +4309,14 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
     const richtigGewaehlt = gewaehlt === aktuelleFrage.richtig
     return (
       <div className="screen">
-        <button className="zurueck-btn" onClick={() => setPhase("lesen")}>← Zurück</button>
+        <button className="zurueck-btn" onClick={() => setPhase("lesen")}><ArrowLeftIcon size={16}/> Zurück</button>
         <div className="lektion-progress-header">
           <div className="lektion-progress" style={{ flex: 1, margin: 0 }}>
             <div className="lektion-progress-fill" style={{ width: `${60 + ((aktualeFrage + 1) / fragen.length) * 40}%` }} />
           </div>
           <span className="lektion-progress-label">Quiz · {aktualeFrage + 1} / {fragen.length}</span>
         </div>
-        <p className="theorie-label">🧠 Verständnisquiz</p>
+        <p className="theorie-label" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}><StarIcon size={14} color="#7C3AED"/> Verständnisquiz</p>
         <h2 className="frage">{aktuelleFrage.text}</h2>
         <div className="antworten">
           {aktuelleFrage.antworten.map((a, i) => (
@@ -4334,7 +4331,7 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
         </div>
         {gewaehlt !== null && (
           <div className={`feedback ${richtigGewaehlt ? "feedback-richtig" : "feedback-falsch"}`}>
-            <p>{richtigGewaehlt ? "✅ Richtig!" : "❌ Falsch!"}</p>
+            <p style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>{richtigGewaehlt ? <><CheckIcon size={16} color="#10B981"/> Richtig!</> : <><XCircleIcon size={16} color="#EF4444"/> Falsch!</>}</p>
             <button className="weiter-btn" onClick={naechsteFrage}>
               {aktualeFrage + 1 >= fragen.length ? "Ergebnis →" : "Weiter →"}
             </button>
@@ -4350,7 +4347,7 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
     return (
       <div className="screen">
         <div className="ergebnis-screen">
-          <div className="ergebnis-emoji">{perfekt ? "🎉" : "📚"}</div>
+          <div className="ergebnis-emoji">{perfekt ? <TrophyIcon size={52} color="#EAB308"/> : <LernenIcon size={52} color="#7C3AED"/>}</div>
           <h1 className="ergebnis-titel">{perfekt ? "Perfekt!" : "Fast!"}</h1>
           <p className="ergebnis-sub">{richtige} von {fragen.length} Fragen richtig</p>
           {perfekt
@@ -4378,10 +4375,10 @@ function LevelUpModal({ levelUpInfo, onClose }) {
   return (
     <div className="level-up-overlay" onClick={onClose}>
       <div className="level-up-modal" onClick={e => e.stopPropagation()}>
-        <div className="level-up-emoji">🎉</div>
+        <div className="level-up-emoji"><TrophyIcon size={52} color="#EAB308"/></div>
         <h2 className="level-up-titel">Level Up!</h2>
         <div className="level-up-zahl">{levelUpInfo.newLevel}</div>
-        <p className="level-up-name">{levelIcon} {levelName}</p>
+        <p className="level-up-name"><StarIcon size={16} color="#EAB308"/> {levelName}</p>
         <p className="level-up-sub">Du bist jetzt Level {levelUpInfo.newLevel}!</p>
         <button className="weiter-btn" onClick={onClose}>Weiter →</button>
       </div>
@@ -4444,14 +4441,14 @@ function DailyQuestScreen({ abgeschlosseneQuests, onQuestAbgeschlossen }) {
     const richtigGewaehlt = gewaehlt === frage.richtig
     return (
       <div className="screen">
-        <button className="zurueck-btn" onClick={() => setAktiverQuest(null)}>← Zurück</button>
+        <button className="zurueck-btn" onClick={() => setAktiverQuest(null)}><ArrowLeftIcon size={16}/> Zurück</button>
         <div className="lektion-progress-header">
           <div className="lektion-progress" style={{ flex: 1, margin: 0 }}>
             <div className="lektion-progress-fill" style={{ width: `${((aktualeFrage + 1) / aktiverQuest.fragen.length) * 100}%` }} />
           </div>
           <span className="lektion-progress-label">Quest · {aktualeFrage + 1} / {aktiverQuest.fragen.length}</span>
         </div>
-        <p className="theorie-label">⚔️ Daily Quest</p>
+        <p className="theorie-label" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}><QuestIcon size={14} color="#7C3AED"/> Daily Quest</p>
         <h2 className="frage">{frage.text}</h2>
         <div className="antworten">
           {frage.antworten.map((a, i) => (
@@ -4466,7 +4463,7 @@ function DailyQuestScreen({ abgeschlosseneQuests, onQuestAbgeschlossen }) {
         </div>
         {gewaehlt !== null && (
           <div className={`feedback ${richtigGewaehlt ? "feedback-richtig" : "feedback-falsch"}`}>
-            <p>{richtigGewaehlt ? "✅ Richtig!" : "❌ Falsch!"}</p>
+            <p style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>{richtigGewaehlt ? <><CheckIcon size={16} color="#10B981"/> Richtig!</> : <><XCircleIcon size={16} color="#EF4444"/> Falsch!</>}</p>
             <button className="weiter-btn" onClick={naechsteFrage}>
               {aktualeFrage + 1 >= aktiverQuest.fragen.length ? "Ergebnis →" : "Weiter →"}
             </button>
@@ -4483,7 +4480,7 @@ function DailyQuestScreen({ abgeschlosseneQuests, onQuestAbgeschlossen }) {
     return (
       <div className="screen">
         <div className="ergebnis-screen">
-          <div className="ergebnis-emoji">{perfekt ? "⚔️" : "🛡️"}</div>
+          <div className="ergebnis-emoji">{perfekt ? <TrophyIcon size={52} color="#EAB308"/> : <StarIcon size={52} color="#7C3AED"/>}</div>
           <h1 className="ergebnis-titel">{perfekt ? "Quest geschafft!" : "Gut gekämpft!"}</h1>
           <p className="ergebnis-sub">{richtige} von {aktiverQuest.fragen.length} richtig</p>
           <p className="ergebnis-xp">+{verdientXP} XP</p>
@@ -4507,7 +4504,7 @@ function DailyQuestScreen({ abgeschlosseneQuests, onQuestAbgeschlossen }) {
 
       {heuteAbgeschlossen ? (
         <div className="quest-heute-fertig">
-          <div style={{ fontSize: "3rem", textAlign: "center", marginBottom: "1rem" }}>✅</div>
+          <div style={{ textAlign: "center", marginBottom: "1rem" }}><CheckIcon size={52} color="#10B981"/></div>
           <h2 style={{ textAlign: "center", marginBottom: "0.5rem" }}>Heute erledigt!</h2>
           <p style={{ textAlign: "center", color: "#888", fontSize: "0.9rem" }}>Komm morgen für ein neues Quest wieder.</p>
         </div>
@@ -4522,7 +4519,7 @@ function DailyQuestScreen({ abgeschlosseneQuests, onQuestAbgeschlossen }) {
               onClick={() => questStarten(heutigerQuest)}
               style={{ border: "1px solid #7C3AED55", boxShadow: "0 0 20px #7C3AED22" }}
             >
-              <div className="lektion-status">⚔️</div>
+              <div className="lektion-status"><QuestIcon size={20} color="#7C3AED"/></div>
               <div className="lektion-info">
                 <p className="lektion-titel">{heutigerQuest.titel}</p>
                 <p className="lektion-xp">{heutigerQuest.beschreibung}</p>
@@ -4562,12 +4559,12 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWisse
   ]
 
   const stats = [
-    { label: "Lektionen", wert: abgeschlosseneLektionen.length, icon: "📖" },
-    { label: "Streak",    wert: `${streak} Tage`,               icon: "🔥" },
-    { label: "XP Gesamt", wert: xp,                             icon: "⚡" },
-    { label: "ETF",       wert: `${etfAbgeschlossen}/${etfGesamt}`,       icon: "📈" },
-    { label: "Aktien",    wert: `${aktienAbgeschlossen}/${aktienGesamt}`,  icon: "📊" },
-    { label: "Krypto",    wert: `${kryptoAbgeschlossen}/${kryptoGesamt}`,  icon: "₿" },
+    { label: "Lektionen", wert: abgeschlosseneLektionen.length, icon: <LernenIcon size={20} color="#7C3AED"/> },
+    { label: "Streak",    wert: `${streak} Tage`,               icon: <FlameIcon  size={20} color="#f97316"/> },
+    { label: "XP Gesamt", wert: xp,                             icon: <BoltIcon   size={20} color="#EAB308"/> },
+    { label: "ETF",       wert: `${etfAbgeschlossen}/${etfGesamt}`,       icon: <ETFIcon    size={20} color="#7C3AED"/> },
+    { label: "Aktien",    wert: `${aktienAbgeschlossen}/${aktienGesamt}`,  icon: <AktienIcon size={20} color="#9D174D"/> },
+    { label: "Krypto",    wert: `${kryptoAbgeschlossen}/${kryptoGesamt}`,  icon: <KryptoIcon size={20} color="#7C3AED"/> },
   ]
 
   const lernpfadItems = kategorien.map(k => {
@@ -4608,7 +4605,7 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWisse
           <div className="profil-avatar-circle">{initials}</div>
         </div>
         <p className="profil-avatar-name">{userName || "Unbekannt"}</p>
-        <p className="profil-avatar-level">{lvl.icon} {lvl.name} · Level {lvl.level}</p>
+        <p className="profil-avatar-level" style={{ display: "flex", alignItems: "center", gap: "0.3rem", justifyContent: "center" }}><StarIcon size={12} color="#EAB308"/> {lvl.name} · Level {lvl.level}</p>
       </div>
 
       <div className="profil-xp-section">
@@ -4622,7 +4619,7 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWisse
       </div>
 
       <div className="profil-streak-card">
-        <span className={`streak-flame${streak > 0 ? " active" : ""}`}>{streakInfo.flammen || "🔥"}</span>
+        <span className={`streak-flame${streak > 0 ? " active" : ""}`}><FlameIcon size={28} color={streak > 0 ? "#f97316" : "#555"}/></span>
         <div style={{ flex: 1 }}>
           <p style={{ fontWeight: 700, fontSize: "1rem" }}>{streakInfo.label}</p>
           <p style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: "0.1rem" }}>
@@ -4640,7 +4637,7 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWisse
       <div className="timeline-woche">
         {timeline.map(t => (
           <div key={t.key} className={`timeline-tag ${t.aktiv ? "aktiv" : ""}`}>
-            <div className="timeline-dot">{t.aktiv ? "✓" : ""}</div>
+            <div className="timeline-dot">{t.aktiv ? <CheckIcon size={10} color="#10B981" strokeWidth={3}/> : ""}</div>
             <span className="timeline-label">{t.label}</span>
             {t.aktiv && <span className="timeline-xp">+{t.xp}</span>}
           </div>
@@ -4666,7 +4663,7 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWisse
           const erreicht = !!(achievements && achievements[a.id])
           return (
             <div key={a.id} className={`achievement-karte ${erreicht ? "erreicht" : "gesperrt"}`}>
-              <span className="achievement-icon">{erreicht ? a.icon : "🔒"}</span>
+              <span className="achievement-icon">{erreicht ? a.icon : <LockIcon size={22} color="#555"/>}</span>
               <p className="achievement-name">{erreicht ? a.name : "???"}</p>
               <p className="achievement-beschreibung">{erreicht ? a.beschreibung : "Noch nicht freigeschaltet"}</p>
             </div>
@@ -4689,7 +4686,7 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWisse
       <div className="profil-lernpfad">
         {lernpfadItems.map(k => (
           <div key={k.id} className="profil-lernpfad-item">
-            <div className="plp-icon" style={{ background: k.farbe + "22", color: k.farbe }}>{k.icon}</div>
+            <div className="plp-icon" style={{ background: k.farbe + "22", color: k.farbe }}><KatIcon id={k.id} size={20} color={k.farbe}/></div>
             <div className="plp-info">
               <p className="plp-name">{k.name}</p>
               <div className="plp-bar-bg">
@@ -4842,7 +4839,7 @@ function NewsScreen({ onZurueck, onOeffnen }) {
   if (laden) {
     return (
       <div className="screen">
-        <button className="zurueck-btn" onClick={onZurueck}>← Zurück</button>
+        <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>
         <div className="news-laden">
           <div className="news-spinner" />
           <p className="news-laden-text">Lade aktuelle Finanz-News…</p>
@@ -4853,7 +4850,7 @@ function NewsScreen({ onZurueck, onOeffnen }) {
 
   return (
     <div className="screen">
-      <button className="zurueck-btn" onClick={onZurueck}>← Zurück</button>
+      <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>
       <div className="screen-header" style={{ marginTop: "1rem" }}>
         <h1>News</h1>
         <p className="xp-info">📰 Aktuelle Finanz-News</p>
@@ -5071,7 +5068,7 @@ function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung }) {
 
   return (
     <div className="screen">
-      <button className="zurueck-btn" onClick={onZurueck}>← Zurück</button>
+      <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>
       <div className="screen-header" style={{ marginTop: "1rem" }}>
         <h1>Rechner</h1>
         <p className="xp-info">🧮 Zinseszins-Rechner</p>
@@ -5649,22 +5646,10 @@ function App() {
       <AchievementModal achievement={pendingAchievement} onClose={() => setPendingAchievement(null)} />
       <nav className="bottom-nav">
         {[
-          {
-            id: "home", label: "Home",
-            svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          },
-          {
-            id: "quest", label: "Quest",
-            svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          },
-          {
-            id: "profil", label: "Profil",
-            svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          },
-          {
-            id: "rangliste", label: "Rangliste",
-            svg: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 21h8M12 17v4M17 5H7l2 7a3 3 0 0 0 6 0l2-7z"/><path d="M17 5c.4 0 5 0 5 3s-3 3-5 3"/><path d="M7 5c-.4 0-5 0-5 3s3 3 5 3"/></svg>
-          }
+          { id: "home",      label: "Home",      svg: <HomeIcon      size={22}/> },
+          { id: "quest",     label: "Quest",     svg: <QuestIcon     size={22}/> },
+          { id: "profil",    label: "Profil",    svg: <ProfilIcon    size={22}/> },
+          { id: "rangliste", label: "Rangliste", svg: <RanglisteIcon size={22}/> },
         ].map((tab) => (
           <button
             key={tab.id}
