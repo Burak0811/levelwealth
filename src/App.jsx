@@ -54,7 +54,7 @@ const kategorien = [
     icon: "💰",
     farbe: "#059669",
     minLevel: 1,
-    lektionenAnzahl: 1
+    lektionenAnzahl: 8
   },
   {
     id: 6,
@@ -63,7 +63,7 @@ const kategorien = [
     icon: "🏦",
     farbe: "#0EA5E9",
     minLevel: 1,
-    lektionenAnzahl: 3
+    lektionenAnzahl: 8
   },
   {
     id: 7,
@@ -72,7 +72,7 @@ const kategorien = [
     icon: "📋",
     farbe: "#10B981",
     minLevel: 3,
-    lektionenAnzahl: 3
+    lektionenAnzahl: 8
   },
   {
     id: 8,
@@ -81,7 +81,7 @@ const kategorien = [
     icon: "🏠",
     farbe: "#F59E0B",
     minLevel: 8,
-    lektionenAnzahl: 2
+    lektionenAnzahl: 6
   },
   {
     id: 9,
@@ -90,7 +90,7 @@ const kategorien = [
     icon: "🛡️",
     farbe: "#8B5CF6",
     minLevel: 2,
-    lektionenAnzahl: 2
+    lektionenAnzahl: 6
   }
 ]
 
@@ -1219,6 +1219,83 @@ Krypto kann dein Leben verändern – in beide Richtungen. Wissen und Vorsicht s
           richtig: 2
         }
       ]
+    },
+    {
+      id: 302,
+      titel: "Der Notgroschen – dein finanzielles Fundament",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Wie viele Monatsausgaben sollte ein Notgroschen mindestens abdecken?", antworten: ["1 Monat – für den Anfang reicht das", "3 Monate – Mindeststandard", "6 Monate – für alle Situationen", "12 Monate – maximale Sicherheit"], richtig: 1 },
+        { text: "Lena hat 1.800 € Monatsausgaben. Wie hoch sollte ihr Notgroschen mindestens sein?", antworten: ["900 € (0,5 Monate)", "1.800 € (1 Monat)", "5.400 € (3 Monate)", "10.000 € (Pauschal)"], richtig: 2 },
+        { text: "Warum sollte der Notgroschen NICHT in ETFs investiert sein?", antworten: ["ETFs sind zu teuer für kleine Beträge", "ETFs können kurzfristig stark fallen – genau wenn man das Geld braucht", "ETFs sind nur für Anlagehorizonte über 10 Jahre geeignet", "B und C sind beide richtig"], richtig: 3 }
+      ]
+    },
+    {
+      id: 303,
+      titel: "Die 50/30/20 Regel wirklich umsetzen",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Wie viel Prozent des Nettoeinkommens empfiehlt die 50/30/20 Regel für Ersparnisse/Investitionen?", antworten: ["10 %", "20 %", "30 %", "50 %"], richtig: 1 },
+        { text: "Max verdient 1.800 € netto. Wie viel darf er laut 50/30/20 maximal für Wünsche ausgeben?", antworten: ["180 € (10 %)", "360 € (20 %)", "540 € (30 %)", "900 € (50 %)"], richtig: 2 },
+        { text: "Was ist 'Pay yourself first'?", antworten: ["Sich selbst ein Gehalt zahlen als Selbstständiger", "Ersparnisse am Monatsanfang automatisch überweisen – bevor man ausgibt", "Nur für sich selbst sparen, nicht für Familie", "Erst Schulden zahlen, dann sparen"], richtig: 1 }
+      ]
+    },
+    {
+      id: 304,
+      titel: "Ausgaben tracken – die Wahrheit über dein Geld",
+      typ: "cards",
+      xp: 25,
+      fragen: [
+        { text: "Um wie viel unterschätzen Menschen ihre monatlichen Ausgaben durchschnittlich?", antworten: ["10 %", "20 %", "40 %", "Menschen sind ziemlich genau"], richtig: 2 },
+        { text: "Was ist die 'Envelope-Methode'?", antworten: ["Rechnungen per Brief bezahlen", "Bargeld in beschriftete Umschläge für verschiedene Kategorien aufteilen", "Alle Ausgaben in einem Sammelumschlag aufheben", "Eine digitale Budgetierungsapp"], richtig: 1 },
+        { text: "Anna gibt unbemerkt 180 €/Monat für Kleinigkeiten aus. Im ETF bei 7 % über 20 Jahre wäre das ca.:", antworten: ["43.200 € (nur Einzahlungen)", "~92.000 € (mit Zinseszins)", "~45.000 € (mit 3 % Tagesgeld)", "~180.000 € (unrealistisch)"], richtig: 1 }
+      ]
+    },
+    {
+      id: 305,
+      titel: "Schulden strategisch abbauen",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Was versteht man unter 'guten Schulden'?", antworten: ["Schulden mit besonders niedrigem Zinssatz", "Schulden die in wertvermehrende Assets investiert werden (z.B. Bildung, Immobilie)", "Schulden bei Familie und Freunden", "Kleine Schulden unter 500 €"], richtig: 1 },
+        { text: "Was ist das Prinzip der Avalanche-Methode beim Schuldenabbau?", antworten: ["Die kleinste Schuld zuerst abzahlen für schnelle Erfolgserlebnisse", "Die Schuld mit dem höchsten Zinssatz zuerst tilgen – spart am meisten Geld", "Alle Schulden gleichmäßig und parallel abzahlen", "Schulden warten lassen und erst investieren"], richtig: 1 },
+        { text: "Max: 500 € Schulden bei 20 % Zinsen, 2.000 € bei 5 % Zinsen. Welche zuerst abzahlen?", antworten: ["2.000 € – weil der Betrag größer ist", "500 € – weil der Betrag kleiner und schneller erledigt ist", "500 € – weil 20 % Zinsen absolut mehr kosten als 5 % auf 2.000 €", "Beide gleichzeitig in gleichen Teilen"], richtig: 2 }
+      ]
+    },
+    {
+      id: 306,
+      titel: "Sparziele SMART setzen und erreichen",
+      typ: "cards",
+      xp: 25,
+      fragen: [
+        { text: "Was steht das Akronym SMART bei Finanzzielen?", antworten: ["Schnell – Mutig – Aktiv – Realistisch – Treu", "Spezifisch – Messbar – Attraktiv – Realistisch – Terminiert", "Sicher – Monatlich – Automatisch – Rendite – Transparent", "Keine dieser Definitionen"], richtig: 1 },
+        { text: "Sofia möchte in 18 Monaten 3.600 € für einen Urlaub sparen. Wie viel muss sie monatlich zurücklegen?", antworten: ["100 €/Monat", "150 €/Monat", "200 €/Monat", "300 €/Monat"], richtig: 2 },
+        { text: "Warum ist automatisches Sparen per Dauerauftrag effektiver als manuelles Sparen?", antworten: ["Man erhält automatisch mehr Zinsen", "Man umgeht den psychologischen Drang das Geld auszugeben – es ist weg bevor man es sieht", "Es ist gesetzlich für Arbeitnehmer vorgeschrieben", "Banken vergeben Rabatte für automatische Sparer"], richtig: 1 }
+      ]
+    },
+    {
+      id: 307,
+      titel: "Inflation – warum Sparen allein nicht reicht",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Was bedeutet eine Inflationsrate von 3 %?", antworten: ["Gehälter steigen im Schnitt um 3 %", "Preise steigen um 3 % – die Kaufkraft des Geldes sinkt", "Zinsen steigen automatisch um 3 %", "Steuern erhöhen sich um 3 %"], richtig: 1 },
+        { text: "10.000 € bei 2 % Inflation – was sind sie in 10 Jahren noch wert?", antworten: ["12.190 € (mit Wertzuwachs)", "10.000 € (keine Änderung)", "~8.200 € (Kaufkraftverlust)", "~6.000 € (zu stark gefallen)"], richtig: 2 },
+        { text: "Was besagt die 'Rule of 70' bei Inflation?", antworten: ["Man braucht 70 % seines Einkommens zum Leben", "70 geteilt durch die Inflationsrate ergibt die Jahre bis zur Halbierung der Kaufkraft", "70 % des Vermögens sollten investiert sein", "Inflationsraten über 70 % sind hyperinflationär"], richtig: 1 }
+      ]
+    },
+    {
+      id: 308,
+      titel: "Dein persönlicher Finanzplan",
+      typ: "cards",
+      xp: 35,
+      fragen: [
+        { text: "Was ist die erste Priorität beim Aufbau eines Finanzplans?", antworten: ["Sofort in ETFs investieren für maximale Rendite", "Langfristige Sparziele formulieren", "Notgroschen aufbauen – das finanzielle Sicherheitsnetz zuerst", "Hochzinsschulden abzahlen"], richtig: 2 },
+        { text: "In welcher Reihenfolge sollte man finanziell vorgehen?", antworten: ["Investieren → Notgroschen → Schulden", "Notgroschen → Hochzinsschulden abbauen → Langfristig investieren", "Schulden → Sparen → Viel später investieren", "Reihenfolge ist egal – Hauptsache anfangen"], richtig: 1 },
+        { text: "Lisa: 300 €/Monat frei, 2.000 € Schulden bei 15 %, noch kein Notgroschen. Optimale Strategie?", antworten: ["Alle 300 € sofort in ETF investieren", "Alle 300 € auf die Schulden, Notgroschen danach", "100 € Notgroschen + 200 € Schulden bis 3 Monate abgedeckt – dann alles auf Schulden", "Schulden ignorieren und langfristig denken"], richtig: 2 }
+      ]
     }
   ],
   6: [
@@ -1289,6 +1366,61 @@ Krypto kann dein Leben verändern – in beide Richtungen. Wissen und Vorsicht s
           antworten: ["Bargeld zuhause", "ETF-Sparplan", "Tagesgeldkonto – sicher und täglich verfügbar", "Festgeld mit 5 Jahren Laufzeit"],
           richtig: 2
         }
+      ]
+    },
+    {
+      id: 604,
+      titel: "Girokonto optimieren – bis zu 150 € im Jahr sparen",
+      typ: "cards",
+      xp: 25,
+      fragen: [
+        { text: "Was kostet ein typisches kostenpflichtiges Girokonto einer Filialbank pro Jahr?", antworten: ["10–20 € (kaum relevant)", "60–120 € (Standardbereich)", "200–400 € (sehr teuer)", "Girokonten sind immer kostenlos"], richtig: 1 },
+        { text: "Was ist bei 'kostenlosen' Konten oft zu beachten?", antworten: ["Es gibt keine Leistungen", "Oft ist monatlicher Geldeingang oder Aktivnutzung Voraussetzung", "Sie sind unsicherer als kostenpflichtige", "Zinsen werden grundsätzlich nicht gezahlt"], richtig: 1 },
+        { text: "Max zahlt 7,90 €/Monat für sein Girokonto. Wie viel spart er über 10 Jahre durch Wechsel zu kostenlosem Konto?", antworten: ["ca. 240 €", "ca. 948 €", "ca. 1.500 €", "Keine Ersparnis – Leistungen fehlen"], richtig: 1 }
+      ]
+    },
+    {
+      id: 605,
+      titel: "Kreditkarten: Fluch oder Segen?",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Was ist das Kernproblem der Kreditkarten-Zinsfalle?", antworten: ["Kreditkarten haben zu hohe Jahresgebühren", "Wer nur die Mindestrate zahlt, trägt die Schulden jahrelang – mit bis zu 20 % Zinsen", "Kreditkarten werden regelmäßig gesperrt", "Zinsen fallen erst nach einem Monat an"], richtig: 1 },
+        { text: "Wann sind Kreditkarten wirklich sinnvoll?", antworten: ["Immer – für alle Alltagskäufe", "Für Ausland, Reiseversicherungen und Cashback – wenn der Saldo monatlich vollständig beglichen wird", "Nur für sehr große Anschaffungen", "Kreditkarten sind grundsätzlich nie sinnvoll"], richtig: 1 },
+        { text: "Schuld: 2.000 € bei 20 % Zinsen, nur Mindestrate 2 %. Wie lange bis vollständig abbezahlt?", antworten: ["~2 Jahre (schnell erledigt)", "~8 Jahre (mittlerer Zeitraum)", "~16 Jahre (erschreckend lang)", "~25 Jahre (fast nie abbezahlt)"], richtig: 2 }
+      ]
+    },
+    {
+      id: 606,
+      titel: "SCHUFA verstehen und deinen Score schützen",
+      typ: "cards",
+      xp: 25,
+      fragen: [
+        { text: "Was ist die SCHUFA?", antworten: ["Eine staatliche Behörde die Kreditvergabe regelt", "Eine private Auskunftei die Kreditwürdigkeitsdaten von Verbrauchern speichert", "Eine Versicherung für Kreditausfälle", "Ein Inkassounternehmen"], richtig: 1 },
+        { text: "Was schadet dem SCHUFA-Score am stärksten?", antworten: ["Viele verschiedene Bankkonten haben", "Viele Kreditanfragen in kurzer Zeit und Zahlungsausfälle", "Regelmäßige hohe Gehaltseingänge", "Lange bestehende Kontohistorie"], richtig: 1 },
+        { text: "Wie oft kann man die kostenlose SCHUFA-Selbstauskunft (§34 BDSG) beantragen?", antworten: ["Einmalig im Leben kostenlos", "Einmal pro Jahr kostenlos (Datenkopie nach Art. 15 DSGVO)", "Unbegrenzt kostenlos und sofort", "Nur über die eigene Hausbank"], richtig: 1 }
+      ]
+    },
+    {
+      id: 607,
+      titel: "Zinsen verstehen – wie Banken Geld verdienen",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Was ist der effektive Jahreszins?", antworten: ["Der monatliche Zinssatz einfach mal 12 gerechnet", "Der tatsächliche Jahreszins inklusive aller Kosten und Zinseszins-Effekte", "Der Zinssatz ohne Nebenkosten (Nominalzins)", "Der staatlich vorgeschriebene Basiszinssatz"], richtig: 1 },
+        { text: "Was bedeutet Zinseszins beim Kredit?", antworten: ["Man zahlt Zinsen zweimal", "Auf die aufgelaufenen (nicht gezahlten) Zinsen werden weitere Zinsen berechnet – exponentielle Last", "Zwei verschiedene Zinssätze gleichzeitig aktiv", "Zinsen nur einmal zu Beginn"], richtig: 1 },
+        { text: "Kredit: 10.000 € bei 8 % p.a. über 5 Jahre (Annuität). Gesamtkosten ca.:", antworten: ["10.800 € (1 Jahr Zinsen)", "11.600 € (mittlere Schätzung)", "12.160 € (korrekter Annuitätswert)", "14.000 € (zu hoch geschätzt)"], richtig: 2 }
+      ]
+    },
+    {
+      id: 608,
+      titel: "ETF-Depot eröffnen: Schritt für Schritt",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Was ist der allererste Schritt beim Depot eröffnen?", antworten: ["Sofort ETFs kaufen – danach eröffnen", "Broker vergleichen und dann Konto mit Freistellungsauftrag eröffnen", "Finanzberater beauftragen", "Mindestens 10.000 € ansparen"], richtig: 1 },
+        { text: "Was ist ein Freistellungsauftrag beim Depot?", antworten: ["Eine Steuererklärung die jährlich eingereicht wird", "Ein Auftrag an die Depotbank, Kapitalerträge bis 1.000 € automatisch steuerfrei zu stellen", "Eine Gebührenbefreiung für Neukunden", "Ein staatlich gewährter Förderauftrag für Sparer"], richtig: 1 },
+        { text: "Welches Dokument braucht man für die Depot-Eröffnung NICHT?", antworten: ["Personalausweis für Video- oder Post-Ident", "Steuerliche Identifikationsnummer", "Einkommensnachweis / Gehaltsabrechnung", "Bankverbindung (IBAN) für Einzahlungen"], richtig: 2 }
       ]
     }
   ],
@@ -1361,6 +1493,61 @@ Krypto kann dein Leben verändern – in beide Richtungen. Wissen und Vorsicht s
           richtig: 1
         }
       ]
+    },
+    {
+      id: 704,
+      titel: "Steuererklärung selbst machen – 1.000 € zurückholen",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Was ist die durchschnittliche Steuererstattung in Deutschland?", antworten: ["ca. 230 € (kaum der Aufwand)", "ca. 540 € (mittlerer Betrag)", "ca. 1.072 € (tatsächlicher Durchschnitt)", "ca. 2.500 € (übertrieben hoch)"], richtig: 2 },
+        { text: "Wie lange kann man die freiwillige Steuererklärung rückwirkend abgeben?", antworten: ["Nur für das laufende Jahr", "1 Jahr rückwirkend", "4 Jahre rückwirkend (Verjährungsfrist)", "Unbegrenzt rückwirkend"], richtig: 2 },
+        { text: "Was ist ELSTER?", antworten: ["Eine Steuersoftware-Firma die Beratung anbietet", "Das kostenlose Online-Portal des Finanzamts für digitale Steuererklärungen", "Ein Steuerberater-Netzwerk für Arbeitnehmer", "Eine Versicherung gegen Steuernachzahlungen"], richtig: 1 }
+      ]
+    },
+    {
+      id: 705,
+      titel: "Riester & Rürup – lohnt es sich wirklich?",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Für wen lohnt sich Riester am meisten?", antworten: ["Gutverdiener ohne Kinder (hohe Steuerersparnis)", "Geringverdiener mit mehreren Kindern (maximale staatliche Zulagen)", "Selbstständige die kein Angestelltenverhältnis haben", "Alle profitieren gleich viel"], richtig: 1 },
+        { text: "Was ist der Hauptunterschied zwischen Riester und Rürup?", antworten: ["Rürup ist für Angestellte, Riester für Selbstständige gedacht", "Riester ist für sozialversicherungspflichtige Arbeitnehmer mit Zulagen; Rürup primär für Selbstständige mit Steuerabzug", "Es gibt keinen relevanten Unterschied", "Rürup hat deutlich höhere staatliche Zulagen"], richtig: 1 },
+        { text: "Über 30 Jahre: Riester vs. ETF-Sparplan mit gleichem Beitrag. Was ist richtig?", antworten: ["Riester ist immer besser wegen staatlicher Garantien", "ETF-Sparplan schlägt Riester meist – trotz Förderung – wegen deutlich niedrigerer Kosten und höherer Rendite", "Beide sind über 30 Jahre absolut gleich gut", "Das hängt ausschließlich von den Zulagen ab"], richtig: 1 }
+      ]
+    },
+    {
+      id: 706,
+      titel: "Betriebliche Altersvorsorge (bAV) nutzen",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Wie viel Zuschuss muss dein Arbeitgeber zur bAV seit 2019 mindestens zahlen?", antworten: ["5 % des umgewandelten Betrags", "10 % des umgewandelten Betrags", "15 % des umgewandelten Betrags", "20 % des umgewandelten Betrags"], richtig: 2 },
+        { text: "Was ist der steuerliche Hauptvorteil der bAV für Arbeitnehmer?", antworten: ["Leistungen im Rentenalter sind steuerfrei", "Beiträge kommen aus dem Bruttogehalt – weniger Steuern und Sozialabgaben heute", "Nur der Arbeitgeber profitiert von Steuervorteilen", "Es gibt keine Steuervorteile bei der bAV"], richtig: 1 },
+        { text: "Was ist der wichtigste Nachteil der bAV?", antworten: ["Das Kapital ist nicht gesetzlich geschützt", "Im Rentenalter sind Leistungen voll steuerpflichtig und es fallen GKV-Beiträge auf die Auszahlung an", "Der Arbeitgeber muss keinen Zuschuss zahlen", "Beiträge können nicht monatlich angepasst werden"], richtig: 1 }
+      ]
+    },
+    {
+      id: 707,
+      titel: "Nebeneinkünfte und Steuern – was du melden musst",
+      typ: "cards",
+      xp: 25,
+      fragen: [
+        { text: "Ab wann sind Einkünfte aus Gelegenheitsjobs steuerpflichtig?", antworten: ["Immer ab dem ersten Euro", "Ab 410 €/Jahr (Freigrenze für sonstige Einkünfte nach §23 EStG)", "Erst ab 5.000 €/Jahr", "Gelegenheitsjobs sind immer steuerfrei"], richtig: 1 },
+        { text: "Was regelt die Kleinunternehmerregelung (§19 UStG)?", antworten: ["Bis 100.000 € Jahresumsatz keine Umsatzsteuer", "Bis 22.000 € Jahresumsatz muss keine Umsatzsteuer ausgewiesen werden", "Nur für Handwerks- und Gewerbebetriebe gültig", "Komplett keine Steuern unter dieser Grenze"], richtig: 1 },
+        { text: "Welche eBay-Verkäufe sind steuerlich relevant?", antworten: ["Alle Verkäufe ab dem ersten Euro sind zu melden", "Privater Verkauf eigener gebrauchter Gegenstände meist steuerfrei; gewerblicher Handel ist steuerpflichtig", "Alle eBay-Verkäufe werden automatisch mit 19 % Umsatzsteuer belastet", "Nur Verkäufe über 500 € müssen gemeldet werden"], richtig: 1 }
+      ]
+    },
+    {
+      id: 708,
+      titel: "Steueroptimierung für Investoren",
+      typ: "cards",
+      xp: 35,
+      fragen: [
+        { text: "Was ist Tax-Loss-Harvesting?", antworten: ["Verluste vor dem Finanzamt verbergen", "Verluste im Depot bewusst realisieren um sie mit Gewinnen zu verrechnen und Steuern zu sparen", "Gewinne in Buchverluste umwandeln", "Sondersteuer auf realisierte Verluste"], richtig: 1 },
+        { text: "Wie verteilt man den Freistellungsauftrag (1.000 €) optimal?", antworten: ["Immer den vollen Betrag bei einer einzigen Bank", "Auf verschiedene Depots und Konten aufteilen – je nach erwartetem jährlichem Ertrag", "Nur beim Girokonto stellen, nicht beim Depot", "Nie stellen – die Bank macht das automatisch"], richtig: 1 },
+        { text: "Was ist die Günstigerprüfung bei der Steuererklärung?", antworten: ["Günstigsten ETF im Depot finden und halten", "Das Finanzamt prüft ob der persönliche Steuersatz unter 25 % liegt – dann gilt dieser statt Abgeltungssteuer", "Günstigsten Broker für das nächste Jahr wählen", "Günstigste Versicherungsprodukte vergleichen"], richtig: 1 }
+      ]
     }
   ],
   8: [
@@ -1409,6 +1596,50 @@ Krypto kann dein Leben verändern – in beide Richtungen. Wissen und Vorsicht s
           richtig: 2
         }
       ]
+    },
+    {
+      id: 803,
+      titel: "REITs – in Immobilien investieren ohne eigene Wohnung",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Was ist ein REIT (Real Estate Investment Trust)?", antworten: ["Eine Immobilienverwaltungsfirma die Wohnungen kauft", "Ein börsengehandelter Fonds der Immobilien hält und 90 %+ der Gewinne ausschüttet", "Ein Hypothekenvertrag mit Immobilienbesicherung", "Eine staatliche Wohnbaugesellschaft"], richtig: 1 },
+        { text: "Was ist der entscheidende Vorteil von REITs gegenüber direkten Immobilien?", antworten: ["REITs zahlen keine Steuern auf Gewinne", "Liquidität – man kann börsentäglich kaufen und verkaufen, ab wenigen Euro", "REITs erzielen immer höhere Renditen als direkte Immobilien", "REITs tragen kein Marktrisiko"], richtig: 1 },
+        { text: "Wie werden REIT-Ausschüttungen in Deutschland steuerlich behandelt?", antworten: ["Vollständig steuerfrei als Immobilienerträge", "Mit Abgeltungssteuer (26,375 %) wie normale Dividenden", "Mit einem speziellen REIT-Steuersatz von 15 %", "REITs fallen nicht unter das deutsche Steuerrecht"], richtig: 1 }
+      ]
+    },
+    {
+      id: 804,
+      titel: "Eigenkapital für den Immobilienkauf aufbauen",
+      typ: "cards",
+      xp: 35,
+      fragen: [
+        { text: "Wie viel Eigenkapital sollte man für einen Immobilienkauf mindestens ansparen?", antworten: ["5 % des Kaufpreises reichen aus", "20 % Kaufpreis + Kaufnebenkosten (~10 %) = mind. 30 % gesamt", "50 % des Kaufpreises für gute Konditionen", "Eigenkapital ist bei guter Bonität nicht notwendig"], richtig: 1 },
+        { text: "Was gehört zu den typischen Kaufnebenkosten in Deutschland?", antworten: ["Nur die Maklergebühr (ca. 3 %)", "Grunderwerbsteuer + Notar + Makler = 5–15 % je nach Bundesland", "Keine Nebenkosten bei Neubauten direkt vom Bauträger", "Nur die Notargebühr (ca. 1 %)"], richtig: 1 },
+        { text: "Familie will 300.000 € Wohnung kaufen, braucht 30 % EK (90.000 €), spart 800 €/Monat. Wie viele Jahre?", antworten: ["ca. 5,6 Jahre", "ca. 7,8 Jahre", "ca. 9,4 Jahre", "ca. 12 Jahre"], richtig: 2 }
+      ]
+    },
+    {
+      id: 805,
+      titel: "Vermietung als Einkommensquelle verstehen",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Wie berechnet man die Bruttomietrendite?", antworten: ["Nettomiete minus alle Kosten durch Kaufpreis", "(Jahres-Kaltmiete / Kaufpreis) × 100", "Gewinn nach Steuern und Finanzierungskosten", "Mieteinnahmen minus Hypothekenzahlung"], richtig: 1 },
+        { text: "Was gilt als akzeptable Nettomietrendite bei Vermietungsobjekten?", antworten: ["Unter 2 % – da Immobilien wertstabil sind", "3–5 % nach allen laufenden Kosten und Rücklagen", "10–15 % in guten Lagen normal", "Mietrendite ist irrelevant – nur Wertsteigerung zählt"], richtig: 1 },
+        { text: "Was ist das oft unterschätzte Hauptrisiko bei Vermietung?", antworten: ["Zu hohe Mietpreise gefährden das Objekt", "Kombination aus Mietausfall, unerwarteten Instandhaltungskosten und längeren Leerstandsphasen", "Behördliche Registrierungspflichten", "Zu niedrige steuerliche Abschreibung"], richtig: 1 }
+      ]
+    },
+    {
+      id: 806,
+      titel: "Immobilien-ETFs und Crowdinvesting",
+      typ: "cards",
+      xp: 25,
+      fragen: [
+        { text: "Was ist ein REIT-ETF?", antworten: ["Ein einzelner REIT mit breiter Diversifikation", "Ein ETF der viele REITs bündelt – diversifiziert über Länder und Immobiliensektoren", "Ein Hypothekenfonds der Staatsanleihen hält", "Ein Fonds speziell für Neubauten"], richtig: 1 },
+        { text: "Was ist Immobilien-Crowdinvesting?", antworten: ["Viele Leute kaufen gemeinsam eine Wohnung zu gleichen Teilen", "Viele Kleinanleger finanzieren gemeinsam ein Immobilienprojekt gegen feste Zinsen", "Ein staatliches Förderprogramm für Wohnungsbau", "Immobilien werden über Social Media gehandelt"], richtig: 1 },
+        { text: "Was eignet sich für einen Einsteiger mit 100 €/Monat für Immobilien-Exposure am besten?", antworten: ["Direktkauf einer Wohnung auf Kredit", "REIT-ETF Sparplan – diversifiziert, täglich handelbar, ab 1 €", "Crowdinvesting wegen garantiert höherer Rendite", "Festgeld mit Immobilien-Bezug"], richtig: 1 }
+      ]
     }
   ],
   9: [
@@ -1456,6 +1687,50 @@ Krypto kann dein Leben verändern – in beide Richtungen. Wissen und Vorsicht s
           antworten: ["Der Versicherer zahlt immer", "Der Versicherer kann dich auf einen anderen Beruf verweisen – auch wenn du dort nicht arbeitest", "Eine Klausel gegen Berufsrisiken", "Eine Nachversicherungsgarantie"],
           richtig: 1
         }
+      ]
+    },
+    {
+      id: 903,
+      titel: "GKV vs. PKV – die richtige Krankenversicherung",
+      typ: "cards",
+      xp: 30,
+      fragen: [
+        { text: "Ab wann kann man als Angestellter in die PKV wechseln?", antworten: ["Immer wenn man es möchte", "Ab einem Jahresbruttoeinkommen über der Versicherungspflichtgrenze (2024: ~69.300 €)", "Ab dem 40. Lebensjahr", "Nur Selbstständige und Beamte dürfen PKV wählen"], richtig: 1 },
+        { text: "Was ist das zentrale langfristige Risiko der PKV?", antworten: ["Schlechtere medizinische Leistungen im Alter", "Steigende Beiträge bei sinkenden Einkünften – besonders in Rente ohne Arbeitgeberzuschuss", "PKV wird im Alter günstiger als GKV", "Kein langfristiges Risiko bei guter Gesundheit"], richtig: 1 },
+        { text: "Was haben GKV und PKV im direkten Vergleich gemeinsam?", antworten: ["Exakt gleiche monatliche Beiträge", "Beide gewähren gesetzlich gesicherte medizinische Mindestversorgung in Deutschland", "Identische Leistungspakete für alle Versicherten", "Gleiches Beitragsmodell unabhängig von Einkommen"], richtig: 1 }
+      ]
+    },
+    {
+      id: 904,
+      titel: "Die Rentenlücke – was wirklich auf dich zukommt",
+      typ: "cards",
+      xp: 35,
+      fragen: [
+        { text: "Wie hoch ist das gesetzliche Rentenniveau in Deutschland (2024)?", antworten: ["70 % des letzten Bruttogehalts – ausreichend", "48 % des Bruttogehalts – vor Steuern und Krankenversicherung", "60 % des Nettogehalts – nach Abzügen", "Volle Absicherung des gewohnten Lebensstandards"], richtig: 1 },
+        { text: "Was versteht man unter der 'Rentenlücke'?", antworten: ["Die Summe aller fehlenden Rentenbeitragsjahre", "Die monatliche Differenz zwischen dem benötigten Lebensstandard und der tatsächlich erwarteten Rente", "Die steuerliche Behandlung von Renteneinkünften", "Rente minus Krankenversicherungsbeiträge"], richtig: 1 },
+        { text: "Max, 30 J., 3.000 € netto. Erwartet 1.200 € Rente. 1.800 € Lücke/Monat. Benötigtes Kapital über 20 Rentenjahre?", antworten: ["216.000 € (10 J. Lücke)", "320.000 € (Schätzwert)", "432.000 € (20 J. × 12 × 1.800 €)", "650.000 € (zu hoch)"], richtig: 2 }
+      ]
+    },
+    {
+      id: 905,
+      titel: "Versicherungen kündigen und sinnvoll wechseln",
+      typ: "cards",
+      xp: 25,
+      fragen: [
+        { text: "Wie viel überzahlen Deutsche Versicherungen jährlich im Durchschnitt?", antworten: ["ca. 50 € – kaum relevant", "ca. 150 € – leichte Überzahlung", "ca. 400 € – signifikante Summe", "ca. 1.000 € – dramatische Überzahlung"], richtig: 2 },
+        { text: "In welchen Situationen hat man ein Sonderkündigungsrecht?", antworten: ["Jederzeit ohne Angabe von Gründen", "Bei Beitragserhöhung durch den Versicherer oder nach einem regulierten Schadenfall", "Nur zum regulären Jahresende zum 31.12.", "Ein Sonderkündigungsrecht existiert rechtlich nicht"], richtig: 1 },
+        { text: "Was ist beim Versicherungsvergleich am wichtigsten?", antworten: ["Immer den absolut günstigsten Preis wählen", "Zuerst Leistungsumfang und Ausschlüsse prüfen – dann Preis vergleichen", "Nur den Markennamen des Anbieters berücksichtigen", "Der Werbung vertrauen und empfohlene Produkte nehmen"], richtig: 1 }
+      ]
+    },
+    {
+      id: 906,
+      titel: "5 Versicherungen die du jetzt kündigen kannst",
+      typ: "cards",
+      xp: 25,
+      fragen: [
+        { text: "Welche Versicherung ist in fast allen Fällen überflüssig und teuer?", antworten: ["Private Haftpflichtversicherung", "Handyversicherung (Selbst ansparen ist günstiger)", "Berufsunfähigkeitsversicherung", "Hausratversicherung"], richtig: 1 },
+        { text: "Warum ist die Restschuldversicherung oft eine schlechte Wahl?", antworten: ["Sie ist zu günstig und deckt zu wenig", "Extrem hohe Kosten, schlechte Bedingungen – eine Risikolebensversicherung ist fast immer die bessere Alternative", "Sie zahlt immer zuverlässig", "Nur für sehr ältere Kreditnehmer relevant"], richtig: 1 },
+        { text: "Wann kann eine Reiserücktrittsversicherung ausnahmsweise sinnvoll sein?", antworten: ["Sie ist grundsätzlich nie sinnvoll", "Bei teuren, nicht stornierbaren Reisen ab ~1.000 € mit relevanten Vorerkrankungen oder besonders flexibler Buchung", "Immer bei jeder Auslandsreise", "Ausschließlich bei Kreuzfahrten und Langstreckenflügen"], richtig: 1 }
       ]
     }
   ]
@@ -2225,8 +2500,41 @@ function CardLektionScreen({ lektion, onZurueck, onAbgeschlossen }) {
   if (lektion.id === 703) return <L703Screen {...props} />
   if (lektion.id === 801) return <L801Screen {...props} />
   if (lektion.id === 802) return <L802Screen {...props} />
+  if (lektion.id === 302) return <L302Screen {...props} />
+  if (lektion.id === 303) return <L303Screen {...props} />
+  if (lektion.id === 304) return <L304Screen {...props} />
+  if (lektion.id === 305) return <L305Screen {...props} />
+  if (lektion.id === 306) return <L306Screen {...props} />
+  if (lektion.id === 307) return <L307Screen {...props} />
+  if (lektion.id === 308) return <L308Screen {...props} />
+  if (lektion.id === 601) return <L601Screen {...props} />
+  if (lektion.id === 602) return <L602Screen {...props} />
+  if (lektion.id === 603) return <L603Screen {...props} />
+  if (lektion.id === 604) return <L604Screen {...props} />
+  if (lektion.id === 605) return <L605Screen {...props} />
+  if (lektion.id === 606) return <L606Screen {...props} />
+  if (lektion.id === 607) return <L607Screen {...props} />
+  if (lektion.id === 608) return <L608Screen {...props} />
+  if (lektion.id === 701) return <L701Screen {...props} />
+  if (lektion.id === 702) return <L702Screen {...props} />
+  if (lektion.id === 703) return <L703Screen {...props} />
+  if (lektion.id === 704) return <L704Screen {...props} />
+  if (lektion.id === 705) return <L705Screen {...props} />
+  if (lektion.id === 706) return <L706Screen {...props} />
+  if (lektion.id === 707) return <L707Screen {...props} />
+  if (lektion.id === 708) return <L708Screen {...props} />
+  if (lektion.id === 801) return <L801Screen {...props} />
+  if (lektion.id === 802) return <L802Screen {...props} />
+  if (lektion.id === 803) return <L803Screen {...props} />
+  if (lektion.id === 804) return <L804Screen {...props} />
+  if (lektion.id === 805) return <L805Screen {...props} />
+  if (lektion.id === 806) return <L806Screen {...props} />
   if (lektion.id === 901) return <L901Screen {...props} />
   if (lektion.id === 902) return <L902Screen {...props} />
+  if (lektion.id === 903) return <L903Screen {...props} />
+  if (lektion.id === 904) return <L904Screen {...props} />
+  if (lektion.id === 905) return <L905Screen {...props} />
+  if (lektion.id === 906) return <L906Screen {...props} />
   return <L301Screen {...props} />
 }
 
@@ -4258,6 +4566,3329 @@ function L902Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L302Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [ausgaben, setAusgaben] = useState(1800)
+  const notgroschenMin = ausgaben * 3
+  const notgroschenOpt = ausgaben * 6
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich verlor meinen Job. Auf dem Konto: 340 €. Die nächste Miete kam in 12 Tagen."</div>
+          <p className="cl-hook-sub">Markus, 29 – ein Notgroschen hätte alles geändert.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was ist der Notgroschen?</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.9rem" }}>Der Notgroschen ist dein <strong style={{ color: "#fff" }}>finanzielles Sicherheitsnetz</strong> – flüssiges Geld das sofort verfügbar ist wenn das Unerwartete passiert.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            {[["🏥","Arzt, OP, Zähne"],["🚗","Auto-Reparatur"],["💼","Jobverlust"],["🏠","Kaputte Waschmaschine"]].map(([ic,t]) => (
+              <div key={t} style={{ display: "flex", alignItems: "center", gap: "0.6rem", background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+                <span style={{ fontSize: "1.1rem" }}>{ic}</span>
+                <span style={{ color: "#ccc", fontSize: "0.85rem" }}>{t}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wie viel brauchst du?</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.75rem" }}>Deine monatlichen Ausgaben: <strong style={{ color: "#fff" }}>{ausgaben.toLocaleString("de")} €</strong></p>
+          <input type="range" min={500} max={5000} step={100} value={ausgaben} onChange={e => setAusgaben(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(ausgaben, 500, 5000) }} />
+          <div style={{ display: "flex", gap: "0.75rem", marginTop: "1rem" }}>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "10px", padding: "0.75rem", textAlign: "center", border: "1px solid #F59E0B44" }}>
+              <p style={{ color: "#F59E0B", fontSize: "0.7rem", marginBottom: "0.25rem" }}>Minimum (3 Monate)</p>
+              <p style={{ color: "#fff", fontWeight: 800, fontSize: "1.1rem" }}>{notgroschenMin.toLocaleString("de")} €</p>
+            </div>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "10px", padding: "0.75rem", textAlign: "center", border: "1px solid #10B98144" }}>
+              <p style={{ color: "#10B981", fontSize: "0.7rem", marginBottom: "0.25rem" }}>Optimal (6 Monate)</p>
+              <p style={{ color: "#fff", fontWeight: 800, fontSize: "1.1rem" }}>{notgroschenOpt.toLocaleString("de")} €</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wo soll das Geld hin?</h2>
+          <svg viewBox="0 0 260 130" style={{ width: "100%", marginTop: "0.5rem" }}>
+            {[
+              { label: "Girokonto", rating: 1, color: "#ef4444", note: "0 % Zinsen" },
+              { label: "Sparkonto", rating: 2, color: "#F59E0B", note: "~0,1 % Zinsen" },
+              { label: "Tagesgeld", rating: 5, color: "#10B981", note: "~3 % Zinsen · tägl. verfügbar" },
+              { label: "ETF", rating: 4, color: "#0EA5E9", note: "❌ kein Notgroschen!" },
+            ].map((d, i) => {
+              const w = (d.rating / 5) * 160
+              return (
+                <g key={i}>
+                  <text x="5" y={22 + i * 30} fill="#888" fontSize="8" dominantBaseline="middle">{d.label}</text>
+                  <rect x="75" y={13 + i * 30} width="160" height="14" rx="4" fill="#1a1a2e" />
+                  <rect x="75" y={13 + i * 30} width={w} height="14" rx="4" fill={d.color} opacity="0.8" />
+                  <text x="240" y={22 + i * 30} fill="#666" fontSize="6.5" dominantBaseline="middle" textAnchor="end">{d.note}</text>
+                </g>
+              )
+            })}
+          </svg>
+          <p style={{ color: "#10B981", fontSize: "0.8rem", textAlign: "center", marginTop: "0.5rem" }}>Tagesgeld = Gewinner. Täglich verfügbar + Zinsen.</p>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Warum kein ETF für den Notgroschen?</h2>
+          <svg viewBox="0 0 260 120" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <polyline points="10,20 40,30 70,15 100,45 130,25 160,80 190,60 220,90 250,40" fill="none" stroke="#0EA5E9" strokeWidth="2" />
+            <line x1="10" y1="90" x2="250" y2="90" stroke="#333" strokeWidth="1" strokeDasharray="4,4" />
+            <text x="130" y="105" textAnchor="middle" fill="#ef4444" fontSize="8">Notfall? ETF steht genau hier ↓ 30 %</text>
+            <circle cx="160" cy="80" r="5" fill="#ef4444" />
+            <text x="160" y="75" textAnchor="middle" fill="#ef4444" fontSize="7">–30 %</text>
+          </svg>
+          <p style={{ color: "#aaa", fontSize: "0.85rem", lineHeight: 1.6, marginTop: "0.5rem" }}>Börsen-Crashs kommen immer dann wenn es dir ohnehin schlecht geht. Dann <strong style={{ color: "#ef4444" }}>mit Verlust verkaufen müssen</strong> ist das Schlimmste.</p>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Schritt für Schritt aufbauen</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", marginTop: "0.5rem" }}>
+            {[
+              { step: "1", title: "Ziel berechnen", desc: "3–6 × Monatsausgaben = Zielbetrag", color: "#7C3AED" },
+              { step: "2", title: "Dauerauftrag einrichten", desc: "Fester Betrag automatisch aufs Tagesgeld", color: "#0EA5E9" },
+              { step: "3", title: "Nicht anrühren", desc: "Kein Urlaub, kein Handy – nur echte Notfälle", color: "#10B981" },
+              { step: "4", title: "Nach Notfall: Auffüllen", desc: "Zuerst Notgroschen, dann weiter investieren", color: "#F59E0B" },
+            ].map(s => (
+              <div key={s.step} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                <div style={{ width: "24px", height: "24px", borderRadius: "50%", background: s.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "0.75rem", fontWeight: 700, color: "#fff" }}>{s.step}</div>
+                <div><p style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 600, marginBottom: "0.1rem" }}>{s.title}</p><p style={{ color: "#888", fontSize: "0.78rem" }}>{s.desc}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #10B98133" }}>
+            <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Dein Aktionsplan:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.7 }}>
+              1. Tagesgeldkonto bei DKB, ING oder Trade Republic eröffnen (kostenlos, 10 Min.)<br />
+              2. Dauerauftrag: <strong style={{ color: "#fff" }}>{Math.round(ausgaben * 0.1).toLocaleString("de")} €/Monat</strong> (10 % deiner Ausgaben)<br />
+              3. Ziel: <strong style={{ color: "#F59E0B" }}>{notgroschenMin.toLocaleString("de")} €</strong> in ~{Math.round(notgroschenMin / (ausgaben * 0.1))} Monaten
+            </p>
+          </div>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.75rem", lineHeight: 1.6 }}>Erst wenn der Notgroschen steht, beginne zu investieren. Das ist Regel Nummer eins.</p>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Der Notgroschen – Fundament deiner Finanzen</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🛡️</span><p>3–6 Monatsausgaben als sofort verfügbares Polster – dein finanzielles Sicherheitsnetz</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🏦</span><p>Tagesgeld: täglich verfügbar + ~3 % Zinsen – besser als Girokonto oder ETF</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Erst Notgroschen aufbauen, dann investieren – in dieser Reihenfolge immer</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L303Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [netto, setNetto] = useState(2200)
+  const beduerfnisse = Math.round(netto * 0.5)
+  const wuensche = Math.round(netto * 0.3)
+  const sparen = Math.round(netto * 0.2)
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich verdiente 2.400 € und hatte am Monatsende immer 0 €. Dann entdeckte ich die 50/30/20 Regel."</div>
+          <p className="cl-hook-sub">Lena, 26 – jetzt spart sie automatisch 480 € im Monat.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die 50/30/20 Regel erklärt</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            {[
+              { pct: "50 %", label: "Bedürfnisse", color: "#0EA5E9", examples: "Miete, Lebensmittel, Strom, Transport" },
+              { pct: "30 %", label: "Wünsche", color: "#F59E0B", examples: "Restaurant, Kino, Urlaub, Kleidung" },
+              { pct: "20 %", label: "Sparen / Investieren", color: "#10B981", examples: "Notgroschen, ETF, Schulden abbauen" },
+            ].map(b => (
+              <div key={b.label} style={{ background: "#1a1a2e", borderRadius: "10px", padding: "0.6rem 0.75rem", borderLeft: `3px solid ${b.color}` }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.2rem" }}>
+                  <span style={{ color: b.color, fontWeight: 700, fontSize: "0.9rem" }}>{b.pct} – {b.label}</span>
+                </div>
+                <p style={{ color: "#888", fontSize: "0.75rem" }}>{b.examples}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Dein persönliches 50/30/20</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.6rem" }}>Nettoeinkommen: <strong style={{ color: "#fff" }}>{netto.toLocaleString("de")} €</strong></p>
+          <input type="range" min={800} max={6000} step={100} value={netto} onChange={e => setNetto(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(netto, 800, 6000) }} />
+          <svg viewBox="0 0 260 60" style={{ width: "100%", marginTop: "0.75rem" }}>
+            <rect x="10" y="15" width={120} height="30" rx="4" fill="#0EA5E9" opacity="0.8" />
+            <text x="70" y="34" textAnchor="middle" fill="white" fontSize="9" fontWeight="700">{beduerfnisse.toLocaleString("de")} €</text>
+            <rect x="133" y="15" width={72} height="30" rx="4" fill="#F59E0B" opacity="0.8" />
+            <text x="169" y="34" textAnchor="middle" fill="white" fontSize="9" fontWeight="700">{wuensche.toLocaleString("de")} €</text>
+            <rect x="208" y="15" width={48} height="30" rx="4" fill="#10B981" opacity="0.8" />
+            <text x="232" y="34" textAnchor="middle" fill="white" fontSize="9" fontWeight="700">{sparen.toLocaleString("de")} €</text>
+            <text x="70" y="58" textAnchor="middle" fill="#0EA5E9" fontSize="7">Bedürfnisse</text>
+            <text x="169" y="58" textAnchor="middle" fill="#F59E0B" fontSize="7">Wünsche</text>
+            <text x="232" y="58" textAnchor="middle" fill="#10B981" fontSize="7">Sparen</text>
+          </svg>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Pay Yourself First</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.9rem" }}>Die meisten Menschen sparen was <strong style={{ color: "#ef4444" }}>übrig bleibt</strong>. Das Ergebnis: meistens nichts.</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.75rem" }}>
+            <div style={{ background: "#ef444422", borderRadius: "8px", padding: "0.6rem 0.75rem", display: "flex", gap: "0.5rem", alignItems: "center" }}>
+              <span>❌</span>
+              <p style={{ color: "#fca5a5", fontSize: "0.82rem" }}>Einkommen → ausgeben → was übrig bleibt sparen</p>
+            </div>
+            <div style={{ background: "#10B98122", borderRadius: "8px", padding: "0.6rem 0.75rem", display: "flex", gap: "0.5rem", alignItems: "center" }}>
+              <span>✅</span>
+              <p style={{ color: "#6ee7b7", fontSize: "0.82rem" }}>Einkommen → sofort <strong>20 % Dauerauftrag</strong> → mit dem Rest leben</p>
+            </div>
+          </div>
+          <p style={{ color: "#888", fontSize: "0.82rem", marginTop: "0.75rem", lineHeight: 1.6 }}>Am Monatsanfang: <strong style={{ color: "#10B981" }}>{sparen.toLocaleString("de")} € automatisch</strong> aufs Spar-/Investmentkonto. Fertig.</p>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was zählt als Bedürfnis vs. Wunsch?</h2>
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
+            <div style={{ flex: 1, background: "#0EA5E922", borderRadius: "8px", padding: "0.6rem" }}>
+              <p style={{ color: "#0EA5E9", fontSize: "0.75rem", fontWeight: 700, marginBottom: "0.4rem" }}>Bedürfnisse</p>
+              {["Miete/Hypothek","Strom & Heizung","Lebensmittel","Krankenvers.","ÖPNV/Auto"].map(i => <p key={i} style={{ color: "#aaa", fontSize: "0.75rem", lineHeight: 1.6 }}>• {i}</p>)}
+            </div>
+            <div style={{ flex: 1, background: "#F59E0B22", borderRadius: "8px", padding: "0.6rem" }}>
+              <p style={{ color: "#F59E0B", fontSize: "0.75rem", fontWeight: 700, marginBottom: "0.4rem" }}>Wünsche</p>
+              {["Restaurant","Streaming","Urlaub","Kleidung extra","Hobbys"].map(i => <p key={i} style={{ color: "#aaa", fontSize: "0.75rem", lineHeight: 1.6 }}>• {i}</p>)}
+            </div>
+          </div>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginTop: "0.6rem" }}>Handy-Basisvertrag = Bedürfnis. Das neueste iPhone = Wunsch.</p>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">50/30/20 anpassen – ist das OK?</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Die Regel ist ein <strong style={{ color: "#fff" }}>Startpunkt</strong>, kein Gesetz. Hohe Miete? 60/20/20. Hohes Einkommen? 40/20/40.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            <div style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#7C3AED", fontSize: "0.8rem", fontWeight: 700 }}>Mindestanforderung</p>
+              <p style={{ color: "#ccc", fontSize: "0.78rem" }}>Mindestens 10–15 % sparen/investieren. Darunter wird Vermögensaufbau sehr schwer.</p>
+            </div>
+            <div style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#10B981", fontSize: "0.8rem", fontWeight: 700 }}>Optimal</p>
+              <p style={{ color: "#ccc", fontSize: "0.78rem" }}>20 %+ sparen und 10–15 % Wünsche kürzen – beschleunigt Vermögensaufbau erheblich.</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #10B98133" }}>
+            <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Dein 3-Schritte-Plan:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Dauerauftrag einrichten: <strong style={{ color: "#fff" }}>{sparen.toLocaleString("de")} €</strong> am 1. des Monats aufs Sparkonto<br />
+              2. Budget-Check: Bedürfnisse unter {beduerfnisse.toLocaleString("de")} €?<br />
+              3. Wünsche-Limit: max. {wuensche.toLocaleString("de")} € für alles "Schöne"
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">50/30/20 – dein Finanz-Framework</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚖️</span><p>50 % Bedürfnisse · 30 % Wünsche · 20 % Sparen – einfache Leitlinie</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🤖</span><p>Pay Yourself First: Sparbetrag am Monatsanfang automatisch überweisen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🔧</span><p>Regel anpassen erlaubt – Mindestens 10–15 % sparen ist nicht verhandelbar</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L304Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [kaffee, setKaffee] = useState(3.5)
+  const [streaming, setStreaming] = useState(45)
+  const jahresKaffee = Math.round(kaffee * 365)
+  const jahresStreaming = streaming * 12
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich dachte ich gebe 200 €/Monat für Sonstiges aus. Es waren 480 €. Jeden. Monat."</div>
+          <p className="cl-hook-sub">Anna, 31 – jetzt trackt sie jeden Cent und spart 280 € mehr im Monat.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Der Unterschätzungs-Effekt</h2>
+          <svg viewBox="0 0 260 130" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <rect x="30" y="40" width="80" height="70" rx="6" fill="#0EA5E9" opacity="0.8" />
+            <text x="70" y="85" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">200 €</text>
+            <text x="70" y="100" textAnchor="middle" fill="white" fontSize="7">Geschätzt</text>
+            <rect x="150" y="10" width="80" height="100" rx="6" fill="#ef4444" opacity="0.8" />
+            <text x="190" y="65" textAnchor="middle" fill="white" fontSize="12" fontWeight="700">480 €</text>
+            <text x="190" y="80" textAnchor="middle" fill="white" fontSize="7">Tatsächlich</text>
+            <text x="130" y="125" textAnchor="middle" fill="#888" fontSize="8">Menschen unterschätzen Ausgaben im Schnitt um 40 %</text>
+          </svg>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die versteckten Kosten</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Täglicher Kaffee: <strong style={{ color: "#fff" }}>{kaffee.toFixed(2)} €</strong> → <strong style={{ color: "#F59E0B" }}>{jahresKaffee.toLocaleString("de")} €/Jahr</strong></p>
+          <input type="range" min={1} max={8} step={0.5} value={kaffee} onChange={e => setKaffee(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(kaffee, 1, 8) }} />
+          <p style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.75rem", marginBottom: "0.5rem" }}>Streaming/Abo/Monat: <strong style={{ color: "#fff" }}>{streaming} €</strong> → <strong style={{ color: "#F59E0B" }}>{jahresStreaming.toLocaleString("de")} €/Jahr</strong></p>
+          <input type="range" min={10} max={150} step={5} value={streaming} onChange={e => setStreaming(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(streaming, 10, 150) }} />
+          <p style={{ color: "#10B981", fontSize: "0.82rem", marginTop: "0.75rem", fontWeight: 600 }}>Zusammen: {(jahresKaffee + jahresStreaming).toLocaleString("de")} €/Jahr – unbemerkt.</p>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">3 Tracking-Methoden</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            {[
+              { title: "📱 App-Tracking", desc: "finanzguru, YNAB, Money Manager – automatischer Bankimport", gut: true },
+              { title: "📝 Excel/Sheets", desc: "Manuell eintragen – mehr Bewusstsein, mehr Aufwand", gut: true },
+              { title: "✉️ Envelope-Methode", desc: "Bargeld in beschriftete Umschläge (Lebensmittel, Freizeit…)", gut: true },
+            ].map(m => (
+              <div key={m.title} style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem 0.75rem" }}>
+                <p style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 600 }}>{m.title}</p>
+                <p style={{ color: "#888", fontSize: "0.78rem" }}>{m.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die häufigsten Ausgaben-Fallen</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              ["📱","Ungenutzte Abos","~45 €/Monat"],
+              ["🚗","Bankgebühren","~8 €/Monat"],
+              ["☕","Kaffeekäufe","~60 €/Monat"],
+              ["🛒","Spontankäufe online","~85 €/Monat"],
+              ["🎮","Mikrotransaktionen","~30 €/Monat"],
+            ].map(([ic, name, val]) => (
+              <div key={name} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <span style={{ fontSize: "0.85rem" }}>{ic} <span style={{ color: "#ccc" }}>{name}</span></span>
+                <span style={{ color: "#F59E0B", fontWeight: 700, fontSize: "0.82rem" }}>{val}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Der Opportunitätskosteneffekt</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.6, fontSize: "0.85rem" }}>180 €/Monat gespart statt verausgabt. In einem ETF bei 7 % über 20 Jahre:</p>
+          <div className="cl-kaffee-ergebnis" style={{ marginTop: "0.75rem" }}>
+            <div className="cl-kaffee-zeile"><span className="cl-kaffee-wert">43.200 €</span><span>nur Einzahlungen</span></div>
+            <div className="cl-kaffee-zeile"><span className="cl-kaffee-wert cl-kaffee-big" style={{ color: "#10B981" }}>~92.000 €</span><span>mit Zinseszins</span></div>
+          </div>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginTop: "0.75rem" }}>Jeder unbemerkte Euro den du abonnierst ist ein Euro weniger Vermögen.</p>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #0EA5E933" }}>
+            <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>30-Tage-Challenge:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              Woche 1: App installieren + Konto verknüpfen<br />
+              Woche 2: Alle Kategorien labeln<br />
+              Woche 3: Überraschungen finden<br />
+              Woche 4: 1 Kategorie aktiv kürzen
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Ausgaben tracken – Bewusstsein schafft Vermögen</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🔍</span><p>Menschen unterschätzen Ausgaben um bis zu 40 % – Tracking bringt die Wahrheit</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📱</span><p>App, Excel oder Umschläge – die Methode ist egal, Hauptsache tun</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💸</span><p>180 €/Monat weniger ausgeben = ~92.000 € mehr nach 20 Jahren</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L305Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [schuld1, setSchuld1] = useState(1500)
+  const [zins1] = useState(20)
+  const jahreszins1 = Math.round(schuld1 * zins1 / 100)
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich zahlte 3 Jahre lang die Mindestraten. Die Schuld war danach größer als vorher."</div>
+          <p className="cl-hook-sub">Tim, 34 – Kreditkartenfalle mit 22 % Zinsen.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Gute vs. schlechte Schulden</h2>
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
+            <div style={{ flex: 1, background: "#10B98122", borderRadius: "8px", padding: "0.6rem", borderTop: "2px solid #10B981" }}>
+              <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.8rem", marginBottom: "0.4rem" }}>Gute Schulden</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem", lineHeight: 1.6 }}>• Bildungskredit<br />• Immobilienfinanzierung<br />• Unternehmenskredit<br /><span style={{ color: "#888" }}>→ Investition in Zukunft</span></p>
+            </div>
+            <div style={{ flex: 1, background: "#ef444422", borderRadius: "8px", padding: "0.6rem", borderTop: "2px solid #ef4444" }}>
+              <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.8rem", marginBottom: "0.4rem" }}>Schlechte Schulden</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem", lineHeight: 1.6 }}>• Kreditkarten (20 %+)<br />• Ratenkredite f. Konsum<br />• Dispokredit (10–15 %)<br /><span style={{ color: "#888" }}>→ Konsum auf Kredit</span></p>
+            </div>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was kosten deine Schulden wirklich?</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Kreditkartenschuld: <strong style={{ color: "#fff" }}>{schuld1.toLocaleString("de")} €</strong> bei {zins1} % Zinsen</p>
+          <input type="range" min={200} max={10000} step={100} value={schuld1} onChange={e => setSchuld1(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(schuld1, 200, 10000) }} />
+          <div style={{ marginTop: "0.75rem", background: "#ef444422", borderRadius: "10px", padding: "0.75rem", textAlign: "center" }}>
+            <p style={{ color: "#ef4444", fontSize: "0.8rem" }}>Zinslast pro Jahr</p>
+            <p style={{ color: "#fff", fontWeight: 800, fontSize: "1.4rem" }}>{jahreszins1.toLocaleString("de")} €</p>
+            <p style={{ color: "#888", fontSize: "0.75rem" }}>Das ist Geld das einfach verbrennt</p>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Avalanche vs. Snowball</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            <div style={{ background: "#0EA5E922", borderRadius: "8px", padding: "0.6rem 0.75rem", borderLeft: "3px solid #0EA5E9" }}>
+              <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.85rem" }}>❄️ Avalanche (empfohlen)</p>
+              <p style={{ color: "#aaa", fontSize: "0.78rem", lineHeight: 1.5, marginTop: "0.2rem" }}>Höchste Zinsen zuerst → spart am meisten Geld insgesamt</p>
+            </div>
+            <div style={{ background: "#7C3AED22", borderRadius: "8px", padding: "0.6rem 0.75rem", borderLeft: "3px solid #7C3AED" }}>
+              <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.85rem" }}>⛄ Snowball</p>
+              <p style={{ color: "#aaa", fontSize: "0.78rem", lineHeight: 1.5, marginTop: "0.2rem" }}>Kleinste Schuld zuerst → mehr Motivation durch schnelle Erfolge</p>
+            </div>
+          </div>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginTop: "0.6rem" }}>Mathematisch gewinnt Avalanche. Psychologisch kann Snowball effektiver sein.</p>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die Mindestrate-Falle</h2>
+          <svg viewBox="0 0 260 130" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">2.000 € bei 20 % Zinsen, nur 2 % Mindestrate</text>
+            {[
+              { jahr: "Heute", rest: 2000, x: 20 },
+              { jahr: "5 J.", rest: 1800, x: 66 },
+              { jahr: "10 J.", rest: 1400, x: 112 },
+              { jahr: "15 J.", rest: 800, x: 158 },
+              { jahr: "16 J.", rest: 0, x: 204 },
+            ].map((d, i) => {
+              const h = (d.rest / 2000) * 80
+              return (
+                <g key={i}>
+                  <rect x={d.x} y={100 - h} width="34" height={h} rx="3" fill="#ef4444" opacity={0.4 + i * 0.1} />
+                  <text x={d.x + 17} y={95 - h} textAnchor="middle" fill="#fca5a5" fontSize="7">{d.rest > 0 ? d.rest + "€" : "✓"}</text>
+                  <text x={d.x + 17} y="112" textAnchor="middle" fill="#888" fontSize="7">{d.jahr}</text>
+                </g>
+              )
+            })}
+          </svg>
+          <p style={{ color: "#ef4444", fontSize: "0.8rem", textAlign: "center" }}>16 Jahre. Über 3.800 € Zinsen gezahlt für 2.000 € Schuld.</p>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Schuldenfreiheit als Investition</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>
+            Kreditkartenschuld bei 20 % tilgen = <strong style={{ color: "#10B981" }}>20 % garantierte Rendite</strong>.
+            Kein ETF schlägt das risikobereinigt.
+          </p>
+          <div style={{ marginTop: "0.75rem", background: "#1a1a2e", borderRadius: "10px", padding: "0.75rem" }}>
+            <p style={{ color: "#888", fontSize: "0.78rem", marginBottom: "0.5rem" }}>Prioritäten:</p>
+            {["1. Notgroschen (1 Monat Minimum)", "2. Hochzinsschulden (>7 %) tilgen", "3. Notgroschen auf 3–6 Monate ausbauen", "4. Langfristig investieren (ETF)"].map((s, i) => (
+              <p key={i} style={{ color: "#ccc", fontSize: "0.8rem", lineHeight: 1.8 }}>✓ {s}</p>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #ef444433" }}>
+            <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Schulden-Audit heute:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Alle Schulden + Zinssätze auflisten<br />
+              2. Höchsten Zinssatz identifizieren<br />
+              3. Nur Mindestrate auf alle anderen<br />
+              4. Jeden freien Euro auf Schuld #1
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Schulden strategisch abbauen</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">❄️</span><p>Avalanche: höchste Zinsen zuerst – mathematisch optimal und spart am meisten</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💸</span><p>20 % Kreditkartenzinsen tilgen = 20 % garantierte Rendite – kein ETF schlägt das</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚠️</span><p>Mindestrate-Falle: 2.000 € Schuld kann 16 Jahre und 3.800 € Zinsen kosten</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L306Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [ziel, setZiel] = useState(3600)
+  const [monate, setMonate] = useState(18)
+  const monatlich = Math.round(ziel / monate)
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich wollte 'irgendwann' sparen. Mit SMART-Zielen sparte ich in 14 Monaten 4.200 €."</div>
+          <p className="cl-hook-sub">Sofia, 27 – ihr erstes konkretes Sparziel veränderte alles.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was ist ein SMART-Ziel?</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { letter: "S", word: "Spezifisch", desc: '"3.600 € für Urlaub Japan"', color: "#7C3AED" },
+              { letter: "M", word: "Messbar", desc: "In Euro bezifferbar", color: "#0EA5E9" },
+              { letter: "A", word: "Attraktiv", desc: "Persönlich bedeutsam", color: "#F59E0B" },
+              { letter: "R", word: "Realistisch", desc: "Im Rahmen deines Einkommens", color: "#10B981" },
+              { letter: "T", word: "Terminiert", desc: '"bis Sommer 2026"', color: "#ef4444" },
+            ].map(s => (
+              <div key={s.letter} style={{ display: "flex", gap: "0.6rem", alignItems: "center" }}>
+                <div style={{ width: "26px", height: "26px", borderRadius: "6px", background: s.color, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "0.9rem", color: "#fff", flexShrink: 0 }}>{s.letter}</div>
+                <div><span style={{ color: "#fff", fontWeight: 600, fontSize: "0.82rem" }}>{s.word}: </span><span style={{ color: "#888", fontSize: "0.8rem" }}>{s.desc}</span></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Dein Sparplan-Rechner</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.4rem" }}>Sparziel: <strong style={{ color: "#fff" }}>{ziel.toLocaleString("de")} €</strong></p>
+          <input type="range" min={500} max={20000} step={100} value={ziel} onChange={e => setZiel(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(ziel, 500, 20000) }} />
+          <p style={{ color: "#888", fontSize: "0.8rem", margin: "0.75rem 0 0.4rem" }}>Zeitraum: <strong style={{ color: "#fff" }}>{monate} Monate</strong></p>
+          <input type="range" min={3} max={60} step={1} value={monate} onChange={e => setMonate(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(monate, 3, 60) }} />
+          <div style={{ marginTop: "1rem", background: "#10B98122", borderRadius: "10px", padding: "0.75rem", textAlign: "center", border: "1px solid #10B98144" }}>
+            <p style={{ color: "#10B981", fontSize: "0.8rem" }}>Monatlich sparen</p>
+            <p style={{ color: "#fff", fontWeight: 800, fontSize: "1.6rem" }}>{monatlich.toLocaleString("de")} €</p>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Automatisch sparen = garantiert sparen</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Dauerauftrag am Zahltag einrichten. Das Geld ist weg bevor du es ausgeben kannst.</p>
+          <svg viewBox="0 0 260 100" style={{ width: "100%", marginTop: "0.75rem" }}>
+            <rect x="10" y="30" width="70" height="40" rx="8" fill="#1a1a2e" stroke="#7C3AED" strokeWidth="1.5" />
+            <text x="45" y="52" textAnchor="middle" fill="#7C3AED" fontSize="8" fontWeight="700">Gehalt</text>
+            <text x="45" y="63" textAnchor="middle" fill="#888" fontSize="7">z.B. 2.200 €</text>
+            <line x1="80" y1="50" x2="110" y2="50" stroke="#10B981" strokeWidth="1.5" markerEnd="url(#arrow)" strokeDasharray="4,3" />
+            <text x="95" y="44" textAnchor="middle" fill="#10B981" fontSize="7">Auto</text>
+            <rect x="110" y="30" width="70" height="40" rx="8" fill="#1a1a2e" stroke="#10B981" strokeWidth="1.5" />
+            <text x="145" y="49" textAnchor="middle" fill="#10B981" fontSize="8" fontWeight="700">Sparkonto</text>
+            <text x="145" y="61" textAnchor="middle" fill="#888" fontSize="7">{monatlich.toLocaleString("de")} €/Mon</text>
+            <line x1="180" y1="50" x2="210" y2="50" stroke="#0EA5E9" strokeWidth="1.5" strokeDasharray="4,3" />
+            <rect x="210" y="30" width="42" height="40" rx="8" fill="#1a1a2e" stroke="#0EA5E9" strokeWidth="1.5" />
+            <text x="231" y="49" textAnchor="middle" fill="#0EA5E9" fontSize="7" fontWeight="700">Rest</text>
+            <text x="231" y="61" textAnchor="middle" fill="#888" fontSize="6.5">für Leben</text>
+          </svg>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Mehrere Ziele gleichzeitig</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { name: "Notgroschen", ziel: 5400, aktuell: 5400, color: "#10B981" },
+              { name: "Urlaub Japan", ziel: 3600, aktuell: 2100, color: "#F59E0B" },
+              { name: "Laptop", ziel: 1200, aktuell: 400, color: "#0EA5E9" },
+              { name: "ETF-Rücklage", ziel: 10000, aktuell: 1800, color: "#7C3AED" },
+            ].map(z => {
+              const pct = Math.round((z.aktuell / z.ziel) * 100)
+              return (
+                <div key={z.name} style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.2rem" }}>
+                    <span style={{ color: "#ccc", fontSize: "0.78rem" }}>{z.name}</span>
+                    <span style={{ color: z.color, fontSize: "0.75rem", fontWeight: 600 }}>{pct} %</span>
+                  </div>
+                  <div style={{ background: "#0d1117", borderRadius: "4px", height: "6px" }}>
+                    <div style={{ width: `${pct}%`, height: "6px", borderRadius: "4px", background: z.color }} />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Ziele schriftlich festhalten</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Studien zeigen: <strong style={{ color: "#fff" }}>schriftliche Ziele</strong> werden mit 42 % höherer Wahrscheinlichkeit erreicht.</p>
+          <div style={{ background: "#1a1a2e", borderRadius: "10px", padding: "0.75rem", marginTop: "0.75rem", border: "1px dashed #333" }}>
+            <p style={{ color: "#7C3AED", fontSize: "0.8rem", fontWeight: 700 }}>Vorlage:</p>
+            <p style={{ color: "#ccc", fontSize: "0.82rem", lineHeight: 1.8, marginTop: "0.25rem" }}>
+              "Ich spare {monatlich} € monatlich per Dauerauftrag um bis [Datum] {ziel.toLocaleString("de")} € für [Ziel] zu haben."
+            </p>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #7C3AED33" }}>
+            <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Heute:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Ein SMART-Ziel formulieren + aufschreiben<br />
+              2. Betrag berechnen: Ziel ÷ Monate = {monatlich} €/Monat<br />
+              3. Extra-Sparkonto eröffnen (kostenlos)<br />
+              4. Dauerauftrag einrichten – fertig
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">SMART-Sparziele – konkret statt vage</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>SMART: Spezifisch · Messbar · Attraktiv · Realistisch · Terminiert</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🤖</span><p>Dauerauftrag = einmal einrichten, automatisch sparen – kein Willenskraft nötig</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📝</span><p>Schriftliche Ziele werden 42 % häufiger erreicht – einfach notieren</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L307Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [inflation, setInflation] = useState(3)
+  const jahre10 = Math.round(10000 * Math.pow(1 - inflation / 100, 10))
+  const jahre20 = Math.round(10000 * Math.pow(1 - inflation / 100, 20))
+  const rule70 = Math.round(70 / inflation)
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"10.000 € auf dem Sparbuch – ich dachte ich bin sicher. 10 Jahre später kaufte ich damit 18 % weniger."</div>
+          <p className="cl-hook-sub">Klaus, 45 – Inflation frisst stille und leise.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was ist Inflation?</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.9rem" }}>Inflation bedeutet: Preise steigen, die <strong style={{ color: "#ef4444" }}>Kaufkraft deines Geldes sinkt</strong>. Für denselben Euro bekommst du weniger.</p>
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.75rem" }}>
+            <div style={{ flex: 1, textAlign: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem" }}>
+              <p style={{ color: "#10B981", fontSize: "0.7rem" }}>2014</p>
+              <p style={{ color: "#fff", fontWeight: 700, fontSize: "1.1rem" }}>100 €</p>
+              <p style={{ color: "#888", fontSize: "0.7rem" }}>= voller Warenkorb</p>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", color: "#888", fontSize: "1.2rem" }}>→</div>
+            <div style={{ flex: 1, textAlign: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem" }}>
+              <p style={{ color: "#ef4444", fontSize: "0.7rem" }}>2024</p>
+              <p style={{ color: "#fff", fontWeight: 700, fontSize: "1.1rem" }}>100 €</p>
+              <p style={{ color: "#ef4444", fontSize: "0.7rem" }}>= ~75 % desselben</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Kaufkraftverlust bei {inflation} % Inflation</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.6rem" }}>Inflationsrate: <strong style={{ color: "#fff" }}>{inflation} %</strong></p>
+          <input type="range" min={1} max={10} step={0.5} value={inflation} onChange={e => setInflation(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(inflation, 1, 10) }} />
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
+            <div style={{ flex: 1, textAlign: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem" }}>
+              <p style={{ color: "#888", fontSize: "0.7rem" }}>Nach 10 Jahren</p>
+              <p style={{ color: jahre10 > 8000 ? "#F59E0B" : "#ef4444", fontWeight: 700, fontSize: "1.1rem" }}>{jahre10.toLocaleString("de")} €</p>
+              <p style={{ color: "#666", fontSize: "0.7rem" }}>Kaufkraft von 10.000 €</p>
+            </div>
+            <div style={{ flex: 1, textAlign: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem" }}>
+              <p style={{ color: "#888", fontSize: "0.7rem" }}>Nach 20 Jahren</p>
+              <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "1.1rem" }}>{jahre20.toLocaleString("de")} €</p>
+              <p style={{ color: "#666", fontSize: "0.7rem" }}>Kaufkraft von 10.000 €</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die Rule of 70</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.6, fontSize: "0.88rem" }}>Faustregel: <strong style={{ color: "#fff" }}>70 ÷ Inflationsrate</strong> = Jahre bis zur Halbierung der Kaufkraft</p>
+          <div style={{ marginTop: "0.75rem", background: "#ef444422", borderRadius: "10px", padding: "0.75rem", textAlign: "center", border: "1px solid #ef444444" }}>
+            <p style={{ color: "#ef4444", fontSize: "0.8rem" }}>Bei {inflation} % Inflation: Kaufkraft halbiert sich in</p>
+            <p style={{ color: "#fff", fontWeight: 800, fontSize: "1.6rem" }}>{rule70} Jahren</p>
+            <p style={{ color: "#888", fontSize: "0.75rem" }}>70 ÷ {inflation} = {rule70}</p>
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Tagesgeld schlägt Inflation nicht</h2>
+          <svg viewBox="0 0 260 130" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">10.000 € über 20 Jahre</text>
+            <polyline points="10,100 60,95 110,90 160,85 210,80 260,75" fill="none" stroke="#888" strokeWidth="1.5" strokeDasharray="4,3" />
+            <polyline points="10,100 60,108 110,117 160,110 210,105 260,90" fill="none" stroke="#F59E0B" strokeWidth="2" />
+            <polyline points="10,100 60,85 110,68 160,50 210,32 260,15" fill="none" stroke="#10B981" strokeWidth="2" />
+            <text x="265" y="78" fill="#888" fontSize="6.5" dominantBaseline="middle">Inflation</text>
+            <text x="265" y="93" fill="#F59E0B" fontSize="6.5" dominantBaseline="middle">Tagesgeld</text>
+            <text x="265" y="18" fill="#10B981" fontSize="6.5" dominantBaseline="middle">ETF ~7 %</text>
+          </svg>
+          <p style={{ color: "#888", fontSize: "0.78rem", textAlign: "center" }}>ETF schlägt Inflation langfristig zuverlässig.</p>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was schützt vor Inflation?</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { asset: "Aktien/ETFs", schutz: "Sehr gut", color: "#10B981", note: "Unternehmen passen Preise an" },
+              { asset: "Immobilien", schutz: "Gut", color: "#0EA5E9", note: "Sachwert + steigende Mieten" },
+              { asset: "Tagesgeld", schutz: "Teilweise", color: "#F59E0B", note: "Nur wenn Zins ≥ Inflation" },
+              { asset: "Girokonto", schutz: "Schlecht", color: "#ef4444", note: "0 % Zinsen, 100 % Verlust" },
+            ].map(a => (
+              <div key={a.asset} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <div><p style={{ color: "#ccc", fontSize: "0.82rem" }}>{a.asset}</p><p style={{ color: "#666", fontSize: "0.72rem" }}>{a.note}</p></div>
+                <span style={{ color: a.color, fontWeight: 700, fontSize: "0.78rem" }}>{a.schutz}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #F59E0B33" }}>
+            <p style={{ color: "#F59E0B", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Anti-Inflations-Strategie:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Notgroschen auf Tagesgeld (Inflation minimieren)<br />
+              2. Langfristig in ETFs investieren (Inflation schlagen)<br />
+              3. Girokonto nur für laufende Ausgaben nutzen<br />
+              4. Gehalt regelmäßig verhandeln (Inflationsausgleich)
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Inflation – der stille Vermögensfresser</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📉</span><p>Bei 3 % Inflation verliert 10.000 € auf dem Girokonto in 10 Jahren ~{(10000 - jahre10).toLocaleString("de")} € Kaufkraft</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">70</span><p>Rule of 70: Inflationsrate ÷ 70 = Jahre bis zur Kaufkraft-Halbierung</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📈</span><p>ETFs schlagen Inflation langfristig – Girokonto und Sparbuch nicht</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L308Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [schritt, setSchritt] = useState(0)
+  const schritte = [
+    { done: true,  label: "Notgroschen (3 Monate)", color: "#10B981" },
+    { done: false, label: "Hochzinsschulden tilgen", color: "#F59E0B" },
+    { done: false, label: "Notgroschen auf 6 Monate", color: "#0EA5E9" },
+    { done: false, label: "ETF-Sparplan starten", color: "#7C3AED" },
+    { done: false, label: "bAV & Steuer optimieren", color: "#ec4899" },
+  ]
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich hatte Tagesgeld, ETF, Schulden und keinen Notgroschen – alles gleichzeitig. Das kostet Rendite."</div>
+          <p className="cl-hook-sub">David, 33 – die richtige Reihenfolge macht den Unterschied.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die Finanzpyramide</h2>
+          <svg viewBox="0 0 260 160" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <polygon points="130,10 10,150 250,150" fill="none" stroke="#333" strokeWidth="1" />
+            <line x1="40" y1="110" x2="220" y2="110" stroke="#333" strokeWidth="0.5" />
+            <line x1="70" y1="70" x2="190" y2="70" strokeWidth="0.5" stroke="#333" />
+            <line x1="100" y1="42" x2="160" y2="42" strokeWidth="0.5" stroke="#333" />
+            <text x="130" y="145" textAnchor="middle" fill="#10B981" fontSize="8.5" fontWeight="700">Notgroschen + Basis-Versicherungen</text>
+            <text x="130" y="105" textAnchor="middle" fill="#F59E0B" fontSize="8">Schulden tilgen (Hochzins)</text>
+            <text x="130" y="65" textAnchor="middle" fill="#0EA5E9" fontSize="7.5">ETFs / Altersvorsorge</text>
+            <text x="130" y="38" textAnchor="middle" fill="#7C3AED" fontSize="7">Steuer optimieren</text>
+            <text x="130" y="22" textAnchor="middle" fill="#ec4899" fontSize="6.5">Avanciert</text>
+          </svg>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Dein Finanzplan – Schritt für Schritt</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {schritte.map((s, i) => (
+              <div key={i} onClick={() => setSchritt(i)} style={{ display: "flex", alignItems: "center", gap: "0.6rem", background: schritt === i ? "#1a1a2e" : "#0d1117", borderRadius: "8px", padding: "0.55rem 0.75rem", border: schritt === i ? `1px solid ${s.color}44` : "1px solid transparent", cursor: "pointer" }}>
+                <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: s.done ? s.color : "#1a1a2e", border: `2px solid ${s.color}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  {s.done && <span style={{ color: "#fff", fontSize: "0.6rem" }}>✓</span>}
+                </div>
+                <span style={{ color: s.done ? s.color : "#888", fontSize: "0.82rem" }}>{i + 1}. {s.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Warum Reihenfolge wichtig ist</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Beispiel: Lisa investiert in ETFs bevor sie 15 %-Schulden tilgt. Sie erzielt 7 % Rendite und zahlt gleichzeitig 15 % Zinsen.</p>
+          <div style={{ marginTop: "0.75rem", background: "#ef444422", borderRadius: "10px", padding: "0.75rem", textAlign: "center" }}>
+            <p style={{ color: "#ef4444", fontSize: "0.82rem" }}>Netto-Effekt:</p>
+            <p style={{ color: "#fff", fontWeight: 800, fontSize: "1.2rem" }}>–8 % p.a.</p>
+            <p style={{ color: "#888", fontSize: "0.75rem" }}>7 % Rendite – 15 % Zinsen = Verlust</p>
+          </div>
+          <p style={{ color: "#10B981", fontSize: "0.82rem", marginTop: "0.6rem" }}>Erst Hochzinsschulden tilgen, dann investieren = garantiert besseres Ergebnis.</p>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was eine gute Basis aussieht</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              ["✅", "Haftpflichtversicherung", "~5 €/Monat"],
+              ["✅", "Notgroschen (3–6 Monate)", "sofort verfügbar"],
+              ["✅", "Keine Hochzinsschulden", ">7 % Zinsen"],
+              ["✅", "Freistellungsauftrag gestellt", "1.000 €/Jahr"],
+              ["✅", "ETF-Sparplan aktiv", "ab 25 €/Monat"],
+            ].map(([ic, name, note]) => (
+              <div key={name} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#10B98111", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <span style={{ color: "#ccc", fontSize: "0.82rem" }}>{ic} {name}</span>
+                <span style={{ color: "#10B981", fontSize: "0.75rem" }}>{note}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Häufige Fehler vermeiden</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { fehler: "Zu früh zu komplex", loesung: "Erst einfach anfangen – World-ETF reicht für den Start" },
+              { fehler: "Alles auf einmal", loesung: "Eine Stufe nach der anderen – Pyramide von unten aufbauen" },
+              { fehler: "Zu lange warten", loesung: "Perfekt ist der Feind von gut – mit 50 €/Monat starten" },
+              { fehler: "Einzelaktien vor ETF", loesung: "ETF-Basis zuerst, dann optionale Einzelaktien" },
+            ].map(f => (
+              <div key={f.fehler} style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+                <p style={{ color: "#ef4444", fontSize: "0.78rem" }}>❌ {f.fehler}</p>
+                <p style={{ color: "#10B981", fontSize: "0.78rem" }}>✅ {f.loesung}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #10B98133" }}>
+            <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Dein Finanzplan-Check heute:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Notgroschen vorhanden? (min. 1 Monat)<br />
+              2. Hochzinsschulden (&gt;7 %) identifiziert?<br />
+              3. Haftpflichtversicherung aktiv?<br />
+              4. Freistellungsauftrag gestellt?<br />
+              5. Sparplan eingerichtet?
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Dein persönlicher Finanzplan</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🏗️</span><p>Reihenfolge: Notgroschen → Schulden → Investieren – nicht umgekehrt</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚡</span><p>Hochzinsschulden tilgen = garantierte Rendite – besser als jeder ETF</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Finanzpyramide: Basis zuerst – Komplexität erst wenn das Fundament steht</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L604Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [gebuehr, setGebuehr] = useState(7.9)
+  const jahresKosten = Math.round(gebuehr * 12)
+  const kosten10J = jahresKosten * 10
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"8 Jahre lang zahlte ich 7,90 €/Monat für ein Konto das ich kostenlos haben könnte. Das sind 758 €."</div>
+          <p className="cl-hook-sub">Sandra, 30 – ein 10-Minuten-Wechsel hätte es verhindert.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was kostet dein Konto wirklich?</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Monatliche Kontogebühr: <strong style={{ color: "#fff" }}>{gebuehr.toFixed(2)} €</strong></p>
+          <input type="range" min={0} max={20} step={0.5} value={gebuehr} onChange={e => setGebuehr(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(gebuehr, 0, 20) }} />
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem", textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.7rem" }}>Pro Jahr</p>
+              <p style={{ color: "#F59E0B", fontWeight: 700, fontSize: "1.2rem" }}>{jahresKosten} €</p>
+            </div>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem", textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.7rem" }}>10 Jahre</p>
+              <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "1.2rem" }}>{kosten10J} €</p>
+            </div>
+          </div>
+          {gebuehr === 0 && <p style={{ color: "#10B981", fontSize: "0.82rem", marginTop: "0.6rem", textAlign: "center" }}>Super – du zahlst bereits nichts!</p>}
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Kostenlose Girokonten im Vergleich</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { bank: "DKB", gebühr: "0 €", bedingung: "Aktives Konto", besonderheit: "Visa-Karte weltweit kostenlos" },
+              { bank: "ING", gebühr: "0 €", bedingung: "700 €/Monat Eingang", besonderheit: "Große Markenbank" },
+              { bank: "Trade Republic", gebühr: "0 €", bedingung: "Keine", besonderheit: "3 % Zinsen auf Guthaben" },
+              { bank: "Consorsbank", gebühr: "0 €", bedingung: "700 €/Monat Eingang", besonderheit: "Depot inklusive" },
+            ].map(b => (
+              <div key={b.bank} style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <span style={{ color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}>{b.bank}</span>
+                  <span style={{ color: "#10B981", fontWeight: 700, fontSize: "0.82rem" }}>{b.gebühr}</span>
+                </div>
+                <p style={{ color: "#666", fontSize: "0.72rem", marginTop: "0.1rem" }}>{b.bedingung} · {b.besonderheit}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Worauf bei "kostenlosen" Konten achten?</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            {[
+              { punkt: "Mindestgeldeingang", detail: "Oft 500–700 €/Monat erforderlich – sonst Gebühren", warn: true },
+              { punkt: "Girokarten-Gebühren", detail: "Manche verlangen Jahresgebühr für EC-/Kreditkarte", warn: true },
+              { punkt: "Überziehungszinsen", detail: "Auch kostenlose Konten haben teuren Dispo (10–15 %)", warn: true },
+              { punkt: "Einlagensicherung", detail: "Alle deutschen Banken: 100.000 € gesetzlich gesichert", warn: false },
+            ].map(p => (
+              <div key={p.punkt} style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem", borderLeft: `3px solid ${p.warn ? "#F59E0B" : "#10B981"}` }}>
+                <p style={{ color: "#fff", fontSize: "0.82rem", fontWeight: 600 }}>{p.warn ? "⚠️" : "✅"} {p.punkt}</p>
+                <p style={{ color: "#888", fontSize: "0.75rem" }}>{p.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Girokonto-Wechsel: So einfach geht's</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            {[
+              { step: "1", desc: "Neues Konto online beantragen (10 Min.)", color: "#7C3AED" },
+              { step: "2", desc: "Video-Ident oder Post-Ident legitimieren", color: "#0EA5E9" },
+              { step: "3", desc: "Daueraufträge + Lastschriften umstellen", color: "#F59E0B" },
+              { step: "4", desc: "Altes Konto kündigen (Banken helfen seit 2016 gesetzlich)", color: "#10B981" },
+            ].map(s => (
+              <div key={s.step} style={{ display: "flex", gap: "0.6rem", alignItems: "center" }}>
+                <div style={{ width: "24px", height: "24px", borderRadius: "50%", background: s.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "0.75rem", fontWeight: 700, color: "#fff" }}>{s.step}</div>
+                <p style={{ color: "#ccc", fontSize: "0.82rem" }}>{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Zusatzleistungen die sich lohnen</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              ["💳", "Kreditkarte ohne Auslandsgebühr", "Spart 1,75 % bei Auslandszahlungen"],
+              ["🏦", "Tagesgeld integriert", "Direkt verzinstes Unterkonto"],
+              ["📊", "Ausgaben-Kategorisierung", "Automatisches Tracking"],
+              ["🔔", "Push-Benachrichtigungen", "Sofort über Buchungen informiert"],
+            ].map(([ic, feat, note]) => (
+              <div key={feat} style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start", background: "#1a1a2e", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <span style={{ fontSize: "1rem" }}>{ic}</span>
+                <div><p style={{ color: "#ccc", fontSize: "0.8rem" }}>{feat}</p><p style={{ color: "#666", fontSize: "0.72rem" }}>{note}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #10B98133" }}>
+            <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Dein 10-Minuten-Wechsel:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Kontogebühr prüfen (Kontoauszug)<br />
+              2. DKB, ING oder Trade Republic vergleichen<br />
+              3. Konto online eröffnen<br />
+              4. Spart {jahresKosten} €/Jahr sofort
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Girokonto optimieren – einfaches Geld</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💶</span><p>Filialbank-Girokonto kostet 60–120 €/Jahr – kostenlose Alternativen genauso gut</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚠️</span><p>Bei "kostenlosen" Konten: Mindestgeldeingang und Dispo-Zinsen prüfen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🔄</span><p>Wechsel dauert ~10 Minuten – Banken sind seit 2016 gesetzlich zur Wechselhilfe verpflichtet</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L605Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [schuld, setSchuld] = useState(2000)
+  const [zins] = useState(20)
+  const mindestRate = Math.round(schuld * 0.02)
+  const jahreAbzahlung = Math.ceil(Math.log(1 - (schuld * (zins / 100 / 12)) / mindestRate) / Math.log(1 + zins / 100 / 12) * -1 / 12)
+  const gesamtKosten = Math.round(mindestRate * jahreAbzahlung * 12)
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich dachte die Kreditkarte wäre für Notfälle. Drei Jahre Mindestraten später – die Schuld war noch da."</div>
+          <p className="cl-hook-sub">Mike, 28 – 2.000 € die sich nie abbezahlten.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wie Kreditkarten-Zinsen funktionieren</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Kreditkarten bieten einen Puffer. Wenn du den <strong style={{ color: "#10B981" }}>Saldo monatlich vollständig begleichst</strong>: kostenloser Kredit für 30–56 Tage.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", gap: "0.5rem" }}>
+            <div style={{ flex: 1, background: "#10B98122", borderRadius: "8px", padding: "0.6rem", textAlign: "center" }}>
+              <p style={{ color: "#10B981", fontSize: "0.72rem", fontWeight: 700 }}>Saldo vollständig zahlen</p>
+              <p style={{ color: "#fff", fontWeight: 700, fontSize: "1.1rem" }}>0 €</p>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Zinsen pro Monat</p>
+            </div>
+            <div style={{ flex: 1, background: "#ef444422", borderRadius: "8px", padding: "0.6rem", textAlign: "center" }}>
+              <p style={{ color: "#ef4444", fontSize: "0.72rem", fontWeight: 700 }}>Nur Mindestrate zahlen</p>
+              <p style={{ color: "#fff", fontWeight: 700, fontSize: "1.1rem" }}>~{Math.round(schuld * 0.2 / 12)} €</p>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Zinsen/Monat bei {schuld.toLocaleString("de")} €</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die Mindestrate-Falle berechnet</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Schuld: <strong style={{ color: "#fff" }}>{schuld.toLocaleString("de")} €</strong> bei {zins} % Zinsen</p>
+          <input type="range" min={500} max={8000} step={100} value={schuld} onChange={e => setSchuld(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(schuld, 500, 8000) }} />
+          <div style={{ marginTop: "0.75rem", background: "#ef444422", borderRadius: "10px", padding: "0.75rem", display: "flex", gap: "1rem", justifyContent: "space-around" }}>
+            <div style={{ textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.7rem" }}>Mindestrate</p>
+              <p style={{ color: "#fca5a5", fontWeight: 700, fontSize: "1rem" }}>{mindestRate} €/Mon</p>
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.7rem" }}>Abbezahlt in</p>
+              <p style={{ color: "#fca5a5", fontWeight: 700, fontSize: "1rem" }}>~{isFinite(jahreAbzahlung) ? jahreAbzahlung : 30}+ J.</p>
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.7rem" }}>Gesamtkosten</p>
+              <p style={{ color: "#fca5a5", fontWeight: 700, fontSize: "1rem" }}>{isFinite(gesamtKosten) ? gesamtKosten.toLocaleString("de") : "∞"} €</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wann sind Kreditkarten sinnvoll?</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { use: "Auslandsreisen", note: "Keine Fremdwährungsgebühren (z.B. DKB Visa)", ok: true },
+              { use: "Reiseversicherung", note: "Manche Premium-Karten inkl. Auslandskrankenvers.", ok: true },
+              { use: "Cashback/Punkte", note: "Nur wenn Saldo monatlich vollständig beglichen", ok: true },
+              { use: "Laufende Ausgaben", note: "Wenn man in Ratenzahlung verfällt: gefährlich", ok: false },
+              { use: "Notfallfonds-Ersatz", note: "Kreditkarte ≠ Notgroschen – Schulden entstehen", ok: false },
+            ].map(u => (
+              <div key={u.use} style={{ display: "flex", gap: "0.5rem", alignItems: "flex-start", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <span style={{ color: u.ok ? "#10B981" : "#ef4444", fontSize: "0.85rem" }}>{u.ok ? "✅" : "❌"}</span>
+                <div><p style={{ color: "#ccc", fontSize: "0.8rem" }}>{u.use}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{u.note}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Gute Kreditkarten (kostenlos)</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { name: "DKB Visa", vorteil: "Weltweit kostenlos abheben & zahlen", preis: "0 €/Jahr" },
+              { name: "Barclays Visa", vorteil: "2 % Cashback auf Auslandsumsätze", preis: "0 €/Jahr" },
+              { name: "Trade Republic Card", vorteil: "1 % Cashback als Aktien-Fractional", preis: "0 €/Jahr" },
+              { name: "Payback Amex", vorteil: "Punkte auf jeden Einkauf", preis: "0 €/Jahr" },
+            ].map(k => (
+              <div key={k.name} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+                <div><p style={{ color: "#fff", fontSize: "0.82rem", fontWeight: 600 }}>{k.name}</p><p style={{ color: "#666", fontSize: "0.72rem" }}>{k.vorteil}</p></div>
+                <span style={{ color: "#10B981", fontWeight: 700, fontSize: "0.8rem" }}>{k.preis}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wenn du schon Kreditkartenschulden hast</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            <div style={{ background: "#0EA5E922", borderRadius: "8px", padding: "0.6rem 0.75rem" }}>
+              <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.82rem" }}>Option 1: Ratenkredit umschulden</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Kredit bei 5–8 % Zinsen aufnehmen und Kreditkarte vollständig tilgen</p>
+            </div>
+            <div style={{ background: "#7C3AED22", borderRadius: "8px", padding: "0.6rem 0.75rem" }}>
+              <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.82rem" }}>Option 2: 0 %-Kreditkarte (Balance Transfer)</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Neue Karte ohne Zinsen für 6–18 Monate – in dieser Zeit tilgen</p>
+            </div>
+            <div style={{ background: "#10B98122", borderRadius: "8px", padding: "0.6rem 0.75rem" }}>
+              <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.82rem" }}>Option 3: Alles freie Geld auf Schulden</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Avalanche-Methode – maximale Tilgung sofort beginnen</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #0EA5E933" }}>
+            <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Kreditkarten-Audit:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Offener Saldo und Zinssatz prüfen<br />
+              2. Saldo ≠ 0 € → sofort maximale Tilgung<br />
+              3. Dauerauftrag: immer vollen Saldo zahlen<br />
+              4. Kreditkarte = Zahlungsmittel, kein Kredit
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Kreditkarten: Werkzeug oder Falle</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">✅</span><p>Immer vollständig zahlen = kostenloser Kredit + Vorteile (Cashback, Versicherungen)</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚠️</span><p>Nur Mindestrate: 2.000 € Schuld kostet bei 20 % über 16 Jahre mehr als 3.800 € Zinsen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🔄</span><p>Kreditkartenschulden? Sofort umschulden oder maximale Tilgung starten</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L606Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Mein Wohnungskredit wurde abgelehnt. Grund: Ich hatte 3 Kreditanfragen im selben Monat gestellt."</div>
+          <p className="cl-hook-sub">Jan, 32 – die SCHUFA-Falle die kaum jemand kennt.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was ist die SCHUFA?</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Die SCHUFA (<strong style={{ color: "#fff" }}>Schutzgemeinschaft für allgemeine Kreditsicherung</strong>) ist eine private Auskunftei. Sie sammelt Daten über deine Kredithistorie und verkauft diese als Bonitätsscore an Banken, Vermieter und Unternehmen.</p>
+          <div style={{ marginTop: "0.75rem", background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem 0.75rem" }}>
+            <p style={{ color: "#F59E0B", fontSize: "0.8rem", fontWeight: 700 }}>Wichtig zu wissen:</p>
+            <p style={{ color: "#888", fontSize: "0.78rem", lineHeight: 1.6 }}>• Privatunternehmen, nicht staatlich<br />• Kein Zugriff ohne deinen indirekten Hinweis (Kontoerhöhungen, Anfragen)<br />• Du hast Recht auf kostenlose Selbstauskunft jährlich</p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">SCHUFA-Score Skala</h2>
+          <svg viewBox="0 0 260 110" style={{ width: "100%", marginTop: "0.5rem" }}>
+            {[
+              { von: 97.5, label: "Sehr gut", color: "#10B981", x: 10 },
+              { von: 95, label: "Gut", color: "#84cc16", x: 68 },
+              { von: 90, label: "Befriedigend", color: "#F59E0B", x: 126 },
+              { von: 80, label: "Ausreichend", color: "#ef8c34", x: 184 },
+              { bis: 80, label: "Kritisch", color: "#ef4444", x: 184 },
+            ].slice(0, 4).map((s, i) => (
+              <g key={i}>
+                <rect x={10 + i * 60} y="20" width="54" height="60" rx="6" fill={s.color} opacity="0.2" stroke={s.color} strokeWidth="1" />
+                <text x={10 + i * 60 + 27} y="47" textAnchor="middle" fill={s.color} fontSize="9" fontWeight="700">{s.label}</text>
+                <text x={10 + i * 60 + 27} y="62" textAnchor="middle" fill={s.color} fontSize="7.5">{["97,5–100","95–97,5","90–95","80–90"][i]} %</text>
+              </g>
+            ))}
+            <text x="130" y="100" textAnchor="middle" fill="#888" fontSize="7">Höher = besser = günstigere Konditionen</text>
+          </svg>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was schadet dem SCHUFA-Score?</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { schlecht: "Zahlungsausfälle / Mahnungen", impact: "Sehr stark" },
+              { schlecht: "Mehrere Kreditanfragen gleichzeitig", impact: "Mittel" },
+              { schlecht: "Häufiges Kontowechseln", impact: "Gering" },
+              { schlecht: "Viele Kreditkarten gleichzeitig", impact: "Gering" },
+              { schlecht: "Schufafremde Anfragen (Konditionsanfragen)", impact: "Keine" },
+            ].map(p => (
+              <div key={p.schlecht} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <span style={{ color: "#ccc", fontSize: "0.78rem" }}>❌ {p.schlecht}</span>
+                <span style={{ color: p.impact === "Sehr stark" ? "#ef4444" : p.impact === "Mittel" ? "#F59E0B" : "#888", fontSize: "0.72rem", fontWeight: 600 }}>{p.impact}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was hilft dem Score?</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              ["✅", "Rechnungen pünktlich bezahlen", "Wichtigster Faktor"],
+              ["✅", "Langjährige Bankverbindung beibehalten", "Stabile Kontohistorie"],
+              ["✅", "Wenige, gut geführte Kredite", "Zuverlässig tilgen"],
+              ["✅", "Kreditanfragen als Konditionsanfragen stellen", "Keine Schufa-Spur"],
+              ["✅", "Fehler in der Selbstauskunft korrigieren lassen", "Jährlich prüfen"],
+            ].map(([ic, name, note]) => (
+              <div key={name} style={{ display: "flex", gap: "0.5rem", background: "#10B98111", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <span style={{ color: "#10B981" }}>{ic}</span>
+                <div><p style={{ color: "#ccc", fontSize: "0.8rem" }}>{name}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{note}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Kostenlose SCHUFA-Selbstauskunft</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Du hast das <strong style={{ color: "#fff" }}>Recht auf eine kostenlose Datenkopie</strong> einmal pro Jahr (Art. 15 DSGVO).</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            <div style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#10B981", fontSize: "0.8rem", fontWeight: 700 }}>Wie beantragen?</p>
+              <p style={{ color: "#aaa", fontSize: "0.78rem" }}>meineSCHUFA.de → "Datenkopie nach Art. 15 DSGVO" – <strong style={{ color: "#fff" }}>NICHT</strong> die kostenpflichtige "BonitätsAuskunft" kaufen</p>
+            </div>
+            <div style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#F59E0B", fontSize: "0.8rem", fontWeight: 700 }}>Was prüfen?</p>
+              <p style={{ color: "#aaa", fontSize: "0.78rem" }}>Falsche Einträge (falsche Adresse, erledigte Schulden die noch drin stehen), veraltete Daten</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #F59E0B33" }}>
+            <p style={{ color: "#F59E0B", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Heute:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. SCHUFA-Selbstauskunft beantragen (kostenlos)<br />
+              2. Einträge auf Fehler prüfen<br />
+              3. Bei Kredit-Anfragen: "Konditionsanfrage" verlangen<br />
+              4. Alle Rechnungen per Dauerauftrag – nie verpassen
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">SCHUFA – dein Ruf bei Banken</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📊</span><p>SCHUFA-Score bestimmt Kredit-Konditionen und Wohnungssuche – kennen und pflegen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🆓</span><p>Kostenlose Selbstauskunft: Art. 15 DSGVO – jährlich prüfen und Fehler korrigieren</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚠️</span><p>Mehrere Kreditanfragen gleichzeitig schaden – immer als "Konditionsanfrage" stellen</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L607Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [betrag, setBetrag] = useState(10000)
+  const [laufzeit, setLaufzeit] = useState(5)
+  const [zins, setZins] = useState(8)
+  const monatszins = zins / 100 / 12
+  const anzahl = laufzeit * 12
+  const monatsRate = betrag * monatszins / (1 - Math.pow(1 + monatszins, -anzahl))
+  const gesamtZahlung = monatsRate * anzahl
+  const gesamtZinsen = gesamtZahlung - betrag
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"10.000 € Kredit. 'Nur' 8 % Zinsen. Ich dachte ich zahle 800 € Zinsen. Es waren 2.160 €."</div>
+          <p className="cl-hook-sub">Felix, 29 – Zinseszins funktioniert gegen dich bei Schulden.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Nominalzins vs. Effektivzins</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            <div style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem 0.75rem", borderLeft: "3px solid #F59E0B" }}>
+              <p style={{ color: "#F59E0B", fontWeight: 700, fontSize: "0.85rem" }}>Nominalzins (Lockvogel)</p>
+              <p style={{ color: "#aaa", fontSize: "0.78rem", lineHeight: 1.5 }}>Nur der reine Zinssatz ohne Nebenkosten. Banken bewerben immer den niedrigeren Nominalzins.</p>
+            </div>
+            <div style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem 0.75rem", borderLeft: "3px solid #ef4444" }}>
+              <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.85rem" }}>Effektivzins (die Wahrheit)</p>
+              <p style={{ color: "#aaa", fontSize: "0.78rem", lineHeight: 1.5 }}>Inklusive aller Gebühren und Zinseszins-Effekte. <strong style={{ color: "#fff" }}>Nur dieser zählt für den Vergleich.</strong></p>
+            </div>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Kredit-Rechner</h2>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginBottom: "0.3rem" }}>Betrag: <strong style={{ color: "#fff" }}>{betrag.toLocaleString("de")} €</strong></p>
+          <input type="range" min={1000} max={50000} step={500} value={betrag} onChange={e => setBetrag(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(betrag, 1000, 50000) }} />
+          <p style={{ color: "#888", fontSize: "0.78rem", margin: "0.5rem 0 0.3rem" }}>Laufzeit: <strong style={{ color: "#fff" }}>{laufzeit} Jahre</strong></p>
+          <input type="range" min={1} max={10} step={1} value={laufzeit} onChange={e => setLaufzeit(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(laufzeit, 1, 10) }} />
+          <p style={{ color: "#888", fontSize: "0.78rem", margin: "0.5rem 0 0.3rem" }}>Zinssatz: <strong style={{ color: "#fff" }}>{zins} % p.a.</strong></p>
+          <input type="range" min={1} max={25} step={0.5} value={zins} onChange={e => setZins(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(zins, 1, 25) }} />
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.75rem" }}>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem", textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Monatsrate</p>
+              <p style={{ color: "#fff", fontWeight: 700 }}>{Math.round(monatsRate).toLocaleString("de")} €</p>
+            </div>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem", textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Zinslast gesamt</p>
+              <p style={{ color: "#ef4444", fontWeight: 700 }}>{Math.round(gesamtZinsen).toLocaleString("de")} €</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wie Banken an Krediten verdienen</h2>
+          <svg viewBox="0 0 260 120" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">{betrag.toLocaleString("de")} € Kredit · {zins} % p.a. · {laufzeit} Jahre</text>
+            <rect x="10" y="25" width="240" height="30" rx="6" fill="#1a1a2e" />
+            <rect x="10" y="25" width={Math.round((betrag / (betrag + gesamtZinsen)) * 240)} height="30" rx="6" fill="#0EA5E9" opacity="0.8" />
+            <rect x={10 + Math.round((betrag / (betrag + gesamtZinsen)) * 240)} y="25" width={240 - Math.round((betrag / (betrag + gesamtZinsen)) * 240)} height="30" rx="6" fill="#ef4444" opacity="0.8" />
+            <text x="130" y="45" textAnchor="middle" fill="white" fontSize="8" fontWeight="700">Tilgung {betrag.toLocaleString("de")} € vs. Zinsen {Math.round(gesamtZinsen).toLocaleString("de")} €</text>
+            <text x="70" y="70" textAnchor="middle" fill="#0EA5E9" fontSize="7">zurückgezahlt</text>
+            <text x="190" y="70" textAnchor="middle" fill="#ef4444" fontSize="7">Bankgewinn</text>
+            <text x="130" y="90" textAnchor="middle" fill="#888" fontSize="7.5">Gesamtzahlung: {Math.round(gesamtZahlung).toLocaleString("de")} €</text>
+          </svg>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Zinsen vergleichen – so richtig</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { typ: "Baufinanzierung", zins: "3–5 %", note: "Niedrig dank Immobiliensicherheit" },
+              { typ: "Autokredit", zins: "4–7 %", note: "Mittelfeld" },
+              { typ: "Ratenkredit", zins: "5–12 %", note: "Je nach Bonität" },
+              { typ: "Dispokredit", zins: "10–15 %", note: "Teuer – vermeiden" },
+              { typ: "Kreditkarte (Ratenzahlung)", zins: "15–25 %", note: "Sehr teuer – sofort tilgen" },
+            ].map(k => (
+              <div key={k.typ} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <div><p style={{ color: "#ccc", fontSize: "0.8rem" }}>{k.typ}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{k.note}</p></div>
+                <span style={{ color: parseFloat(k.zins) > 9 ? "#ef4444" : parseFloat(k.zins) > 6 ? "#F59E0B" : "#10B981", fontWeight: 700, fontSize: "0.8rem" }}>{k.zins}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Sondertilgung – dein Geheimvorteil</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Viele Kreditverträge erlauben <strong style={{ color: "#fff" }}>jährliche Sondertilgungen</strong> (oft 5–10 % der ursprünglichen Kreditsumme).</p>
+          <div style={{ marginTop: "0.75rem", background: "#10B98122", borderRadius: "10px", padding: "0.75rem" }}>
+            <p style={{ color: "#10B981", fontSize: "0.82rem", fontWeight: 700 }}>Beispiel: 1.000 € Sondertilgung im 1. Jahr</p>
+            <p style={{ color: "#aaa", fontSize: "0.78rem", lineHeight: 1.6, marginTop: "0.25rem" }}>Bei {betrag.toLocaleString("de")} € Kredit und {zins} % Zinsen: spart ~{Math.round(1000 * zins / 100 * laufzeit * 0.6).toLocaleString("de")} € Zinsen und {Math.round(laufzeit * 1.8)} Monate Laufzeit</p>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #0EA5E933" }}>
+            <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Kredit smart wählen:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Immer effektiven Jahreszins vergleichen<br />
+              2. Kreditrechner benutzen (check24.de)<br />
+              3. Sondertilgungsoption aushandeln<br />
+              4. Dispo nie als langfristigen Kredit nutzen
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Zinsen verstehen – Macht des Wissens</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📊</span><p>Effektivzins (nicht Nominalzins) ist die einzige echte Vergleichsgröße</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💸</span><p>Zinseszins wirkt gegen dich bei Schulden – Kredit schnell tilgen spart viel</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Sondertilgungen nutzen – jeder extra Euro auf die Schuld spart künftige Zinsen</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L608Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [activeStep, setActiveStep] = useState(0)
+  const schritte = [
+    { title: "Broker vergleichen", desc: "Trade Republic, Scalable, DKB – Kosten, ETF-Auswahl, Sparplan ab?", done: true },
+    { title: "Konto beantragen", desc: "Online-Formular ausfüllen (15 Min.) – IBAN + Personalausweis bereit", done: false },
+    { title: "Video-Ident / Post-Ident", desc: "Identifizierung per App oder Postfiliale", done: false },
+    { title: "Freistellungsauftrag stellen", desc: "Bis 1.000 € Kapitalerträge steuerfrei – sofort einstellen!", done: false },
+    { title: "Ersten ETF-Sparplan einrichten", desc: "MSCI World oder FTSE All World, ab 25 €/Monat", done: false },
+  ]
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich schob die Depot-Eröffnung 2 Jahre lang auf. Es dauerte dann 8 Minuten. 8 Minuten."</div>
+          <p className="cl-hook-sub">Theresa, 27 – die teuerste Prokrastination ihres Lebens.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was ist ein Depot?</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Ein Depot ist ein <strong style={{ color: "#fff" }}>Konto für Wertpapiere</strong> (ETFs, Aktien, Anleihen). Wie ein Girokonto – aber statt Geld lagern dort deine Investments.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", gap: "0.5rem" }}>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem", textAlign: "center" }}>
+              <p style={{ color: "#0EA5E9", fontSize: "0.7rem", fontWeight: 700 }}>Neobroker</p>
+              <p style={{ color: "#fff", fontSize: "0.82rem", fontWeight: 700, marginTop: "0.25rem" }}>0–1 €/Trade</p>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Trade Republic, Scalable, justETF</p>
+            </div>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem", textAlign: "center" }}>
+              <p style={{ color: "#7C3AED", fontSize: "0.7rem", fontWeight: 700 }}>Klassische Bank</p>
+              <p style={{ color: "#fff", fontSize: "0.82rem", fontWeight: 700, marginTop: "0.25rem" }}>5–15 €/Trade</p>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Comdirect, DKB, ING</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Depot eröffnen – Schritt für Schritt</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {schritte.map((s, i) => (
+              <div key={i} onClick={() => setActiveStep(i)} style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start", background: activeStep === i ? "#1a1a2e" : "#0d1117", borderRadius: "8px", padding: "0.5rem 0.75rem", border: activeStep === i ? "1px solid #0EA5E944" : "1px solid transparent", cursor: "pointer" }}>
+                <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: i < activeStep ? "#10B981" : i === activeStep ? "#0EA5E9" : "#1a1a2e", border: "2px solid " + (i <= activeStep ? (i < activeStep ? "#10B981" : "#0EA5E9") : "#333"), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "0.65rem", color: "#fff", fontWeight: 700 }}>
+                  {i < activeStep ? "✓" : i + 1}
+                </div>
+                <div><p style={{ color: i <= activeStep ? "#fff" : "#888", fontSize: "0.8rem", fontWeight: 600 }}>{s.title}</p><p style={{ color: "#666", fontSize: "0.72rem" }}>{s.desc}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Freistellungsauftrag – 1.000 € steuerfrei</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Der Sparerpauschbetrag beträgt <strong style={{ color: "#fff" }}>1.000 € pro Jahr</strong> (2.000 € für Ehepaare). Alles darunter: keine Kapitalertragsteuer.</p>
+          <div style={{ marginTop: "0.75rem", background: "#10B98122", borderRadius: "10px", padding: "0.75rem" }}>
+            <p style={{ color: "#10B981", fontSize: "0.82rem", fontWeight: 700 }}>Wichtig:</p>
+            <p style={{ color: "#aaa", fontSize: "0.78rem", lineHeight: 1.6 }}>• Bei mehreren Depots aufteilen (max. 1.000 € gesamt)<br />• Sofort bei Depot-Eröffnung einstellen<br />• Vergessen = ~264 € Steuern auf 1.000 € Gewinn verschenkt</p>
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Welches Depot für Anfänger?</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { name: "Trade Republic", note: "Ab 1 € Sparplan · 3 % Zinsen auf Cash · App-First", empfohlen: true },
+              { name: "Scalable Capital", note: "Viele ETFs · kostenlose Sparpläne · Web + App", empfohlen: true },
+              { name: "DKB Broker", note: "Kostenlos bei Aktivkonto · bewährt · große Bank", empfohlen: false },
+              { name: "Comdirect", note: "Große Auswahl · guter Service · höhere Kosten", empfohlen: false },
+            ].map(d => (
+              <div key={d.name} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem", border: d.empfohlen ? "1px solid #10B98133" : "1px solid transparent" }}>
+                <div><p style={{ color: "#fff", fontSize: "0.82rem", fontWeight: 600 }}>{d.name}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{d.note}</p></div>
+                {d.empfohlen && <span style={{ color: "#10B981", fontSize: "0.7rem", fontWeight: 700 }}>★ Top</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was du brauchst – Checkliste</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              ["✅", "Personalausweis oder Reisepass", "Pflicht für Identifizierung"],
+              ["✅", "Steuerliche Identifikationsnummer", "11-stellige Zahl aus Steuerbescheid"],
+              ["✅", "IBAN deines Girokontos", "Für Einzahlungen"],
+              ["✅", "E-Mail-Adresse", "Für Account + Unterlagen"],
+              ["❌", "Einkommensnachweis", "Nicht erforderlich!"],
+            ].map(([ic, name, note]) => (
+              <div key={name} style={{ display: "flex", gap: "0.5rem", background: ic === "✅" ? "#10B98111" : "#ef444411", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <span style={{ color: ic === "✅" ? "#10B981" : "#ef4444" }}>{ic}</span>
+                <div><p style={{ color: "#ccc", fontSize: "0.8rem" }}>{name}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{note}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #10B98133" }}>
+            <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Heute in 15 Minuten:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Trade Republic oder Scalable Capital öffnen<br />
+              2. Konto beantragen + Ident durchführen<br />
+              3. Freistellungsauftrag auf 1.000 € setzen<br />
+              4. Ersten Sparplan: iShares Core MSCI World ETF, 25 €/Monat
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">ETF-Depot – dein Einstieg in den Vermögensaufbau</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⏱️</span><p>Depot eröffnen dauert 10–15 Minuten – kein Grund mehr zum Warten</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🆓</span><p>Freistellungsauftrag sofort stellen – 1.000 € Kapitalerträge jährlich steuerfrei</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🚀</span><p>Neobroker ab 1 € Sparplan – kein Mindestbetrag der aufhält</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L704Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [homeoffice, setHomeoffice] = useState(100)
+  const [fahrtKm, setFahrtKm] = useState(20)
+  const [fahrtTage, setFahrtTage] = useState(220)
+  const hoErsparnis = Math.min(homeoffice, 210) * 6
+  const fahrtErsparnis = Math.round(fahrtKm * fahrtTage * 0.3 * 0.42)
+  const gesamt = hoErsparnis + fahrtErsparnis + 1230
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich dachte die Steuererklärung lohnt sich nicht. Das Finanzamt überwies mir 1.287 €."</div>
+          <p className="cl-hook-sub">Melanie, 28 – ihr erster Versuch mit ELSTER.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Lohnt sich die Steuererklärung?</h2>
+          <svg viewBox="0 0 260 120" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">Durchschnittliche Steuererstattung in Deutschland</text>
+            {[
+              { gruppe: "Arbeitnehmer", betrag: 1072, color: "#10B981" },
+              { gruppe: "Homeoffice-Nutzer", betrag: 1350, color: "#0EA5E9" },
+              { gruppe: "Pendler", betrag: 1580, color: "#7C3AED" },
+            ].map((d, i) => {
+              const w = (d.betrag / 1580) * 200
+              return (
+                <g key={i}>
+                  <text x="5" y={33 + i * 32} fill="#888" fontSize="7.5" dominantBaseline="middle">{d.gruppe}</text>
+                  <rect x="90" y={23 + i * 32} width="200" height="18" rx="4" fill="#1a1a2e" />
+                  <rect x="90" y={23 + i * 32} width={w} height="18" rx="4" fill={d.color} opacity="0.8" />
+                  <text x={90 + w - 4} y={33 + i * 32} textAnchor="end" fill="white" fontSize="8" fontWeight="700" dominantBaseline="middle">{d.betrag.toLocaleString("de")} €</text>
+                </g>
+              )
+            })}
+          </svg>
+          <p style={{ color: "#10B981", fontSize: "0.8rem", textAlign: "center", marginTop: "0.5rem" }}>Bis zu 4 Jahre rückwirkend möglich – fang am besten jetzt an.</p>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Deine Abzüge schätzen</h2>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginBottom: "0.3rem" }}>Homeoffice-Tage: <strong style={{ color: "#fff" }}>{homeoffice}</strong> (max. 210 × 6 €)</p>
+          <input type="range" min={0} max={250} step={10} value={homeoffice} onChange={e => setHomeoffice(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(homeoffice, 0, 250) }} />
+          <p style={{ color: "#888", fontSize: "0.78rem", margin: "0.5rem 0 0.3rem" }}>Pendelweg (km einfach): <strong style={{ color: "#fff" }}>{fahrtKm} km</strong></p>
+          <input type="range" min={0} max={60} step={1} value={fahrtKm} onChange={e => setFahrtKm(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(fahrtKm, 0, 60) }} />
+          <div style={{ marginTop: "0.75rem", background: "#10B98122", borderRadius: "10px", padding: "0.6rem", textAlign: "center" }}>
+            <p style={{ color: "#10B981", fontSize: "0.8rem" }}>Geschätzte Abzüge</p>
+            <p style={{ color: "#fff", fontWeight: 800, fontSize: "1.4rem" }}>{gesamt.toLocaleString("de")} €</p>
+            <p style={{ color: "#888", fontSize: "0.7rem" }}>Arbeitnehmer-Pauschbetrag + HO + Pendler</p>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die wichtigsten Abzüge</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { name: "Arbeitnehmer-Pauschbetrag", betrag: "1.230 €", auto: "Automatisch – kein Nachweis" },
+              { name: "Homeoffice-Pauschale", betrag: "6 €/Tag", auto: "Max. 210 Tage = 1.260 €/Jahr" },
+              { name: "Fahrtkosten", betrag: "0,30 €/km", auto: "Ab km 21: 0,38 €/km" },
+              { name: "Fortbildung/Bücher", betrag: "Voll absetzbar", auto: "Belege aufheben" },
+              { name: "Gewerkschaftsbeitrag", betrag: "Voll absetzbar", auto: "Direkt in ELSTER eintragen" },
+            ].map(a => (
+              <div key={a.name} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <div><p style={{ color: "#ccc", fontSize: "0.78rem" }}>{a.name}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{a.auto}</p></div>
+                <span style={{ color: "#10B981", fontWeight: 700, fontSize: "0.78rem", flexShrink: 0 }}>{a.betrag}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">ELSTER – kostenlos und einfach</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            {[
+              { step: "1", desc: "elster.de – kostenloses Konto anlegen", color: "#7C3AED" },
+              { step: "2", desc: "Steuerformular auswählen: Anlage N (Arbeitnehmer)", color: "#0EA5E9" },
+              { step: "3", desc: "Lohnsteuerbescheinigung vom Arbeitgeber eingeben", color: "#F59E0B" },
+              { step: "4", desc: "Werbungskosten, Homeoffice, Pendler eintragen", color: "#10B981" },
+              { step: "5", desc: "Abschicken – Erstattung in 4–8 Wochen", color: "#ec4899" },
+            ].map(s => (
+              <div key={s.step} style={{ display: "flex", gap: "0.6rem", alignItems: "center" }}>
+                <div style={{ width: "22px", height: "22px", borderRadius: "50%", background: s.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "0.7rem", fontWeight: 700, color: "#fff" }}>{s.step}</div>
+                <p style={{ color: "#ccc", fontSize: "0.8rem" }}>{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">4 Jahre rückwirkend holen</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Die freiwillige Steuererklärung kann <strong style={{ color: "#fff" }}>4 Jahre rückwirkend</strong> abgegeben werden.</p>
+          <div style={{ marginTop: "0.75rem", background: "#0EA5E922", borderRadius: "10px", padding: "0.75rem" }}>
+            <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.82rem" }}>Beispiel: 4 Jahre × 1.072 € =</p>
+            <p style={{ color: "#fff", fontWeight: 800, fontSize: "1.4rem", marginTop: "0.25rem" }}>4.288 € Erstattung</p>
+            <p style={{ color: "#888", fontSize: "0.75rem" }}>Einfach 4 Erklärungen hintereinander einreichen</p>
+          </div>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginTop: "0.6rem" }}>Frist: 31.7. des Folgejahres für die Pflichtabgabe, freiwillig bis 4 Jahre danach.</p>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #10B98133" }}>
+            <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Diese Woche:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. ELSTER-Konto anlegen (kostenlos)<br />
+              2. Lohnsteuerbescheinigung vom Arbeitgeber<br />
+              3. Homeoffice-Tage zählen<br />
+              4. Letzte 4 Jahre nachholen = ~{(4 * 1072).toLocaleString("de")} € möglich
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Steuererklärung – einfaches Geld</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💶</span><p>Durchschnittliche Erstattung: 1.072 € – für ~2 Stunden Aufwand</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🏠</span><p>Homeoffice: 6 €/Tag, max. 210 Tage = bis 1.260 € absetzbar</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⏮️</span><p>4 Jahre rückwirkend einreichbar – bis zu ~4.000 € Nachholpotenzial</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L705Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [kinder, setKinder] = useState(0)
+  const grundzulage = 175
+  const kinderzulage = kinder * 300
+  const gesamtzulage = grundzulage + kinderzulage
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Mein Riester-Berater sagte nie wie hoch die Kosten sind. 2,5 % jährlich – das vernichtet die Förderung."</div>
+          <p className="cl-hook-sub">Stefan, 38 – der Kostencheck kam 10 Jahre zu spät.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Riester-Rente: Was ist das?</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Riester ist eine staatlich geförderte private Altersvorsorge für <strong style={{ color: "#fff" }}>sozialversicherungspflichtige Arbeitnehmer</strong> mit Zulagen und Steuervorteilen.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            <div style={{ background: "#10B98122", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#10B981", fontSize: "0.8rem", fontWeight: 700 }}>Was der Staat zahlt:</p>
+              <p style={{ color: "#aaa", fontSize: "0.78rem" }}>Grundzulage 175 € + 300 € je Kind nach 2008 + Steuervorteil</p>
+            </div>
+            <div style={{ background: "#ef444422", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#ef4444", fontSize: "0.8rem", fontWeight: 700 }}>Was du zahlen musst:</p>
+              <p style={{ color: "#aaa", fontSize: "0.78rem" }}>4 % deines Vorjahres-Bruttogehalts (max. 2.100 €/Jahr) abzgl. Zulagen</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Deine staatliche Förderung</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Anzahl Kinder (nach 2008 geboren): <strong style={{ color: "#fff" }}>{kinder}</strong></p>
+          <input type="range" min={0} max={4} step={1} value={kinder} onChange={e => setKinder(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(kinder, 0, 4) }} />
+          <div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <span style={{ color: "#ccc", fontSize: "0.82rem" }}>Grundzulage</span>
+              <span style={{ color: "#10B981", fontWeight: 700 }}>{grundzulage} €</span>
+            </div>
+            {kinder > 0 && <div style={{ display: "flex", justifyContent: "space-between", background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <span style={{ color: "#ccc", fontSize: "0.82rem" }}>{kinder} × Kinderzulage</span>
+              <span style={{ color: "#10B981", fontWeight: 700 }}>{kinderzulage} €</span>
+            </div>}
+            <div style={{ display: "flex", justifyContent: "space-between", background: "#10B98122", borderRadius: "8px", padding: "0.5rem 0.75rem", border: "1px solid #10B98133" }}>
+              <span style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 700 }}>Gesamt jährlich</span>
+              <span style={{ color: "#10B981", fontWeight: 800, fontSize: "1rem" }}>{gesamtzulage} €</span>
+            </div>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Das Kostenproblem bei Riester</h2>
+          <svg viewBox="0 0 260 130" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">30 Jahre · 100 €/Monat · 6 % Marktrendite</text>
+            {[
+              { label: "Marktrendite", wert: 100627, color: "#10B981" },
+              { label: "ETF (0,2 % Kosten)", wert: 95500, color: "#0EA5E9" },
+              { label: "Riester (1,5 % Kosten)", wert: 78000, color: "#F59E0B" },
+              { label: "Riester (2,5 % Kosten)", wert: 65000, color: "#ef4444" },
+            ].map((d, i) => {
+              const h = (d.wert / 100627) * 90
+              const x = 15 + i * 58
+              return (
+                <g key={i}>
+                  <rect x={x} y={105 - h} width="46" height={h} rx="3" fill={d.color} opacity="0.8" />
+                  <text x={x + 23} y={100 - h} textAnchor="middle" fill="white" fontSize="7" fontWeight="700">{(d.wert / 1000).toFixed(0)}k€</text>
+                  <text x={x + 23} y="118" textAnchor="middle" fill="#888" fontSize="6.5">{d.label.split(" ")[0]}</text>
+                </g>
+              )
+            })}
+          </svg>
+          <p style={{ color: "#ef4444", fontSize: "0.78rem", textAlign: "center", marginTop: "0.25rem" }}>Kosten fressen Förderung – bei 2,5 % p.a. massiv.</p>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Für wen lohnt Riester wirklich?</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { gruppe: "Geringverdiener mit Kindern", lohnt: true, grund: "Zulagen > Eigenbeitrag – fast geschenktes Geld" },
+              { gruppe: "Normalverdiener ohne Kinder", lohnt: false, grund: "ETF nach Kosten meist besser, mehr Flexibilität" },
+              { gruppe: "Gutverdiener (>60k€/Jahr)", lohnt: false, grund: "Steuerbonus interessant, aber Kosten oft zu hoch" },
+              { gruppe: "Selbstständige / Freiberufler", lohnt: false, grund: "Kein Anrecht auf Riester-Zulage" },
+            ].map(g => (
+              <div key={g.gruppe} style={{ display: "flex", gap: "0.5rem", background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+                <span style={{ color: g.lohnt ? "#10B981" : "#ef4444" }}>{g.lohnt ? "✅" : "❌"}</span>
+                <div><p style={{ color: "#ccc", fontSize: "0.8rem" }}>{g.gruppe}</p><p style={{ color: "#666", fontSize: "0.72rem" }}>{g.grund}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Rürup (Basisrente) – für Selbstständige</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Rürup ist die Riester-Alternative für <strong style={{ color: "#fff" }}>Selbstständige und Freiberufler</strong>. Kein Zulagenmodell, aber hohe Steuerabzüge.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", gap: "0.5rem" }}>
+            <div style={{ flex: 1, background: "#0EA5E922", borderRadius: "8px", padding: "0.6rem" }}>
+              <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.75rem" }}>Riester</p>
+              <p style={{ color: "#aaa", fontSize: "0.72rem", lineHeight: 1.5, marginTop: "0.2rem" }}>Für Angestellte · Staatliche Zulagen · Max. 2.100 €/Jahr förderbar</p>
+            </div>
+            <div style={{ flex: 1, background: "#7C3AED22", borderRadius: "8px", padding: "0.6rem" }}>
+              <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.75rem" }}>Rürup</p>
+              <p style={{ color: "#aaa", fontSize: "0.72rem", lineHeight: 1.5, marginTop: "0.2rem" }}>Für Selbstständige · Steuerabzug bis 27.565 €/Jahr · Keine staatl. Zulagen</p>
+            </div>
+          </div>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginTop: "0.6rem" }}>Beide: Lebenslange Rente, nicht vererbbar, nicht kapitalisierbar.</p>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #7C3AED33" }}>
+            <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Entscheidungshilfe:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Hast du Kinder? → Riester prüfen (Zulagen rechnen)<br />
+              2. Selbstständig? → Rürup prüfen (Steuerersparnis)<br />
+              3. Angestellter ohne Kinder? → ETF-Sparplan meist besser<br />
+              4. Bestehenden Riester auf Kosten prüfen: TER &lt; 0,5 %?
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Riester & Rürup – lohnt es sich?</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">👨‍👩‍👧</span><p>Riester lohnt sich vor allem für Geringverdiener mit Kindern – Zulagen überwiegen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💸</span><p>Kosten entscheiden alles: Bei &gt;1,5 % p.a. frisst die Verwaltung die staatliche Förderung</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📈</span><p>Ohne Kinder: ETF-Sparplan schlägt Riester über 30 Jahre meist deutlich</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L706Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [brutto, setBrutto] = useState(3000)
+  const [bav, setBav] = useState(150)
+  const agZuschuss = Math.round(bav * 0.15)
+  const steuerErsparnis = Math.round(bav * 0.3)
+  const nettoKosten = bav - steuerErsparnis - Math.round(bav * 0.1)
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich zahle 200 € in die bAV ein. Der Staat und mein Chef tragen 95 € davon. Es kostet mich netto 105 €."</div>
+          <p className="cl-hook-sub">Nina, 35 – betriebliche Altersvorsorge richtig genutzt.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was ist betriebliche Altersvorsorge?</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>bAV bedeutet: Teile deines <strong style={{ color: "#fff" }}>Bruttogehalts</strong> fließen direkt in eine Altersvorsorge – bevor Steuern und Sozialabgaben abgezogen werden. Das reduziert dein zu versteuerndes Einkommen sofort.</p>
+          <div style={{ marginTop: "0.75rem", background: "#7C3AED22", borderRadius: "8px", padding: "0.6rem 0.75rem" }}>
+            <p style={{ color: "#7C3AED", fontSize: "0.82rem", fontWeight: 700 }}>Gesetzlicher Anspruch seit 2019:</p>
+            <p style={{ color: "#aaa", fontSize: "0.78rem" }}>Arbeitgeber muss mindestens <strong style={{ color: "#fff" }}>15 %</strong> des umgewandelten Betrags als Zuschuss zahlen.</p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was kostet dich die bAV wirklich?</h2>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginBottom: "0.3rem" }}>bAV-Beitrag: <strong style={{ color: "#fff" }}>{bav} €/Monat</strong></p>
+          <input type="range" min={25} max={500} step={25} value={bav} onChange={e => setBav(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(bav, 25, 500) }} />
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", marginTop: "0.75rem" }}>
+            {[
+              { label: "Brutto-Einzahlung", wert: bav, color: "#0EA5E9", plus: false },
+              { label: "AG-Zuschuss (15 %)", wert: agZuschuss, color: "#10B981", plus: true },
+              { label: "Steuerersparnis (~30 %)", wert: steuerErsparnis, color: "#10B981", plus: true },
+              { label: "Sozialabgaben-Ersparnis (~10 %)", wert: Math.round(bav * 0.1), color: "#10B981", plus: true },
+              { label: "Deine Netto-Belastung", wert: nettoKosten, color: "#fff", plus: false, bold: true },
+            ].map(r => (
+              <div key={r.label} style={{ display: "flex", justifyContent: "space-between", background: "#1a1a2e", borderRadius: "6px", padding: "0.35rem 0.6rem" }}>
+                <span style={{ color: "#aaa", fontSize: "0.78rem" }}>{r.label}</span>
+                <span style={{ color: r.color, fontWeight: r.bold ? 800 : 600, fontSize: "0.82rem" }}>{r.plus ? "–" : ""}{r.wert} €</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die 5 bAV-Durchführungswege</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { weg: "Direktversicherung", info: "Häufigste Form · Versicherungsvertrag", rating: "★★★" },
+              { weg: "Pensionskasse", info: "Kollektiv · günstiger als Direktversicherung", rating: "★★★" },
+              { weg: "Pensionsfonds", info: "Flexibler · mehr Kapitalmarktexposure", rating: "★★★★" },
+              { weg: "Unterstützungskasse", info: "Für Besserverdiener · hohe Beträge", rating: "★★" },
+              { weg: "Direktzusage", info: "Großunternehmen · Bilanzrisiko beim AG", rating: "★★" },
+            ].map(w => (
+              <div key={w.weg} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <div><p style={{ color: "#ccc", fontSize: "0.8rem" }}>{w.weg}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{w.info}</p></div>
+                <span style={{ color: "#F59E0B", fontSize: "0.75rem" }}>{w.rating}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Der Haken: Besteuerung im Rentenalter</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Heute steuerfreie Einzahlungen werden im Rentenalter <strong style={{ color: "#ef4444" }}>voll besteuert</strong>. Plus: GKV-Beiträge auf die Auszahlung.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", gap: "0.5rem" }}>
+            <div style={{ flex: 1, background: "#10B98122", borderRadius: "8px", padding: "0.6rem", textAlign: "center" }}>
+              <p style={{ color: "#10B981", fontSize: "0.72rem", fontWeight: 700 }}>Heute</p>
+              <p style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 700, marginTop: "0.2rem" }}>Steuerfrei einzahlen</p>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>~42 % Grenzsteuersatz gespart</p>
+            </div>
+            <div style={{ flex: 1, background: "#ef444422", borderRadius: "8px", padding: "0.6rem", textAlign: "center" }}>
+              <p style={{ color: "#ef4444", fontSize: "0.72rem", fontWeight: 700 }}>Im Rentenalter</p>
+              <p style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 700, marginTop: "0.2rem" }}>Voll versteuern</p>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>+GKV-Beiträge (~18,3 %)</p>
+            </div>
+          </div>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginTop: "0.6rem" }}>Lohnt sich trotzdem – besonders wenn AG-Zuschuss &gt; 15 % beträgt.</p>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">bAV – Checkliste beim Arbeitgeber</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              ["✅", "AG-Zuschuss genau anfragen (gesetzlich min. 15 %)", "Manche zahlen 20–100 %"],
+              ["✅", "Produkt und Kosten prüfen (Versicherungslösung?)", "TER &lt;1 % anstreben"],
+              ["✅", "Portabilität bei Jobwechsel klären", "Ist die Police übertragbar?"],
+              ["⚠️", "Nicht zu viel Geld in bAV binden", "Flexibilität beibehalten"],
+            ].map(([ic, act, note]) => (
+              <div key={act} style={{ display: "flex", gap: "0.5rem", background: "#1a1a2e", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <span style={{ color: ic === "✅" ? "#10B981" : "#F59E0B" }}>{ic}</span>
+                <div><p style={{ color: "#ccc", fontSize: "0.78rem" }}>{act}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{note}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #7C3AED33" }}>
+            <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Diese Woche:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. HR/Personalabteilung fragen: "Gibt es eine bAV und wie hoch ist der AG-Zuschuss?"<br />
+              2. AG-Zuschuss über 15 %? → Sofort nutzen<br />
+              3. Produkt auf Kosten prüfen<br />
+              4. Optimal: bAV + ETF-Sparplan kombinieren
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">bAV – kostenlose Rentenerhöhung</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🏢</span><p>Arbeitgeber muss mind. 15 % Zuschuss zahlen – das ist gesetzlich garantiert</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💶</span><p>Brutto einzahlen spart Steuern und Sozialabgaben heute – Effektivkosten oft unter 60 %</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚠️</span><p>Im Rentenalter voll versteuern + GKV – trotzdem meist lohnenswert bei hohem AG-Zuschuss</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L707Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [nebenEink, setNebenEink] = useState(800)
+  const pflicht = nebenEink > 410
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich verkaufte alte Sachen auf eBay – 3.200 € im Jahr. Dann kam das Finanzamt."</div>
+          <p className="cl-hook-sub">Bernd, 40 – was als Aufräumen begann, wurde steuerpflichtig.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Freigrenze vs. Freibetrag</h2>
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
+            <div style={{ flex: 1, background: "#ef444422", borderRadius: "8px", padding: "0.6rem", borderTop: "2px solid #ef4444" }}>
+              <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.8rem" }}>Freigrenze</p>
+              <p style={{ color: "#aaa", fontSize: "0.72rem", lineHeight: 1.5, marginTop: "0.2rem" }}>1 € darüber: <strong style={{ color: "#fff" }}>alles</strong> wird steuerpflichtig. 410 € bei sonstigen Einkünften.</p>
+            </div>
+            <div style={{ flex: 1, background: "#10B98122", borderRadius: "8px", padding: "0.6rem", borderTop: "2px solid #10B981" }}>
+              <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.8rem" }}>Freibetrag</p>
+              <p style={{ color: "#aaa", fontSize: "0.72rem", lineHeight: 1.5, marginTop: "0.2rem" }}>Der Betrag bleibt steuerfrei – <strong style={{ color: "#fff" }}>nur der Rest</strong> wird versteuert.</p>
+            </div>
+          </div>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginTop: "0.6rem" }}>Bei Nebeneinkünften gilt die Freigrenze von 410 €. Bei 411 € bist du komplett dabei.</p>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Dein Nebeneinkommen prüfen</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Jährliches Nebeneinkommen: <strong style={{ color: "#fff" }}>{nebenEink.toLocaleString("de")} €</strong></p>
+          <input type="range" min={0} max={5000} step={50} value={nebenEink} onChange={e => setNebenEink(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(nebenEink, 0, 5000) }} />
+          <div style={{ marginTop: "0.75rem", background: pflicht ? "#ef444422" : "#10B98122", borderRadius: "10px", padding: "0.75rem", textAlign: "center", border: `1px solid ${pflicht ? "#ef444433" : "#10B98133"}` }}>
+            {pflicht ? (
+              <>
+                <p style={{ color: "#ef4444", fontWeight: 700 }}>⚠️ Steuerpflichtig!</p>
+                <p style={{ color: "#ccc", fontSize: "0.82rem", marginTop: "0.25rem" }}>Über 410 € Freigrenze – in Steuererklärung angeben</p>
+              </>
+            ) : (
+              <>
+                <p style={{ color: "#10B981", fontWeight: 700 }}>✅ Unter Freigrenze</p>
+                <p style={{ color: "#ccc", fontSize: "0.82rem", marginTop: "0.25rem" }}>Unter 410 € – keine Steuerpflicht für Gelegenheitseinkünfte</p>
+              </>
+            )}
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Häufige Nebeneinkünfte im Überblick</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { typ: "Freelancer-Arbeit", steuer: "Ab 1 €", note: "Gewerbliche Einkünfte immer steuerpflichtig" },
+              { typ: "eBay-Privatverkäufe", steuer: "Bei gewerblichem Charakter", note: "Gelegentlich ok – regelmäßig = Gewerbe" },
+              { typ: "Gelegenheitsjobs", steuer: "Freigrenze 410 €/Jahr", note: "§ 22 Nr. 3 EStG" },
+              { typ: "Vermietung Zimmer/Wohnung", steuer: "Einkommensteuerpflichtig", note: "AirBnB etc. = steuerpflichtiger Betrieb" },
+              { typ: "ETF-Gewinne/Dividenden", steuer: "Abgeltungssteuer 25 %", note: "Freistellungsauftrag nutzen" },
+            ].map(t => (
+              <div key={t.typ} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <div><p style={{ color: "#ccc", fontSize: "0.78rem" }}>{t.typ}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{t.note}</p></div>
+                <span style={{ color: "#F59E0B", fontSize: "0.72rem", flexShrink: 0, maxWidth: "80px", textAlign: "right" }}>{t.steuer}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Kleinunternehmerregelung (§19 UStG)</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Wenn du selbstständig tätig bist: Unter <strong style={{ color: "#fff" }}>22.000 €/Jahr Umsatz</strong> musst du keine Umsatzsteuer ausweisen.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            <div style={{ background: "#10B98122", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.8rem" }}>Vorteil Kleinunternehmer</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Keine Umsatzsteuer-Abführung, einfachere Buchhaltung</p>
+            </div>
+            <div style={{ background: "#ef444422", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.8rem" }}>Nachteil</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Kein Vorsteuerabzug – bei hohen Betriebskosten kann Regelbesteuerung besser sein</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Ausgaben als Betriebsausgaben absetzen</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { ausgabe: "Laptop / Hardware", info: "Sofortabschreibung bis 800 € netto" },
+              { ausgabe: "Homeoffice-Anteil", info: "Bei selbstständiger Tätigkeit absetzbar" },
+              { ausgabe: "Fachliteratur / Kurse", info: "Voll absetzbar bei Berufsbezug" },
+              { ausgabe: "Telefon / Internet (anteilig)", info: "Betrieblicher Anteil absetzbar" },
+              { ausgabe: "Fahrtkosten zu Kunden", info: "0,30 € je km oder Fahrtenbuch" },
+            ].map(a => (
+              <div key={a.ausgabe} style={{ display: "flex", gap: "0.5rem", background: "#10B98111", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <span style={{ color: "#10B981" }}>✅</span>
+                <div><p style={{ color: "#ccc", fontSize: "0.78rem" }}>{a.ausgabe}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{a.info}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #F59E0B33" }}>
+            <p style={{ color: "#F59E0B", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Nebeneinkünfte korrekt deklarieren:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Alle Quellen und Beträge dokumentieren<br />
+              2. Über 410 €? → Anlage SO in ELSTER<br />
+              3. Gewerbliche Tätigkeit? → Gewerbe anmelden<br />
+              4. Ausgaben immer gegenrechnen
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Nebeneinkünfte & Steuern – richtig machen</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚠️</span><p>Freigrenze 410 €: Ein Euro darüber und der gesamte Betrag wird steuerpflichtig</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🏪</span><p>Kleinunternehmer bis 22.000 €/Jahr: keine Umsatzsteuer, einfache Buchführung</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📉</span><p>Betriebsausgaben immer gegenrechnen – senkt die Steuerlast erheblich</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L708Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [gewinn, setGewinn] = useState(2000)
+  const [verlust, setVerlust] = useState(500)
+  const nettoGewinn = Math.max(0, gewinn - verlust)
+  const steuerOhne = Math.round(gewinn * 0.26375)
+  const steuerMit = Math.round(nettoGewinn * 0.26375)
+  const ersparnis = steuerOhne - steuerMit
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich verkaufte ETFs mit 3.000 € Gewinn und 1.200 € Verlust. Durch Tax-Loss-Harvesting sparte ich 316 €."</div>
+          <p className="cl-hook-sub">Kai, 36 – legale Steueroptimierung für Investoren.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Tax-Loss-Harvesting einfach erklärt</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Strategie: <strong style={{ color: "#fff" }}>Verluste bewusst realisieren</strong> um sie mit Gewinnen zu verrechnen und dadurch Steuern zu senken.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            <div style={{ background: "#0EA5E922", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.8rem" }}>Schritt 1: Verlust-ETF verkaufen</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Position mit -500 € realisieren – Verlust gebucht</p>
+            </div>
+            <div style={{ background: "#10B98122", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.8rem" }}>Schritt 2: Verrechnen</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Verlust wird mit Gewinnen verrechnet – steuerpflichtiger Gewinn sinkt</p>
+            </div>
+            <div style={{ background: "#7C3AED22", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.8rem" }}>Schritt 3: Ähnliches kaufen</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Ähnlichen ETF (nicht gleichen!) sofort zurückkaufen – Strategie bleibt</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Steuerersparnis berechnen</h2>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginBottom: "0.3rem" }}>Realisierter Gewinn: <strong style={{ color: "#fff" }}>{gewinn.toLocaleString("de")} €</strong></p>
+          <input type="range" min={500} max={10000} step={100} value={gewinn} onChange={e => setGewinn(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(gewinn, 500, 10000) }} />
+          <p style={{ color: "#888", fontSize: "0.78rem", margin: "0.5rem 0 0.3rem" }}>Verrechneter Verlust: <strong style={{ color: "#fff" }}>{verlust.toLocaleString("de")} €</strong></p>
+          <input type="range" min={0} max={Math.min(gewinn, 5000)} step={100} value={Math.min(verlust, gewinn)} onChange={e => setVerlust(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(verlust, 0, 5000) }} />
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.75rem" }}>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem", textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Steuer ohne</p>
+              <p style={{ color: "#ef4444", fontWeight: 700 }}>{steuerOhne.toLocaleString("de")} €</p>
+            </div>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem", textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Steuer mit</p>
+              <p style={{ color: "#F59E0B", fontWeight: 700 }}>{steuerMit.toLocaleString("de")} €</p>
+            </div>
+            <div style={{ flex: 1, background: "#10B98122", borderRadius: "8px", padding: "0.5rem", textAlign: "center", border: "1px solid #10B98133" }}>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Ersparnis</p>
+              <p style={{ color: "#10B981", fontWeight: 700 }}>{ersparnis.toLocaleString("de")} €</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Freistellungsauftrag optimal verteilen</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.6, fontSize: "0.88rem" }}>1.000 € Sparerpauschbetrag pro Person – <strong style={{ color: "#fff" }}>aufteilen nach erwartetem Ertrag</strong>.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            {[
+              { konto: "Trade Republic Depot", ertrag: "~350 €", fsa: "350 €" },
+              { konto: "Scalable Depot", ertrag: "~200 €", fsa: "200 €" },
+              { konto: "DKB Tagesgeld", ertrag: "~300 €", fsa: "300 €" },
+              { konto: "ING Girokonto Zinsen", ertrag: "~150 €", fsa: "150 €" },
+            ].map(k => (
+              <div key={k.konto} style={{ display: "flex", justifyContent: "space-between", background: "#1a1a2e", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <span style={{ color: "#ccc", fontSize: "0.78rem" }}>{k.konto}</span>
+                <div style={{ textAlign: "right" }}>
+                  <span style={{ color: "#888", fontSize: "0.72rem" }}>Ertrag: {k.ertrag} · </span>
+                  <span style={{ color: "#10B981", fontSize: "0.78rem", fontWeight: 600 }}>FSA: {k.fsa}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die Günstigerprüfung nutzen</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Wer einen <strong style={{ color: "#fff" }}>persönlichen Steuersatz unter 25 %</strong> hat, kann in der Steuererklärung beantragen dass Kapitalerträge mit dem niedrigeren Satz versteuert werden.</p>
+          <div style={{ marginTop: "0.75rem", background: "#0EA5E922", borderRadius: "10px", padding: "0.75rem" }}>
+            <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.82rem" }}>Für wen relevant?</p>
+            <p style={{ color: "#aaa", fontSize: "0.78rem", lineHeight: 1.5, marginTop: "0.25rem" }}>• Geringverdiener (unter ~15.000 € im Jahr)<br />• Studenten mit Nebeneinkünften<br />• Rentner mit niedrigem Renteneinkommen<br />• Eltern in Elternzeit</p>
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Verlustverrechnungstopf verstehen</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.6, fontSize: "0.88rem" }}>Banken führen automatisch Verlustverrechnungstöpfe. Verluste aus ETF-Verkäufen werden gegen ETF-Gewinne desselben Jahres verrechnet.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            <div style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#F59E0B", fontWeight: 700, fontSize: "0.8rem" }}>Topf 1: Aktien</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Nur gegen Aktiengewinne verrechenbar</p>
+            </div>
+            <div style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.8rem" }}>Topf 2: Sonstige (ETFs, Zinsen)</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Gegen alle Kapitalerträge außer Aktiengewinne</p>
+            </div>
+            <div style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#888", fontSize: "0.75rem" }}>Verbleibende Verluste → automatisch ins nächste Jahr vorgetragen</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #7C3AED33" }}>
+            <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Jahresend-Checkliste (Oktober/November):</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Freistellungsauftrag ausgeschöpft? Falls nicht: ausnutzen<br />
+              2. Unrealisierte Verluste im Depot? → TLH prüfen<br />
+              3. Günstigerprüfung bei niedrigem Einkommen stellen<br />
+              4. Verluste bankübertragen wenn Bankwechsel geplant
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Steueroptimierung – legale Rendite-Steigerung</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">✂️</span><p>Tax-Loss-Harvesting: Verluste realisieren + verrechnen spart echte Steuer-Euros</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📋</span><p>Freistellungsauftrag optimal auf alle Konten verteilen – 1.000 € steuerfrei nutzen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🔍</span><p>Günstigerprüfung: Bei persönlichem Steuersatz &lt; 25 % in der Erklärung beantragen</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L803Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich wollte in Immobilien investieren. Aber eine Wohnung? Keine Chance. Dann entdeckte ich REITs."</div>
+          <p className="cl-hook-sub">Julia, 26 – investiert seit 3 Jahren in Immobilien ab 1 €.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was ist ein REIT?</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Ein <strong style={{ color: "#fff" }}>Real Estate Investment Trust</strong> ist eine börsengehandelte Gesellschaft die Immobilien kauft, verwaltet und Mieteinnahmen als Dividende ausschüttet.</p>
+          <div style={{ marginTop: "0.75rem", background: "#0EA5E922", borderRadius: "10px", padding: "0.75rem" }}>
+            <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.82rem" }}>Gesetzliche Pflicht:</p>
+            <p style={{ color: "#aaa", fontSize: "0.78rem", lineHeight: 1.6 }}>REITs müssen <strong style={{ color: "#fff" }}>mindestens 90 % ihrer Gewinne</strong> als Dividende ausschütten. Das macht sie zu verlässlichen Ausschüttern.</p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">REIT vs. direkte Immobilie</h2>
+          <svg viewBox="0 0 260 140" style={{ width: "100%", marginTop: "0.5rem" }}>
+            {[
+              { kriterium: "Einstieg", reit: "Ab 1 €", direkt: "100k€+" },
+              { kriterium: "Liquidität", reit: "Täglich handelbar", direkt: "Monate/Jahre" },
+              { kriterium: "Diversifikation", reit: "Viele Objekte", direkt: "1 Objekt" },
+              { kriterium: "Verwaltung", reit: "Keine", direkt: "Viel Aufwand" },
+              { kriterium: "Rendite p.a.", reit: "4–8 %", direkt: "3–6 %" },
+            ].map((k, i) => (
+              <g key={i}>
+                <text x="5" y={18 + i * 26} fill="#888" fontSize="7.5" dominantBaseline="middle">{k.kriterium}</text>
+                <rect x="75" y={10 + i * 26} width="85" height="18" rx="4" fill="#0EA5E922" />
+                <text x="117" y={21 + i * 26} textAnchor="middle" fill="#0EA5E9" fontSize="7.5" fontWeight="600">{k.reit}</text>
+                <rect x="165" y={10 + i * 26} width="90" height="18" rx="4" fill="#1a1a2e" />
+                <text x="210" y={21 + i * 26} textAnchor="middle" fill="#888" fontSize="7.5">{k.direkt}</text>
+              </g>
+            ))}
+            <text x="117" y="140" textAnchor="middle" fill="#0EA5E9" fontSize="7">REIT</text>
+            <text x="210" y="140" textAnchor="middle" fill="#888" fontSize="7">Direkt</text>
+          </svg>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">REIT-Typen und bekannte Beispiele</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { typ: "Wohn-REITs", bsp: "Vonovia (DE), AvalonBay (US)", color: "#10B981" },
+              { typ: "Büro-REITs", bsp: "Boston Properties, Alstria (DE)", color: "#0EA5E9" },
+              { typ: "Logistik-REITs", bsp: "Prologis – Amazon-Lager", color: "#7C3AED" },
+              { typ: "Healthcare-REITs", bsp: "Welltower – Pflegeheime", color: "#ec4899" },
+              { typ: "Diversifiziert via ETF", bsp: "iShares STOXX Europe 600 REITS", color: "#F59E0B" },
+            ].map(t => (
+              <div key={t.typ} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <span style={{ color: t.color, fontSize: "0.8rem", fontWeight: 600 }}>{t.typ}</span>
+                <span style={{ color: "#666", fontSize: "0.72rem", maxWidth: "120px", textAlign: "right" }}>{t.bsp}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Besteuerung von REITs in Deutschland</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>REIT-Ausschüttungen werden wie normale Dividenden behandelt: <strong style={{ color: "#fff" }}>Abgeltungssteuer 25 % + Soli = 26,375 %</strong>.</p>
+          <div style={{ marginTop: "0.75rem", background: "#F59E0B22", borderRadius: "10px", padding: "0.75rem" }}>
+            <p style={{ color: "#F59E0B", fontWeight: 700, fontSize: "0.82rem" }}>Teilfreistellung beachten:</p>
+            <p style={{ color: "#aaa", fontSize: "0.78rem", lineHeight: 1.5 }}>Bei REIT-ETFs gilt die 60 %-Teilfreistellung für Aktienfonds – effektiv nur ~15,8 % Steuern auf die Ausschüttung.</p>
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">REIT-ETFs: Diversifiziert und einfach</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { name: "iShares Developed Real Estate ETF", isin: "IE00B1FZS350", ter: "0,59 %", typ: "Weltweite REITs" },
+              { name: "STOXX Europe 600 Real Estate", isin: "IE00B0M63953", ter: "0,46 %", typ: "Europäische REITs" },
+              { name: "Vanguard Real Estate ETF", isin: "US9229085538", ter: "0,12 %", typ: "US-REITs (USD)" },
+            ].map(e => (
+              <div key={e.name} style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <span style={{ color: "#fff", fontSize: "0.78rem", fontWeight: 600 }}>{e.typ}</span>
+                  <span style={{ color: "#10B981", fontSize: "0.75rem" }}>TER {e.ter}</span>
+                </div>
+                <p style={{ color: "#666", fontSize: "0.7rem", marginTop: "0.15rem" }}>{e.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #0EA5E933" }}>
+            <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>REIT-Einstieg in 10 Minuten:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Bestehendes Depot öffnen<br />
+              2. ISIN IE00B1FZS350 suchen (iShares Global REIT)<br />
+              3. Als Sparplan ab 25 €/Monat einrichten<br />
+              4. Diversifikation zum bestehenden ETF-Portfolio
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">REITs – Immobilien für alle</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🏢</span><p>REITs: Immobilien-Investment ab 1 € – täglich handelbar, keine Verwaltungsarbeit</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💰</span><p>Pflichtausschüttung 90 %+ der Gewinne – verlässliche Dividendenzahler</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📊</span><p>REIT-ETF statt Einzeltitel: weltweite Diversifikation ab TER 0,12 %</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L804Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [kaufpreis, setKaufpreis] = useState(300000)
+  const [sparrate, setSparrate] = useState(800)
+  const nebenkosten = Math.round(kaufpreis * 0.1)
+  const ekZiel = Math.round(kaufpreis * 0.2 + nebenkosten)
+  const monate = Math.ceil(ekZiel / sparrate)
+  const jahre = (monate / 12).toFixed(1)
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Wir sparten 7 Jahre für das Eigenkapital. Jetzt zahlen wir 600 € weniger Zinsen im Monat als Nachbarn ohne EK."</div>
+          <p className="cl-hook-sub">Thomas & Maria, 34/33 – der lange Atem hat sich gelohnt.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Warum Eigenkapital entscheidend ist</h2>
+          <svg viewBox="0 0 260 120" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">300.000 € Kaufpreis – Zinssatz je nach Eigenkapital</text>
+            {[
+              { ek: "5 % EK", zins: "4,5 %", moRate: 1645, color: "#ef4444" },
+              { ek: "20 % EK", zins: "3,5 %", moRate: 1347, color: "#F59E0B" },
+              { ek: "30 % EK", zins: "3,0 %", moRate: 1062, color: "#10B981" },
+            ].map((d, i) => {
+              const h = (d.moRate / 1645) * 80
+              const x = 30 + i * 75
+              return (
+                <g key={i}>
+                  <rect x={x} y={100 - h} width="55" height={h} rx="4" fill={d.color} opacity="0.8" />
+                  <text x={x + 27} y={95 - h} textAnchor="middle" fill="white" fontSize="8" fontWeight="700">{d.moRate.toLocaleString("de")} €</text>
+                  <text x={x + 27} y="112" textAnchor="middle" fill="#888" fontSize="7">{d.ek}</text>
+                  <text x={x + 27} y="120" textAnchor="middle" fill={d.color} fontSize="6.5">{d.zins} p.a.</text>
+                </g>
+              )
+            })}
+          </svg>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Dein EK-Sparplan</h2>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginBottom: "0.3rem" }}>Kaufpreis: <strong style={{ color: "#fff" }}>{kaufpreis.toLocaleString("de")} €</strong></p>
+          <input type="range" min={100000} max={800000} step={10000} value={kaufpreis} onChange={e => setKaufpreis(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(kaufpreis, 100000, 800000) }} />
+          <p style={{ color: "#888", fontSize: "0.78rem", margin: "0.5rem 0 0.3rem" }}>Monatliche Sparrate: <strong style={{ color: "#fff" }}>{sparrate.toLocaleString("de")} €</strong></p>
+          <input type="range" min={100} max={3000} step={50} value={sparrate} onChange={e => setSparrate(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(sparrate, 100, 3000) }} />
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.75rem" }}>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem", textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>EK-Ziel (30 %)</p>
+              <p style={{ color: "#F59E0B", fontWeight: 700 }}>{ekZiel.toLocaleString("de")} €</p>
+            </div>
+            <div style={{ flex: 1, background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem", textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Dauer</p>
+              <p style={{ color: "#10B981", fontWeight: 700 }}>{jahre} Jahre</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Kaufnebenkosten – die oft vergessenen Kosten</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { pos: "Grunderwerbsteuer", wert: "3,5–6,5 %", note: "Je nach Bundesland (Bayern 3,5 %, Berlin 6 %)" },
+              { pos: "Notar & Grundbuch", wert: "~1,5 %", note: "Gesetzlich geregelt" },
+              { pos: "Maklergebühr", wert: "0–3,57 %", note: "Seit 2020 je 50 % geteilt" },
+              { pos: "Summe Nebenkosten", wert: "5–12 %", note: "Muss aus Eigenkapital kommen!" },
+            ].map(p => (
+              <div key={p.pos} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <div><p style={{ color: "#ccc", fontSize: "0.78rem" }}>{p.pos}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{p.note}</p></div>
+                <span style={{ color: "#F59E0B", fontWeight: 700, fontSize: "0.8rem", flexShrink: 0 }}>{p.wert}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wo EK ansparen?</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { ort: "Tagesgeld", info: "Für kurzfristige EK-Ziele (&lt;3 Jahre)", rating: 5, color: "#10B981" },
+              { ort: "Festgeld", info: "Fester Zinssatz bei definierten Zeithorizonten", rating: 4, color: "#0EA5E9" },
+              { ort: "ETF-Sparplan", info: "Bei Horizon &gt;5 Jahre – höhere Rendite, mehr Risiko", rating: 4, color: "#7C3AED" },
+              { ort: "Bausparvertrag", info: "Zinssicherung – lohnt bei niedrigem Marktzins", rating: 3, color: "#F59E0B" },
+            ].map(o => (
+              <div key={o.ort} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <div><p style={{ color: "#ccc", fontSize: "0.8rem" }}>{o.ort}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{o.info}</p></div>
+                <span style={{ color: o.color, fontSize: "0.78rem" }}>{"★".repeat(o.rating) + "☆".repeat(5 - o.rating)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">KfW-Förderung nutzen</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Die KfW (Kreditanstalt für Wiederaufbau) bietet <strong style={{ color: "#fff" }}>vergünstigte Darlehen</strong> für Eigenheimkäufer an.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            {[
+              { prog: "Wohneigentumsprogramm (KfW 124)", note: "Bis 100.000 € günstiger Kredit für Erstkäufer" },
+              { prog: "Energieeffizient Sanieren (KfW 151)", note: "Für Modernisierungen – Zuschuss + günstiger Kredit" },
+              { prog: "Klimafreundlicher Neubau (KfW 297/298)", note: "Für Neubauten mit hohem Energiestandard" },
+            ].map(p => (
+              <div key={p.prog} style={{ background: "#10B98111", borderRadius: "8px", padding: "0.5rem 0.75rem", borderLeft: "3px solid #10B981" }}>
+                <p style={{ color: "#10B981", fontSize: "0.78rem", fontWeight: 600 }}>{p.prog}</p>
+                <p style={{ color: "#888", fontSize: "0.72rem" }}>{p.note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #F59E0B33" }}>
+            <p style={{ color: "#F59E0B", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>EK-Aufbau starten:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Kaufpreisvorstellung definieren<br />
+              2. EK-Ziel berechnen (20 % + ~10 % Nebenkosten)<br />
+              3. Dauerauftrag auf separates Tagesgeldkonto<br />
+              4. Bei &gt;5 Jahren: ETF-Sparplan erwägen
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Eigenkapital – der Schlüssel zur günstigen Finanzierung</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🏦</span><p>20 % EK + ~10 % Nebenkosten = 30 % des Kaufpreises als Mindest-Eigenkapital</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📉</span><p>Mehr EK = niedrigerer Zinssatz – Unterschied von 1 % spart bei 250k€ über 20 Jahre ~50k€</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Sparplan + Tagesgeld + KfW-Förderung kombinieren für schnelleren EK-Aufbau</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L805Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [kaufpreis, setKaufpreis] = useState(250000)
+  const [kaltmiete, setKaltmiete] = useState(900)
+  const brutto = ((kaltmiete * 12) / kaufpreis * 100).toFixed(2)
+  const netto = ((kaltmiete * 12 * 0.7) / kaufpreis * 100).toFixed(2)
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Mein Vermieter-Berater sagte 'super Lage, 4 % Rendite'. Nach Leerstand, Reparaturen und Verwaltung: 1,8 %."</div>
+          <p className="cl-hook-sub">Andreas, 44 – Rendite auf dem Papier vs. Wirklichkeit.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Bruttomietrendite berechnen</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.6, fontSize: "0.88rem" }}>Formel: <strong style={{ color: "#fff" }}>(Jahreskaltmiete / Kaufpreis) × 100</strong></p>
+          <p style={{ color: "#888", fontSize: "0.78rem", margin: "0.75rem 0 0.3rem" }}>Kaufpreis: <strong style={{ color: "#fff" }}>{kaufpreis.toLocaleString("de")} €</strong></p>
+          <input type="range" min={100000} max={600000} step={5000} value={kaufpreis} onChange={e => setKaufpreis(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(kaufpreis, 100000, 600000) }} />
+          <p style={{ color: "#888", fontSize: "0.78rem", margin: "0.5rem 0 0.3rem" }}>Monatliche Kaltmiete: <strong style={{ color: "#fff" }}>{kaltmiete.toLocaleString("de")} €</strong></p>
+          <input type="range" min={300} max={3000} step={50} value={kaltmiete} onChange={e => setKaltmiete(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(kaltmiete, 300, 3000) }} />
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.75rem" }}>
+            <div style={{ flex: 1, background: parseFloat(brutto) >= 4 ? "#10B98122" : "#F59E0B22", borderRadius: "8px", padding: "0.5rem", textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Brutto-Rendite</p>
+              <p style={{ color: parseFloat(brutto) >= 4 ? "#10B981" : "#F59E0B", fontWeight: 700, fontSize: "1.1rem" }}>{brutto} %</p>
+            </div>
+            <div style={{ flex: 1, background: parseFloat(netto) >= 3 ? "#10B98122" : "#ef444422", borderRadius: "8px", padding: "0.5rem", textAlign: "center" }}>
+              <p style={{ color: "#888", fontSize: "0.68rem" }}>Netto (~70 % Brutto)</p>
+              <p style={{ color: parseFloat(netto) >= 3 ? "#10B981" : "#ef4444", fontWeight: 700, fontSize: "1.1rem" }}>{netto} %</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was die Netto-Rendite frisst</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { kosten: "Instandhaltungsrücklage", pct: "1 %/Jahr v. Kaufpreis", color: "#ef4444" },
+              { kosten: "Nicht umlagefähige Nebenkosten", pct: "Versicherung, Verwalter", color: "#F59E0B" },
+              { kosten: "Leerstand (statistisch ~3 %)", pct: "Ca. 0,5 Mieten/Jahr", color: "#F59E0B" },
+              { kosten: "Einkommensteuer auf Mietgewinn", pct: "Pers. Steuersatz", color: "#7C3AED" },
+              { kosten: "Tilgung Hypothek", pct: "Nicht Rendite – aber Cashflow", color: "#0EA5E9" },
+            ].map(k => (
+              <div key={k.kosten} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <span style={{ color: "#ccc", fontSize: "0.78rem" }}>– {k.kosten}</span>
+                <span style={{ color: k.color, fontSize: "0.72rem", flexShrink: 0 }}>{k.pct}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Akzeptable Rendite – die Faustregeln</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            <div style={{ background: "#ef444422", borderRadius: "8px", padding: "0.6rem 0.75rem", borderLeft: "3px solid #ef4444" }}>
+              <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.82rem" }}>Unter 3 % Netto → Finger weg</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Risiko und Aufwand nicht durch Rendite gedeckt</p>
+            </div>
+            <div style={{ background: "#F59E0B22", borderRadius: "8px", padding: "0.6rem 0.75rem", borderLeft: "3px solid #F59E0B" }}>
+              <p style={{ color: "#F59E0B", fontWeight: 700, fontSize: "0.82rem" }}>3–5 % Netto → Akzeptabel</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Gute Lage, stabile Mieter – passables Investment</p>
+            </div>
+            <div style={{ background: "#10B98122", borderRadius: "8px", padding: "0.6rem 0.75rem", borderLeft: "3px solid #10B981" }}>
+              <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.82rem" }}>Über 5 % Netto → Sehr gut</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Schwer zu finden in Großstädten – B-Lagen prüfen</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Das Hauptrisiko: Mietausfall + Leerstand</h2>
+          <svg viewBox="0 0 260 120" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">Vermietungsrisiken und ihre Häufigkeit</text>
+            {[
+              { risk: "Leerstand 1 Monat/Jahr", wahr: 30, color: "#F59E0B" },
+              { risk: "Mieter zahlt unregelmäßig", wahr: 15, color: "#ef8c34" },
+              { risk: "Mieter zahlt gar nicht", wahr: 5, color: "#ef4444" },
+              { risk: "Unerwartete Reparatur &gt;2k€", wahr: 20, color: "#7C3AED" },
+            ].map((r, i) => {
+              const w = r.wahr / 100 * 200
+              return (
+                <g key={i}>
+                  <text x="5" y={33 + i * 26} fill="#888" fontSize="7.5" dominantBaseline="middle">{r.risk}</text>
+                  <rect x="155" y={23 + i * 26} width="100" height="14" rx="4" fill="#1a1a2e" />
+                  <rect x="155" y={23 + i * 26} width={w / 2} height="14" rx="4" fill={r.color} opacity="0.8" />
+                  <text x="260" y={32 + i * 26} fill={r.color} fontSize="7.5" dominantBaseline="middle" textAnchor="end">{r.wahr} %</text>
+                </g>
+              )
+            })}
+          </svg>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Steuerlicher Vorteil: Abschreibung</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Vermietete Immobilien können über <strong style={{ color: "#fff" }}>2 % p.a. (Gebäudeanteil)</strong> steuerlich abgeschrieben werden – reduziert dein zu versteuerndes Einkommen.</p>
+          <div style={{ marginTop: "0.75rem", background: "#10B98122", borderRadius: "10px", padding: "0.75rem" }}>
+            <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.82rem" }}>Beispiel:</p>
+            <p style={{ color: "#aaa", fontSize: "0.78rem", lineHeight: 1.6 }}>250.000 € Kaufpreis, 70 % Gebäudeanteil = 175.000 € × 2 % = <strong style={{ color: "#fff" }}>3.500 €/Jahr Abschreibung</strong>. Bei 42 % Steuersatz: ~1.470 €/Jahr Steuerersparnis.</p>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #7C3AED33" }}>
+            <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Vor dem Kauf rechnen:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Bruttomietrendite berechnen (&gt;4 % minimal)<br />
+              2. Netto kalkulieren (–1 % IH, –Leerstand, –Steuer)<br />
+              3. 3 % Netto-Ziel als Mindestanforderung<br />
+              4. Mietspiegel für die Lage prüfen (mietspiegel.de)
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Vermietung – Rendite nüchtern kalkulieren</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📊</span><p>Brutto ≠ Netto: Nach Instandhaltung, Leerstand und Steuern bleiben oft nur 60–70 % der Bruttorendite</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Mindest-Nettomietrendite: 3 % – darunter schlägt Risiko und Aufwand die Rendite</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📉</span><p>Abschreibung (AfA) 2 % p.a. auf Gebäudeanteil senkt effektiv die Steuerlast</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L806Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [betrag, setBetrag] = useState(100)
+  const nach20 = Math.round(betrag * 12 * ((Math.pow(1.06, 20) - 1) / 0.06))
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"100 €/Monat in einen REIT-ETF statt Sparbuch. In 20 Jahren: 46.000 € mehr."</div>
+          <p className="cl-hook-sub">Sven, 32 – Immobilien-Exposure ohne Hypothek.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">REIT-ETF Sparplan – was kommt raus?</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Monatliche Sparrate: <strong style={{ color: "#fff" }}>{betrag} €</strong></p>
+          <input type="range" min={25} max={1000} step={25} value={betrag} onChange={e => setBetrag(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(betrag, 25, 1000) }} />
+          <div style={{ marginTop: "1rem", background: "#10B98122", borderRadius: "10px", padding: "0.75rem", textAlign: "center" }}>
+            <p style={{ color: "#10B981", fontSize: "0.8rem" }}>Nach 20 Jahren bei ~6 % p.a.</p>
+            <p style={{ color: "#fff", fontWeight: 800, fontSize: "1.5rem" }}>{nach20.toLocaleString("de")} €</p>
+            <p style={{ color: "#888", fontSize: "0.72rem" }}>Einzahlungen: {(betrag * 12 * 20).toLocaleString("de")} € · Zinseszins: {(nach20 - betrag * 12 * 20).toLocaleString("de")} €</p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Immobilien-Crowdinvesting</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Viele Kleinanleger finanzieren gemeinsam ein Immobilienprojekt und erhalten <strong style={{ color: "#fff" }}>feste Zinsen</strong> (5–8 % p.a.) über 1–3 Jahre.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", gap: "0.5rem" }}>
+            <div style={{ flex: 1, background: "#10B98122", borderRadius: "8px", padding: "0.6rem" }}>
+              <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.75rem" }}>Vorteile</p>
+              <p style={{ color: "#aaa", fontSize: "0.72rem", lineHeight: 1.5, marginTop: "0.2rem" }}>Hohe Zinsen · Fester Zinssatz · Geringe Einstiegshürde (50–500 €)</p>
+            </div>
+            <div style={{ flex: 1, background: "#ef444422", borderRadius: "8px", padding: "0.6rem" }}>
+              <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.75rem" }}>Risiken</p>
+              <p style={{ color: "#aaa", fontSize: "0.72rem", lineHeight: 1.5, marginTop: "0.2rem" }}>Nachrangdarlehen · Totalverlust möglich · Keine tägliche Liquidität</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Plattformen im Überblick</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { name: "Exporo", typ: "Crowdinvesting", note: "Ab 500 € · bestandshaltendes + entwicklend", rating: "★★★" },
+              { name: "Engel & Völkers Digital", typ: "Crowdinvesting", note: "Ab 100 € · etablierter Makler dahinter", rating: "★★★" },
+              { name: "iShares REIT ETF", typ: "REIT-ETF", note: "Ab 1 € · tägl. handelbar · 100+ REITs", rating: "★★★★★" },
+              { name: "Realty Income (O)", typ: "REIT Einzelaktie", note: "Monatliche Dividende · US-REIT", rating: "★★★★" },
+            ].map(p => (
+              <div key={p.name} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <div><p style={{ color: "#fff", fontSize: "0.78rem", fontWeight: 600 }}>{p.name}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{p.typ} · {p.note}</p></div>
+                <span style={{ color: "#F59E0B", fontSize: "0.7rem", flexShrink: 0 }}>{p.rating}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Risiko-Rendite-Vergleich</h2>
+          <svg viewBox="0 0 260 140" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">Risiko vs. Rendite – Immobilien-Investmentformen</text>
+            <line x1="20" y1="120" x2="240" y2="120" stroke="#333" strokeWidth="1" />
+            <line x1="20" y1="20" x2="20" y2="120" stroke="#333" strokeWidth="1" />
+            <text x="130" y="135" textAnchor="middle" fill="#666" fontSize="7">Risiko →</text>
+            <text x="10" y="70" fill="#666" fontSize="7" transform="rotate(-90 10 70)">Rendite →</text>
+            {[
+              { label: "REIT-ETF", x: 80, y: 70, color: "#10B981" },
+              { label: "Einzelner REIT", x: 120, y: 55, color: "#0EA5E9" },
+              { label: "Crowdinvesting", x: 160, y: 40, color: "#F59E0B" },
+              { label: "Direkte Immo", x: 140, y: 80, color: "#7C3AED" },
+            ].map(p => (
+              <g key={p.label}>
+                <circle cx={p.x} cy={p.y} r="6" fill={p.color} opacity="0.8" />
+                <text x={p.x} y={p.y - 10} textAnchor="middle" fill={p.color} fontSize="7">{p.label}</text>
+              </g>
+            ))}
+          </svg>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Für Einsteiger: REIT-ETF als Ergänzung</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Empfehlung: Immobilien-Anteil im Depot über einen <strong style={{ color: "#fff" }}>REIT-ETF</strong> aufbauen – 5–15 % des Portfolios.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            {[
+              ["📊", "Basis: 80 % MSCI World ETF", "Kernportfolio"],
+              ["🏢", "Ergänzung: 10 % REIT-ETF", "Immobilien-Exposure"],
+              ["🌍", "Optional: 10 % Emerging Markets", "Wachstumsmärkte"],
+            ].map(([ic, tit, note]) => (
+              <div key={tit} style={{ display: "flex", gap: "0.6rem", background: "#1a1a2e", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <span>{ic}</span>
+                <div><p style={{ color: "#ccc", fontSize: "0.82rem" }}>{tit}</p><p style={{ color: "#666", fontSize: "0.72rem" }}>{note}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #0EA5E933" }}>
+            <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Einstieg heute:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. REIT-ETF in bestehendem Depot suchen<br />
+              2. iShares Developed Real Estate (IE00B1FZS350)<br />
+              3. Sparplan {betrag} €/Monat einrichten<br />
+              4. Nach 20 Jahren: ~{nach20.toLocaleString("de")} € Immobilien-Exposure
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Immobilien-ETFs & Crowdinvesting</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📈</span><p>REIT-ETF: Immobilien ab 1 €, täglich handelbar, weltweite Diversifikation</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚠️</span><p>Crowdinvesting: hohe Zinsen (5–8 %) aber Nachrangdarlehen mit Totalverlustrisiko</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🏗️</span><p>Empfehlung: 10 % REIT-ETF als Immobilien-Ergänzung im Portfolio</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L903Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [brutto, setBrutto] = useState(45000)
+  const grenze = 69300
+  const pkv = brutto >= grenze
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich wechselte mit 35 in die PKV – tolle Leistungen, 180 € im Monat. Mit 60 in der Rente: 680 €/Monat."</div>
+          <p className="cl-hook-sub">Rainer, 62 – der PKV-Beitrag im Rentenalter überrascht viele.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">GKV vs. PKV – der grundlegende Unterschied</h2>
+          <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}>
+            <div style={{ flex: 1, background: "#0EA5E922", borderRadius: "8px", padding: "0.6rem", borderTop: "2px solid #0EA5E9" }}>
+              <p style={{ color: "#0EA5E9", fontWeight: 700, fontSize: "0.75rem" }}>GKV</p>
+              <p style={{ color: "#aaa", fontSize: "0.72rem", lineHeight: 1.6, marginTop: "0.2rem" }}>Beitrag nach Einkommen · Familie mitversichert (kostenlos) · Solidarsystem · Kein Rückweg</p>
+            </div>
+            <div style={{ flex: 1, background: "#7C3AED22", borderRadius: "8px", padding: "0.6rem", borderTop: "2px solid #7C3AED" }}>
+              <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.75rem" }}>PKV</p>
+              <p style={{ color: "#aaa", fontSize: "0.72rem", lineHeight: 1.6, marginTop: "0.2rem" }}>Beitrag nach Risiko/Alter · Familie kostet extra · Bessere Leistungen · Beiträge steigen im Alter</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wer darf in die PKV?</h2>
+          <p style={{ color: "#888", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Dein Jahresbrutto: <strong style={{ color: brutto >= grenze ? "#10B981" : "#F59E0B" }}>{brutto.toLocaleString("de")} €</strong></p>
+          <input type="range" min={20000} max={120000} step={1000} value={brutto} onChange={e => setBrutto(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(brutto, 20000, 120000) }} />
+          <div style={{ marginTop: "0.75rem", background: pkv ? "#10B98122" : "#F59E0B22", borderRadius: "10px", padding: "0.75rem", textAlign: "center" }}>
+            {pkv ? (
+              <>
+                <p style={{ color: "#10B981", fontWeight: 700 }}>✅ PKV-Wahl möglich</p>
+                <p style={{ color: "#ccc", fontSize: "0.82rem", marginTop: "0.2rem" }}>Über Versicherungspflichtgrenze ({grenze.toLocaleString("de")} €)</p>
+              </>
+            ) : (
+              <>
+                <p style={{ color: "#F59E0B", fontWeight: 700 }}>⚠️ GKV-Pflicht</p>
+                <p style={{ color: "#ccc", fontSize: "0.82rem", marginTop: "0.2rem" }}>Unter {grenze.toLocaleString("de")} € → GKV Pflichtversicherung</p>
+              </>
+            )}
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">PKV-Vorteile und wo sie täuschen</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { punkt: "Chefarztbehandlung & Einzelzimmer", real: true, note: "Echter Mehrwert im Krankenhaus" },
+              { punkt: "Schnellere Arzttermine", real: true, note: "Statistisch kürzere Wartezeiten" },
+              { punkt: "Niedrige Prämien im jungen Alter", real: true, note: "Spart anfangs – steigt aber stark" },
+              { punkt: "Günstiger im Alter", real: false, note: "Falsch: Beiträge steigen stark mit Alter" },
+              { punkt: "Kinder kostenlos mitversichert", real: false, note: "Falsch: jedes Kind extra Beitrag in PKV" },
+            ].map(p => (
+              <div key={p.punkt} style={{ display: "flex", gap: "0.5rem", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <span style={{ color: p.real ? "#10B981" : "#ef4444" }}>{p.real ? "✅" : "❌"}</span>
+                <div><p style={{ color: "#ccc", fontSize: "0.78rem" }}>{p.punkt}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{p.note}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Das Rentenproblem der PKV</h2>
+          <svg viewBox="0 0 260 120" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">PKV-Monatsbeitrag nach Alter (Beispiel)</text>
+            {[
+              { alter: "30", beitrag: 180, color: "#10B981" },
+              { alter: "40", beitrag: 280, color: "#F59E0B" },
+              { alter: "50", beitrag: 420, color: "#ef8c34" },
+              { alter: "60", beitrag: 620, color: "#ef4444" },
+              { alter: "70 (Rente)", beitrag: 680, color: "#9D174D" },
+            ].map((d, i) => {
+              const h = (d.beitrag / 680) * 80
+              const x = 15 + i * 46
+              return (
+                <g key={i}>
+                  <rect x={x} y={95 - h} width="38" height={h} rx="3" fill={d.color} opacity="0.8" />
+                  <text x={x + 19} y={90 - h} textAnchor="middle" fill="white" fontSize="8" fontWeight="700">{d.beitrag} €</text>
+                  <text x={x + 19} y="108" textAnchor="middle" fill="#888" fontSize="7">{d.alter} J.</text>
+                </g>
+              )
+            })}
+            <text x="130" y="120" textAnchor="middle" fill="#888" fontSize="6.5">ohne AG-Zuschuss im Rentenalter</text>
+          </svg>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Für wen eignet sich die PKV?</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { gruppe: "Single · Gutverdiener · jung · gesund", empf: "PKV kann sinnvoll sein", ok: true },
+              { gruppe: "Familie mit Kindern", empf: "GKV meist günstiger (Kinder kostenlos)", ok: false },
+              { gruppe: "Selbstständige / Freiberufler", empf: "PKV oft die einzige vollwertige Option", ok: true },
+              { gruppe: "Beamte (Beihilfe)", empf: "PKV fast immer die richtige Wahl", ok: true },
+              { gruppe: "Niedriges Einkommen im Alter geplant", empf: "GKV besser – Beiträge sinken mit Einkommen", ok: false },
+            ].map(g => (
+              <div key={g.gruppe} style={{ display: "flex", gap: "0.5rem", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <span style={{ color: g.ok ? "#10B981" : "#ef4444" }}>{g.ok ? "✅" : "⚠️"}</span>
+                <div><p style={{ color: "#ccc", fontSize: "0.75rem" }}>{g.gruppe}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{g.empf}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #7C3AED33" }}>
+            <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>PKV-Entscheidungshilfe:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Bin ich dauerhaft über {grenze.toLocaleString("de")} €?<br />
+              2. Habe ich/plane ich Familie?<br />
+              3. Was sind meine Beiträge mit 65 Jahren?<br />
+              4. Freier Berater ohne PKV-Provision fragen
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">GKV vs. PKV – lebenslange Entscheidung</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📋</span><p>PKV erst ab 69.300 € Jahresbrutto (2024) – und nur wenn dauerhaft darüber</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">👨‍👩‍👧</span><p>Familie? GKV: Kinder kostenlos mitversichert. PKV: Jedes Kind kostet extra Beitrag</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📈</span><p>PKV-Beiträge steigen im Alter massiv – im Rentenalter ohne AG-Zuschuss teuer</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L904Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [netto, setNetto] = useState(3000)
+  const [erwartetRente, setErwartetRente] = useState(1200)
+  const luecke = Math.max(0, Math.round(netto * 0.8) - erwartetRente)
+  const kapitalBedarf = luecke * 12 * 20
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich dachte die Rente reicht. Dann rechnete ich: 48 % des Bruttogehalts – vor Krankenvers. und Steuern."</div>
+          <p className="cl-hook-sub">Klaus, 45 – die erste Rentenhochrechnung war ernüchternd.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was die gesetzliche Rente wirklich zahlt</h2>
+          <svg viewBox="0 0 260 130" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">3.000 € Nettoeinkommen – was die Rente deckt</text>
+            <rect x="20" y="25" width="100" height="90" rx="6" fill="#1a1a2e" stroke="#333" strokeWidth="1" />
+            <rect x="20" y={115 - 90} width="100" height="90" rx="6" fill="#0EA5E9" opacity="0.7" />
+            <text x="70" y="60" textAnchor="middle" fill="white" fontSize="10" fontWeight="700">3.000 €</text>
+            <text x="70" y="75" textAnchor="middle" fill="white" fontSize="7">Nettoeinkommen</text>
+            <rect x="145" y="25" width="100" height="90" rx="6" fill="#1a1a2e" stroke="#333" strokeWidth="1" />
+            <rect x="145" y={115 - 42} width="100" height="42" rx="6" fill="#F59E0B" opacity="0.7" />
+            <text x="195" y="85" textAnchor="middle" fill="white" fontSize="10" fontWeight="700">~1.200 €</text>
+            <text x="195" y="100" textAnchor="middle" fill="white" fontSize="7">Gesetzl. Rente</text>
+            <text x="195" y="50" textAnchor="middle" fill="#ef4444" fontSize="8">–1.800 €</text>
+            <text x="195" y="62" textAnchor="middle" fill="#ef4444" fontSize="7">Lücke!</text>
+          </svg>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Deine Rentenlücke berechnen</h2>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginBottom: "0.3rem" }}>Aktuelles Nettoeinkommen: <strong style={{ color: "#fff" }}>{netto.toLocaleString("de")} €</strong></p>
+          <input type="range" min={1500} max={8000} step={100} value={netto} onChange={e => setNetto(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(netto, 1500, 8000) }} />
+          <p style={{ color: "#888", fontSize: "0.78rem", margin: "0.5rem 0 0.3rem" }}>Erwartete Rente: <strong style={{ color: "#fff" }}>{erwartetRente.toLocaleString("de")} €</strong></p>
+          <input type="range" min={400} max={3000} step={50} value={erwartetRente} onChange={e => setErwartetRente(+e.target.value)} className="rc-slider rc-slider-full" style={{ background: sliderBg(erwartetRente, 400, 3000) }} />
+          <div style={{ marginTop: "0.75rem", background: "#ef444422", borderRadius: "10px", padding: "0.75rem", textAlign: "center" }}>
+            <p style={{ color: "#ef4444", fontSize: "0.8rem" }}>Monatliche Lücke</p>
+            <p style={{ color: "#fff", fontWeight: 800, fontSize: "1.4rem" }}>{luecke.toLocaleString("de")} €/Monat</p>
+            <p style={{ color: "#888", fontSize: "0.72rem" }}>Benötigtes Kapital über 20 Rentenjahre: {kapitalBedarf.toLocaleString("de")} €</p>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Das Rentenniveau in Zahlen</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            <div style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem 0.75rem" }}>
+              <p style={{ color: "#888", fontSize: "0.78rem" }}>Gesetzliches Rentenniveau 2024</p>
+              <p style={{ color: "#F59E0B", fontWeight: 800, fontSize: "1rem" }}>48 % des Durchschnittsbruttogehalts</p>
+              <p style={{ color: "#666", fontSize: "0.72rem" }}>VOR Steuern und Krankenversicherungsbeiträgen</p>
+            </div>
+            <div style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.6rem 0.75rem" }}>
+              <p style={{ color: "#888", fontSize: "0.78rem" }}>Effektiv ausgezahlte Rente</p>
+              <p style={{ color: "#ef4444", fontWeight: 800, fontSize: "1rem" }}>~35–38 % des letzten Nettogehalts</p>
+              <p style={{ color: "#666", fontSize: "0.72rem" }}>Nach Abzug Steuern + GKV/PKV-Beiträge auf Rente</p>
+            </div>
+            <div style={{ background: "#ef444422", borderRadius: "8px", padding: "0.6rem 0.75rem" }}>
+              <p style={{ color: "#ef4444", fontSize: "0.78rem" }}>Prognose 2040–2060</p>
+              <p style={{ color: "#fff", fontWeight: 700 }}>Rentenniveau fällt auf ~43 %</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die 3 Säulen der Altersvorsorge</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { saule: "1. Säule: Gesetzliche Rente", note: "Pflicht · reicht nicht · schrumpft weiter", farbe: "#ef4444" },
+              { saule: "2. Säule: Betriebliche AV", note: "bAV, Riester (AN), Rürup (Selbst.) – staatlich gefördert", farbe: "#F59E0B" },
+              { saule: "3. Säule: Private Vorsorge", note: "ETF-Sparplan, Immobilien, private RV – dein stärkster Hebel", farbe: "#10B981" },
+            ].map((s, i) => (
+              <div key={i} style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem", borderLeft: `3px solid ${s.farbe}` }}>
+                <p style={{ color: s.farbe, fontWeight: 700, fontSize: "0.82rem" }}>{s.saule}</p>
+                <p style={{ color: "#888", fontSize: "0.75rem" }}>{s.note}</p>
+              </div>
+            ))}
+          </div>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginTop: "0.6rem" }}>Säule 3 (ETF) ist für die meisten der effektivste Weg zur Lückenschließung.</p>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wie viel musst du monatlich sparen?</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.6, fontSize: "0.88rem" }}>Ziel: Lücke von {luecke.toLocaleString("de")} €/Monat über 20 Rentenjahre schließen. Kapital gesucht: <strong style={{ color: "#fff" }}>{kapitalBedarf.toLocaleString("de")} €</strong></p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+            {[
+              { jahre: 10, rate: Math.round(kapitalBedarf / (((Math.pow(1.07, 10) - 1) / 0.07) * 12)) },
+              { jahre: 20, rate: Math.round(kapitalBedarf / (((Math.pow(1.07, 20) - 1) / 0.07) * 12)) },
+              { jahre: 30, rate: Math.round(kapitalBedarf / (((Math.pow(1.07, 30) - 1) / 0.07) * 12)) },
+            ].map(r => (
+              <div key={r.jahre} style={{ display: "flex", justifyContent: "space-between", background: "#1a1a2e", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <span style={{ color: "#ccc", fontSize: "0.8rem" }}>Noch {r.jahre} Jahre bis Rente</span>
+                <span style={{ color: r.jahre >= 20 ? "#10B981" : "#F59E0B", fontWeight: 700 }}>{r.rate.toLocaleString("de")} €/Mon</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #10B98133" }}>
+            <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Altersvorsorge-Start:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Rentenbescheid lesen (rentenauskunft.de)<br />
+              2. Rentenlücke berechnen (s. oben)<br />
+              3. ETF-Sparplan als Säule 3 einrichten<br />
+              4. bAV beim Arbeitgeber anfragen
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Rentenlücke – jetzt handeln nicht später</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📉</span><p>Gesetzliche Rente: nur ~48 % des Bruttos, effektiv ~35–38 % netto – nicht ausreichend</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📊</span><p>3 Säulen: Gesetzl. Rente + bAV + ETF-Sparplan – alle 3 nutzen für maximale Absicherung</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⏰</span><p>Je früher gestartet, desto weniger monatliche Rate nötig – Zinseszins multipliziert den Vorsprung</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L905Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [checked, setChecked] = useState([])
+  const toggle = (id) => setChecked(c => c.includes(id) ? c.filter(x => x !== id) : [...c, id])
+  const versicherungen = [
+    { id: 1, name: "Private Haftpflicht", kategorie: "Pflicht", behalten: true, preis: "~60 €/Jahr" },
+    { id: 2, name: "Berufsunfähigkeit", kategorie: "Kritisch", behalten: true, preis: "~800–1.500 €/Jahr" },
+    { id: 3, name: "Hausrat", kategorie: "Wichtig", behalten: true, preis: "~100–150 €/Jahr" },
+    { id: 4, name: "Kfz-Haftpflicht", kategorie: "Pflicht", behalten: true, preis: "~200–500 €/Jahr" },
+    { id: 5, name: "Rechtsschutz", kategorie: "Optional", behalten: false, preis: "~200–400 €/Jahr" },
+    { id: 6, name: "Reiserücktritt", kategorie: "Oft unnötig", behalten: false, preis: "~50–100 €/Jahr" },
+  ]
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich prüfte meine Versicherungen. 400 €/Jahr für Produkte die ich nie brauchen würde. Gekündigt."</div>
+          <p className="cl-hook-sub">Emma, 29 – der Versicherungs-Audit spart ihr 400 € im Jahr.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Deutsche überzahlen im Schnitt 400 €/Jahr</h2>
+          <svg viewBox="0 0 260 110" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">Durchschnittliche Versicherungsausgaben pro Jahr</text>
+            {[
+              { kat: "Notwendig", val: 980, color: "#10B981" },
+              { kat: "Überflüssig", val: 400, color: "#ef4444" },
+              { kat: "Doppelt vers.", val: 150, color: "#F59E0B" },
+            ].map((d, i) => {
+              const w = (d.val / 980) * 160
+              return (
+                <g key={i}>
+                  <text x="5" y={32 + i * 32} fill="#888" fontSize="8" dominantBaseline="middle">{d.kat}</text>
+                  <rect x="90" y={22 + i * 32} width="170" height="18" rx="4" fill="#1a1a2e" />
+                  <rect x="90" y={22 + i * 32} width={w} height="18" rx="4" fill={d.color} opacity="0.8" />
+                  <text x={90 + w - 5} y={33 + i * 32} textAnchor="end" fill="white" fontSize="8" fontWeight="700" dominantBaseline="middle">{d.val.toLocaleString("de")} €</text>
+                </g>
+              )
+            })}
+          </svg>
+          <p style={{ color: "#10B981", fontSize: "0.78rem", textAlign: "center", marginTop: "0.25rem" }}>400 € Überzahlung vermeiden = 8.000 € in 20 Jahren im ETF</p>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Dein Versicherungs-Audit</h2>
+          <p style={{ color: "#888", fontSize: "0.78rem", marginBottom: "0.5rem" }}>Tippe auf Versicherungen die du aktuell hast:</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+            {versicherungen.map(v => (
+              <div key={v.id} onClick={() => toggle(v.id)} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: checked.includes(v.id) ? "#1a1a2e" : "#0d1117", borderRadius: "8px", padding: "0.45rem 0.75rem", border: checked.includes(v.id) ? "1px solid #0EA5E944" : "1px solid transparent", cursor: "pointer" }}>
+                <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                  <div style={{ width: "16px", height: "16px", borderRadius: "4px", background: checked.includes(v.id) ? "#0EA5E9" : "#333", border: "1px solid #333", flexShrink: 0 }} />
+                  <div><p style={{ color: "#ccc", fontSize: "0.78rem" }}>{v.name}</p><p style={{ color: "#666", fontSize: "0.68rem" }}>{v.preis}</p></div>
+                </div>
+                <span style={{ color: v.behalten ? "#10B981" : "#F59E0B", fontSize: "0.7rem" }}>{v.kategorie}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wann habe ich ein Sonderkündigungsrecht?</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.5rem" }}>
+            {[
+              { anlass: "Beitragserhöhung durch Versicherer", frist: "Sofort kündbar nach Erhalt der Mitteilung" },
+              { anlass: "Nach reguliertem Schadensfall", frist: "Innerhalb 1 Monat nach Schadenszahlung" },
+              { anlass: "Reguläre Kündigung", frist: "3 Monate vor Jahresende (31.12.)" },
+              { anlass: "Wechsel zu besserem Angebot", frist: "Ordentliche Kündigung zum Vertragsende" },
+            ].map(s => (
+              <div key={s.anlass} style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+                <p style={{ color: "#F59E0B", fontSize: "0.8rem", fontWeight: 600 }}>{s.anlass}</p>
+                <p style={{ color: "#888", fontSize: "0.75rem" }}>{s.frist}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Richtig vergleichen – worauf es ankommt</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { schritt: "1. Leistungsumfang prüfen", note: "Was ist konkret versichert? Was ausgeschlossen?" },
+              { schritt: "2. Bedingungen lesen", note: "Wartezeiten, Ausschlüsse, Selbstbehalt" },
+              { schritt: "3. Preis vergleichen", note: "Check24, Verivox, oder unabhängiger Makler" },
+              { schritt: "4. Bewertungen checken", note: "Stiftung Warentest, Finanztest, TrustPilot" },
+            ].map(s => (
+              <div key={s.schritt} style={{ display: "flex", gap: "0.5rem", background: "#1a1a2e", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <span style={{ color: "#0EA5E9", fontSize: "0.9rem" }}>→</span>
+                <div><p style={{ color: "#ccc", fontSize: "0.8rem" }}>{s.schritt}</p><p style={{ color: "#666", fontSize: "0.7rem" }}>{s.note}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Doppelversicherungen erkennen</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { a: "Auslandskrankenv. über Kreditkarte", b: "Extra Auslandskrankenvers.", note: "Eine reicht" },
+              { a: "Hausrat-Police inkl. Glasversicherung", b: "Extra Glasbruchversicherung", note: "Prüfen ob beide nötig" },
+              { a: "Kasko inkl. Fahrerunfallschutz", b: "Extra Unfallversicherung", note: "Möglicherweise doppelt" },
+              { a: "Risikolebensversicherung", b: "Restschuldversicherung", note: "RLV fast immer besser" },
+            ].map(d => (
+              <div key={d.a} style={{ background: "#1a1a2e", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <div style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}>
+                  <span style={{ color: "#ccc", fontSize: "0.75rem" }}>{d.a}</span>
+                  <span style={{ color: "#666" }}>+</span>
+                  <span style={{ color: "#ccc", fontSize: "0.75rem" }}>{d.b}</span>
+                </div>
+                <p style={{ color: "#F59E0B", fontSize: "0.7rem", marginTop: "0.1rem" }}>⚠️ {d.note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #10B98133" }}>
+            <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Versicherungs-Audit heute:</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Alle Versicherungsverträge auflisten<br />
+              2. Überflüssige identifizieren (Checkliste nächste Karte)<br />
+              3. Sonderkündigungsrecht bei Preiserhöhung nutzen<br />
+              4. Vergleich: Check24 oder Finanztest
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Versicherungen optimieren – 400 €/Jahr zurück</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🔍</span><p>Audit: Alle Verträge auflisten, überflüssige kündigen, Doppelversicherungen entfernen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚡</span><p>Sonderkündigungsrecht: Bei Beitragserhöhung sofort kündbar – Vorteil nutzen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📊</span><p>Erst Leistungen vergleichen, dann Preis – der günstigste Preis ist wertlos ohne Deckung</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L906Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [gezeigt, setGezeigt] = useState(null)
+  const unnoetig = [
+    { id: 1, name: "Handyversicherung", grund: "Kosten 70–120 €/Jahr. Selbst ansparen (10 €/Monat = 120 €/Jahr) ist günstiger und flexibler.", ersatz: "Selbst ansparen statt versichern" },
+    { id: 2, name: "Restschuldversicherung", grund: "Oft 5–10× teurer als eine Risikolebensversicherung, mit schlechten Bedingungen und Ausschlüssen.", ersatz: "Risikolebensversicherung" },
+    { id: 3, name: "Reiserücktrittsversicherung", grund: "Lohnt nur bei teuren, nicht stornierbaren Reisen. Standard-Urlauber brauchen sie meist nicht.", ersatz: "Kreditkarte mit Reiseschutz prüfen" },
+    { id: 4, name: "Brillenversicherung", grund: "Prämien übersteigen oft den Leistungswert. Brillen werden günstiger, Leistung bleibt begrenzt.", ersatz: "Sparbetrag für neue Brille anlegen" },
+    { id: 5, name: "Tierversicherung/Tierkrankenvers.", grund: "Meist sehr teuer, viele Ausschlüsse, Beiträge steigen mit Tieralter stark.", ersatz: "Tierarztrücklage aufbauen" },
+  ]
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ich hatte Handyversicherung, Brillenversicherung, Reiserücktritt – und nie eine einzige Leistung gebraucht. 480 € im Müll."</div>
+          <p className="cl-hook-sub">Lea, 31 – der Versicherungscheck befreite sie von 5 Verträgen.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die 5 überflüssigsten Versicherungen</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem", marginTop: "0.5rem" }}>
+            {unnoetig.map(v => (
+              <div key={v.id} onClick={() => setGezeigt(gezeigt === v.id ? null : v.id)} style={{ background: gezeigt === v.id ? "#1a1a2e" : "#0d1117", borderRadius: "8px", padding: "0.5rem 0.75rem", border: gezeigt === v.id ? "1px solid #ef444433" : "1px solid transparent", cursor: "pointer" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ color: "#ccc", fontSize: "0.82rem" }}>❌ {v.name}</span>
+                  <span style={{ color: "#666", fontSize: "0.75rem" }}>{gezeigt === v.id ? "▲" : "▼"}</span>
+                </div>
+                {gezeigt === v.id && <div style={{ marginTop: "0.4rem" }}>
+                  <p style={{ color: "#ef4444", fontSize: "0.75rem", lineHeight: 1.5 }}>{v.grund}</p>
+                  <p style={{ color: "#10B981", fontSize: "0.75rem", marginTop: "0.25rem" }}>→ Besser: {v.ersatz}</p>
+                </div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Das Selbstversicherungsprinzip</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.88rem" }}>Bei kleinen Risiken (unter 1.000 €): <strong style={{ color: "#fff" }}>selbst ansparen statt versichern</strong>. Versicherung lohnt nur für Risiken die du nicht selbst tragen kannst.</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            <div style={{ background: "#10B98122", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.82rem" }}>Versichern lohnt sich bei:</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Existenzbedrohenden Risiken – Haftpflicht (Millionen €), BU (dein Einkommen), Krankenversicherung</p>
+            </div>
+            <div style={{ background: "#ef444422", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
+              <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.82rem" }}>Selbst tragen bei:</p>
+              <p style={{ color: "#aaa", fontSize: "0.75rem" }}>Kleinen Risiken unter 500–1.000 €. Handy, Brille, Fernseher – selbst ansparen kostet weniger</p>
+            </div>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Diese 4 Versicherungen MUSST du haben</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem" }}>
+            {[
+              { name: "Private Haftpflicht", note: "Schützt bei Schäden die du anderen zufügst – bis zu Millionen €", preis: "~60 €/Jahr" },
+              { name: "Berufsunfähigkeit", note: "Sichert dein Einkommen wenn du nicht mehr arbeiten kannst", preis: "~800–1.500 €/Jahr" },
+              { name: "Krankenversicherung", note: "Gesetzlich Pflicht – GKV oder PKV je nach Situation", preis: "je nach EK" },
+              { name: "Hausrat (wenn Mieter)", note: "Schützt dein Eigentum – besonders bei wertvollen Gegenständen", preis: "~100–150 €/Jahr" },
+            ].map(v => (
+              <div key={v.name} style={{ display: "flex", gap: "0.5rem", background: "#10B98111", borderRadius: "8px", padding: "0.45rem 0.75rem" }}>
+                <span style={{ color: "#10B981" }}>✅</span>
+                <div style={{ flex: 1 }}><div style={{ display: "flex", justifyContent: "space-between" }}><p style={{ color: "#fff", fontSize: "0.8rem", fontWeight: 600 }}>{v.name}</p><span style={{ color: "#10B981", fontSize: "0.72rem" }}>{v.preis}</span></div><p style={{ color: "#666", fontSize: "0.7rem" }}>{v.note}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Warum die Restschuldversicherung Abzocke ist</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.6, fontSize: "0.88rem" }}>Restschuldversicherung soll Kredit absichern wenn du stirbst oder arbeitslos wirst. Klingt gut – aber:</p>
+          <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            {[
+              ["💸", "Kostet 3–8 % der Kreditsumme einmalig – nicht transparent ausgewiesen"],
+              ["❌", "Viele Ausschlüsse: Vorerkrankungen, erste 3–6 Monate gelten oft nicht"],
+              ["📉", "Versicherungssumme sinkt mit der Tilgung – Kosten bleiben fix"],
+              ["✅", "Besser: Risikolebensversicherung – 10× günstiger, klare Konditionen"],
+            ].map(([ic, text]) => (
+              <div key={text} style={{ display: "flex", gap: "0.5rem", background: "#1a1a2e", borderRadius: "8px", padding: "0.4rem 0.75rem" }}>
+                <span>{ic}</span>
+                <p style={{ color: "#aaa", fontSize: "0.78rem" }}>{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Sparen durch Kündigung – Rechnung</h2>
+          <svg viewBox="0 0 260 120" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <text x="130" y="12" textAnchor="middle" fill="#888" fontSize="8">Typische unnötige Versicherungskosten/Jahr</text>
+            {[
+              { name: "Handy", kosten: 100 },
+              { name: "Brille", kosten: 80 },
+              { name: "Reiserücktritt", kosten: 70 },
+              { name: "Restschuld", kosten: 150 },
+            ].map((v, i) => {
+              const w = (v.kosten / 150) * 160
+              return (
+                <g key={i}>
+                  <text x="5" y={32 + i * 26} fill="#888" fontSize="8" dominantBaseline="middle">{v.name}</text>
+                  <rect x="60" y={22 + i * 26} width="170" height="16" rx="4" fill="#1a1a2e" />
+                  <rect x="60" y={22 + i * 26} width={w} height="16" rx="4" fill="#ef4444" opacity="0.7" />
+                  <text x={60 + w + 4} y={32 + i * 26} fill="#ef4444" fontSize="8" dominantBaseline="middle">{v.kosten} €</text>
+                </g>
+              )
+            })}
+            <text x="130" y="112" textAnchor="middle" fill="#10B981" fontSize="8" fontWeight="700">Gesamt: 400 €/Jahr · 20 Jahre im ETF: ~16.000 €</text>
+          </svg>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">So machst du das jetzt</h2>
+          <div style={{ background: "#0f1923", borderRadius: "10px", padding: "1rem", border: "1px solid #ef444433" }}>
+            <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.5rem" }}>Heute kündigen (falls vorhanden):</p>
+            <p style={{ color: "#ccc", fontSize: "0.85rem", lineHeight: 1.8 }}>
+              1. Handyversicherung → stattdessen 10 €/Monat sparen<br />
+              2. Brillenversicherung → Brillenrücklage anlegen<br />
+              3. Restschuldversicherung → Risikoleben prüfen<br />
+              4. Reiserücktritt → nur bei Luxusreise ab 1.000 €
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">5 Versicherungen die du jetzt kündigen kannst</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📵</span><p>Handyversicherung: 100 €/Jahr für selten genutzten Schutz – selbst ansparen statt versichern</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💰</span><p>Restschuldversicherung: 3–8 % der Kreditsumme – Risikolebensversicherung 10× günstiger</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Nur große existenzielle Risiken versichern – kleine Risiken selbst tragen und ansparen</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
   return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
 }
 
