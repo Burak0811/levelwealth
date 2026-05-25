@@ -93,6 +93,7 @@ const hauptkategorien = [
     name: "Lernen",
     icon: "📚",
     beschreibung: "ETFs, Aktien, Krypto & mehr",
+    farbe: "#7C3AED",
     gradient: "linear-gradient(135deg, #7C3AED, #9D174D)",
     verfuegbar: true
   },
@@ -101,6 +102,7 @@ const hauptkategorien = [
     name: "News",
     icon: "📰",
     beschreibung: "Aktuelle Finanz-News",
+    farbe: "#4c1d95",
     gradient: "linear-gradient(135deg, #4c1d95, #9D174D)",
     verfuegbar: true
   },
@@ -109,6 +111,7 @@ const hauptkategorien = [
     name: "Rechner",
     icon: "🧮",
     beschreibung: "Zinseszins & Sparplan",
+    farbe: "#6b21a8",
     gradient: "linear-gradient(135deg, #4a1d96, #6b21a8)",
     verfuegbar: true
   },
@@ -117,6 +120,7 @@ const hauptkategorien = [
     name: "Challenges",
     icon: "🎯",
     beschreibung: "Wöchentliche Aufgaben",
+    farbe: "#9D174D",
     gradient: "linear-gradient(135deg, #831843, #9d174d)",
     verfuegbar: false
   }
@@ -1546,6 +1550,15 @@ function getGruss(userName) {
   return `Du bist spät dran, ${n} 🦉`
 }
 
+function getGrussTeile(userName) {
+  const h = new Date().getHours()
+  const n = userName || "Investor"
+  if (h >= 6  && h < 12) return { prefix: "Guten Morgen,", name: `${n} ☀️` }
+  if (h >= 12 && h < 18) return { prefix: "Hey,",          name: `${n} 👋` }
+  if (h >= 18 && h < 24) return { prefix: "Guten Abend,",  name: `${n} 🌙` }
+  return { prefix: "Nacht-Investor,", name: `${n} 🦉` }
+}
+
 function getTagestipp(wissenslevel) {
   const tag = new Date().getDay()
   if (wissenslevel >= 4) return TIPPS.profi[tag]
@@ -1969,102 +1982,134 @@ const HUB_SVGS = {
 }
 
 function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosseneQuests, xpTaeglich, abgeschlosseneLektionen, userWissenslevel }) {
-  const lvl         = getLevelInfo(xp)
-  const spruch      = TAGESSPRUECHE[new Date().getDay()]
-  const heute       = getHeute()
-  const questHeute  = !!(abgeschlosseneQuests && abgeschlosseneQuests[heute])
-  const xpHeute     = xpTaeglich[heute] || 0
-  const xpZielPct   = Math.min(Math.round((xpHeute / 30) * 100), 100)
-  const tipp        = getTagestipp(userWissenslevel || 1)
-  const nextStep    = getNextStep(abgeschlosseneLektionen, userWissenslevel || 1)
-  const streakInfo  = getStreakDisplay(streak)
+  const lvl        = getLevelInfo(xp)
+  const heute      = getHeute()
+  const questHeute = !!(abgeschlosseneQuests && abgeschlosseneQuests[heute])
+  const xpHeute    = xpTaeglich[heute] || 0
+  const xpZielPct  = Math.min(Math.round((xpHeute / 30) * 100), 100)
+  const tipp       = getTagestipp(userWissenslevel || 1)
+  const nextStep   = getNextStep(abgeschlosseneLektionen, userWissenslevel || 1)
+  const streakInfo = getStreakDisplay(streak)
+  const gruss      = getGrussTeile(userName)
+
+  const donutR    = 14
+  const donutCirc = 2 * Math.PI * donutR
+  const donutDash = donutCirc - (xpZielPct / 100) * donutCirc
 
   return (
-    <div className="screen">
+    <div className="screen home-screen">
+
+      {/* ── HERO CARD ── */}
       <div className="hero-card">
         <div className="hero-top">
-          <div>
-            <h1 className="hero-title">Lumio</h1>
-            <p className="hero-sub">{getGruss(userName)}</p>
-          </div>
-          <div className="hero-streak">
+          <span className="hero-brand">LUMIO</span>
+          <div className={`hero-streak-pill${streak > 0 ? " aktiv" : ""}`}>
             <span>{streakInfo.flammen || "🔥"}</span>
-            <span>{streak}</span>
+            <span>{streak} {streak === 1 ? "Tag" : "Tage"}</span>
           </div>
         </div>
-        <div className="hero-level-info">
-          <span>Level {lvl.level} · {lvl.name}</span>
-          <span>{lvl.xpAktuell} / {lvl.xpBenoetigt} XP</span>
+        <div className="hero-gruss">
+          <span className="hero-gruss-prefix">{gruss.prefix}</span>
+          <span className="hero-gruss-name">{gruss.name}</span>
+        </div>
+        <div className="hero-level-row">
+          <span className="hero-level-name">{lvl.icon} {lvl.name}</span>
+          <span className="hero-xp-count">{lvl.xpAktuell} / {lvl.xpBenoetigt} XP</span>
         </div>
         <div className="hero-xp-bar">
           <div className="hero-xp-fill" style={{ width: `${lvl.fortschritt}%` }} />
         </div>
-        <p className="hero-quote">"{spruch}"</p>
+        <div className="hero-tagesziel-row">
+          <span className="hero-tagesziel-label">Tagesziel</span>
+          <span className="hero-tagesziel-xp">{xpHeute} / 30 XP heute</span>
+        </div>
+        <div className="hero-tagesziel-bar">
+          <div className="hero-tagesziel-fill" style={{ width: `${xpZielPct}%` }} />
+        </div>
       </div>
 
-      <p className="hub-section-titel">Dein Fortschritt heute</p>
+      {/* ── NÄCHSTER SCHRITT ── */}
+      <div className="ns-card" onClick={() => onHauptkategorieClick("lernen")}>
+        <div className="ns-play-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div className="ns-text">
+          <span className="ns-label">WEITER LERNEN</span>
+          <p className="ns-titel">{nextStep.text}</p>
+          <p className="ns-sub">{nextStep.sub}</p>
+        </div>
+        <div className="ns-arrow-circle">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+
+      {/* ── FORTSCHRITT HEUTE ── */}
       <div className="fortschritt-heute">
         <div className={`fh-karte ${questHeute ? "done" : ""}`}>
           <span className="fh-icon">{questHeute ? "✅" : "⚔️"}</span>
           <div className="fh-text">
             <span className="fh-label">Daily Quest</span>
-            <span className="fh-value">{questHeute ? "Erledigt!" : "Ausstehend"}</span>
+            <span className="fh-value">{questHeute ? "Erledigt ✓" : "Ausstehend"}</span>
           </div>
         </div>
         <div className={`fh-karte ${xpHeute >= 30 ? "done" : ""}`}>
-          <span className="fh-icon">⚡</span>
+          <div className="fh-donut">
+            <svg width="36" height="36" viewBox="0 0 36 36" style={{ display: "block" }}>
+              <defs>
+                <linearGradient id="dg" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#7C3AED"/>
+                  <stop offset="100%" stopColor="#9D174D"/>
+                </linearGradient>
+              </defs>
+              <circle cx="18" cy="18" r={donutR} fill="none" stroke="#ffffff11" strokeWidth="3"/>
+              <circle cx="18" cy="18" r={donutR} fill="none" stroke="url(#dg)" strokeWidth="3"
+                strokeDasharray={donutCirc} strokeDashoffset={donutDash}
+                strokeLinecap="round" transform="rotate(-90 18 18)"/>
+            </svg>
+          </div>
           <div className="fh-text">
             <span className="fh-label">Tages-XP</span>
             <span className="fh-value">{xpHeute} / 30 XP</span>
           </div>
         </div>
       </div>
-      {xpHeute > 0 && (
-        <div className="daily-xp-bar-wrap">
-          <div className="daily-xp-bar-bg">
-            <div className="daily-xp-bar-fill" style={{ width: `${xpZielPct}%` }} />
-          </div>
-          <span className="daily-xp-label">{xpZielPct >= 100 ? "🎉 Tagesziel erreicht!" : `${xpZielPct}% zum Tagesziel`}</span>
-        </div>
-      )}
 
-      <div className="naechster-schritt" onClick={() => onHauptkategorieClick("lernen")}>
-        <div className="ns-icon">▶️</div>
-        <div className="ns-text">
-          <p className="ns-label">Dein nächster Schritt</p>
-          <p className="ns-titel">{nextStep.text}</p>
-          <p className="ns-sub">{nextStep.sub}</p>
+      {/* ── TIPP DES TAGES ── */}
+      <div className="tipp-karte">
+        <div className="tipp-accent" />
+        <div className="tipp-content">
+          <span className="tipp-label">WUSSTEN SIE</span>
+          <p className="tipp-text">{tipp}</p>
         </div>
-        <div className="ns-arrow">›</div>
       </div>
 
-      <div className="tagstipp-banner">
-        <span className="tagstipp-icon">💡</span>
-        <p className="tagstipp-text">{tipp}</p>
-      </div>
-
-      <p className="hub-section-titel">Was möchtest du tun?</p>
-
+      {/* ── HUB ── */}
+      <p className="section-label">ENTDECKEN</p>
       <div className="hub-liste">
         {hauptkategorien.map((k) => (
           <div
             key={k.id}
-            className={`hub-banner ${!k.verfuegbar ? "gesperrt" : ""}`}
+            className={`hub-row ${!k.verfuegbar ? "gesperrt" : ""}`}
             onClick={() => k.verfuegbar && onHauptkategorieClick(k.id)}
-            style={{ background: k.verfuegbar ? k.gradient : "var(--card)" }}
+            style={k.verfuegbar ? { "--hub-farbe": k.farbe } : {}}
           >
-            <div className="hub-svg-icon">
-              {HUB_SVGS[k.id] ?? <span style={{ fontSize: "1.75rem" }}>{k.icon}</span>}
+            <div className="hub-row-icon" style={{ background: k.verfuegbar ? k.farbe + "22" : "#ffffff0d" }}>
+              {HUB_SVGS[k.id] ?? <span style={{ fontSize: "1.4rem" }}>{k.icon}</span>}
             </div>
-            <div className="hub-banner-text">
-              <p className="hub-banner-name">{k.name}</p>
-              <p className="hub-banner-beschreibung">{k.verfuegbar ? k.beschreibung : "Bald verfügbar"}</p>
+            <div className="hub-row-text">
+              <p className="hub-row-name">{k.name}</p>
+              <p className="hub-row-sub">{k.verfuegbar ? k.beschreibung : "Bald verfügbar"}</p>
             </div>
-            {k.verfuegbar && <div className="hub-banner-arrow">→</div>}
-            {!k.verfuegbar && <span className="hub-coming-soon">Coming Soon</span>}
+            {k.verfuegbar
+              ? <div className="hub-row-arrow">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+              : <span className="hub-coming-soon">Soon</span>
+            }
           </div>
         ))}
       </div>
+
     </div>
   )
 }
