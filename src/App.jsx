@@ -2070,13 +2070,17 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 
 
   if (phase === "quiz") {
     const frage = fragen[fragenIdx]
+    const richtigGewaehlt = gewaehlt === frage.richtig
     return (
       <div className="screen">
         <button className="zurueck-btn" onClick={() => { setPhase("cards"); setCardIdx(TOTAL - 1) }}>← Zurück</button>
-        <div className="lektion-progress">
-          <div className="lektion-progress-fill" style={{ width: `${(fragenIdx / fragen.length) * 100}%` }} />
+        <div className="lektion-progress-header">
+          <div className="lektion-progress" style={{ flex: 1, margin: 0 }}>
+            <div className="lektion-progress-fill" style={{ width: `${((fragenIdx + 1) / fragen.length) * 100}%` }} />
+          </div>
+          <span className="lektion-progress-label">Quiz · {fragenIdx + 1} / {fragen.length}</span>
         </div>
-        <p className="theorie-label">🧠 Quiz · Frage {fragenIdx + 1} / {fragen.length}</p>
+        <p className="theorie-label">🧠 Verständnisquiz</p>
         <h2 className="frage">{frage.text}</h2>
         <div className="antworten">
           {frage.antworten.map((a, i) => (
@@ -2086,8 +2090,8 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 
           ))}
         </div>
         {gewaehlt !== null && (
-          <div className="feedback">
-            <p>{gewaehlt === frage.richtig ? "✅ Richtig!" : "❌ Falsch!"}</p>
+          <div className={`feedback ${richtigGewaehlt ? "feedback-richtig" : "feedback-falsch"}`}>
+            <p>{richtigGewaehlt ? "✅ Richtig!" : "❌ Falsch!"}</p>
             <button className="weiter-btn" onClick={naechsteFrage}>
               {fragenIdx + 1 >= fragen.length ? "Ergebnis →" : "Weiter →"}
             </button>
@@ -2226,13 +2230,17 @@ function L301Screen({ lektion, onZurueck, onAbgeschlossen }) {
 
   if (phase === "quiz") {
     const frage = fragen[fragenIdx]
+    const richtigGewaehlt = gewaehlt === frage.richtig
     return (
       <div className="screen">
         <button className="zurueck-btn" onClick={() => { setPhase("cards"); setCardIdx(TOTAL - 1) }}>← Zurück</button>
-        <div className="lektion-progress">
-          <div className="lektion-progress-fill" style={{ width: `${(fragenIdx / fragen.length) * 100}%` }} />
+        <div className="lektion-progress-header">
+          <div className="lektion-progress" style={{ flex: 1, margin: 0 }}>
+            <div className="lektion-progress-fill" style={{ width: `${((fragenIdx + 1) / fragen.length) * 100}%` }} />
+          </div>
+          <span className="lektion-progress-label">Quiz · {fragenIdx + 1} / {fragen.length}</span>
         </div>
-        <p className="theorie-label">🧠 Quiz · Frage {fragenIdx + 1} / {fragen.length}</p>
+        <p className="theorie-label">🧠 Verständnisquiz</p>
         <h2 className="frage">{frage.text}</h2>
         <div className="antworten">
           {frage.antworten.map((a, i) => (
@@ -2242,8 +2250,8 @@ function L301Screen({ lektion, onZurueck, onAbgeschlossen }) {
           ))}
         </div>
         {gewaehlt !== null && (
-          <div className="feedback">
-            <p>{gewaehlt === frage.richtig ? "✅ Richtig!" : "❌ Falsch!"}</p>
+          <div className={`feedback ${richtigGewaehlt ? "feedback-richtig" : "feedback-falsch"}`}>
+            <p>{richtigGewaehlt ? "✅ Richtig!" : "❌ Falsch!"}</p>
             <button className="weiter-btn" onClick={naechsteFrage}>
               {fragenIdx + 1 >= fragen.length ? "Ergebnis →" : "Weiter →"}
             </button>
@@ -4090,13 +4098,16 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
     return (
       <div className="screen">
         <button className="zurueck-btn" onClick={onZurueck}>← Zurück</button>
-        <div className="lektion-progress">
-          <div className="lektion-progress-fill" style={{ width: "33%" }} />
+        <div className="lektion-progress-header">
+          <div className="lektion-progress" style={{ flex: 1, margin: 0 }}>
+            <div className="lektion-progress-fill" style={{ width: "40%" }} />
+          </div>
+          <span className="lektion-progress-label">Lesen · ~5 Min</span>
         </div>
         <p className="theorie-label">📖 Lerneinheit</p>
-        <h2 style={{ fontSize: "1.3rem", marginBottom: "1.5rem" }}>{lektion.titel}</h2>
+        <h2 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "1.25rem", letterSpacing: "-0.02em" }}>{lektion.titel}</h2>
         {lektion.inhalt.split("\n\n").map((absatz, i) => (
-          <p key={i} style={{ color: "#ccc", lineHeight: 1.8, marginBottom: "1.25rem", fontSize: "0.95rem" }}>{absatz}</p>
+          <p key={i} style={{ color: "#ccc", lineHeight: 1.85, marginBottom: "1.25rem", fontSize: "0.95rem" }}>{absatz}</p>
         ))}
         <button className="weiter-btn" onClick={() => setPhase("quiz")}>Zum Verständnisquiz →</button>
       </div>
@@ -4104,13 +4115,17 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
   }
 
   if (phase === "quiz") {
+    const richtigGewaehlt = gewaehlt === aktuelleFrage.richtig
     return (
       <div className="screen">
         <button className="zurueck-btn" onClick={() => setPhase("lesen")}>← Zurück</button>
-        <div className="lektion-progress">
-          <div className="lektion-progress-fill" style={{ width: `${33 + (aktualeFrage / fragen.length) * 33}%` }} />
+        <div className="lektion-progress-header">
+          <div className="lektion-progress" style={{ flex: 1, margin: 0 }}>
+            <div className="lektion-progress-fill" style={{ width: `${60 + ((aktualeFrage + 1) / fragen.length) * 40}%` }} />
+          </div>
+          <span className="lektion-progress-label">Quiz · {aktualeFrage + 1} / {fragen.length}</span>
         </div>
-        <p className="theorie-label">🧠 Verständnisquiz · Frage {aktualeFrage + 1} / {fragen.length}</p>
+        <p className="theorie-label">🧠 Verständnisquiz</p>
         <h2 className="frage">{aktuelleFrage.text}</h2>
         <div className="antworten">
           {aktuelleFrage.antworten.map((a, i) => (
@@ -4124,8 +4139,8 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
           ))}
         </div>
         {gewaehlt !== null && (
-          <div className="feedback">
-            <p>{gewaehlt === aktuelleFrage.richtig ? "✅ Richtig!" : "❌ Falsch!"}</p>
+          <div className={`feedback ${richtigGewaehlt ? "feedback-richtig" : "feedback-falsch"}`}>
+            <p>{richtigGewaehlt ? "✅ Richtig!" : "❌ Falsch!"}</p>
             <button className="weiter-btn" onClick={naechsteFrage}>
               {aktualeFrage + 1 >= fragen.length ? "Ergebnis →" : "Weiter →"}
             </button>
@@ -4214,13 +4229,17 @@ function DailyQuestScreen({ abgeschlosseneQuests, onQuestAbgeschlossen }) {
 
   if (aktiverQuest && phase === "quiz") {
     const frage = aktiverQuest.fragen[aktualeFrage]
+    const richtigGewaehlt = gewaehlt === frage.richtig
     return (
       <div className="screen">
         <button className="zurueck-btn" onClick={() => setAktiverQuest(null)}>← Zurück</button>
-        <div className="lektion-progress">
-          <div className="lektion-progress-fill" style={{ width: `${(aktualeFrage / aktiverQuest.fragen.length) * 100}%` }} />
+        <div className="lektion-progress-header">
+          <div className="lektion-progress" style={{ flex: 1, margin: 0 }}>
+            <div className="lektion-progress-fill" style={{ width: `${((aktualeFrage + 1) / aktiverQuest.fragen.length) * 100}%` }} />
+          </div>
+          <span className="lektion-progress-label">Quest · {aktualeFrage + 1} / {aktiverQuest.fragen.length}</span>
         </div>
-        <p className="theorie-label">⚔️ Daily Quest · Frage {aktualeFrage + 1} / {aktiverQuest.fragen.length}</p>
+        <p className="theorie-label">⚔️ Daily Quest</p>
         <h2 className="frage">{frage.text}</h2>
         <div className="antworten">
           {frage.antworten.map((a, i) => (
@@ -4234,8 +4253,8 @@ function DailyQuestScreen({ abgeschlosseneQuests, onQuestAbgeschlossen }) {
           ))}
         </div>
         {gewaehlt !== null && (
-          <div className="feedback">
-            <p>{gewaehlt === frage.richtig ? "✅ Richtig!" : "❌ Falsch!"}</p>
+          <div className={`feedback ${richtigGewaehlt ? "feedback-richtig" : "feedback-falsch"}`}>
+            <p>{richtigGewaehlt ? "✅ Richtig!" : "❌ Falsch!"}</p>
             <button className="weiter-btn" onClick={naechsteFrage}>
               {aktualeFrage + 1 >= aktiverQuest.fragen.length ? "Ergebnis →" : "Weiter →"}
             </button>
@@ -4250,17 +4269,19 @@ function DailyQuestScreen({ abgeschlosseneQuests, onQuestAbgeschlossen }) {
     const fast = richtige === aktiverQuest.fragen.length - 1
     const verdientXP = perfekt ? aktiverQuest.xp : fast ? 7 : 0
     return (
-      <div className="screen" style={{ textAlign: "center" }}>
-        <div style={{ fontSize: "3rem", marginTop: "3rem" }}>⚔️</div>
-        <h1 style={{ marginTop: "1rem" }}>{perfekt ? "Quest abgeschlossen!" : "Gut gekämpft!"}</h1>
-        <p style={{ color: "#888", marginTop: "0.5rem" }}>{richtige} von {aktiverQuest.fragen.length} richtig</p>
-        <p style={{ fontSize: "1.5rem", marginTop: "0.5rem" }}>+{verdientXP} XP</p>
-        <button className="weiter-btn" style={{ marginTop: "2rem" }} onClick={() => {
-          onQuestAbgeschlossen(aktiverQuest.id, verdientXP)
-          setAktiverQuest(null)
-        }}>
-          Fertig
-        </button>
+      <div className="screen">
+        <div className="ergebnis-screen">
+          <div className="ergebnis-emoji">{perfekt ? "⚔️" : "🛡️"}</div>
+          <h1 className="ergebnis-titel">{perfekt ? "Quest geschafft!" : "Gut gekämpft!"}</h1>
+          <p className="ergebnis-sub">{richtige} von {aktiverQuest.fragen.length} richtig</p>
+          <p className="ergebnis-xp">+{verdientXP} XP</p>
+          <button className="weiter-btn" style={{ marginTop: "1.5rem" }} onClick={() => {
+            onQuestAbgeschlossen(aktiverQuest.id, verdientXP)
+            setAktiverQuest(null)
+          }}>
+            Fertig
+          </button>
+        </div>
       </div>
     )
   }
