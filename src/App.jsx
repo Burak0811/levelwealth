@@ -156,6 +156,120 @@ const LERNPLAN_ZIELE = {
   ]
 }
 
+const AKTIONSPLAN_DATEN = {
+  etf: {
+    id: "etf",
+    name: "ETF Basics",
+    titel: "Du bist bereit. Starte heute.",
+    subtitel: "3 Schritte die du jetzt tun kannst – kostenlos, in unter 30 Minuten",
+    headerIcon: "🚀",
+    bonusXP: 50,
+    abschlussText: "🎉 Du bist jetzt Investor!",
+    schritte: [
+      {
+        titel: "Depot eröffnen",
+        iconKatId: 6,
+        dauer: "~10 Minuten",
+        beschreibung: "Wähle einen kostenlosen Neobroker. Trade Republic, Scalable Capital oder DKB sind alle solide Optionen für Einsteiger.",
+        infoBox: "Du brauchst: Personalausweis, Steuer-ID (auf deinem letzten Steuerbescheid), Bankverbindung"
+      },
+      {
+        titel: "Freistellungsauftrag einrichten",
+        iconKatId: 7,
+        dauer: "~2 Minuten",
+        beschreibung: "Direkt nach der Depot-Eröffnung: Freistellungsauftrag für 1.000€ einrichten. Sonst zahlt die Bank automatisch Steuern auf deine ersten Gewinne.",
+        infoBox: "Ohne Freistellungsauftrag verlierst du sofort 26,375% auf jeden Gewinn – auch unter dem Freibetrag"
+      },
+      {
+        titel: "Ersten ETF-Sparplan einrichten",
+        iconKatId: 1,
+        dauer: "~5 Minuten",
+        beschreibung: "MSCI World ETF wählen (z.B. iShares Core MSCI World, ISIN: IE00B4L5Y983). Betrag festlegen – auch 25€/Monat sind ein guter Start. Datum: 1. des Monats.",
+        infoBox: "Du kannst den Sparplan jederzeit pausieren oder anpassen"
+      }
+    ]
+  },
+  budget: {
+    id: "budget",
+    name: "Budgetierung",
+    titel: "Dein Finanzfundament legen",
+    subtitel: "4 Schritte für finanzielle Stabilität",
+    headerIcon: "📊",
+    bonusXP: 50,
+    abschlussText: "🎉 Dein Fundament steht!",
+    schritte: [
+      {
+        titel: "Notgroschen-Ziel berechnen",
+        iconKatId: 5,
+        dauer: "~5 Minuten",
+        beschreibung: "Monatsausgaben × 3 = dein Notgroschen-Ziel. Richte ein separates Tagesgeldkonto dafür ein.",
+        infoBox: null,
+        rechner: true
+      },
+      {
+        titel: "Dauerauftrag einrichten",
+        iconKatId: 6,
+        dauer: "~3 Minuten",
+        beschreibung: "Am 1. des Monats automatisch X€ auf Notgroschen-Konto überweisen. Pay yourself first.",
+        infoBox: null
+      },
+      {
+        titel: "Ausgaben tracken starten",
+        iconKatId: 5,
+        dauer: "~15 Minuten",
+        beschreibung: "Heute deine letzten 3 Monatsauszüge anschauen und Ausgaben in Kategorien einteilen. Wo geht das meiste hin?",
+        infoBox: null
+      },
+      {
+        titel: "Budget festlegen",
+        iconKatId: 5,
+        dauer: "~10 Minuten",
+        beschreibung: "50/30/20 Regel anwenden. Schreib deine drei Budgets auf: Bedürfnisse / Wünsche / Sparen.",
+        infoBox: null
+      }
+    ]
+  },
+  steuern: {
+    id: "steuern",
+    name: "Steuern",
+    titel: "Deine Steuer-Checkliste",
+    subtitel: "Diese Dinge kannst du sofort erledigen",
+    headerIcon: "📋",
+    bonusXP: 50,
+    abschlussText: "🎉 Steuer-Checkliste abgehakt!",
+    schritte: [
+      {
+        titel: "Steuer-ID suchen",
+        iconKatId: 7,
+        dauer: "~5 Minuten",
+        beschreibung: "Deine Steuer-ID steht auf deinem letzten Steuerbescheid oder du kannst sie beim Bundeszentralamt für Steuern anfragen. Du brauchst sie für dein Depot.",
+        infoBox: null
+      },
+      {
+        titel: "Freistellungsauftrag prüfen",
+        iconKatId: 7,
+        dauer: "~2 Minuten",
+        beschreibung: "Hast du ein Depot? Prüfe ob ein Freistellungsauftrag für 1.000€ eingerichtet ist.",
+        infoBox: null
+      },
+      {
+        titel: "ELSTER-Konto anlegen",
+        iconKatId: 7,
+        dauer: "~10 Minuten",
+        beschreibung: "Kostenlos auf elster.de registrieren. Damit kannst du deine Steuererklärung selbst machen und im Schnitt 1.072€ zurückbekommen.",
+        infoBox: null
+      }
+    ]
+  }
+}
+
+const AKTIONSPLAN_TRIGGER = {
+  12:  "etf",
+  602: "etf",
+  608: "etf",
+  308: "budget",
+  701: "steuern"
+}
 
 const dailyQuests = [
   {
@@ -8418,7 +8532,132 @@ function DailyQuestScreen({ abgeschlosseneQuests, onQuestAbgeschlossen }) {
   )
 }
 
-function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWissenslevel, achievements, xpTaeglich, streakFreezes, onStreakFreeze }) {
+function AktionsplanScreen({ planId, aktionsplaene, onSchrittToggle, onBonusXP, onUeberspringen }) {
+  const plan       = AKTIONSPLAN_DATEN[planId]
+  const planState  = aktionsplaene[planId] || {}
+  const schritte   = planState.schritte || Array(plan.schritte.length).fill(false)
+  const erledigt   = schritte.filter(Boolean).length
+  const gesamt     = plan.schritte.length
+  const pct        = gesamt > 0 ? Math.round((erledigt / gesamt) * 100) : 0
+  const alleGeschafft = erledigt === gesamt
+  const [bonusDone, setBonusDone] = useState(false)
+  const [notgroschen, setNotgroschen] = useState(1500)
+
+  useEffect(() => {
+    if (alleGeschafft && !bonusDone && !planState.bonusVergeben) {
+      setBonusDone(true)
+      onBonusXP(plan.bonusXP, planId)
+    }
+  }, [alleGeschafft])
+
+  const farben = ["#7C3AED", "#9D174D", "#10B981", "#EAB308", "#3B82F6", "#F97316", "#EC4899", "#8B5CF6"]
+
+  return (
+    <div className="screen ap-screen">
+      {/* Konfetti wenn alles erledigt */}
+      {alleGeschafft && (
+        <div className="ap-konfetti-container" aria-hidden="true">
+          {farben.concat(farben).map((farbe, i) => (
+            <div key={i} className="ap-konfetti-piece"
+              style={{ left: `${(i / 16) * 100}%`, background: farbe, animationDelay: `${i * 0.12}s`, animationDuration: `${2.5 + (i % 4) * 0.5}s` }}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Header */}
+      <div className="ap-skip-row">
+        <button className="ap-skip-btn" onClick={onUeberspringen}>Überspringen</button>
+      </div>
+      <div className="ap-header">
+        <div className="ap-header-icon">{plan.headerIcon}</div>
+        <h1 className="ap-titel">{alleGeschafft ? plan.abschlussText : plan.titel}</h1>
+        <p className="ap-subtitel">{plan.subtitel}</p>
+      </div>
+
+      {/* Fortschritt */}
+      <div className="ap-fortschritt">
+        <div className="ap-fort-row">
+          <span className="ap-fort-label">{erledigt} von {gesamt} Schritten erledigt</span>
+          <span className="ap-fort-pct">{pct}%</span>
+        </div>
+        <div className="ap-fort-bar-bg">
+          <div className="ap-fort-bar-fill" style={{ width: `${pct}%` }} />
+        </div>
+      </div>
+
+      {/* Bonus XP Banner wenn alles erledigt */}
+      {alleGeschafft && (
+        <div className="ap-bonus-banner">
+          <span className="ap-bonus-icon">⚡</span>
+          <span className="ap-bonus-text">+{plan.bonusXP} Bonus-XP erhalten!</span>
+        </div>
+      )}
+
+      {/* Schritt-Karten */}
+      <div className="ap-schritte">
+        {plan.schritte.map((s, i) => {
+          const done = schritte[i] || false
+          return (
+            <div key={i} className={`ap-schritt-karte ${done ? "done" : ""}`}>
+              <div className="ap-schritt-top">
+                <button
+                  className={`ap-checkbox ${done ? "checked" : ""}`}
+                  onClick={() => onSchrittToggle(planId, i)}
+                  aria-label={done ? "Als unerledigt markieren" : "Als erledigt markieren"}
+                >
+                  {done && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="5 13 10 18 19 7"/></svg>}
+                </button>
+                <div className="ap-schritt-icon">
+                  <KatIcon id={s.iconKatId} size={18} color={done ? "#10B981" : "#7C3AED"}/>
+                </div>
+                <div className="ap-schritt-kopf">
+                  <span className="ap-schritt-titel">{s.titel}</span>
+                  <span className="ap-schritt-dauer">{s.dauer}</span>
+                </div>
+              </div>
+              <p className="ap-schritt-beschreibung">{s.beschreibung}</p>
+              {s.rechner && (
+                <div className="ap-mini-rechner">
+                  <span className="ap-rechner-label">Monatsausgaben:</span>
+                  <div className="ap-rechner-row">
+                    <input
+                      type="number"
+                      min={100}
+                      max={10000}
+                      value={notgroschen}
+                      onChange={e => setNotgroschen(Number(e.target.value) || 0)}
+                      className="ap-rechner-input"
+                    />
+                    <span className="ap-rechner-unit">€/Mo</span>
+                  </div>
+                  <div className="ap-rechner-result">
+                    Dein Notgroschen-Ziel: <strong>{(notgroschen * 3).toLocaleString("de-DE")} €</strong>
+                  </div>
+                </div>
+              )}
+              {s.infoBox && (
+                <div className="ap-info-box">
+                  <span className="ap-info-icon">💡</span>
+                  <p className="ap-info-text">{s.infoBox}</p>
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Abschluss-Button */}
+      {alleGeschafft && (
+        <button className="ap-weiter-btn" onClick={onUeberspringen}>
+          Nächster Lernpfad →
+        </button>
+      )}
+    </div>
+  )
+}
+
+function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWissenslevel, achievements, xpTaeglich, streakFreezes, onStreakFreeze, aktionsplaene, onAktionsplanOeffnen }) {
   const lvl         = getLevelInfo(xp)
   const circumf     = 2 * Math.PI * 44
   const dashOffset  = circumf - (lvl.fortschritt / 100) * circumf
@@ -8582,6 +8821,37 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWisse
           </div>
         ))}
       </div>
+
+      {Object.keys(aktionsplaene || {}).length > 0 && (
+        <>
+          <h3 className="profil-section-titel">Meine Aktionspläne</h3>
+          <div className="profil-aktionsplaene">
+            {Object.entries(AKTIONSPLAN_DATEN).map(([planId, plan]) => {
+              const planState = (aktionsplaene || {})[planId]
+              if (!planState) return null
+              const schritte = planState.schritte || []
+              const erd = schritte.filter(Boolean).length
+              const ges = plan.schritte.length
+              const pct = ges > 0 ? Math.round((erd / ges) * 100) : 0
+              return (
+                <div key={planId} className="pap-karte" onClick={() => onAktionsplanOeffnen && onAktionsplanOeffnen(planId)}>
+                  <div className="pap-icon">{plan.headerIcon}</div>
+                  <div className="pap-info">
+                    <p className="pap-name">{plan.name}</p>
+                    <div className="pap-bar-bg">
+                      <div className="pap-bar-fill" style={{ width: `${pct}%` }} />
+                    </div>
+                    <p className="pap-meta">{erd}/{ges} Schritte · {pct}%</p>
+                  </div>
+                  <div className="pap-arrow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </>
+      )}
     </div>
   )
 }
@@ -9289,6 +9559,8 @@ function App() {
   const [newsOeffnungen, setNewsOeffnungen]       = useState(() => Number(localStorage.getItem("newsOeffnungen")) || 0)
   const [pendingAchievement, setPendingAchievement] = useState(null)
   const [kategorienBonus, setKategorienBonus]     = useState(() => JSON.parse(localStorage.getItem("kategorienBonus") || "[]"))
+  const [aktionsplaene, setAktionsplaene]         = useState(() => JSON.parse(localStorage.getItem("aktionsplaene") || "{}"))
+  const [aktiversAktionsplanId, setAktiversAktionsplanId] = useState(null)
 
   useEffect(() => {
     const heute = getHeute()
@@ -9429,6 +9701,24 @@ function App() {
 
     if (verdientXP > 0) updateStreak()
     addXP(verdientXP + bonusXP)
+
+    // Aktionsplan-Trigger prüfen
+    const triggerId = AKTIONSPLAN_TRIGGER[aktiveLektion.id]
+    if (triggerId) {
+      const bisheriger = JSON.parse(localStorage.getItem("aktionsplaene") || "{}")
+      if (!bisheriger[triggerId]) {
+        const neuAktionsplaene = {
+          ...bisheriger,
+          [triggerId]: { gesehen: true, schritte: Array(AKTIONSPLAN_DATEN[triggerId].schritte.length).fill(false), bonusVergeben: false }
+        }
+        localStorage.setItem("aktionsplaene", JSON.stringify(neuAktionsplaene))
+        setAktionsplaene(neuAktionsplaene)
+        setAktiveLektion(null)
+        setAktiversAktionsplanId(triggerId)
+        return
+      }
+    }
+
     setAktiveLektion(null)
   }
 
@@ -9474,6 +9764,32 @@ function App() {
     setAktiveHauptkategorie(null)
     setAktiveKategorie(null)
     setAktiveLektion(null)
+    setAktiversAktionsplanId(null)
+  }
+
+  function aktionsplanSchrittToggle(planId, idx) {
+    setAktionsplaene(prev => {
+      const planState = prev[planId] || { gesehen: true, schritte: Array(AKTIONSPLAN_DATEN[planId].schritte.length).fill(false), bonusVergeben: false }
+      const neueSchritte = [...(planState.schritte || [])]
+      neueSchritte[idx] = !neueSchritte[idx]
+      const updated = { ...prev, [planId]: { ...planState, schritte: neueSchritte } }
+      localStorage.setItem("aktionsplaene", JSON.stringify(updated))
+      return updated
+    })
+  }
+
+  function aktionsplanBonusXP(bonusXP, planId) {
+    setAktionsplaene(prev => {
+      if (prev[planId]?.bonusVergeben) return prev
+      const updated = { ...prev, [planId]: { ...prev[planId], bonusVergeben: true } }
+      localStorage.setItem("aktionsplaene", JSON.stringify(updated))
+      addXP(bonusXP)
+      return updated
+    })
+  }
+
+  function aktionsplanOeffnen(planId) {
+    setAktiversAktionsplanId(planId)
   }
 
   function onboardingAbschliessen(startXP, name) {
@@ -9516,7 +9832,16 @@ function App() {
   return (
     <div className="app">
       <div className="content">
-        {aktiverTab === "home" && !aktiveHauptkategorie && !aktiveLektion && (
+        {aktiverTab === "home" && aktiversAktionsplanId && (
+          <AktionsplanScreen
+            planId={aktiversAktionsplanId}
+            aktionsplaene={aktionsplaene}
+            onSchrittToggle={aktionsplanSchrittToggle}
+            onBonusXP={aktionsplanBonusXP}
+            onUeberspringen={() => setAktiversAktionsplanId(null)}
+          />
+        )}
+        {aktiverTab === "home" && !aktiversAktionsplanId && !aktiveHauptkategorie && !aktiveLektion && (
           <Startscreen
             xp={xp} streak={streak}
             onHauptkategorieClick={(id) => setAktiveHauptkategorie(id)}
@@ -9531,23 +9856,23 @@ function App() {
             onLektionClick={(l, k) => { setAktiveKategorie(k); setAktiveLektion(l) }}
           />
         )}
-        {aktiverTab === "home" && aktiveHauptkategorie === "news" && (
+        {aktiverTab === "home" && !aktiversAktionsplanId && aktiveHauptkategorie === "news" && (
           <NewsScreen onZurueck={() => setAktiveHauptkategorie(null)} onOeffnen={newsOeffnen} />
         )}
-        {aktiverTab === "home" && aktiveHauptkategorie === "rechner" && (
+        {aktiverTab === "home" && !aktiversAktionsplanId && aktiveHauptkategorie === "rechner" && (
           <RechnerScreen onZurueck={() => setAktiveHauptkategorie(null)} userFinanzsituation={userFinanzsituation} onRechnerOeffnung={rechnerOeffnen} />
         )}
-        {aktiverTab === "home" && aktiveLektion && aktiveLektion.typ === "cards" && (
+        {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ === "cards" && (
           <CardLektionScreen lektion={aktiveLektion} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} />
         )}
-        {aktiverTab === "home" && aktiveLektion && aktiveLektion.typ !== "cards" && (
+        {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ !== "cards" && (
           <LektionScreen lektion={aktiveLektion} kategorie={aktiveKategorie} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} />
         )}
         {aktiverTab === "quest" && (
           <DailyQuestScreen abgeschlosseneQuests={abgeschlosseneQuests} onQuestAbgeschlossen={questAbschliessen} />
         )}
         {aktiverTab === "profil" && (
-          <ProfilScreen xp={xp} streak={streak} abgeschlosseneLektionen={abgeschlosseneLektionen} userName={userName} userWissenslevel={userWissenslevel} achievements={achievements} xpTaeglich={xpTaeglich} streakFreezes={streakFreezes} onStreakFreeze={streakFreeze} />
+          <ProfilScreen xp={xp} streak={streak} abgeschlosseneLektionen={abgeschlosseneLektionen} userName={userName} userWissenslevel={userWissenslevel} achievements={achievements} xpTaeglich={xpTaeglich} streakFreezes={streakFreezes} onStreakFreeze={streakFreeze} aktionsplaene={aktionsplaene} onAktionsplanOeffnen={aktionsplanOeffnen} />
         )}
         {aktiverTab === "entdecken" && (
           <EntdeckenScreen userFinanzsituation={userFinanzsituation} onRechnerOeffnung={rechnerOeffnen} onNewsOeffnen={newsOeffnen} />
