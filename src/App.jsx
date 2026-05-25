@@ -1450,8 +1450,131 @@ Krypto kann dein Leben verändern – in beide Richtungen. Wissen und Vorsicht s
   ]
 }
 
+// ─── XP & Level System ───────────────────────────────────────────────────────
+
+const LEVEL_XP = [0, 100, 250, 450, 700, 1000, 1350, 1700, 2050, 2400, 2750, 3250, 3750, 4250, 4750, 5250, 6000, 6750, 7500, 8250, 9000]
+
+const LEVEL_NAMEN = [
+  "", "Finanz-Neuling", "Sparfuchs", "ETF-Entdecker", "Markt-Beobachter",
+  "Aktien-Kenner", "Dividenden-Sammler", "Portfolio-Builder", "Krypto-Neugieriger",
+  "Steuer-Optimierer", "Vermögens-Planer", "Investment-Stratege", "Markt-Analyst",
+  "Finanz-Architekt", "Alpha-Sucher", "Risk-Manager", "Portfolio-Profi",
+  "Wealth-Builder", "Finanz-Mentor", "Investment-Experte", "Lumio Master",
+]
+
+const LEVEL_ICONS = [
+  "", "🌱", "🦊", "🔭", "👀", "📊", "💰", "🏗️", "₿", "📋", "🎯",
+  "⚡", "🔬", "🏛️", "🚀", "🛡️", "💼", "🏆", "🎓", "💎", "👑",
+]
+
+const TIPPS = {
+  einsteiger: [
+    "Selbst 50 €/Monat werden in 20 Jahren zu über 26.000 € – Zinseszins macht's möglich.",
+    "Ein ETF-Sparplan ab 1 € ist bereits bei Trade Republic möglich – einfach anfangen.",
+    "Das größte Investitionsrisiko ist, gar nicht zu investieren. Inflation frisst dein Geld.",
+    "Diversifikation = nicht alles auf eine Karte. ETFs machen das automatisch für dich.",
+    "Der Cost-Averaging-Effekt: Regelmäßig sparen schlägt fast immer den 'perfekten Einstieg'.",
+    "Freistellungsauftrag vergessen? Dann verschenkst du 1.000 € Steuerfreibetrag pro Jahr.",
+    "Tagesgeld schlägt Girokonto – 3 % Zinsen sind besser als 0 %. Kleines Upgrade, großer Effekt.",
+  ],
+  mittel: [
+    "Der MSCI World hat seit 1970 keine einzige 15-Jahres-Periode mit Verlust beendet.",
+    "Thesaurierend vs. ausschüttend: Über 30 Jahre kann der Unterschied 40.000 €+ ausmachen.",
+    "Rebalancing einmal pro Jahr reicht – häufiger kostet durch Steuern und Transaktionskosten.",
+    "70/30-Portfolio: 70 % MSCI World + 30 % Emerging Markets – bewährt seit Jahrzehnten.",
+    "Tracking Difference statt TER: Manche ETFs performen besser als ihr eigener Index.",
+    "Sparerpauschbetrag 2024: 1.000 € (Single) – stelle den Freistellungsauftrag und nutze ihn.",
+    "Wertpapierleihe erklärt, warum manche ETFs 'negative Kosten' haben – kein Fehler, ein Feature.",
+  ],
+  profi: [
+    "Factor Investing: Value-Aktien haben historisch Large Caps um 3–4 % p.a. übertroffen.",
+    "Tax-Loss-Harvesting: Verluste realisieren um Gewinne steuerlich zu verrechnen – legal & wirksam.",
+    "Momentum-Faktor: Aktien die 12 Monate outperformt haben, tendieren zur weiteren Outperformance.",
+    "Small Cap Value hat historisch die stärkste risikoadjustierte Rendite aller Faktor-Prämien.",
+    "CAPE-Ratio (Shiller-KGV): Bei Werten über 30 war die folgende 10-Jahres-Rendite oft enttäuschend.",
+    "Barbell-Strategie: 90 % sichere Assets + 10 % hochspekulative – risikobegrenztes Upside.",
+    "Core-Satellite: 80 % passive Index-ETFs + 20 % aktive Einzelaktien – das Beste beider Welten.",
+  ],
+}
+
+const ACHIEVEMENTS_DEF = [
+  { id: "erster_tag",       name: "Erster Tag",       icon: "🌅", beschreibung: "App zum ersten Mal geöffnet" },
+  { id: "schnellstarter",   name: "Schnellstarter",   icon: "⚡", beschreibung: "3 Lektionen an einem Tag" },
+  { id: "nachteuler",       name: "Nachteuler",       icon: "🦉", beschreibung: "Lektion nach 22 Uhr abgeschlossen" },
+  { id: "fruehaufsteher",   name: "Frühaufsteher",    icon: "☀️", beschreibung: "Lektion vor 7 Uhr abgeschlossen" },
+  { id: "perfektionist",    name: "Perfektionist",    icon: "🎯", beschreibung: "10 Quizze in Folge perfekt" },
+  { id: "wissens_marathon", name: "Wissens-Marathon", icon: "🏃", beschreibung: "5 Lektionen an einem Tag" },
+  { id: "comeback_kid",     name: "Comeback Kid",     icon: "💪", beschreibung: "Nach 3+ Tagen Pause zurück" },
+  { id: "zahlen_nerd",      name: "Zahlen-Nerd",      icon: "🔢", beschreibung: "Rechner 10× benutzt" },
+  { id: "news_junkie",      name: "News-Junkie",      icon: "📰", beschreibung: "News 7× geöffnet" },
+]
+
 function berechneLevel(xp) {
-  return Math.floor(xp / 100) + 1
+  let level = 1
+  for (let i = 1; i < LEVEL_XP.length; i++) {
+    if (xp >= LEVEL_XP[i]) level = i + 1
+    else break
+  }
+  return Math.min(level, 20)
+}
+
+function getLevelInfo(xp) {
+  const level       = berechneLevel(xp)
+  const xpDieses    = LEVEL_XP[level - 1] ?? 0
+  const xpNaechstes = LEVEL_XP[level]    ?? LEVEL_XP[LEVEL_XP.length - 1]
+  const xpAktuell   = xp - xpDieses
+  const xpBenoetigt = xpNaechstes - xpDieses
+  const fortschritt = level >= 20 ? 100 : Math.min(Math.round((xpAktuell / xpBenoetigt) * 100), 100)
+  return { level, name: LEVEL_NAMEN[level], icon: LEVEL_ICONS[level], xpAktuell, xpBenoetigt, fortschritt }
+}
+
+function getStreakDisplay(streak) {
+  if (streak <= 0)  return { flammen: "",    label: "Kein Streak", klasse: "" }
+  if (streak <= 2)  return { flammen: "🔥",  label: `${streak} ${streak === 1 ? "Tag" : "Tage"}`, klasse: "active" }
+  if (streak <= 6)  return { flammen: "🔥🔥", label: `${streak} Tage`, klasse: "active" }
+  if (streak <= 13) return { flammen: "🔥🔥🔥", label: `${streak} Tage · Woche erreicht!`, klasse: "active" }
+  if (streak <= 29) return { flammen: "⚡", label: `${streak} Tage · ${Math.floor(streak / 7)} Wochen!`, klasse: "active" }
+  return { flammen: "💎", label: `${streak} Tage · Monats-Streak!`, klasse: "active" }
+}
+
+function getGruss(userName) {
+  const h = new Date().getHours()
+  const n = userName || "Investor"
+  if (h >= 6  && h < 12) return `Guten Morgen, ${n} ☀️`
+  if (h >= 12 && h < 18) return `Hey ${n} 👋`
+  if (h >= 18 && h < 24) return `Guten Abend, ${n} 🌙`
+  return `Du bist spät dran, ${n} 🦉`
+}
+
+function getTagestipp(wissenslevel) {
+  const tag = new Date().getDay()
+  if (wissenslevel >= 4) return TIPPS.profi[tag]
+  if (wissenslevel >= 3) return TIPPS.mittel[tag]
+  return TIPPS.einsteiger[tag]
+}
+
+function getNextStep(abgeschlosseneLektionen, userWissenslevel) {
+  if (abgeschlosseneLektionen.length === 0) {
+    return { text: "Starte mit ETF Basics", sub: "Deine erste Lektion · ca. 5 Min" }
+  }
+  const etfLektionen = lernpfad[1] || []
+  const etfDone = etfLektionen.filter(l => abgeschlosseneLektionen.includes(l.id))
+  if (etfDone.length < etfLektionen.length) {
+    const naechste = etfLektionen.find(l => !abgeschlosseneLektionen.includes(l.id))
+    return { text: naechste?.titel || "ETF fortsetzen", sub: `ETF · Lektion ${etfDone.length + 1} / ${etfLektionen.length}` }
+  }
+  if (userWissenslevel >= 4) {
+    return { text: "Steuern oder Krypto erkunden", sub: "Fortgeschrittene Themen für dich" }
+  }
+  return { text: "Aktien oder Budgetierung?", sub: "Wähle deinen nächsten Pfad" }
+}
+
+function getBudgetDefault(userFinanzsituation) {
+  if (userFinanzsituation === "nichts") return 25
+  if (userFinanzsituation === "wenig")  return 30
+  if (userFinanzsituation === "mittel") return 100
+  if (userFinanzsituation === "viel")   return 250
+  return 100
 }
 
 function getHeute() {
@@ -1845,13 +1968,16 @@ const HUB_SVGS = {
   ),
 }
 
-function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosseneQuests }) {
-  const level = berechneLevel(xp)
-  const xpAktuell = xp - (level - 1) * 100
-  const xpFortschritt = Math.min((xpAktuell / 100) * 100, 100)
-  const spruch = TAGESSPRUECHE[new Date().getDay()]
-  const heute = getHeute()
-  const questHeute = !!(abgeschlosseneQuests && abgeschlosseneQuests[heute])
+function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosseneQuests, xpTaeglich, abgeschlosseneLektionen, userWissenslevel }) {
+  const lvl         = getLevelInfo(xp)
+  const spruch      = TAGESSPRUECHE[new Date().getDay()]
+  const heute       = getHeute()
+  const questHeute  = !!(abgeschlosseneQuests && abgeschlosseneQuests[heute])
+  const xpHeute     = xpTaeglich[heute] || 0
+  const xpZielPct   = Math.min(Math.round((xpHeute / 30) * 100), 100)
+  const tipp        = getTagestipp(userWissenslevel || 1)
+  const nextStep    = getNextStep(abgeschlosseneLektionen, userWissenslevel || 1)
+  const streakInfo  = getStreakDisplay(streak)
 
   return (
     <div className="screen">
@@ -1859,19 +1985,19 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
         <div className="hero-top">
           <div>
             <h1 className="hero-title">Lumio</h1>
-            <p className="hero-sub">{userName ? `Hey ${userName} 👋` : "Willkommen zurück 👋"}</p>
+            <p className="hero-sub">{getGruss(userName)}</p>
           </div>
           <div className="hero-streak">
-            <span>🔥</span>
+            <span>{streakInfo.flammen || "🔥"}</span>
             <span>{streak}</span>
           </div>
         </div>
         <div className="hero-level-info">
-          <span>Level {level}</span>
-          <span>{xpAktuell} / 100 XP</span>
+          <span>Level {lvl.level} · {lvl.name}</span>
+          <span>{lvl.xpAktuell} / {lvl.xpBenoetigt} XP</span>
         </div>
         <div className="hero-xp-bar">
-          <div className="hero-xp-fill" style={{ width: `${xpFortschritt}%` }} />
+          <div className="hero-xp-fill" style={{ width: `${lvl.fortschritt}%` }} />
         </div>
         <p className="hero-quote">"{spruch}"</p>
       </div>
@@ -1885,13 +2011,36 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
             <span className="fh-value">{questHeute ? "Erledigt!" : "Ausstehend"}</span>
           </div>
         </div>
-        <div className="fh-karte">
-          <span className="fh-icon">🔥</span>
+        <div className={`fh-karte ${xpHeute >= 30 ? "done" : ""}`}>
+          <span className="fh-icon">⚡</span>
           <div className="fh-text">
-            <span className="fh-label">Streak</span>
-            <span className="fh-value">{streak} {streak === 1 ? "Tag" : "Tage"}</span>
+            <span className="fh-label">Tages-XP</span>
+            <span className="fh-value">{xpHeute} / 30 XP</span>
           </div>
         </div>
+      </div>
+      {xpHeute > 0 && (
+        <div className="daily-xp-bar-wrap">
+          <div className="daily-xp-bar-bg">
+            <div className="daily-xp-bar-fill" style={{ width: `${xpZielPct}%` }} />
+          </div>
+          <span className="daily-xp-label">{xpZielPct >= 100 ? "🎉 Tagesziel erreicht!" : `${xpZielPct}% zum Tagesziel`}</span>
+        </div>
+      )}
+
+      <div className="naechster-schritt" onClick={() => onHauptkategorieClick("lernen")}>
+        <div className="ns-icon">▶️</div>
+        <div className="ns-text">
+          <p className="ns-label">Dein nächster Schritt</p>
+          <p className="ns-titel">{nextStep.text}</p>
+          <p className="ns-sub">{nextStep.sub}</p>
+        </div>
+        <div className="ns-arrow">›</div>
+      </div>
+
+      <div className="tagstipp-banner">
+        <span className="tagstipp-icon">💡</span>
+        <p className="tagstipp-text">{tipp}</p>
       </div>
 
       <p className="hub-section-titel">Was möchtest du tun?</p>
@@ -4179,14 +4328,32 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
 
 function LevelUpModal({ levelUpInfo, onClose }) {
   if (!levelUpInfo) return null
+  const levelName = LEVEL_NAMEN[levelUpInfo.newLevel] || ""
+  const levelIcon = LEVEL_ICONS[levelUpInfo.newLevel] || "⭐"
   return (
     <div className="level-up-overlay" onClick={onClose}>
       <div className="level-up-modal" onClick={e => e.stopPropagation()}>
         <div className="level-up-emoji">🎉</div>
         <h2 className="level-up-titel">Level Up!</h2>
         <div className="level-up-zahl">{levelUpInfo.newLevel}</div>
+        <p className="level-up-name">{levelIcon} {levelName}</p>
         <p className="level-up-sub">Du bist jetzt Level {levelUpInfo.newLevel}!</p>
         <button className="weiter-btn" onClick={onClose}>Weiter →</button>
+      </div>
+    </div>
+  )
+}
+
+function AchievementModal({ achievement, onClose }) {
+  if (!achievement) return null
+  return (
+    <div className="level-up-overlay" onClick={onClose}>
+      <div className="level-up-modal" onClick={e => e.stopPropagation()}>
+        <div className="level-up-emoji">{achievement.icon}</div>
+        <h2 className="level-up-titel">Achievement!</h2>
+        <p className="level-up-name" style={{ fontSize: "1.2rem", marginTop: "0.5rem" }}>{achievement.name}</p>
+        <p className="level-up-sub">{achievement.beschreibung}</p>
+        <button className="weiter-btn" style={{ marginTop: "1.25rem" }} onClick={onClose}>Cool! →</button>
       </div>
     </div>
   )
@@ -4324,51 +4491,59 @@ function DailyQuestScreen({ abgeschlosseneQuests, onQuestAbgeschlossen }) {
   )
 }
 
-function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userZiel, userAlter, userLebenssituation, userFinanzsituation, userWissenslevel }) {
-  const level = berechneLevel(xp)
-  const xpAktuell = xp - (level - 1) * 100
-  const xpFortschritt = Math.min((xpAktuell / 100) * 100, 100)
-  const circumference = 2 * Math.PI * 44
-  const dashOffset = circumference - (xpFortschritt / 100) * circumference
+function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWissenslevel, achievements, xpTaeglich, streakFreezes, onStreakFreeze }) {
+  const lvl         = getLevelInfo(xp)
+  const circumf     = 2 * Math.PI * 44
+  const dashOffset  = circumf - (lvl.fortschritt / 100) * circumf
+  const streakInfo  = getStreakDisplay(streak)
 
-  const etfGesamt = lernpfad[1].length
+  const etfGesamt        = lernpfad[1].length
   const etfAbgeschlossen = lernpfad[1].filter(l => abgeschlosseneLektionen.includes(l.id)).length
-  const aktienGesamt = lernpfad[2].length
+  const aktienGesamt        = lernpfad[2].length
   const aktienAbgeschlossen = lernpfad[2].filter(l => abgeschlosseneLektionen.includes(l.id)).length
-  const kryptoGesamt = lernpfad[3].length
+  const kryptoGesamt        = lernpfad[3].length
   const kryptoAbgeschlossen = lernpfad[3].filter(l => abgeschlosseneLektionen.includes(l.id)).length
 
   const badges = [
-    { id: "erste_lektion", name: "Erster Schritt", icon: "🎯", beschreibung: "Erste Lektion", erreicht: abgeschlosseneLektionen.length >= 1 },
-    { id: "etf_komplett", name: "ETF Experte", icon: "📈", beschreibung: "Alle ETF-Lektionen", erreicht: etfAbgeschlossen === etfGesamt && etfGesamt > 0 },
-    { id: "aktien_start", name: "Aktien Profi", icon: "📊", beschreibung: "5 Aktien-Lektionen", erreicht: aktienAbgeschlossen >= 5 },
-    { id: "aktien_komplett", name: "Wall Street", icon: "💼", beschreibung: "Alle Aktien", erreicht: aktienAbgeschlossen === aktienGesamt && aktienGesamt > 0 },
-    { id: "krypto_start", name: "Krypto Einsteiger", icon: "₿", beschreibung: "1 Krypto-Lektion", erreicht: kryptoAbgeschlossen >= 1 },
-    { id: "krypto_komplett", name: "Blockchain Master", icon: "⛓️", beschreibung: "Alle Krypto", erreicht: kryptoAbgeschlossen === kryptoGesamt && kryptoGesamt > 0 },
-    { id: "streak_7", name: "Feuer-Streak", icon: "🔥", beschreibung: "7 Tage am Stück", erreicht: streak >= 7 },
-    { id: "level_5", name: "Aufsteiger", icon: "⭐", beschreibung: "Level 5 erreicht", erreicht: level >= 5 },
-    { id: "level_10", name: "Veteran", icon: "🏆", beschreibung: "Level 10 erreicht", erreicht: level >= 10 }
+    { id: "erste_lektion",  name: "Erster Schritt",   icon: "🎯", beschreibung: "Erste Lektion", erreicht: abgeschlosseneLektionen.length >= 1 },
+    { id: "etf_komplett",   name: "ETF Experte",       icon: "📈", beschreibung: "Alle ETF-Lektionen", erreicht: etfAbgeschlossen === etfGesamt && etfGesamt > 0 },
+    { id: "aktien_start",   name: "Aktien Profi",      icon: "📊", beschreibung: "5 Aktien-Lektionen", erreicht: aktienAbgeschlossen >= 5 },
+    { id: "aktien_komplett",name: "Wall Street",        icon: "💼", beschreibung: "Alle Aktien", erreicht: aktienAbgeschlossen === aktienGesamt && aktienGesamt > 0 },
+    { id: "krypto_start",   name: "Krypto Einsteiger", icon: "₿",  beschreibung: "1 Krypto-Lektion", erreicht: kryptoAbgeschlossen >= 1 },
+    { id: "krypto_komplett",name: "Blockchain Master", icon: "⛓️", beschreibung: "Alle Krypto", erreicht: kryptoAbgeschlossen === kryptoGesamt && kryptoGesamt > 0 },
+    { id: "streak_7",       name: "Feuer-Streak",      icon: "🔥", beschreibung: "7 Tage am Stück", erreicht: streak >= 7 },
+    { id: "level_5",        name: "Aufsteiger",        icon: "⭐", beschreibung: "Level 5 erreicht", erreicht: lvl.level >= 5 },
+    { id: "level_10",       name: "Veteran",           icon: "🏆", beschreibung: "Level 10 erreicht", erreicht: lvl.level >= 10 },
   ]
 
   const stats = [
     { label: "Lektionen", wert: abgeschlosseneLektionen.length, icon: "📖" },
-    { label: "Streak", wert: `${streak} Tage`, icon: "🔥" },
-    { label: "XP Gesamt", wert: xp, icon: "⚡" },
-    { label: "ETF", wert: `${etfAbgeschlossen}/${etfGesamt}`, icon: "📈" },
-    { label: "Aktien", wert: `${aktienAbgeschlossen}/${aktienGesamt}`, icon: "📊" },
-    { label: "Krypto", wert: `${kryptoAbgeschlossen}/${kryptoGesamt}`, icon: "₿" },
+    { label: "Streak",    wert: `${streak} Tage`,               icon: "🔥" },
+    { label: "XP Gesamt", wert: xp,                             icon: "⚡" },
+    { label: "ETF",       wert: `${etfAbgeschlossen}/${etfGesamt}`,       icon: "📈" },
+    { label: "Aktien",    wert: `${aktienAbgeschlossen}/${aktienGesamt}`,  icon: "📊" },
+    { label: "Krypto",    wert: `${kryptoAbgeschlossen}/${kryptoGesamt}`,  icon: "₿" },
   ]
 
   const lernpfadItems = kategorien.map(k => {
     const gesamt = (lernpfad[k.id] || []).length
-    const abg = (lernpfad[k.id] || []).filter(l => abgeschlosseneLektionen.includes(l.id)).length
-    const pct = gesamt > 0 ? Math.round((abg / gesamt) * 100) : 0
+    const abg    = (lernpfad[k.id] || []).filter(l => abgeschlosseneLektionen.includes(l.id)).length
+    const pct    = gesamt > 0 ? Math.round((abg / gesamt) * 100) : 0
     return { ...k, gesamt, abg, pct }
   })
 
   const initials = userName
     ? userName.trim().split(/\s+/).map(w => w[0]).join("").substring(0, 2).toUpperCase()
     : "??"
+
+  // 7-Tage-Timeline
+  const timeline = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(); d.setDate(d.getDate() - (6 - i))
+    const key = d.toISOString().split("T")[0]
+    const tagXP = xpTaeglich[key] || 0
+    const wochentage = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
+    return { key, label: wochentage[d.getDay()], aktiv: tagXP > 0, xp: tagXP }
+  })
 
   return (
     <div className="screen">
@@ -4382,40 +4557,49 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userZiel,
               </linearGradient>
             </defs>
             <circle cx="50" cy="50" r="44" fill="none" stroke="#2a2040" strokeWidth="7"/>
-            <circle
-              cx="50" cy="50" r="44"
-              fill="none"
-              stroke="url(#lvlGrad)"
-              strokeWidth="7"
-              strokeDasharray={circumference}
-              strokeDashoffset={dashOffset}
-              strokeLinecap="round"
-            />
+            <circle cx="50" cy="50" r="44" fill="none" stroke="url(#lvlGrad)"
+              strokeWidth="7" strokeDasharray={circumf} strokeDashoffset={dashOffset} strokeLinecap="round"/>
           </svg>
           <div className="profil-avatar-circle">{initials}</div>
         </div>
         <p className="profil-avatar-name">{userName || "Unbekannt"}</p>
-        <p className="profil-avatar-level">Level {level} · {xpAktuell}/100 XP</p>
+        <p className="profil-avatar-level">{lvl.icon} {lvl.name} · Level {lvl.level}</p>
       </div>
 
       <div className="profil-xp-section">
         <div className="profil-xp-row">
           <span><strong>XP zum nächsten Level</strong></span>
-          <span>{xpAktuell} / 100</span>
+          <span>{lvl.xpAktuell} / {lvl.xpBenoetigt}</span>
         </div>
         <div className="profil-xp-bar">
-          <div className="profil-xp-fill" style={{ width: `${xpFortschritt}%` }} />
+          <div className="profil-xp-fill" style={{ width: `${lvl.fortschritt}%` }} />
         </div>
       </div>
 
       <div className="profil-streak-card">
-        <span className={`streak-flame${streak > 0 ? " active" : ""}`}>🔥</span>
-        <div>
-          <p style={{ fontWeight: 700, fontSize: "1rem" }}>{streak} Tage Streak</p>
+        <span className={`streak-flame${streak > 0 ? " active" : ""}`}>{streakInfo.flammen || "🔥"}</span>
+        <div style={{ flex: 1 }}>
+          <p style={{ fontWeight: 700, fontSize: "1rem" }}>{streakInfo.label}</p>
           <p style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: "0.1rem" }}>
             {streak > 0 ? "Weiter so! Komm morgen wieder." : "Starte deinen Streak heute."}
           </p>
         </div>
+        {streakFreezes > 0 && (
+          <button className="freeze-btn" onClick={onStreakFreeze} title="Streak-Freeze aktivieren">
+            🧊 {streakFreezes}
+          </button>
+        )}
+      </div>
+
+      <h3 className="profil-section-titel">Deine Reise – letzte 7 Tage</h3>
+      <div className="timeline-woche">
+        {timeline.map(t => (
+          <div key={t.key} className={`timeline-tag ${t.aktiv ? "aktiv" : ""}`}>
+            <div className="timeline-dot">{t.aktiv ? "✓" : ""}</div>
+            <span className="timeline-label">{t.label}</span>
+            {t.aktiv && <span className="timeline-xp">+{t.xp}</span>}
+          </div>
+        ))}
       </div>
 
       <h3 className="profil-section-titel">Statistiken</h3>
@@ -4431,9 +4615,23 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userZiel,
         ))}
       </div>
 
+      <h3 className="profil-section-titel">Achievements</h3>
+      <div className="achievements-grid">
+        {ACHIEVEMENTS_DEF.map(a => {
+          const erreicht = !!(achievements && achievements[a.id])
+          return (
+            <div key={a.id} className={`achievement-karte ${erreicht ? "erreicht" : "gesperrt"}`}>
+              <span className="achievement-icon">{erreicht ? a.icon : "🔒"}</span>
+              <p className="achievement-name">{erreicht ? a.name : "???"}</p>
+              <p className="achievement-beschreibung">{erreicht ? a.beschreibung : "Noch nicht freigeschaltet"}</p>
+            </div>
+          )
+        })}
+      </div>
+
       <h3 className="profil-section-titel">Abzeichen</h3>
       <div className="profil-badges">
-        {badges.map((b) => (
+        {badges.map(b => (
           <div key={b.id} className={`profil-badge ${b.erreicht ? "erreicht" : "gesperrt"}`}>
             <span className="badge-icon">{b.icon}</span>
             <p className="badge-name">{b.name}</p>
@@ -4520,11 +4718,13 @@ const FALLBACK_NEWS = [
   },
 ]
 
-function NewsScreen({ onZurueck }) {
+function NewsScreen({ onZurueck, onOeffnen }) {
   const [news, setNews] = useState([])
   const [laden, setLaden] = useState(true)
   const [istFallback, setIstFallback] = useState(false)
   const [aktiverFilter, setAktiverFilter] = useState("alle")
+
+  useEffect(() => { if (onOeffnen) onOeffnen() }, [])
 
   async function ladeNews() {
     setLaden(true)
@@ -4683,8 +4883,9 @@ function sliderBg(val, min, max) {
   return `linear-gradient(to right, #7C3AED ${pct.toFixed(1)}%, #2A2040 ${pct.toFixed(1)}%)`
 }
 
-function RechnerScreen({ onZurueck }) {
-  const [sparrate, setSparrate]         = useState(100)
+function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung }) {
+  const defaultSpar = getBudgetDefault(userFinanzsituation)
+  const [sparrate, setSparrate]         = useState(defaultSpar)
   const [startkapital, setStartkapital] = useState(0)
   const [laufzeit, setLaufzeit]         = useState(20)
   const [renditeTyp, setRenditeTyp]     = useState("realistisch")
@@ -4738,6 +4939,8 @@ function RechnerScreen({ onZurueck }) {
     : sparrate <= 200
     ? { icon: "📊", name: "Scalable Capital oder Trade Republic", sub: "MSCI World ETF – breit diversifiziert, günstig, bewährt" }
     : { icon: "🚀", name: "MSCI World (70 %) + Emerging Markets (30 %)", sub: "Bewährte Core-Satellite-Strategie für ambitionierte Sparraten" }
+
+  useEffect(() => { if (onRechnerOeffnung) onRechnerOeffnung() }, [])
 
   useEffect(() => {
     const von = prevRef.current
@@ -5138,31 +5341,74 @@ function App() {
   const [userLebenssituation, setUserLebenssituation] = useState(() => localStorage.getItem("userLebenssituation") || "")
   const [userFinanzsituation, setUserFinanzsituation] = useState(() => localStorage.getItem("userFinanzsituation") || "")
   const [userWissenslevel, setUserWissenslevel]       = useState(() => Number(localStorage.getItem("userWissenslevel")) || 0)
-  const [xp, setXp] = useState(() => Number(localStorage.getItem("xp")) || 0)
+  const [xp, setXp]         = useState(() => Number(localStorage.getItem("xp")) || 0)
   const [streak, setStreak] = useState(() => Number(localStorage.getItem("streak")) || 0)
-  const [letzterTag, setLetzterTag] = useState(() => localStorage.getItem("letzterTag") || "")
-  const [aktiverTab, setAktiverTab] = useState("home")
+  const [letzterTag, setLetzterTag]   = useState(() => localStorage.getItem("letzterTag") || "")
+  const [aktiverTab, setAktiverTab]   = useState("home")
   const [aktiveHauptkategorie, setAktiveHauptkategorie] = useState(null)
   const [aktiveKategorie, setAktiveKategorie] = useState(null)
-  const [aktiveLektion, setAktiveLektion] = useState(null)
+  const [aktiveLektion, setAktiveLektion]     = useState(null)
   const [abgeschlosseneLektionen, setAbgeschlosseneLektionen] = useState(() => JSON.parse(localStorage.getItem("abgeschlosseneLektionen") || "[]"))
-  const [abgeschlosseneQuests, setAbgeschlosseneQuests] = useState(() => JSON.parse(localStorage.getItem("abgeschlosseneQuests") || "{}"))
-  const [levelUpInfo, setLevelUpInfo] = useState(null)
+  const [abgeschlosseneQuests, setAbgeschlosseneQuests]       = useState(() => JSON.parse(localStorage.getItem("abgeschlosseneQuests") || "{}"))
+  const [levelUpInfo, setLevelUpInfo]   = useState(null)
+  // ── Gamification ──
+  const [achievements, setAchievements]           = useState(() => JSON.parse(localStorage.getItem("achievements") || "{}"))
+  const [xpTaeglich, setXpTaeglich]               = useState(() => JSON.parse(localStorage.getItem("xpTaeglich") || "{}"))
+  const [streakFreezes, setStreakFreezes]          = useState(() => Number(localStorage.getItem("streakFreezes")) || 0)
+  const [perfekteQuizze, setPerfekteQuizze]       = useState(() => Number(localStorage.getItem("perfekteQuizze")) || 0)
+  const [rechnerOeffnungen, setRechnerOeffnungen] = useState(() => Number(localStorage.getItem("rechnerOeffnungen")) || 0)
+  const [newsOeffnungen, setNewsOeffnungen]       = useState(() => Number(localStorage.getItem("newsOeffnungen")) || 0)
+  const [pendingAchievement, setPendingAchievement] = useState(null)
+  const [kategorienBonus, setKategorienBonus]     = useState(() => JSON.parse(localStorage.getItem("kategorienBonus") || "[]"))
 
   useEffect(() => {
     const heute = getHeute()
     const gestern = new Date(Date.now() - 86400000).toISOString().split("T")[0]
     if (letzterTag && letzterTag !== heute && letzterTag !== gestern) {
+      // Check Comeback Kid: pause von 3+ Tagen
+      const diffTage = Math.floor((Date.now() - new Date(letzterTag).getTime()) / 86400000)
+      if (diffTage >= 3) freischaltenAchievement("comeback_kid")
       setStreak(0)
       localStorage.setItem("streak", 0)
     }
+    // Erster Tag Achievement
+    if (!achievements["erster_tag"]) freischaltenAchievement("erster_tag")
   }, [])
+
+  function freischaltenAchievement(id) {
+    setAchievements(prev => {
+      if (prev[id]) return prev
+      const def = ACHIEVEMENTS_DEF.find(a => a.id === id)
+      if (!def) return prev
+      const neu = { ...prev, [id]: getHeute() }
+      localStorage.setItem("achievements", JSON.stringify(neu))
+      setPendingAchievement(def)
+      return neu
+    })
+  }
+
+  function updateTagesXP(menge) {
+    const heute = getHeute()
+    setXpTaeglich(prev => {
+      const neu = { ...prev, [heute]: (prev[heute] || 0) + menge }
+      localStorage.setItem("xpTaeglich", JSON.stringify(neu))
+      return neu
+    })
+  }
 
   function updateStreak() {
     const heute = getHeute()
     const gestern = new Date(Date.now() - 86400000).toISOString().split("T")[0]
     if (letzterTag === heute) return
     const neuerStreak = letzterTag === gestern ? streak + 1 : 1
+    // Streak-Freeze vergeben: 1 pro 7-Tage-Meilenstein
+    if (neuerStreak % 7 === 0) {
+      setStreakFreezes(prev => {
+        const n = prev + 1
+        localStorage.setItem("streakFreezes", n)
+        return n
+      })
+    }
     setStreak(neuerStreak)
     setLetzterTag(heute)
     localStorage.setItem("streak", neuerStreak)
@@ -5171,26 +5417,89 @@ function App() {
 
   function addXP(menge) {
     if (menge <= 0) return
+    updateTagesXP(menge)
     setXp(prev => {
       const altesLevel = berechneLevel(prev)
-      const neueXP = prev + menge
+      const neueXP     = prev + menge
       const neuesLevel = berechneLevel(neueXP)
       localStorage.setItem("xp", neueXP)
-      if (neuesLevel > altesLevel) {
-        setLevelUpInfo({ newLevel: neuesLevel })
-      }
+      if (neuesLevel > altesLevel) setLevelUpInfo({ newLevel: neuesLevel })
       return neueXP
     })
   }
 
-  function lektionAbschliessen(verdientXP) {
+  function lektionAbschliessen(verdientXP, perfekt = true) {
+    const heute = getHeute()
+    const stunde = new Date().getHours()
+    let bonusXP = 0
+    let neueAbgeschlossen = abgeschlosseneLektionen
+
     if (!abgeschlosseneLektionen.includes(aktiveLektion.id)) {
-      const neue = [...abgeschlosseneLektionen, aktiveLektion.id]
-      setAbgeschlosseneLektionen(neue)
-      localStorage.setItem("abgeschlosseneLektionen", JSON.stringify(neue))
+      neueAbgeschlossen = [...abgeschlosseneLektionen, aktiveLektion.id]
+      setAbgeschlosseneLektionen(neueAbgeschlossen)
+      localStorage.setItem("abgeschlosseneLektionen", JSON.stringify(neueAbgeschlossen))
+
+      // Streak-Bonus
+      if (verdientXP > 0) {
+        if (streak >= 7)      bonusXP += 10
+        else if (streak >= 3) bonusXP += 5
+      }
+
+      // Erste Lektion in dieser Kategorie
+      const katId = aktiveKategorie?.id
+      if (katId && !kategorienBonus.includes(`first_${katId}`)) {
+        const istErsteInKat = !abgeschlosseneLektionen.some(lid => (lernpfad[katId] || []).find(l => l.id === lid))
+        if (istErsteInKat) {
+          bonusXP += 25
+          const neueBonus = [...kategorienBonus, `first_${katId}`]
+          setKategorienBonus(neueBonus)
+          localStorage.setItem("kategorienBonus", JSON.stringify(neueBonus))
+        }
+      }
+
+      // Kategorie komplett
+      if (katId && !kategorienBonus.includes(`complete_${katId}`)) {
+        const alleIds = (lernpfad[katId] || []).map(l => l.id)
+        const alleGeschafft = alleIds.every(id => neueAbgeschlossen.includes(id))
+        if (alleGeschafft) {
+          bonusXP += 100
+          const neueBonus = [...kategorienBonus, `complete_${katId}`]
+          setKategorienBonus(neueBonus)
+          localStorage.setItem("kategorienBonus", JSON.stringify(neueBonus))
+        }
+      }
+
+      // Achievements
+      if (stunde >= 22) freischaltenAchievement("nachteuler")
+      if (stunde < 7)   freischaltenAchievement("fruehaufsteher")
+
+      const lektioneHeute = neueAbgeschlossen.filter(id => {
+        const t = JSON.parse(localStorage.getItem("lektionDaten") || "{}")
+        return t[id] === heute
+      }).length
+      // Lektions-Zeitstempel tracken
+      const lektionDaten = JSON.parse(localStorage.getItem("lektionDaten") || "{}")
+      lektionDaten[aktiveLektion.id] = heute
+      localStorage.setItem("lektionDaten", JSON.stringify(lektionDaten))
+
+      const lektioneHeuteFinal = Object.values(lektionDaten).filter(d => d === heute).length
+      if (lektioneHeuteFinal >= 3) freischaltenAchievement("schnellstarter")
+      if (lektioneHeuteFinal >= 5) freischaltenAchievement("wissens_marathon")
     }
+
+    // Perfektionist: 10 in Folge
+    if (perfekt) {
+      const newPQ = perfekteQuizze + 1
+      setPerfekteQuizze(newPQ)
+      localStorage.setItem("perfekteQuizze", newPQ)
+      if (newPQ >= 10) freischaltenAchievement("perfektionist")
+    } else {
+      setPerfekteQuizze(0)
+      localStorage.setItem("perfekteQuizze", 0)
+    }
+
     if (verdientXP > 0) updateStreak()
-    addXP(verdientXP)
+    addXP(verdientXP + bonusXP)
     setAktiveLektion(null)
   }
 
@@ -5200,7 +5509,36 @@ function App() {
     setAbgeschlosseneQuests(neue)
     localStorage.setItem("abgeschlosseneQuests", JSON.stringify(neue))
     updateStreak()
-    addXP(verdientXP)
+    // Streak-Bonus auf Quest
+    let bonus = 0
+    if (streak >= 7)      bonus = 10
+    else if (streak >= 3) bonus = 5
+    addXP(verdientXP + bonus)
+  }
+
+  function rechnerOeffnen() {
+    const n = rechnerOeffnungen + 1
+    setRechnerOeffnungen(n)
+    localStorage.setItem("rechnerOeffnungen", n)
+    if (n >= 10) freischaltenAchievement("zahlen_nerd")
+  }
+
+  function newsOeffnen() {
+    const n = newsOeffnungen + 1
+    setNewsOeffnungen(n)
+    localStorage.setItem("newsOeffnungen", n)
+    if (n >= 7) freischaltenAchievement("news_junkie")
+  }
+
+  function streakFreeze() {
+    if (streakFreezes <= 0) return
+    const n = streakFreezes - 1
+    setStreakFreezes(n)
+    localStorage.setItem("streakFreezes", n)
+    // Streak auf aktuellen Tag setzen (verhindert Reset)
+    const heute = getHeute()
+    setLetzterTag(heute)
+    localStorage.setItem("letzterTag", heute)
   }
 
   function resetNav() {
@@ -5219,6 +5557,7 @@ function App() {
     setXp(startXP)
     localStorage.setItem("xp", startXP)
     setOnboardingComplete(true)
+    freischaltenAchievement("erster_tag")
   }
 
   if (!onboardingComplete) {
@@ -5233,16 +5572,16 @@ function App() {
     <div className="app">
       <div className="content">
         {aktiverTab === "home" && !aktiveHauptkategorie && (
-          <Startscreen xp={xp} streak={streak} onHauptkategorieClick={(id) => setAktiveHauptkategorie(id)} userName={userName} abgeschlosseneQuests={abgeschlosseneQuests} />
+          <Startscreen xp={xp} streak={streak} onHauptkategorieClick={(id) => setAktiveHauptkategorie(id)} userName={userName} abgeschlosseneQuests={abgeschlosseneQuests} xpTaeglich={xpTaeglich} abgeschlosseneLektionen={abgeschlosseneLektionen} userWissenslevel={userWissenslevel} />
         )}
         {aktiverTab === "home" && aktiveHauptkategorie === "lernen" && !aktiveKategorie && (
           <LernpfadeScreen xp={xp} abgeschlosseneLektionen={abgeschlosseneLektionen} onKategorieClick={(k) => setAktiveKategorie(k)} onZurueck={() => setAktiveHauptkategorie(null)} />
         )}
         {aktiverTab === "home" && aktiveHauptkategorie === "news" && (
-          <NewsScreen onZurueck={() => setAktiveHauptkategorie(null)} />
+          <NewsScreen onZurueck={() => setAktiveHauptkategorie(null)} onOeffnen={newsOeffnen} />
         )}
         {aktiverTab === "home" && aktiveHauptkategorie === "rechner" && (
-          <RechnerScreen onZurueck={() => setAktiveHauptkategorie(null)} />
+          <RechnerScreen onZurueck={() => setAktiveHauptkategorie(null)} userFinanzsituation={userFinanzsituation} onRechnerOeffnung={rechnerOeffnen} />
         )}
         {aktiverTab === "home" && aktiveKategorie && !aktiveLektion && (
           <KategorieDetail kategorie={aktiveKategorie} abgeschlosseneLektionen={abgeschlosseneLektionen} onZurueck={() => setAktiveKategorie(null)} onLektionClick={(l) => setAktiveLektion(l)} />
@@ -5257,11 +5596,12 @@ function App() {
           <DailyQuestScreen abgeschlosseneQuests={abgeschlosseneQuests} onQuestAbgeschlossen={questAbschliessen} />
         )}
         {aktiverTab === "profil" && (
-          <ProfilScreen xp={xp} streak={streak} abgeschlosseneLektionen={abgeschlosseneLektionen} userName={userName} userZiel={userZiel} userAlter={userAlter} userLebenssituation={userLebenssituation} userFinanzsituation={userFinanzsituation} userWissenslevel={userWissenslevel} />
+          <ProfilScreen xp={xp} streak={streak} abgeschlosseneLektionen={abgeschlosseneLektionen} userName={userName} userWissenslevel={userWissenslevel} achievements={achievements} xpTaeglich={xpTaeglich} streakFreezes={streakFreezes} onStreakFreeze={streakFreeze} />
         )}
         {aktiverTab === "rangliste" && <div className="screen"><h1>Rangliste</h1><p style={{color:"#888"}}>Kommt bald.</p></div>}
       </div>
       <LevelUpModal levelUpInfo={levelUpInfo} onClose={() => setLevelUpInfo(null)} />
+      <AchievementModal achievement={pendingAchievement} onClose={() => setPendingAchievement(null)} />
       <nav className="bottom-nav">
         {[
           {
