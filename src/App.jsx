@@ -133,6 +133,29 @@ const hauptkategorien = [
   }
 ]
 
+const LERNPLAN_ZIELE = {
+  etf:    [
+    { titel: "Was ist ein ETF?",                  dauer: "5 Min", xp: 20 },
+    { titel: "Wie ein Index funktioniert",         dauer: "5 Min", xp: 20 },
+    { titel: "Deinen ersten Sparplan einrichten", dauer: "7 Min", xp: 25 }
+  ],
+  krypto: [
+    { titel: "Was ist Kryptowährung?",            dauer: "5 Min", xp: 20 },
+    { titel: "Bitcoin vs. Altcoins",              dauer: "5 Min", xp: 20 },
+    { titel: "Krypto sicher verwahren",           dauer: "7 Min", xp: 25 }
+  ],
+  aktien: [
+    { titel: "Was ist eine Aktie?",               dauer: "5 Min", xp: 20 },
+    { titel: "Wie man Aktien analysiert",         dauer: "6 Min", xp: 20 },
+    { titel: "Dein erstes Portfolio aufbauen",    dauer: "7 Min", xp: 25 }
+  ],
+  wissen: [
+    { titel: "Finanzielle Grundlagen",            dauer: "5 Min", xp: 20 },
+    { titel: "Das Zinseszins-Prinzip",            dauer: "5 Min", xp: 20 },
+    { titel: "Deinen Finanzplan erstellen",       dauer: "7 Min", xp: 25 }
+  ]
+}
+
 
 const dailyQuests = [
   {
@@ -1872,6 +1895,34 @@ function getBudgetDefault(userFinanzsituation) {
   return 100
 }
 
+function getEmpfohleneKatId(userWissenslevel) {
+  if (userWissenslevel >= 4) return 7
+  if (userWissenslevel >= 3) return 2
+  return 1
+}
+
+function getZielText(userZiel) {
+  if (userZiel === "etf")    return "Dein Ziel: Ersten ETF-Sparplan starten 📈"
+  if (userZiel === "krypto") return "Dein Ziel: Krypto verstehen ₿"
+  if (userZiel === "aktien") return "Dein Ziel: Aktien analysieren 📊"
+  return "Dein Ziel: Finanzwissen aufbauen 🧠"
+}
+
+function getPersonalizedGreeting(userName, onboardingDate, abgeschlosseneLektionen) {
+  const name  = userName || "Investor"
+  const heute = getHeute()
+  const diffDays = onboardingDate
+    ? Math.floor((new Date(heute) - new Date(onboardingDate)) / 86400000)
+    : 0
+  if (abgeschlosseneLektionen.length > 0) {
+    const firstId = abgeschlosseneLektionen[0]
+    const firstKat = kategorien.find(k => (lernpfad[k.id] || []).some(l => l.id === firstId))
+    if (firstKat) return `Gut gemacht ${name}, du hast ${firstKat.name} begonnen`
+  }
+  if (diffDays < 4) return `Willkommen bei Lumio, ${name}!`
+  return `${name}, du bist seit ${diffDays} Tagen dabei`
+}
+
 function getHeute() {
   return new Date().toISOString().split("T")[0]
 }
@@ -2234,7 +2285,94 @@ const HUB_SVGS = {
   challenges: <ChallengesIcon size={28} color="white" strokeWidth={1.5}/>,
 }
 
-function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosseneQuests, xpTaeglich, abgeschlosseneLektionen, userWissenslevel }) {
+function WelcomeScreen({ userFinanzsituation, userZiel, userName, onDone }) {
+  const [screen, setScreen] = useState(0)
+  const [count, setCount]   = useState(0)
+
+  const budget     = getBudgetDefault(userFinanzsituation)
+  const r          = 0.07 / 12
+  const n          = 20 * 12
+  const endwert    = Math.round(budget * ((Math.pow(1 + r, n) - 1) / r))
+  const eingezahlt = budget * n
+  const zinseszins = endwert - eingezahlt
+  const schritte   = LERNPLAN_ZIELE[userZiel] || LERNPLAN_ZIELE["wissen"]
+
+  useEffect(() => {
+    if (screen !== 0) return
+    setCount(0)
+    let current = 0
+    const steps = 80
+    const increment = endwert / steps
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= endwert) { setCount(endwert); clearInterval(timer) }
+      else setCount(Math.round(current))
+    }, 1800 / steps)
+    return () => clearInterval(timer)
+  }, [screen, endwert])
+
+  function handleDone() {
+    localStorage.setItem("welcomeScreenSeen", "true")
+    onDone()
+  }
+
+  if (screen === 0) return (
+    <div className="screen ws-screen">
+      <div className="ws-skip-row">
+        <button className="ws-skip-btn" onClick={handleDone}>Überspringen</button>
+      </div>
+      <div className="ws-hero">
+        <div className="ws-big-icon">📈</div>
+        <h1 className="ws-titel">Dein Potenzial</h1>
+        <p className="ws-sub">Mit {budget}€/Monat wirst du in 20 Jahren</p>
+        <div className="ws-count">{count.toLocaleString("de-DE")} €</div>
+        <p className="ws-count-label">haben</p>
+        <div className="ws-breakdown">
+          <div className="ws-bk-item">
+            <span className="ws-bk-label">Eingezahlt</span>
+            <span className="ws-bk-val">{eingezahlt.toLocaleString("de-DE")} €</span>
+          </div>
+          <div className="ws-bk-sep">·</div>
+          <div className="ws-bk-item">
+            <span className="ws-bk-label">Zinseszins</span>
+            <span className="ws-bk-val ws-bk-plus">+{zinseszins.toLocaleString("de-DE")} €</span>
+          </div>
+        </div>
+        <p className="ws-rendite-hint">Bei 7% durchschnittlicher ETF-Rendite</p>
+      </div>
+      <button className="ws-btn" onClick={() => setScreen(1)}>Wie das funktioniert →</button>
+    </div>
+  )
+
+  return (
+    <div className="screen ws-screen">
+      <div className="ws-skip-row">
+        <button className="ws-skip-btn" onClick={handleDone}>Überspringen</button>
+      </div>
+      <div className="ws-hero">
+        <div className="ws-big-icon">🎯</div>
+        <h1 className="ws-titel">Dein Lernplan</h1>
+        <p className="ws-sub">Deine nächsten 3 Schritte</p>
+      </div>
+      <div className="ws-schritte">
+        {schritte.map((s, i) => (
+          <div key={i} className="ws-schritt">
+            <div className="ws-schritt-num">{i + 1}</div>
+            <div className="ws-schritt-info">
+              <p className="ws-schritt-titel">{s.titel}</p>
+              <p className="ws-schritt-meta">{s.dauer} · +{s.xp} XP</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button className="ws-btn ws-btn-start" onClick={handleDone}>Jetzt starten 🚀</button>
+    </div>
+  )
+}
+
+function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosseneQuests, xpTaeglich, abgeschlosseneLektionen, userWissenslevel, userZiel, userFinanzsituation, onboardingDate, onLektionClick }) {
+  const [expandedKatId, setExpandedKatId] = useState(null)
+
   const lvl        = getLevelInfo(xp)
   const heute      = getHeute()
   const questHeute = !!(abgeschlosseneQuests && abgeschlosseneQuests[heute])
@@ -2242,12 +2380,27 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
   const xpZielPct  = Math.min(Math.round((xpHeute / 30) * 100), 100)
   const tipp       = getTagestipp(userWissenslevel || 1)
   const nextStep   = getNextStep(abgeschlosseneLektionen, userWissenslevel || 1)
-  const streakInfo = getStreakDisplay(streak)
-  const gruss      = getGrussTeile(userName)
+  const zielText   = getZielText(userZiel)
+  const greeting   = getPersonalizedGreeting(userName, onboardingDate, abgeschlosseneLektionen)
+  const empKatId   = getEmpfohleneKatId(userWissenslevel || 1)
+  const level      = berechneLevel(xp)
+  const hatKeineLektionen = abgeschlosseneLektionen.length === 0
 
   const donutR    = 14
   const donutCirc = 2 * Math.PI * donutR
   const donutDash = donutCirc - (xpZielPct / 100) * donutCirc
+
+  const sortiertKategorien = [...kategorien].sort((a, b) => {
+    if (a.id === empKatId) return -1
+    if (b.id === empKatId) return 1
+    return a.id - b.id
+  })
+
+  const hubKategorien = hauptkategorien.filter(k => k.id !== "lernen")
+
+  function toggleKat(katId) {
+    setExpandedKatId(prev => prev === katId ? null : katId)
+  }
 
   return (
     <div className="screen home-screen">
@@ -2261,10 +2414,12 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
             <span>{streak} {streak === 1 ? "Tag" : "Tage"}</span>
           </div>
         </div>
-        <div className="hero-gruss">
-          <span className="hero-gruss-prefix">{gruss.prefix}</span>
-          <span className="hero-gruss-name">{gruss.name}</span>
-        </div>
+        <p className="hero-personal-greeting">{greeting}</p>
+        {userZiel && (
+          <div className="hero-goal-badge">
+            <span>{zielText}</span>
+          </div>
+        )}
         <div className="hero-level-row">
           <span className="hero-level-name" style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}><StarIcon size={12} color="#EAB308"/> {lvl.name}</span>
           <span className="hero-xp-count">{lvl.xpAktuell} / {lvl.xpBenoetigt} XP</span>
@@ -2278,21 +2433,6 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
         </div>
         <div className="hero-tagesziel-bar">
           <div className="hero-tagesziel-fill" style={{ width: `${xpZielPct}%` }} />
-        </div>
-      </div>
-
-      {/* ── NÄCHSTER SCHRITT ── */}
-      <div className="ns-card" onClick={() => onHauptkategorieClick("lernen")}>
-        <div className="ns-play-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        </div>
-        <div className="ns-text">
-          <span className="ns-label">WEITER LERNEN</span>
-          <p className="ns-titel">{nextStep.text}</p>
-          <p className="ns-sub">{nextStep.sub}</p>
-        </div>
-        <div className="ns-arrow-circle">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
       </div>
 
@@ -2327,6 +2467,24 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
         </div>
       </div>
 
+      {/* ── NÄCHSTER SCHRITT ── */}
+      <div className="ns-card" onClick={() => {
+        setExpandedKatId(empKatId)
+        setTimeout(() => document.getElementById("lernpfade-section")?.scrollIntoView({ behavior: "smooth" }), 100)
+      }}>
+        <div className="ns-play-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div className="ns-text">
+          <span className="ns-label">WEITER LERNEN</span>
+          <p className="ns-titel">{nextStep.text}</p>
+          <p className="ns-sub">{nextStep.sub}</p>
+        </div>
+        <div className="ns-arrow-circle">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+
       {/* ── TIPP DES TAGES ── */}
       <div className="tipp-karte">
         <div className="tipp-accent" />
@@ -2336,10 +2494,10 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
         </div>
       </div>
 
-      {/* ── HUB ── */}
+      {/* ── HUB (News, Rechner, Challenges) ── */}
       <p className="section-label">ENTDECKEN</p>
       <div className="hub-liste">
-        {hauptkategorien.map((k) => (
+        {hubKategorien.map((k) => (
           <div
             key={k.id}
             className={`hub-row ${!k.verfuegbar ? "gesperrt" : ""}`}
@@ -2362,6 +2520,86 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
           </div>
         ))}
       </div>
+
+      {/* ── LERNPFADE INLINE ── */}
+      <p className="section-label" id="lernpfade-section" style={{ marginTop: "1.5rem" }}>── LERNPFADE ──</p>
+      <div className="acc-kategorien">
+        {sortiertKategorien.map((k) => {
+          const gesperrt   = level < k.minLevel
+          const abgeschl   = (lernpfad[k.id] || []).filter(l => abgeschlosseneLektionen.includes(l.id)).length
+          const gesamt     = (lernpfad[k.id] || []).length
+          const fortschritt = gesamt > 0 ? Math.round((abgeschl / gesamt) * 100) : 0
+          const expanded   = expandedKatId === k.id
+          const isEmp      = k.id === empKatId
+          const lektionen  = lernpfad[k.id] || []
+          return (
+            <div key={k.id} className="acc-kat-wrap">
+              <div
+                className={`acc-kat-header ${gesperrt ? "gesperrt" : ""} ${expanded ? "expanded" : ""}`}
+                onClick={() => !gesperrt && toggleKat(k.id)}
+              >
+                <div className="acc-kat-icon" style={{ background: gesperrt ? "#1a1525" : k.farbe + "22", color: gesperrt ? "#444" : k.farbe }}>
+                  {gesperrt ? <LockIcon size={18} color="#444"/> : <KatIcon id={k.id} size={18} color={k.farbe}/>}
+                </div>
+                <div className="acc-kat-info">
+                  <div className="acc-kat-name-row">
+                    <span className="acc-kat-name">{k.name}</span>
+                    {isEmp && !gesperrt && <span className="acc-empfohlen-badge">⭐ Empfohlen</span>}
+                    {gesperrt && <span className="acc-lock-label">ab Level {k.minLevel}</span>}
+                  </div>
+                  <div className="acc-kat-bar-row">
+                    <div className="acc-kat-bar-bg">
+                      <div className="acc-kat-bar-fill" style={{ width: `${fortschritt}%`, background: k.farbe }} />
+                    </div>
+                    <span className="acc-kat-pct">{fortschritt}%</span>
+                  </div>
+                </div>
+                <div className={`acc-kat-chevron ${expanded ? "open" : ""}`}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </div>
+              {expanded && (
+                <div className="acc-lektionen">
+                  {lektionen.map((l, index) => {
+                    const done   = abgeschlosseneLektionen.includes(l.id)
+                    const locked = index > 0 && !abgeschlosseneLektionen.includes(lektionen[index - 1].id)
+                    const isNext = !done && !locked
+                    return (
+                      <div
+                        key={l.id}
+                        className={`acc-lek-row ${done ? "done" : ""} ${locked ? "locked" : ""} ${isNext ? "next" : ""}`}
+                        onClick={() => !locked && onLektionClick(l, k)}
+                      >
+                        <div className={`acc-lek-num ${done ? "done" : locked ? "locked" : isNext ? "next" : ""}`}>
+                          {done
+                            ? <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="5 13 10 18 19 7"/></svg>
+                            : locked ? <LockIcon size={10} color="#444"/> : String(index + 1).padStart(2, "0")}
+                        </div>
+                        <div className="acc-lek-info">
+                          <p className="acc-lek-titel">{l.titel}</p>
+                          <p className="acc-lek-meta" style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}><BoltIcon size={10}/> +{l.xp} XP · {l.typ === "cards" ? "Karten" : "Lektion"}</p>
+                        </div>
+                        {isNext && <span className="acc-lek-start">Starten →</span>}
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* ── FLOATING QUICK-START ── */}
+      {hatKeineLektionen && (
+        <button className="fab-start" onClick={() => {
+          const empKat = kategorien.find(k => k.id === empKatId)
+          const empLek = (lernpfad[empKatId] || [])[0]
+          if (empKat && empLek) onLektionClick(empLek, empKat)
+        }}>
+          ▶ Erste Lektion starten
+        </button>
+      )}
 
     </div>
   )
@@ -2486,6 +2724,22 @@ function KategorieDetail({ kategorie, abgeschlosseneLektionen, onZurueck, onLekt
           )
         })}
       </div>
+    </div>
+  )
+}
+
+function EntdeckenScreen({ userFinanzsituation, onRechnerOeffnung, onNewsOeffnen }) {
+  const [tab, setTab] = useState("news")
+  return (
+    <div className="entdecken-screen">
+      <div className="entd-tab-bar">
+        <button className={`entd-tab-btn ${tab === "news" ? "aktiv" : ""}`} onClick={() => setTab("news")}>📰 News</button>
+        <button className={`entd-tab-btn ${tab === "rechner" ? "aktiv" : ""}`} onClick={() => setTab("rechner")}>🧮 Rechner</button>
+      </div>
+      {tab === "news"
+        ? <NewsScreen onZurueck={null} onOeffnen={onNewsOeffnen} />
+        : <RechnerScreen onZurueck={null} userFinanzsituation={userFinanzsituation} onRechnerOeffnung={onRechnerOeffnung} />
+      }
     </div>
   )
 }
@@ -8470,7 +8724,7 @@ function NewsScreen({ onZurueck, onOeffnen }) {
   if (laden) {
     return (
       <div className="screen">
-        <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>
+        {onZurueck && <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>}
         <div className="news-laden">
           <div className="news-spinner" />
           <p className="news-laden-text">Lade aktuelle Finanz-News…</p>
@@ -8481,7 +8735,7 @@ function NewsScreen({ onZurueck, onOeffnen }) {
 
   return (
     <div className="screen">
-      <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>
+      {onZurueck && <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>}
       <div className="screen-header" style={{ marginTop: "1rem" }}>
         <h1>News</h1>
         <p className="xp-info">📰 Aktuelle Finanz-News</p>
@@ -8699,7 +8953,7 @@ function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung }) {
 
   return (
     <div className="screen">
-      <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>
+      {onZurueck && <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>}
       <div className="screen-header" style={{ marginTop: "1rem" }}>
         <h1>Rechner</h1>
         <p className="xp-info">🧮 Zinseszins-Rechner</p>
@@ -9008,6 +9262,8 @@ function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung }) {
 
 function App() {
   const [onboardingComplete, setOnboardingComplete] = useState(() => !!localStorage.getItem("onboardingComplete"))
+  const [welcomeScreenSeen, setWelcomeScreenSeen]   = useState(() => !!localStorage.getItem("welcomeScreenSeen"))
+  const [onboardingDate]                             = useState(() => localStorage.getItem("onboardingDate") || getHeute())
   const [userName, setUserName]                       = useState(() => localStorage.getItem("userName") || "")
   const [userZiel, setUserZiel]                       = useState(() => localStorage.getItem("userZiel") || "")
   const [userAlter, setUserAlter]                     = useState(() => localStorage.getItem("userAlter") || "")
@@ -9229,6 +9485,9 @@ function App() {
     setUserWissenslevel(Number(localStorage.getItem("userWissenslevel")) || 1)
     setXp(startXP)
     localStorage.setItem("xp", startXP)
+    if (!localStorage.getItem("onboardingDate")) {
+      localStorage.setItem("onboardingDate", getHeute())
+    }
     setOnboardingComplete(true)
     freischaltenAchievement("erster_tag")
   }
@@ -9241,14 +9500,36 @@ function App() {
     )
   }
 
+  if (!welcomeScreenSeen) {
+    return (
+      <div className="app">
+        <WelcomeScreen
+          userFinanzsituation={userFinanzsituation}
+          userZiel={userZiel}
+          userName={userName}
+          onDone={() => setWelcomeScreenSeen(true)}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className="app">
       <div className="content">
-        {aktiverTab === "home" && !aktiveHauptkategorie && (
-          <Startscreen xp={xp} streak={streak} onHauptkategorieClick={(id) => setAktiveHauptkategorie(id)} userName={userName} abgeschlosseneQuests={abgeschlosseneQuests} xpTaeglich={xpTaeglich} abgeschlosseneLektionen={abgeschlosseneLektionen} userWissenslevel={userWissenslevel} />
-        )}
-        {aktiverTab === "home" && aktiveHauptkategorie === "lernen" && !aktiveKategorie && (
-          <LernpfadeScreen xp={xp} abgeschlosseneLektionen={abgeschlosseneLektionen} onKategorieClick={(k) => setAktiveKategorie(k)} onZurueck={() => setAktiveHauptkategorie(null)} />
+        {aktiverTab === "home" && !aktiveHauptkategorie && !aktiveLektion && (
+          <Startscreen
+            xp={xp} streak={streak}
+            onHauptkategorieClick={(id) => setAktiveHauptkategorie(id)}
+            userName={userName}
+            abgeschlosseneQuests={abgeschlosseneQuests}
+            xpTaeglich={xpTaeglich}
+            abgeschlosseneLektionen={abgeschlosseneLektionen}
+            userWissenslevel={userWissenslevel}
+            userZiel={userZiel}
+            userFinanzsituation={userFinanzsituation}
+            onboardingDate={onboardingDate}
+            onLektionClick={(l, k) => { setAktiveKategorie(k); setAktiveLektion(l) }}
+          />
         )}
         {aktiverTab === "home" && aktiveHauptkategorie === "news" && (
           <NewsScreen onZurueck={() => setAktiveHauptkategorie(null)} onOeffnen={newsOeffnen} />
@@ -9256,14 +9537,11 @@ function App() {
         {aktiverTab === "home" && aktiveHauptkategorie === "rechner" && (
           <RechnerScreen onZurueck={() => setAktiveHauptkategorie(null)} userFinanzsituation={userFinanzsituation} onRechnerOeffnung={rechnerOeffnen} />
         )}
-        {aktiverTab === "home" && aktiveKategorie && !aktiveLektion && (
-          <KategorieDetail kategorie={aktiveKategorie} abgeschlosseneLektionen={abgeschlosseneLektionen} onZurueck={() => setAktiveKategorie(null)} onLektionClick={(l) => setAktiveLektion(l)} />
-        )}
         {aktiverTab === "home" && aktiveLektion && aktiveLektion.typ === "cards" && (
-          <CardLektionScreen lektion={aktiveLektion} onZurueck={() => setAktiveLektion(null)} onAbgeschlossen={lektionAbschliessen} />
+          <CardLektionScreen lektion={aktiveLektion} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} />
         )}
         {aktiverTab === "home" && aktiveLektion && aktiveLektion.typ !== "cards" && (
-          <LektionScreen lektion={aktiveLektion} kategorie={aktiveKategorie} onZurueck={() => setAktiveLektion(null)} onAbgeschlossen={lektionAbschliessen} />
+          <LektionScreen lektion={aktiveLektion} kategorie={aktiveKategorie} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} />
         )}
         {aktiverTab === "quest" && (
           <DailyQuestScreen abgeschlosseneQuests={abgeschlosseneQuests} onQuestAbgeschlossen={questAbschliessen} />
@@ -9271,7 +9549,9 @@ function App() {
         {aktiverTab === "profil" && (
           <ProfilScreen xp={xp} streak={streak} abgeschlosseneLektionen={abgeschlosseneLektionen} userName={userName} userWissenslevel={userWissenslevel} achievements={achievements} xpTaeglich={xpTaeglich} streakFreezes={streakFreezes} onStreakFreeze={streakFreeze} />
         )}
-        {aktiverTab === "rangliste" && <div className="screen"><h1>Rangliste</h1><p style={{color:"#888"}}>Kommt bald.</p></div>}
+        {aktiverTab === "entdecken" && (
+          <EntdeckenScreen userFinanzsituation={userFinanzsituation} onRechnerOeffnung={rechnerOeffnen} onNewsOeffnen={newsOeffnen} />
+        )}
       </div>
       <LevelUpModal levelUpInfo={levelUpInfo} onClose={() => setLevelUpInfo(null)} />
       <AchievementModal achievement={pendingAchievement} onClose={() => setPendingAchievement(null)} />
@@ -9280,7 +9560,7 @@ function App() {
           { id: "home",      label: "Home",      svg: <HomeIcon      size={22}/> },
           { id: "quest",     label: "Quest",     svg: <QuestIcon     size={22}/> },
           { id: "profil",    label: "Profil",    svg: <ProfilIcon    size={22}/> },
-          { id: "rangliste", label: "Rangliste", svg: <RanglisteIcon size={22}/> },
+          { id: "entdecken", label: "Entdecken", svg: <RanglisteIcon size={22}/> },
         ].map((tab) => (
           <button
             key={tab.id}
