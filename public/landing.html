@@ -822,6 +822,8 @@
     </div>
   </footer>
 
+  <!-- Brevo key: locally served via gitignored brevo-config.js; on Netlify use snippet injection to set window.BREVO_KEY -->
+  <script src="/brevo-config.js" onerror="window.BREVO_KEY=''"></script>
   <script>
     // Intersection Observer for fade-in
     const revealEls = document.querySelectorAll('.reveal')
