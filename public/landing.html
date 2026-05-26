@@ -882,7 +882,7 @@
     slider.addEventListener('input', updateCalc)
     updateCalc()
 
-    const BREVO_API_KEY = 'REDACTED'
+    const BREVO_API_KEY = window.BREVO_KEY || ''
 
     async function newsletterAnmelden() {
       const emailEl = document.getElementById('newsletter-email')
