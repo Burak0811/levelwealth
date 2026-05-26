@@ -170,7 +170,8 @@ const AKTIONSPLAN_DATEN = {
         titel: "Depot eröffnen",
         iconKatId: 6,
         dauer: "~10 Minuten",
-        beschreibung: "Wähle einen kostenlosen Neobroker. Trade Republic, Scalable Capital oder DKB sind alle solide Optionen für Einsteiger.",
+        beschreibung: "Wähle einen kostenlosen Neobroker. Alle drei sind kostenlos und für Einsteiger geeignet.",
+        broker: ["Trade Republic", "Scalable Capital", "DKB"],
         infoBox: "Du brauchst: Personalausweis, Steuer-ID (auf deinem letzten Steuerbescheid), Bankverbindung"
       },
       {
@@ -185,6 +186,7 @@ const AKTIONSPLAN_DATEN = {
         iconKatId: 1,
         dauer: "~5 Minuten",
         beschreibung: "MSCI World ETF wählen (z.B. iShares Core MSCI World, ISIN: IE00B4L5Y983). Betrag festlegen – auch 25€/Monat sind ein guter Start. Datum: 1. des Monats.",
+        sparplanRechner: true,
         infoBox: "Du kannst den Sparplan jederzeit pausieren oder anpassen"
       }
     ]
@@ -439,6 +441,7 @@ const lernpfad = {
   1: [
     {
       id: 1,
+      typ: "cards",
       titel: "Was ist ein ETF – und warum sollte dich das interessieren?",
       inhalt: `Stell dir vor, du hast 100€ und willst investieren. Du könntest Apple-Aktien kaufen – aber was wenn Apple nächstes Jahr abstürzt? Oder du kaufst Volkswagen – und dann kommt ein Dieselskandal.
 
@@ -451,9 +454,21 @@ Beispiel: Der MSCI World ETF enthält über 1.500 Unternehmen aus 23 Ländern. M
 Das ist keine Magie. Das ist Mathematik: Risiko verteilen nennt man Diversifikation, und ETFs machen das automatisch für dich.`,
       xp: 20,
       fragen: [
-        { text: "Warum sind Einzelaktien riskanter als ETFs?", antworten: ["Sie sind teurer", "Du setzt alles auf ein Unternehmen", "Sie haben schlechtere Rendite", "Sie sind schwerer zu kaufen"], richtig: 1 },
-        { text: "Wie viele Unternehmen enthält der MSCI World ETF ungefähr?", antworten: ["50", "250", "1.500", "10.000"], richtig: 2 },
-        { text: "Was passiert wenn ein Unternehmen in deinem ETF pleite geht?", antworten: ["Du verlierst alles", "Du verlierst deinen gesamten Einsatz", "Es ist kaum spürbar weil hunderte andere noch laufen", "Der ETF wird aufgelöst"], richtig: 2 }
+        {
+          text: "Was ist ein ETF?",
+          antworten: ["Eine einzelne Aktie", "Ein Fonds der viele Aktien bündelt und an der Börse handelbar ist", "Ein Sparkonto mit fester Rendite", "Eine Kryptowährung"],
+          richtig: 1
+        },
+        {
+          text: "Anna investiert 100€/Monat für 25 Jahre bei 7% Rendite. Was hat sie am Ende ungefähr?",
+          antworten: ["30.000€", "45.000€", "81.000€", "120.000€"],
+          richtig: 2
+        },
+        {
+          text: "Was ist TER und warum ist sie wichtig?",
+          antworten: ["Eine Steuer auf ETF-Gewinne", "Die jährliche Kostenquote – sie reduziert deine Rendite direkt", "Die Mindestinvestitionssumme", "Der Name des Index"],
+          richtig: 1
+        }
       ]
     },
     {
@@ -2042,341 +2057,326 @@ function getHeute() {
 }
 
 function OnboardingFlow({ onComplete }) {
-  const [schritt, setSchritt]                     = useState(1)
+  const [screen, setScreen]                       = useState(0)
   const [name, setName]                           = useState("")
   const [alter, setAlter]                         = useState(null)
-  const [ziel, setZiel]                           = useState(null)
   const [lebenssituation, setLebenssituation]     = useState(null)
-  const [finanzsituation, setFinanzsituation]     = useState(null)
-  const [aktuelleSituation, setAktuelleSituation] = useState([])
+  const [finanzsituationToggle, setFinSitToggle]  = useState([])
+  const [budget, setBudget]                       = useState(50)
   const [wissenslevel, setWissenslevel]           = useState(null)
+  const [splashDone, setSplashDone]               = useState(false)
+  const [planCount, setPlanCount]                 = useState(0)
+  const slideRef                                  = useRef(null)
 
-  const alterOptionen = [
-    { id: "unter18", label: "Unter 18", icon: "🌱" },
-    { id: "18-24",   label: "18 – 24",  icon: "🎓" },
-    { id: "25-34",   label: "25 – 34",  icon: "💼" },
-    { id: "35plus",  label: "35+",       icon: "🏆" },
-  ]
+  const TOTAL_SCREENS = 8
 
-  const zielOptionen = [
-    { id: "etf",    icon: "📈", titel: "ETF-Sparplan starten",   sub: "Der einfachste Einstieg" },
-    { id: "krypto", icon: "₿",  titel: "Krypto verstehen",        sub: "Digital Assets durchblicken" },
-    { id: "aktien", icon: "📊", titel: "Aktien analysieren",      sub: "Einzelne Unternehmen bewerten" },
-    { id: "wissen", icon: "🧠", titel: "Finanzwissen aufbauen",   sub: "Solide Grundlagen legen" },
-  ]
+  const r20 = 0.07 / 12
+  const n20 = 20 * 12
+  const projection = Math.round(budget * ((Math.pow(1 + r20, n20) - 1) / r20))
 
-  const lebenssituationOptionen = [
-    { id: "schueler",         icon: "🎓", titel: "Schüler / Student",  sub: "In Ausbildung oder Studium" },
-    { id: "berufseinsteiger", icon: "💼", titel: "Berufseinstieg",      sub: "Frisch im Job" },
-    { id: "berufstaetig",     icon: "👔", titel: "Berufstätig",         sub: "Regelmäßiges Einkommen" },
-    { id: "selbststaendig",   icon: "🚀", titel: "Selbstständig",       sub: "Eigenes Business" },
-  ]
-
-  const finanzsituationOptionen = [
-    { id: "nichts", icon: "💭", titel: "Noch gar nichts",      sub: "Ich fange bei null an" },
-    { id: "wenig",  icon: "💰", titel: "10 – 50 € / Monat",    sub: "Kleiner Einstieg" },
-    { id: "mittel", icon: "💰", titel: "50 – 200 € / Monat",   sub: "Solider Aufbau" },
-    { id: "viel",   icon: "📈", titel: "200 €+ / Monat",       sub: "Ambitioniert investieren" },
-  ]
-
-  const situationsOptionen = [
-    { id: "schulden",    icon: "📉", titel: "Schulden",            sub: "Kredite oder Dispo" },
-    { id: "ersparnisse", icon: "🏦", titel: "Ersparnisse",         sub: "Geld auf dem Konto" },
-    { id: "investiert",  icon: "📈", titel: "Bereits investiert",  sub: "ETFs, Aktien oder Krypto" },
-    { id: "null",        icon: "🌱", titel: "Frischer Start",      sub: "Noch nichts davon" },
-  ]
-
-  const wissenslevels = [
-    { stufe: 1, titel: "Kompletter Neuling",   sub: "Aktien? Was ist das?" },
-    { stufe: 2, titel: "Einsteiger",           sub: "Ich kenne ein paar Begriffe" },
-    { stufe: 3, titel: "Fortgeschritten",      sub: "Ich habe schon investiert" },
-    { stufe: 4, titel: "Erfahren",             sub: "Ich optimiere regelmäßig" },
-    { stufe: 5, titel: "Experte",              sub: "Ich kenne Tax-Loss-Harvesting" },
-  ]
-
-  const lernplanVorschlaege = {
-    etf:    ["Was ist ein ETF? – und warum er dein bester Freund sein kann", "Sparplan einrichten: 25 €/Monat reichen zum Start", "MSCI World vs. ACWI – die wichtigste Entscheidung"],
-    krypto: ["Bitcoin verstehen: Geld ohne Bank erklärt", "Krypto sicher verwahren: Wallets & Seed Phrases", "DeFi & Smart Contracts: die nächste Stufe"],
-    aktien: ["Aktie = Miteigentümer: Was das wirklich bedeutet", "KGV & Fundamentalanalyse: Unternehmen bewerten", "Deine erste Aktie: von der Analyse zum Kauf"],
-    wissen: ["Inflation bekämpfen: Warum Geld auf dem Konto schrumpft", "Zinseszins: die mächtigste Kraft im Investieren", "Risiko & Rendite: der wichtigste Trade-off"],
+  const lernplanSchritte = {
+    1: ["Was ist ein ETF? – und warum er dein bester Freund ist", "Zinseszins: Die mächtigste Kraft beim Investieren", "Deinen ersten Sparplan einrichten – Schritt für Schritt"],
+    2: ["Inflation bekämpfen – warum Geld auf dem Konto schrumpft", "ETF Basics – ohne Vorkenntnisse loslegen", "Budgetierung: Dein Finanzfundament legen"],
+    3: ["ETF vs. Aktien – was passt zu dir?", "Portfolio-Aufbau: Diversifikation verstehen", "Steuern auf Kapitalerträge legal minimieren"],
+    4: ["Tax-Loss-Harvesting optimieren", "Faktoren-ETFs & Smart Beta erklärt", "Portfoliooptimierung mit modernem Ansatz"],
+    5: ["Erweiterte Steuerstrategien für Profis", "Hebel & Optionen verstehen", "Vollständige Portfolioanalyse & Rebalancing"],
   }
 
-  function toggleSituation(id) {
-    setAktuelleSituation(prev =>
-      prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]
-    )
+  useEffect(() => {
+    if (screen !== 7) return
+    setPlanCount(0)
+    let current = 0
+    const steps = 60
+    const increment = projection / steps
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= projection) { setPlanCount(projection); clearInterval(timer) }
+      else setPlanCount(Math.round(current))
+    }, 1600 / steps)
+    return () => clearInterval(timer)
+  }, [screen, projection])
+
+  useEffect(() => {
+    if (screen !== 0) return
+    const t = setTimeout(() => { setSplashDone(true); setScreen(1) }, 2200)
+    return () => clearTimeout(t)
+  }, [screen])
+
+  function goTo(s) {
+    setScreen(s)
   }
 
-  const startXP = wissenslevel ? (wissenslevel - 1) * 25 : 0
+  function toggleFinSit(id) {
+    setFinSitToggle(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+  }
 
-  function getPlanData() {
-    const empfehlung = lernplanVorschlaege[ziel] || lernplanVorschlaege.wissen
-    let motivation = "Jeder Experte hat mal bei null angefangen."
-    if (aktuelleSituation.includes("schulden"))
-      motivation = "Wissen ist der erste Schritt – du machst das richtig."
-    else if (aktuelleSituation.includes("investiert"))
-      motivation = "Noch mehr Wissen macht aus dir einen noch besseren Investor."
-    else if (aktuelleSituation.includes("ersparnisse"))
-      motivation = "Deine Ersparnisse können bald aktiv für dich arbeiten."
-    return { empfehlung, motivation }
+  function deriveFinanzsituation(bud) {
+    if (bud <= 25) return "nichts"
+    if (bud <= 80) return "wenig"
+    if (bud <= 200) return "mittel"
+    return "viel"
   }
 
   function abschliessen() {
     const finalName = name.trim() || "Investor"
+    const finalWissen = wissenslevel || 1
+    const startXP = (finalWissen - 1) * 25
+    const finanzsituation = deriveFinanzsituation(budget)
+    if (!localStorage.getItem("onboardingDate")) {
+      localStorage.setItem("onboardingDate", getHeute())
+    }
     localStorage.setItem("onboardingComplete", "true")
     localStorage.setItem("userName", finalName)
-    localStorage.setItem("userZiel", ziel || "wissen")
+    localStorage.setItem("userZiel", "etf")
     localStorage.setItem("userAlter", alter || "")
     localStorage.setItem("userLebenssituation", lebenssituation || "")
-    localStorage.setItem("userFinanzsituation", finanzsituation || "")
-    localStorage.setItem("userAktuelleSituation", JSON.stringify(aktuelleSituation))
-    localStorage.setItem("userWissenslevel", String(wissenslevel || 1))
+    localStorage.setItem("userFinanzsituation", finanzsituation)
+    localStorage.setItem("userAktuelleSituation", JSON.stringify(finanzsituationToggle))
+    localStorage.setItem("userWissenslevel", String(finalWissen))
     onComplete(startXP, finalName)
   }
 
-  const kannWeiter =
-    !(schritt === 3 && !alter) &&
-    !(schritt === 4 && !ziel) &&
-    !(schritt === 5 && !lebenssituation) &&
-    !(schritt === 6 && !finanzsituation) &&
-    !(schritt === 7 && aktuelleSituation.length === 0) &&
-    !(schritt === 8 && !wissenslevel)
+  const alterOptionen = [
+    { id: "unter18", label: "Unter 18",  icon: "🌱" },
+    { id: "18-24",   label: "18 – 24",   icon: "🎓" },
+    { id: "25-34",   label: "25 – 34",   icon: "💼" },
+    { id: "35plus",  label: "35+",        icon: "🏆" },
+  ]
 
-  // ── Schritt 1: Welcome Splash ──
-  if (schritt === 1) {
-    return (
-      <div className="ob-welcome">
-        <div className="ob-welcome-glow" />
-        <div className="ob-welcome-content">
-          <div className="ob-logo-ring">
-            <span className="ob-logo-emoji">💡</span>
-          </div>
-          <h1 className="ob-app-name">Lumio</h1>
-          <p className="ob-tagline">Dein Weg zur finanziellen Freiheit</p>
-          <div className="ob-features">
-            <div className="ob-feature-row"><span>📈</span><span>ETFs, Aktien &amp; Krypto verstehen</span></div>
-            <div className="ob-feature-row"><span>🧠</span><span>Täglich 5 Minuten – echtes Wissen</span></div>
-            <div className="ob-feature-row"><span>⚡</span><span>Level auf und sammle XP</span></div>
-          </div>
-        </div>
-        <button className="ob-start-btn" onClick={() => setSchritt(2)}>
-          Kostenlos starten →
-        </button>
-      </div>
-    )
+  const lebensOptionen = [
+    { id: "schueler",         icon: "🎓", titel: "Schüler / Student",  sub: "In Ausbildung oder Studium" },
+    { id: "berufseinsteiger", icon: "💼", titel: "Berufseinstieg",      sub: "Frisch im Job" },
+    { id: "berufstaetig",     icon: "🏢", titel: "Berufstätig",         sub: "Regelmäßiges Einkommen" },
+    { id: "selbststaendig",   icon: "🚀", titel: "Selbstständig",       sub: "Eigenes Business" },
+  ]
+
+  const finSitOptionen = [
+    { id: "schulden",    icon: "💳", label: "Schulden" },
+    { id: "ersparnisse", icon: "🏦", label: "Geld auf Konto" },
+    { id: "investiert",  icon: "📊", label: "Bereits investiert" },
+    { id: "null",        icon: "🎯", label: "Fange bei null an" },
+  ]
+
+  const wissensLabels = ["Keine Ahnung", "Basics", "Etwas", "Gut", "Experte"]
+  const schritte = lernplanSchritte[wissenslevel || 1] || lernplanSchritte[1]
+
+  const sliderBgOb = (val, min, max) => {
+    const pct = ((val - min) / (max - min)) * 100
+    return `linear-gradient(to right, #7C3AED ${pct}%, #2a2040 ${pct}%)`
   }
 
-  // ── Schritte 2–9 ──
-  const fortschritt = ((schritt - 1) / 7) * 100
-  const { empfehlung, motivation } = getPlanData()
-
   return (
-    <div className="ob-screen">
-      {schritt < 9 && (
-        <div className="ob-topbar">
-          <button className="ob-back" onClick={() => setSchritt(s => s - 1)}>←</button>
-          <div className="ob-progress">
-            <div className="ob-progress-fill" style={{ width: `${Math.min(fortschritt, 100)}%` }} />
+    <div className="ob-new-wrap">
+      <div
+        className="ob-slides"
+        ref={slideRef}
+        style={{ transform: `translateX(-${screen * 100}%)` }}
+      >
+
+        {/* ── Screen 0: Splash ── */}
+        <div className="ob-slide ob-slide-splash">
+          <div className={`ob-splash-logo ${splashDone ? "ob-splash-logo-done" : ""}`}>
+            <span className="ob-splash-emoji">💡</span>
+            <span className="ob-splash-brand">LUMIO</span>
           </div>
-          <span className="ob-step-count">{schritt - 1} / 7</span>
+          <p className="ob-splash-tagline">Dein Weg zur finanziellen Freiheit.</p>
         </div>
-      )}
 
-      <div className="ob-content" key={schritt}>
-
-        {schritt === 2 && (
-          <div className="ob-step">
-            <span className="ob-step-icon">👋</span>
-            <h2 className="ob-headline">Wie sollen wir<br/>dich nennen?</h2>
-            <p className="ob-sub">Wir personalisieren dein Erlebnis.</p>
+        {/* ── Screen 1: Name ── */}
+        <div className="ob-slide ob-slide-inner">
+          <div className="ob-slide-top">
+            <div className="ob-new-progress">
+              <div className="ob-new-progress-fill" style={{ width: `${(1 / 7) * 100}%` }} />
+            </div>
+          </div>
+          <div className="ob-name-content">
+            <h1 className="ob-name-headline">Wie heißt du?</h1>
+            <p className="ob-name-sub">Wir personalisieren dein Erlebnis.</p>
             <input
-              className="ob-input"
+              className="ob-name-input"
               type="text"
-              placeholder="Dein Vorname"
+              placeholder="Dein Vorname..."
               value={name}
               onChange={e => setName(e.target.value)}
               maxLength={30}
               autoFocus
             />
+            <button
+              className={`ob-name-btn ${name.length >= 2 ? "ob-name-btn-visible" : ""}`}
+              disabled={name.length < 2}
+              onClick={() => goTo(2)}
+            >
+              Weiter →
+            </button>
           </div>
-        )}
+        </div>
 
-        {schritt === 3 && (
-          <div className="ob-step">
-            <span className="ob-step-icon">🎂</span>
-            <h2 className="ob-headline">Wie alt bist du?</h2>
-            <p className="ob-sub">Wir passen deine Risikoempfehlung an.</p>
-            <div className="ob-alter-grid">
-              {alterOptionen.map(a => (
-                <div
-                  key={a.id}
-                  className={`ob-alter-karte ${alter === a.id ? "ob-sel" : ""}`}
-                  onClick={() => setAlter(a.id)}
-                >
-                  <span className="ob-alter-icon">{a.icon}</span>
-                  <span className="ob-alter-label">{a.label}</span>
+        {/* ── Screen 2: Alter ── */}
+        <div className="ob-slide ob-slide-inner">
+          <div className="ob-slide-top">
+            <button className="ob-new-back" onClick={() => goTo(1)}>←</button>
+            <div className="ob-new-progress">
+              <div className="ob-new-progress-fill" style={{ width: `${(2 / 7) * 100}%` }} />
+            </div>
+          </div>
+          <h2 className="ob-new-headline">Wie alt bist du?</h2>
+          <p className="ob-new-sub">Wir passen deine Risikoempfehlung an.</p>
+          <div className="ob-alter-cards">
+            {alterOptionen.map(a => (
+              <div
+                key={a.id}
+                className={`ob-alter-card ${alter === a.id ? "ob-sel-new" : ""}`}
+                onClick={() => { setAlter(a.id); setTimeout(() => goTo(3), 350) }}
+              >
+                <span className="ob-alter-card-icon">{a.icon}</span>
+                <span className="ob-alter-card-label">{a.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Screen 3: Lebenssituation ── */}
+        <div className="ob-slide ob-slide-inner">
+          <div className="ob-slide-top">
+            <button className="ob-new-back" onClick={() => goTo(2)}>←</button>
+            <div className="ob-new-progress">
+              <div className="ob-new-progress-fill" style={{ width: `${(3 / 7) * 100}%` }} />
+            </div>
+          </div>
+          <h2 className="ob-new-headline">Was beschreibt dich?</h2>
+          <p className="ob-new-sub">Für eine passende Empfehlung.</p>
+          <div className="ob-leben-cards">
+            {lebensOptionen.map(l => (
+              <div
+                key={l.id}
+                className={`ob-leben-card ${lebenssituation === l.id ? "ob-sel-new" : ""}`}
+                onClick={() => { setLebenssituation(l.id); setTimeout(() => goTo(4), 350) }}
+              >
+                <span className="ob-leben-icon">{l.icon}</span>
+                <div className="ob-leben-text">
+                  <span className="ob-leben-titel">{l.titel}</span>
+                  <span className="ob-leben-sub">{l.sub}</span>
                 </div>
-              ))}
+                {lebenssituation === l.id && <span className="ob-new-check">✓</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Screen 4: Finanzsituation (multi-select) ── */}
+        <div className="ob-slide ob-slide-inner">
+          <div className="ob-slide-top">
+            <button className="ob-new-back" onClick={() => goTo(3)}>←</button>
+            <div className="ob-new-progress">
+              <div className="ob-new-progress-fill" style={{ width: `${(4 / 7) * 100}%` }} />
             </div>
           </div>
-        )}
+          <h2 className="ob-new-headline">Was trifft auf dich zu?</h2>
+          <p className="ob-new-sub">Mehrere Antworten möglich.</p>
+          <div className="ob-finanztoggles">
+            {finSitOptionen.map(f => (
+              <div
+                key={f.id}
+                className={`ob-finanz-toggle ${finanzsituationToggle.includes(f.id) ? "ob-toggle-aktiv" : ""}`}
+                onClick={() => toggleFinSit(f.id)}
+              >
+                <span className="ob-toggle-icon">{f.icon}</span>
+                <span className="ob-toggle-label">{f.label}</span>
+              </div>
+            ))}
+          </div>
+          <button className="ob-new-btn" onClick={() => goTo(5)}>Weiter →</button>
+        </div>
 
-        {schritt === 4 && (
-          <div className="ob-step">
-            <span className="ob-step-icon">🎯</span>
-            <h2 className="ob-headline">Was ist dein<br/>wichtigstes Ziel?</h2>
-            <p className="ob-sub">Du kannst später alles lernen.</p>
-            <div className="ob-ziel-grid">
-              {zielOptionen.map(z => (
-                <div
-                  key={z.id}
-                  className={`ob-ziel-karte ${ziel === z.id ? "ob-sel" : ""}`}
-                  onClick={() => setZiel(z.id)}
-                >
-                  <span className="ob-ziel-icon">{z.icon}</span>
-                  <p className="ob-ziel-name">{z.titel}</p>
-                  <p className="ob-ziel-sub">{z.sub}</p>
-                </div>
-              ))}
+        {/* ── Screen 5: Budget ── */}
+        <div className="ob-slide ob-slide-inner">
+          <div className="ob-slide-top">
+            <button className="ob-new-back" onClick={() => goTo(4)}>←</button>
+            <div className="ob-new-progress">
+              <div className="ob-new-progress-fill" style={{ width: `${(5 / 7) * 100}%` }} />
             </div>
           </div>
-        )}
+          <h2 className="ob-new-headline">Wie viel pro Monat?</h2>
+          <p className="ob-new-sub">Kein Mindestbetrag – jeder fängt irgendwo an.</p>
+          <div className="ob-budget-giant">{budget} €</div>
+          <input
+            type="range"
+            min={10} max={500} step={5}
+            value={budget}
+            onChange={e => setBudget(Number(e.target.value))}
+            className="ob-budget-slider"
+            style={{ background: sliderBgOb(budget, 10, 500) }}
+          />
+          <div className="ob-budget-projection">
+            Das wären in 20 Jahren: <strong>{projection.toLocaleString("de-DE")} €</strong>
+          </div>
+          <p className="ob-budget-hint">Bei 7 % durchschnittlicher ETF-Rendite</p>
+          <button className="ob-new-btn" onClick={() => goTo(6)}>Weiter →</button>
+        </div>
 
-        {schritt === 5 && (
-          <div className="ob-step">
-            <span className="ob-step-icon">🏠</span>
-            <h2 className="ob-headline">Was beschreibt<br/>dich am besten?</h2>
-            <p className="ob-sub">Für eine passende Empfehlung.</p>
-            <div className="ob-ziel-grid">
-              {lebenssituationOptionen.map(l => (
-                <div
-                  key={l.id}
-                  className={`ob-ziel-karte ${lebenssituation === l.id ? "ob-sel" : ""}`}
-                  onClick={() => setLebenssituation(l.id)}
-                >
-                  <span className="ob-ziel-icon">{l.icon}</span>
-                  <p className="ob-ziel-name">{l.titel}</p>
-                  <p className="ob-ziel-sub">{l.sub}</p>
-                </div>
-              ))}
+        {/* ── Screen 6: Wissenslevel ── */}
+        <div className="ob-slide ob-slide-inner">
+          <div className="ob-slide-top">
+            <button className="ob-new-back" onClick={() => goTo(5)}>←</button>
+            <div className="ob-new-progress">
+              <div className="ob-new-progress-fill" style={{ width: `${(6 / 7) * 100}%` }} />
             </div>
           </div>
-        )}
-
-        {schritt === 6 && (
-          <div className="ob-step">
-            <span className="ob-step-icon">💰</span>
-            <h2 className="ob-headline">Wie viel könntest du<br/>monatlich investieren?</h2>
-            <p className="ob-sub">Kein Mindestbetrag – jeder fängt irgendwo an.</p>
-            <div className="ob-erfahrung-liste">
-              {finanzsituationOptionen.map(f => (
-                <div
-                  key={f.id}
-                  className={`ob-erfahrung-karte ${finanzsituation === f.id ? "ob-sel" : ""}`}
-                  onClick={() => setFinanzsituation(f.id)}
-                >
-                  <span className="ob-erf-icon">{f.icon}</span>
-                  <div className="ob-erf-text">
-                    <p className="ob-erf-name">{f.titel}</p>
-                    <p className="ob-erf-sub">{f.sub}</p>
-                  </div>
-                  {finanzsituation === f.id && <span className="ob-erf-check">✓</span>}
-                </div>
-              ))}
-            </div>
+          <h2 className="ob-new-headline">Dein Wissenslevel</h2>
+          <p className="ob-new-sub">Ehrlichkeit hilft uns, dich besser zu begleiten.</p>
+          <div className="ob-wissen-circles">
+            {[1, 2, 3, 4, 5].map(stufe => (
+              <div
+                key={stufe}
+                className={`ob-wissen-circle ${wissenslevel && wissenslevel >= stufe ? "ob-wc-aktiv" : ""}`}
+                onClick={() => setWissenslevel(stufe)}
+              >
+                {stufe}
+              </div>
+            ))}
           </div>
-        )}
-
-        {schritt === 7 && (
-          <div className="ob-step">
-            <span className="ob-step-icon">📊</span>
-            <h2 className="ob-headline">Was trifft auf<br/>dich zu?</h2>
-            <p className="ob-sub">Mehrere Antworten möglich.</p>
-            <div className="ob-situation-grid">
-              {situationsOptionen.map(s => (
-                <div
-                  key={s.id}
-                  className={`ob-situation-karte ${aktuelleSituation.includes(s.id) ? "ob-sel" : ""}`}
-                  onClick={() => toggleSituation(s.id)}
-                >
-                  <span className="ob-situation-icon">{s.icon}</span>
-                  <p className="ob-situation-name">{s.titel}</p>
-                  <p className="ob-situation-sub">{s.sub}</p>
-                  {aktuelleSituation.includes(s.id) && <span className="ob-situation-check">✓</span>}
-                </div>
-              ))}
-            </div>
+          <div className="ob-wissen-labels">
+            {wissensLabels.map((l, i) => (
+              <span key={i} className={`ob-wc-label ${wissenslevel === i + 1 ? "ob-wc-label-aktiv" : ""}`}>{l}</span>
+            ))}
           </div>
-        )}
+          <button
+            className="ob-new-btn"
+            disabled={!wissenslevel}
+            onClick={() => goTo(7)}
+          >
+            Weiter →
+          </button>
+        </div>
 
-        {schritt === 8 && (
-          <div className="ob-step">
-            <span className="ob-step-icon">🧠</span>
-            <h2 className="ob-headline">Wie schätzt du<br/>dein Wissen ein?</h2>
-            <p className="ob-sub">Ehrlichkeit hilft uns, dich besser zu begleiten.</p>
-            <div className="ob-wissen-bar">
-              {[1,2,3,4,5].map(stufe => (
-                <div
-                  key={stufe}
-                  className={`ob-wissen-segment ${wissenslevel && wissenslevel >= stufe ? "ob-wissen-aktiv" : ""}`}
-                  onClick={() => setWissenslevel(stufe)}
-                />
-              ))}
-            </div>
-            <div className="ob-wissen-liste">
-              {wissenslevels.map(w => (
-                <div
-                  key={w.stufe}
-                  className={`ob-wissen-karte ${wissenslevel === w.stufe ? "ob-sel" : ""}`}
-                  onClick={() => setWissenslevel(w.stufe)}
-                >
-                  <span className="ob-wissen-stufe">{w.stufe}</span>
-                  <div className="ob-wissen-text">
-                    <p className="ob-wissen-name">{w.titel}</p>
-                    <p className="ob-wissen-sub">{w.sub}</p>
-                  </div>
-                  {wissenslevel === w.stufe && <span className="ob-erf-check">✓</span>}
-                </div>
-              ))}
-            </div>
+        {/* ── Screen 7: Personalized Plan ── */}
+        <div className="ob-slide ob-slide-inner ob-plan-slide">
+          <div className="ob-slide-top">
+            <button className="ob-new-back" onClick={() => goTo(6)}>←</button>
           </div>
-        )}
-
-        {schritt === 9 && (
-          <div className="ob-step ob-plan">
-            <div className="ob-plan-hero">
-              <span className="ob-plan-emoji">🎉</span>
-              <h2 className="ob-plan-titel">
-                Hey {name.trim() || "du"},<br/>dein persönlicher<br/>Lernplan ist bereit!
-              </h2>
-            </div>
-            <p className="ob-plan-motivation">{motivation}</p>
-            <div className="ob-plan-card">
-              <p className="ob-plan-label">Deine ersten 3 Schritte</p>
-              {empfehlung.map((item, i) => (
-                <div key={i} className="ob-plan-row">
-                  <span className="ob-plan-nr">{i + 1}</span>
-                  <span className="ob-plan-text">{item}</span>
-                </div>
-              ))}
-            </div>
-            <div className="ob-plan-xp-badge">
-              <span>⚡ Start mit {startXP} XP</span>
-              {startXP > 0 && <span className="ob-plan-xp-sub"> · Dein Vorwissen zahlt sich aus</span>}
-            </div>
+          <div className="ob-plan-emoji-big">🎉</div>
+          <h2 className="ob-plan-name-titel">
+            {name.trim() || "Hey du"},<br/>dein Plan ist bereit!
+          </h2>
+          <div className="ob-plan-count-wrap">
+            <p className="ob-plan-count-label">Mit {budget}€/Monat → in 20 Jahren</p>
+            <div className="ob-plan-count-zahl">{planCount.toLocaleString("de-DE")} €</div>
           </div>
-        )}
+          <p className="ob-plan-xp-hint">⚡ Du startest mit {((wissenslevel || 1) - 1) * 25} XP</p>
+          <div className="ob-plan-new-card">
+            <p className="ob-plan-new-label">Deine ersten 3 Schritte</p>
+            {schritte.map((s, i) => (
+              <div key={i} className="ob-plan-new-row">
+                <span className="ob-plan-new-nr">{i + 1}</span>
+                <span className="ob-plan-new-text">{s}</span>
+              </div>
+            ))}
+          </div>
+          <button className="ob-plan-start-btn" onClick={abschliessen}>
+            Jetzt starten 🚀
+          </button>
+        </div>
 
-      </div>
-
-      <div className="ob-btn-area">
-        <button
-          className="ob-btn"
-          disabled={!kannWeiter}
-          onClick={() => schritt < 9 ? setSchritt(s => s + 1) : abschliessen()}
-        >
-          {schritt < 8 ? "Weiter →" : schritt === 8 ? "Plan erstellen →" : "Jetzt loslegen 🚀"}
-        </button>
       </div>
     </div>
   )
@@ -2400,8 +2400,9 @@ const HUB_SVGS = {
 }
 
 function WelcomeScreen({ userFinanzsituation, userZiel, userName, onDone }) {
-  const [screen, setScreen] = useState(0)
-  const [count, setCount]   = useState(0)
+  const [count, setCount]         = useState(0)
+  const [factsVisible, setFacts]  = useState([false, false, false])
+  const [barsVisible, setBars]    = useState(false)
 
   const budget     = getBudgetDefault(userFinanzsituation)
   const r          = 0.07 / 12
@@ -2409,10 +2410,15 @@ function WelcomeScreen({ userFinanzsituation, userZiel, userName, onDone }) {
   const endwert    = Math.round(budget * ((Math.pow(1 + r, n) - 1) / r))
   const eingezahlt = budget * n
   const zinseszins = endwert - eingezahlt
-  const schritte   = LERNPLAN_ZIELE[userZiel] || LERNPLAN_ZIELE["wissen"]
+  const eingezahltPct = Math.round((eingezahlt / endwert) * 100)
+
+  const FACTS = [
+    { icon: "⚡", text: `Der MSCI World hat seit 1970 jede 15-Jahres-Periode mit Gewinn beendet.` },
+    { icon: "⚡", text: `Warren Buffett hat 99% seines Vermögens nach seinem 52. Geburtstag gemacht.` },
+    { icon: "⚡", text: `Zeit ist dein größter Vorteil – du hast ihn noch.` },
+  ]
 
   useEffect(() => {
-    if (screen !== 0) return
     setCount(0)
     let current = 0
     const steps = 80
@@ -2423,63 +2429,87 @@ function WelcomeScreen({ userFinanzsituation, userZiel, userName, onDone }) {
       else setCount(Math.round(current))
     }, 1800 / steps)
     return () => clearInterval(timer)
-  }, [screen, endwert])
+  }, [endwert])
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setBars(true), 600)
+    const t2 = setTimeout(() => setFacts([true, false, false]), 1000)
+    const t3 = setTimeout(() => setFacts([true, true, false]), 1600)
+    const t4 = setTimeout(() => setFacts([true, true, true]), 2200)
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4) }
+  }, [])
 
   function handleDone() {
     localStorage.setItem("welcomeScreenSeen", "true")
     onDone()
   }
 
-  if (screen === 0) return (
-    <div className="screen ws-screen">
-      <div className="ws-skip-row">
-        <button className="ws-skip-btn" onClick={handleDone}>Überspringen</button>
-      </div>
-      <div className="ws-hero">
-        <div className="ws-big-icon">📈</div>
-        <h1 className="ws-titel">Dein Potenzial</h1>
-        <p className="ws-sub">Mit {budget}€/Monat wirst du in 20 Jahren</p>
-        <div className="ws-count">{count.toLocaleString("de-DE")} €</div>
-        <p className="ws-count-label">haben</p>
-        <div className="ws-breakdown">
-          <div className="ws-bk-item">
-            <span className="ws-bk-label">Eingezahlt</span>
-            <span className="ws-bk-val">{eingezahlt.toLocaleString("de-DE")} €</span>
-          </div>
-          <div className="ws-bk-sep">·</div>
-          <div className="ws-bk-item">
-            <span className="ws-bk-label">Zinseszins</span>
-            <span className="ws-bk-val ws-bk-plus">+{zinseszins.toLocaleString("de-DE")} €</span>
-          </div>
-        </div>
-        <p className="ws-rendite-hint">Bei 7% durchschnittlicher ETF-Rendite</p>
-      </div>
-      <button className="ws-btn" onClick={() => setScreen(1)}>Wie das funktioniert →</button>
-    </div>
-  )
-
   return (
-    <div className="screen ws-screen">
-      <div className="ws-skip-row">
-        <button className="ws-skip-btn" onClick={handleDone}>Überspringen</button>
+    <div className="screen ws2-screen">
+      {/* floating particles */}
+      {Array.from({ length: 20 }).map((_, i) => (
+        <div key={i} className="ws2-particle" style={{
+          left: `${Math.random() * 100}%`,
+          animationDelay: `${(i * 0.3) % 3}s`,
+          animationDuration: `${3 + (i % 4)}s`,
+          width: `${4 + (i % 5)}px`,
+          height: `${4 + (i % 5)}px`,
+          background: i % 2 === 0 ? "#7C3AED" : "#9D174D",
+        }} />
+      ))}
+
+      <div className="ws2-skip-row">
+        <button className="ws2-skip-btn" onClick={handleDone}>Überspringen</button>
       </div>
-      <div className="ws-hero">
-        <div className="ws-big-icon">🎯</div>
-        <h1 className="ws-titel">Dein Lernplan</h1>
-        <p className="ws-sub">Deine nächsten 3 Schritte</p>
+
+      <div className="ws2-wusstest">
+        Wusstest du{userName ? `, ${userName}` : ""}...
       </div>
-      <div className="ws-schritte">
-        {schritte.map((s, i) => (
-          <div key={i} className="ws-schritt">
-            <div className="ws-schritt-num">{i + 1}</div>
-            <div className="ws-schritt-info">
-              <p className="ws-schritt-titel">{s.titel}</p>
-              <p className="ws-schritt-meta">{s.dauer} · +{s.xp} XP</p>
-            </div>
+
+      <div className="ws2-hero">
+        <p className="ws2-sub">{budget} €/Monat werden in 20 Jahren</p>
+        <div className="ws2-count">{count.toLocaleString("de-DE")} €</div>
+        <p className="ws2-count-label">auf deinem Konto liegen</p>
+      </div>
+
+      <div className="ws2-bars">
+        <div className="ws2-bar-row">
+          <span className="ws2-bar-label">Eingezahlt</span>
+          <div className="ws2-bar-track">
+            <div
+              className="ws2-bar-fill ws2-bar-eingezahlt"
+              style={{ width: barsVisible ? `${eingezahltPct}%` : "0%" }}
+            />
+          </div>
+          <span className="ws2-bar-val">{eingezahlt.toLocaleString("de-DE")} €</span>
+        </div>
+        <div className="ws2-bar-row">
+          <span className="ws2-bar-label">Mit Zinseszins</span>
+          <div className="ws2-bar-track">
+            <div
+              className="ws2-bar-fill ws2-bar-zinseszins"
+              style={{ width: barsVisible ? "100%" : "0%" }}
+            />
+          </div>
+          <span className="ws2-bar-val ws2-bar-val-highlight">{endwert.toLocaleString("de-DE")} €</span>
+        </div>
+        <p className="ws2-diff-text">
+          Der Unterschied von <strong>{zinseszins.toLocaleString("de-DE")} €</strong> ist purer Zinseszins.
+        </p>
+      </div>
+
+      <div className="ws2-facts">
+        {FACTS.map((f, i) => (
+          <div key={i} className={`ws2-fact ${factsVisible[i] ? "ws2-fact-visible" : ""}`}>
+            <span className="ws2-fact-icon">{f.icon}</span>
+            <span className="ws2-fact-text">{f.text}</span>
           </div>
         ))}
       </div>
-      <button className="ws-btn ws-btn-start" onClick={handleDone}>Jetzt starten 🚀</button>
+
+      <button className="ws2-btn" onClick={handleDone}>
+        Ich will das verstehen →
+      </button>
     </div>
   )
 }
@@ -2858,8 +2888,182 @@ function EntdeckenScreen({ userFinanzsituation, onRechnerOeffnung, onNewsOeffnen
   )
 }
 
+function L1Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [sparrate, setSparrate] = useState(100)
+  const [jahre, setJahre]       = useState(20)
+
+  const r = 0.07 / 12
+  const n = jahre * 12
+  const endwert    = Math.round(sparrate * ((Math.pow(1 + r, n) - 1) / r))
+  const eingezahlt = sparrate * n
+  const gewinn     = endwert - eingezahlt
+
+  const sliderBgL1 = (val, min, max) => {
+    const pct = ((val - min) / (max - min)) * 100
+    return `linear-gradient(to right, #7C3AED ${pct}%, #2a2040 ${pct}%)`
+  }
+
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook l1-hook-card">
+          <p className="l1-hook-line l1-anim-1">Stell dir vor...</p>
+          <p className="l1-hook-line l1-anim-2">Du investierst jeden Monat <strong>100€.</strong></p>
+          <p className="l1-hook-line l1-anim-3"><strong>20 Jahre</strong> lang.</p>
+          <p className="l1-hook-line l1-anim-4">Ergebnis: <span className="l1-gewinn">52.000€.</span></p>
+          <p className="l1-hook-line l1-anim-5">Eingezahlt hast du: <span className="l1-eingezahlt">24.000€.</span></p>
+          <p className="l1-hook-line l1-anim-6 l1-big-reveal">+28.000€ reiner Gewinn.</p>
+          <p className="l1-hook-sub">Das ist Zinseszins. Das ist ein ETF.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was ist ein ETF?</h2>
+          <p style={{ color: "#aaa", lineHeight: 1.7, fontSize: "0.9rem", marginBottom: "1rem" }}>
+            ETF = Exchange Traded Fund. Ein Korb, der viele Aktien gleichzeitig enthält.
+          </p>
+          <div className="l1-analogy">
+            <div className="l1-analogy-col l1-bad">
+              <span className="l1-analogy-icon">🍎</span>
+              <span className="l1-analogy-label">Eine Aktie</span>
+              <span className="l1-analogy-sub">Fällt Apple, verlierst du viel.</span>
+              <span className="l1-analogy-verdict l1-verdict-bad">❌ Riskant</span>
+            </div>
+            <div className="l1-analogy-vs">VS</div>
+            <div className="l1-analogy-col l1-good">
+              <span className="l1-analogy-icon">🧺</span>
+              <span className="l1-analogy-label">ETF = Korb</span>
+              <span className="l1-analogy-sub">1.500+ Aktien gebündelt. Eine fällt – kaum spürbar.</span>
+              <span className="l1-analogy-verdict l1-verdict-good">✅ Diversifiziert</span>
+            </div>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">MSCI World: Was steckt drin?</h2>
+          <p style={{ color: "#aaa", fontSize: "0.82rem", marginBottom: "0.75rem" }}>Top-5 im MSCI World (ca. 1.500 Unternehmen aus 23 Ländern)</p>
+          {[
+            { name: "Apple",     pct: 4.8, color: "#7C3AED" },
+            { name: "Microsoft", pct: 4.2, color: "#8B5CF6" },
+            { name: "NVIDIA",    pct: 3.9, color: "#A78BFA" },
+            { name: "Amazon",    pct: 2.3, color: "#C4B5FD" },
+            { name: "Meta",      pct: 1.8, color: "#DDD6FE" },
+          ].map(c => (
+            <div key={c.name} className="l1-bar-row">
+              <span className="l1-bar-name">{c.name}</span>
+              <div className="l1-bar-track">
+                <div className="l1-bar-fill" style={{ width: `${c.pct * 12}%`, background: c.color }} />
+              </div>
+              <span className="l1-bar-pct">{c.pct}%</span>
+            </div>
+          ))}
+          <p style={{ color: "#666", fontSize: "0.75rem", marginTop: "0.75rem" }}>Kein Einzeltitel macht mehr als 5% aus – automatische Risikostreuung.</p>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Kosten: ETF vs. aktiver Fonds</h2>
+          <p style={{ color: "#aaa", fontSize: "0.85rem", marginBottom: "0.75rem" }}>10.000 € investiert, 7% Rendite – nach 30 Jahren:</p>
+          <svg viewBox="0 0 260 160" style={{ width: "100%" }}>
+            <defs>
+              <linearGradient id="lineGreen" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#10B981" />
+                <stop offset="100%" stopColor="#34D399" />
+              </linearGradient>
+              <linearGradient id="lineRed" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#ef4444" />
+                <stop offset="100%" stopColor="#fca5a5" />
+              </linearGradient>
+            </defs>
+            <line x1="30" y1="140" x2="250" y2="140" stroke="#333" strokeWidth="1"/>
+            <line x1="30" y1="20" x2="30" y2="140" stroke="#333" strokeWidth="1"/>
+            {/* ETF (0.2%) line - ends at ~74k */}
+            <path d="M30,135 Q100,100 180,60 T250,20" stroke="url(#lineGreen)" strokeWidth="2.5" fill="none"/>
+            {/* Fonds (2%) line - ends at ~57k */}
+            <path d="M30,135 Q100,110 180,85 T250,50" stroke="url(#lineRed)" strokeWidth="2.5" fill="none" strokeDasharray="5,3"/>
+            <text x="255" y="23" fill="#10B981" fontSize="8">74.000€</text>
+            <text x="255" y="53" fill="#ef4444" fontSize="8">57.000€</text>
+            <text x="30" y="155" fill="#666" fontSize="7">0</text>
+            <text x="240" y="155" fill="#666" fontSize="7">30 Jahre</text>
+          </svg>
+          <div className="l1-cost-legend">
+            <span className="l1-legend-green">━ ETF (TER 0,2%)</span>
+            <span className="l1-legend-red">╌ Fonds (TER 2%)</span>
+          </div>
+          <p style={{ color: "#aaa", fontSize: "0.8rem", textAlign: "center", marginTop: "0.5rem" }}>Kostenunterschied: <strong style={{ color: "#10B981" }}>17.000€ mehr</strong> beim ETF</p>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Dein ETF-Rechner</h2>
+          <p className="cl-card-sub">Sparrate: <strong>{sparrate} €/Monat</strong></p>
+          <input type="range" min={10} max={1000} step={10} value={sparrate}
+            onChange={e => setSparrate(Number(e.target.value))}
+            className="rc-slider rc-slider-full" style={{ background: sliderBgL1(sparrate, 10, 1000) }} />
+          <p className="cl-card-sub" style={{ marginTop: "0.75rem" }}>Laufzeit: <strong>{jahre} Jahre</strong></p>
+          <input type="range" min={1} max={40} step={1} value={jahre}
+            onChange={e => setJahre(Number(e.target.value))}
+            className="rc-slider rc-slider-full" style={{ background: sliderBgL1(jahre, 1, 40) }} />
+          <div className="cl-kaffee-ergebnis" style={{ marginTop: "1rem" }}>
+            <div className="cl-kaffee-zeile"><span>Eingezahlt</span><span className="cl-kaffee-wert">{eingezahlt.toLocaleString("de-DE")} €</span></div>
+            <div className="cl-kaffee-zeile cl-kaffee-highlight"><span>Endwert bei 7%</span><span className="cl-kaffee-wert cl-kaffee-big">{endwert.toLocaleString("de-DE")} €</span></div>
+            <div className="cl-kaffee-zeile"><span style={{ color: "#10B981" }}>Zinseszins-Gewinn</span><span className="cl-kaffee-wert" style={{ color: "#10B981" }}>+{gewinn.toLocaleString("de-DE")} €</span></div>
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Thesaurierend vs. Ausschüttend</h2>
+          <div className="l1-tree-compare">
+            <div className="l1-tree-col">
+              <span className="l1-tree-icon">🌱</span>
+              <span className="l1-tree-name">Thesaurierend</span>
+              <span className="l1-tree-sub">Dividenden werden automatisch reinvestiert – maximaler Zinseszins-Effekt.</span>
+              <span className="l1-tree-tag l1-tag-green">Für Sparpläne ideal</span>
+            </div>
+            <div className="l1-tree-divider" />
+            <div className="l1-tree-col">
+              <span className="l1-tree-icon">🌳</span>
+              <span className="l1-tree-name">Ausschüttend</span>
+              <span className="l1-tree-sub">Dividenden werden ausgezahlt – du bekommst regelmäßig Geld überwiesen.</span>
+              <span className="l1-tree-tag l1-tag-blue">Für passives Einkommen</span>
+            </div>
+          </div>
+          <div style={{ background: "#7C3AED11", border: "1px solid #7C3AED33", borderRadius: "8px", padding: "0.65rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#a78bfa", fontSize: "0.82rem", margin: 0 }}>Empfehlung für Einsteiger: <strong>Thesaurierend</strong> – Steuern werden erst beim Verkauf fällig.</p>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Welcher ETF für den Start?</h2>
+          {[
+            { name: "MSCI World", beschreibung: "1.500 Unternehmen, 23 Länder. Keine Schwellenländer.", tag: "Klassiker", color: "#7C3AED" },
+            { name: "MSCI ACWI", beschreibung: "3.000+ Unternehmen inkl. Schwellenländer (China, Indien…)", tag: "Breiter", color: "#8B5CF6" },
+            { name: "FTSE All-World", beschreibung: "Ähnlich wie ACWI, leicht andere Gewichtung.", tag: "Alternative", color: "#6D28D9" },
+          ].map(e => (
+            <div key={e.name} className="l1-etf-karte" style={{ borderColor: e.color + "44" }}>
+              <div className="l1-etf-top">
+                <span className="l1-etf-name">{e.name}</span>
+                <span className="l1-etf-tag" style={{ background: e.color + "22", color: e.color }}>{e.tag}</span>
+              </div>
+              <p className="l1-etf-beschreibung">{e.beschreibung}</p>
+            </div>
+          ))}
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} TOTAL={7} />
+}
+
 function CardLektionScreen({ lektion, onZurueck, onAbgeschlossen }) {
   const props = { lektion, onZurueck, onAbgeschlossen }
+  if (lektion.id === 1)   return <L1Screen   {...props} />
   if (lektion.id === 601) return <L601Screen {...props} />
   if (lektion.id === 602) return <L602Screen {...props} />
   if (lektion.id === 603) return <L603Screen {...props} />
@@ -8542,6 +8746,13 @@ function AktionsplanScreen({ planId, aktionsplaene, onSchrittToggle, onBonusXP, 
   const alleGeschafft = erledigt === gesamt
   const [bonusDone, setBonusDone] = useState(false)
   const [notgroschen, setNotgroschen] = useState(1500)
+  const [apSparrate, setApSparrate] = useState(100)
+
+  const apSparProjektion = Math.round(apSparrate * ((Math.pow(1 + 0.07 / 12, 240) - 1) / (0.07 / 12)))
+  const apSparSliderBg = (val, min, max) => {
+    const pct = ((val - min) / (max - min)) * 100
+    return `linear-gradient(to right, #7C3AED ${pct}%, #2a2040 ${pct}%)`
+  }
 
   useEffect(() => {
     if (alleGeschafft && !bonusDone && !planState.bonusVergeben) {
@@ -8617,6 +8828,30 @@ function AktionsplanScreen({ planId, aktionsplaene, onSchrittToggle, onBonusXP, 
                 </div>
               </div>
               <p className="ap-schritt-beschreibung">{s.beschreibung}</p>
+              {s.broker && (
+                <div className="ap-broker-pills">
+                  {s.broker.map(b => (
+                    <span key={b} className="ap-broker-pill">{b}</span>
+                  ))}
+                </div>
+              )}
+              {s.sparplanRechner && (
+                <div className="ap-mini-rechner">
+                  <span className="ap-rechner-label">Deine Sparrate: <strong>{apSparrate} €/Monat</strong></span>
+                  <input
+                    type="range"
+                    min={10} max={500} step={5}
+                    value={apSparrate}
+                    onChange={e => setApSparrate(Number(e.target.value))}
+                    className="ap-sparplan-slider"
+                    style={{ background: apSparSliderBg(apSparrate, 10, 500) }}
+                  />
+                  <div className="ap-rechner-result">
+                    In 20 Jahren: <strong>{apSparProjektion.toLocaleString("de-DE")} €</strong>
+                  </div>
+                  <p className="ap-rechner-hint">Bei 7% Rendite (historischer MSCI World Schnitt)</p>
+                </div>
+              )}
               {s.rechner && (
                 <div className="ap-mini-rechner">
                   <span className="ap-rechner-label">Monatsausgaben:</span>
