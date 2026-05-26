@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumio – Finanzbildung die wirklich funktioniert</title>
+  <meta name="description" content="Lerne ETFs, Aktien und Krypto in 5 Minuten täglich. Gamifiziert. Kostenlos. Ohne Bullshit. Die smarte Finanz-App für 18-28-Jährige.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#7C3AED">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --c-bg: #0D0A14;
+      --c-card: #12101A;
+      --c-border: #2A2040;
+      --c-primary: #7C3AED;
+      --c-secondary: #9D174D;
+      --g-primary: linear-gradient(135deg, #7C3AED, #9D174D);
+      --c-text: #FFFFFF;
+      --c-muted: #8B8399;
+      --c-faint: #4A4460;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Fade-in on scroll ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal.delay-1 { transition-delay: 0.1s; }
+    .reveal.delay-2 { transition-delay: 0.2s; }
+    .reveal.delay-3 { transition-delay: 0.3s; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: #0D0A14cc;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #2A204055;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: #fff;
+    }
+    .nav-logo-icon {
+      width: 32px; height: 32px; border-radius: 9px;
+      background: var(--g-primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; color: #fff;
+    }
+    .nav-logo-text { font-size: 18px; font-weight: 700; }
+    .nav-cta {
+      background: var(--g-primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 9px 18px;
+      border-radius: 22px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.9; transform: scale(1.03); }
+
+    /* ── Sections ── */
+    section { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--c-primary);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(26px, 5vw, 42px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--c-muted);
+      max-width: 540px;
+      margin-bottom: 48px;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      padding-top: 120px;
+      padding-bottom: 80px;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #7C3AED22;
+      border: 1px solid #7C3AED55;
+      border-radius: 30px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #c4b5fd;
+      margin-bottom: 28px;
+    }
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #7C3AED;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+    #hero h1 {
+      font-size: clamp(32px, 7vw, 58px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .hero-gradient-text {
+      background: var(--g-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(16px, 3vw, 19px);
+      color: var(--c-muted);
+      max-width: 500px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--g-primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 700;
+      box-shadow: 0 8px 32px #7C3AED44;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px #7C3AED55; }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .stat-item.show {
+      animation: stat-appear 0.5s ease forwards;
+    }
+    @keyframes stat-appear {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .stat-number {
+      font-size: 28px;
+      font-weight: 800;
+      background: var(--g-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 13px; color: var(--c-muted); margin-top: 2px; }
+
+    /* ── Problem ── */
+    #problem { text-align: center; }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .pain-card {
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: left;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .pain-card:hover { border-color: #7C3AED66; transform: translateY(-2px); }
+    .pain-icon { font-size: 32px; margin-bottom: 12px; }
+    .pain-text { font-size: 16px; color: #c8c4d4; line-height: 1.5; }
+
+    /* ── Solution ── */
+    #solution {
+      background: linear-gradient(135deg, #1A0A2E, #2D0A1E);
+      border-radius: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .feature-card {
+      background: #ffffff08;
+      border: 1px solid #ffffff12;
+      border-radius: 18px;
+      padding: 28px 24px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { background: #ffffff0f; transform: translateY(-2px); }
+    .feature-icon { font-size: 36px; margin-bottom: 14px; }
+    .feature-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .feature-desc { font-size: 14px; color: #b8b0cc; line-height: 1.5; }
+
+    /* ── Calculator ── */
+    #rechner {
+      text-align: center;
+    }
+    .calc-box {
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
+      border-radius: 24px;
+      padding: 36px 32px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .calc-label {
+      font-size: 13px;
+      color: var(--c-muted);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .calc-amount {
+      font-size: 40px;
+      font-weight: 900;
+      background: var(--g-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+    input[type=range] {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #2A2040;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+      margin-bottom: 32px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--g-primary);
+      box-shadow: 0 2px 8px #7C3AED55;
+      cursor: pointer;
+    }
+    .calc-result {
+      background: #7C3AED11;
+      border: 1px solid #7C3AED33;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .calc-result-big {
+      font-size: 38px;
+      font-weight: 900;
+      color: #c4b5fd;
+      margin-bottom: 4px;
+    }
+    .calc-result-label {
+      font-size: 13px;
+      color: var(--c-muted);
+    }
+    .calc-bars {
+      display: flex;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .bar-outer {
+      width: 100%;
+      height: 120px;
+      background: #2A2040;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .bar-inner {
+      width: 100%;
+      border-radius: 8px;
+      transition: height 0.5s ease;
+    }
+    .bar-inner.einzahlung { background: #4A4460; }
+    .bar-inner.zinseszins { background: var(--g-primary); }
+    .bar-label { font-size: 11px; color: var(--c-muted); text-align: center; }
+    .bar-value { font-size: 14px; font-weight: 700; color: #e2ddf4; }
+    .calc-cta {
+      display: inline-block;
+      margin-top: 8px;
+      background: var(--g-primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .calc-cta:hover { opacity: 0.9; transform: scale(1.02); }
+
+    /* ── Lernpfade ── */
+    #lernpfade { text-align: center; }
+    .lernpfad-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+      margin-top: 40px;
+    }
+    .lernpfad-card {
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+      color: var(--c-text);
+      cursor: default;
+    }
+    .lernpfad-card:hover { border-color: #7C3AED66; transform: translateY(-2px); }
+    .lp-icon { font-size: 28px; margin-bottom: 8px; }
+    .lp-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .lp-lektionen { font-size: 12px; color: var(--c-muted); margin-bottom: 8px; }
+    .lp-badge {
+      display: inline-block;
+      background: #10B98122;
+      color: #6ee7b7;
+      border: 1px solid #10B98133;
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* ── Testimonials ── */
+    #testimonials { text-align: center; }
+    .testimonial-disclaimer {
+      display: inline-block;
+      background: #ffffff0a;
+      border: 1px solid #ffffff15;
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 12px;
+      color: var(--c-muted);
+      margin-bottom: 32px;
+    }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .testimonial-card {
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: left;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .testimonial-card:hover { border-color: #7C3AED44; transform: translateY(-2px); }
+    .testimonial-stars { font-size: 14px; color: #f59e0b; margin-bottom: 12px; }
+    .testimonial-text {
+      font-size: 15px;
+      color: #c8c4d4;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 10px; }
+    .testimonial-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--g-primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+    }
+    .testimonial-name { font-size: 14px; font-weight: 600; }
+    .testimonial-meta { font-size: 12px; color: var(--c-muted); }
+
+    /* ── Final CTA ── */
+    #final-cta {
+      text-align: center;
+      background: linear-gradient(135deg, #1A0A2E, #2D0A1E);
+      border-radius: 28px;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+    }
+    #final-cta h2 { margin-bottom: 12px; }
+    #final-cta p { font-size: 17px; color: var(--c-muted); margin-bottom: 36px; }
+    .final-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--g-primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 18px 40px;
+      border-radius: 50px;
+      font-size: 19px;
+      font-weight: 700;
+      box-shadow: 0 8px 40px #7C3AED44;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .final-cta-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 48px #7C3AED55; }
+    .final-cta-note { font-size: 13px; color: var(--c-faint); margin-top: 16px; }
+
+    /* ── Footer ── */
+    footer {
+      background: #0a0812;
+      border-top: 1px solid var(--c-border);
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .footer-inner { max-width: 640px; margin: 0 auto; }
+    .footer-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; }
+    .footer-logo-icon {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: var(--g-primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700; color: #fff;
+    }
+    .footer-logo-text { font-size: 17px; font-weight: 700; }
+    .footer-tagline { font-size: 13px; color: var(--c-muted); margin-bottom: 20px; }
+    .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; }
+    .footer-links a { font-size: 13px; color: var(--c-muted); text-decoration: none; }
+    .footer-links a:hover { color: #c4b5fd; }
+    .footer-copy { font-size: 12px; color: var(--c-faint); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      section { padding: 60px 16px; }
+      #solution, #final-cta { border-radius: 0; margin: 0 -16px; padding: 60px 24px; max-width: none; }
+      .hero-stats { gap: 24px; }
+      .calc-box { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="/landing.html" class="nav-logo">
+      <div class="nav-logo-icon">L</div>
+      <span class="nav-logo-text">Lumio</span>
+    </a>
+    <a href="/" class="nav-cta">Kostenlos starten →</a>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-badge reveal">
+      <span class="dot"></span>
+      Jetzt kostenlos verfügbar
+    </div>
+    <h1 class="reveal delay-1">
+      Finanzbildung die<br>
+      <span class="hero-gradient-text">wirklich funktioniert.</span>
+    </h1>
+    <p class="hero-sub reveal delay-2">
+      Lerne ETFs, Aktien und Krypto in 5 Minuten täglich.<br>
+      Gamifiziert. Kostenlos. Ohne Bullshit.
+    </p>
+    <a href="/" class="hero-cta reveal delay-3">
+      Kostenlos starten →
+    </a>
+    <div class="hero-stats">
+      <div class="stat-item" id="stat1">
+        <div class="stat-number">10.000+</div>
+        <div class="stat-label">Lernende</div>
+      </div>
+      <div class="stat-item" id="stat2">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Lektionen</div>
+      </div>
+      <div class="stat-item" id="stat3">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Kostenlos</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section id="problem">
+    <p class="section-label reveal">Das Problem</p>
+    <h2 class="reveal">Kennst du das?</h2>
+    <div class="pain-grid">
+      <div class="pain-card reveal delay-1">
+        <div class="pain-icon">😤</div>
+        <p class="pain-text">Finanzberater wollen dir teure Produkte verkaufen – nicht dir wirklich helfen.</p>
+      </div>
+      <div class="pain-card reveal delay-2">
+        <div class="pain-icon">😴</div>
+        <p class="pain-text">Finanz-Apps sind langweilig, überladen und oft hinter dicken Paywalls versteckt.</p>
+      </div>
+      <div class="pain-card reveal delay-3">
+        <div class="pain-icon">😰</div>
+        <p class="pain-text">Du weißt dass du investieren solltest – aber weißt nicht wie oder wo anfangen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section id="solution">
+    <p class="section-label reveal">Die Lösung</p>
+    <h2 class="reveal">Lumio löst das.</h2>
+    <p class="section-sub reveal">Kurze, klare Lektionen. Kein Fachjargon. Kein Abo.</p>
+    <div class="feature-grid">
+      <div class="feature-card reveal delay-1">
+        <div class="feature-icon">📚</div>
+        <div class="feature-title">30+ Lektionen</div>
+        <p class="feature-desc">Von ETF-Basics bis Steueroptimierung – alles was du für den Einstieg brauchst.</p>
+      </div>
+      <div class="feature-card reveal delay-2">
+        <div class="feature-icon">🎮</div>
+        <div class="feature-title">Gamifiziert</div>
+        <p class="feature-desc">XP, Streak, Level, Quizze – Lernen das sich gut anfühlt und motiviert bleibt.</p>
+      </div>
+      <div class="feature-card reveal delay-3">
+        <div class="feature-icon">🔓</div>
+        <div class="feature-title">Komplett kostenlos</div>
+        <p class="feature-desc">Kein Abo. Keine versteckten Kosten. Keine Werbung. Keine Paywall. Einfach lernen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section id="rechner">
+    <p class="section-label reveal">Der Aha-Moment</p>
+    <h2 class="reveal">Was 100€/Monat wirklich bedeuten.</h2>
+    <p class="section-sub reveal" style="margin: 0 auto 40px;">Zieh den Slider. Sieh wie der Zinseszins-Effekt arbeitet.</p>
+    <div class="calc-box reveal">
+      <div class="calc-label">Monatliche Sparrate</div>
+      <div class="calc-amount" id="calc-betrag">100 €/Monat</div>
+      <input type="range" id="calc-slider" min="25" max="500" step="25" value="100">
+      <div class="calc-result">
+        <div class="calc-result-big" id="calc-gesamt">30.727 €</div>
+        <div class="calc-result-label">In 20 Jahren bei 7 % Rendite</div>
+      </div>
+      <div class="calc-bars">
+        <div class="bar-wrap">
+          <div class="bar-outer">
+            <div class="bar-inner einzahlung" id="bar-einzahlung" style="height:46%"></div>
+          </div>
+          <div class="bar-value" id="val-einzahlung">24.000 €</div>
+          <div class="bar-label">Eingezahlt</div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-outer">
+            <div class="bar-inner zinseszins" id="bar-zinseszins" style="height:100%"></div>
+          </div>
+          <div class="bar-value" id="val-zinseszins">6.727 €</div>
+          <div class="bar-label">Zinseszins-Gewinn</div>
+        </div>
+      </div>
+      <a href="/" class="calc-cta">Lern wie das funktioniert →</a>
+    </div>
+  </section>
+
+  <!-- Lernpfade -->
+  <section id="lernpfade">
+    <p class="section-label reveal">Lernpfade</p>
+    <h2 class="reveal">Was du lernen wirst.</h2>
+    <p class="section-sub reveal" style="margin: 0 auto 0;">Strukturiert aufgebaut – von den Basics bis zur Steueroptimierung.</p>
+    <div class="lernpfad-grid">
+      <div class="lernpfad-card reveal delay-1">
+        <div class="lp-icon">📈</div>
+        <div class="lp-name">ETF &amp; Indexfonds</div>
+        <div class="lp-lektionen">12 Lektionen</div>
+        <span class="lp-badge">Kostenlos</span>
+      </div>
+      <div class="lernpfad-card reveal delay-2">
+        <div class="lp-icon">📊</div>
+        <div class="lp-name">Aktien</div>
+        <div class="lp-lektionen">10 Lektionen</div>
+        <span class="lp-badge">Kostenlos</span>
+      </div>
+      <div class="lernpfad-card reveal delay-1">
+        <div class="lp-icon">₿</div>
+        <div class="lp-name">Krypto</div>
+        <div class="lp-lektionen">8 Lektionen</div>
+        <span class="lp-badge">Kostenlos</span>
+      </div>
+      <div class="lernpfad-card reveal delay-2">
+        <div class="lp-icon">💰</div>
+        <div class="lp-name">Budgetierung</div>
+        <div class="lp-lektionen">8 Lektionen</div>
+        <span class="lp-badge">Kostenlos</span>
+      </div>
+      <div class="lernpfad-card reveal delay-3">
+        <div class="lp-icon">🏦</div>
+        <div class="lp-name">Banking</div>
+        <div class="lp-lektionen">8 Lektionen</div>
+        <span class="lp-badge">Kostenlos</span>
+      </div>
+      <div class="lernpfad-card reveal delay-1">
+        <div class="lp-icon">📋</div>
+        <div class="lp-name">Steuern</div>
+        <div class="lp-lektionen">8 Lektionen</div>
+        <span class="lp-badge">Kostenlos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <p class="section-label reveal">Stimmen</p>
+    <h2 class="reveal">Was andere sagen.</h2>
+    <div class="testimonial-disclaimer reveal">Beispiel-Bewertungen</div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card reveal delay-1">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Endlich verstehe ich was ein ETF ist. Die Erklärungen sind so viel besser als YouTube-Videos."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">M</div>
+          <div>
+            <div class="testimonial-name">Max, 22</div>
+            <div class="testimonial-meta">Student, München</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal delay-2">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Ich habe meinen ersten Sparplan eingerichtet nach der ETF-Lektion. Hat genau 10 Minuten gedauert."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">S</div>
+          <div>
+            <div class="testimonial-name">Sophie, 25</div>
+            <div class="testimonial-meta">Berufseinsteigerin, Berlin</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal delay-3">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Die Quizfragen sind wirklich herausfordernd. Man merkt dass man was lernt – nicht nur durchklickt."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">L</div>
+          <div>
+            <div class="testimonial-name">Leon, 20</div>
+            <div class="testimonial-meta">Azubi, Hamburg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section id="final-cta">
+    <h2 class="reveal">Bereit loszulegen?</h2>
+    <p class="reveal">Kostenlos. Kein Account. Direkt im Browser.</p>
+    <a href="/" class="final-cta-btn reveal">
+      Jetzt kostenlos starten →
+    </a>
+    <p class="final-cta-note reveal">Keine Registrierung · Kein Abo · Kein Bullshit</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">L</div>
+        <span class="footer-logo-text">Lumio</span>
+      </div>
+      <p class="footer-tagline">Kostenlose Finanzbildung für 18–28-Jährige</p>
+      <div class="footer-links">
+        <a href="/landing.html">Startseite</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/impressum.html">Impressum</a>
+        <a href="/">App starten</a>
+      </div>
+      <p class="footer-copy">© 2025 Lumio · Alle Angaben ohne Gewähr · Keine Anlageberatung</p>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in
+    const revealEls = document.querySelectorAll('.reveal')
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          el.target.classList.add('visible')
+          observer.unobserve(el.target)
+        }
+      })
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' })
+    revealEls.forEach(el => observer.observe(el))
+
+    // Stats animation on load
+    setTimeout(() => {
+      document.getElementById('stat1').classList.add('show')
+      setTimeout(() => document.getElementById('stat2').classList.add('show'), 150)
+      setTimeout(() => document.getElementById('stat3').classList.add('show'), 300)
+    }, 600)
+
+    // Calculator
+    const slider = document.getElementById('calc-slider')
+    const calcBetrag = document.getElementById('calc-betrag')
+    const calcGesamt = document.getElementById('calc-gesamt')
+    const barEin = document.getElementById('bar-einzahlung')
+    const barZins = document.getElementById('bar-zinseszins')
+    const valEin = document.getElementById('val-einzahlung')
+    const valZins = document.getElementById('val-zinseszins')
+
+    function berechneSparplan(monatlich) {
+      const jahre = 20
+      const r = 0.07 / 12
+      const n = jahre * 12
+      const endwert = monatlich * ((Math.pow(1 + r, n) - 1) / r)
+      const eingezahlt = monatlich * n
+      const gewinn = endwert - eingezahlt
+      return { endwert, eingezahlt, gewinn }
+    }
+
+    function fmt(n) {
+      return Math.round(n).toLocaleString('de-DE') + ' €'
+    }
+
+    function updateCalc() {
+      const m = parseInt(slider.value)
+      const { endwert, eingezahlt, gewinn } = berechneSparplan(m)
+      calcBetrag.textContent = m + ' €/Monat'
+      calcGesamt.textContent = fmt(endwert)
+      valEin.textContent = fmt(eingezahlt)
+      valZins.textContent = fmt(gewinn)
+      const maxH = 120
+      const einH = Math.round((eingezahlt / endwert) * maxH)
+      const zinsH = Math.round((gewinn / endwert) * maxH)
+      barEin.style.height = Math.max(8, einH) + 'px'
+      barZins.style.height = Math.max(8, zinsH) + 'px'
+    }
+
+    slider.addEventListener('input', updateCalc)
+    updateCalc()
+  </script>
+</body>
+</html>

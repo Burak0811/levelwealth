@@ -1,0 +1,17 @@
+{
+  "name": "Lumio – Finanzbildung",
+  "short_name": "Lumio",
+  "description": "Kostenlose gamifizierte Finanzbildung für 18-28-Jährige",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0D0A14",
+  "theme_color": "#7C3AED",
+  "categories": ["education", "finance"],
+  "lang": "de",
+  "icons": [
+    { "src": "/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any maskable" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
