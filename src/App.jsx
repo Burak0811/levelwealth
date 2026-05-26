@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import "./App.css"
+import EmailSubscribe from "./EmailSubscribe.jsx"
 import {
   HomeIcon, QuestIcon, ProfilIcon, RanglisteIcon,
   ETFIcon, AktienIcon, KryptoIcon, BudgetIcon, BankingIcon, SteuernIcon, ImmobilienIcon, VersicherungIcon,
@@ -179,6 +180,16 @@ function getPersonalizedGreeting(userName, onboardingDate, abgeschlosseneLektion
 
 function getHeute() {
   return new Date().toISOString().split("T")[0]
+}
+
+async function navigatorTeilen(text) {
+  if (navigator.share) {
+    try { await navigator.share({ text }); return true } catch {}
+  }
+  if (navigator.clipboard) {
+    try { await navigator.clipboard.writeText(text); return true } catch {}
+  }
+  return false
 }
 
 function OnboardingFlow({ onComplete }) {
@@ -1376,9 +1387,20 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 
               Nochmal lesen
             </button>
           )}
-          <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP, perfekt)}>
-            {verdientXP > 0 ? "Weiter →" : "Trotzdem weiter →"}
-          </button>
+          <div style={{ display: "flex", gap: "0.75rem", marginTop: "1rem" }}>
+            <button className="weiter-btn" style={{ flex: 1 }} onClick={() => onAbgeschlossen(verdientXP, perfekt)}>
+              {verdientXP > 0 ? "Weiter →" : "Trotzdem weiter →"}
+            </button>
+            {alleRichtig && (
+              <button
+                className="weiter-btn"
+                style={{ flex: 1, background: "#2a2040" }}
+                onClick={() => navigatorTeilen(`Ich habe gerade gelernt: ${lektion.titel} 📚 #Lumio #Finanzbildung`)}
+              >
+                Teilen 📤
+              </button>
+            )}
+          </div>
         </div>
       </div>
     )
@@ -6779,13 +6801,98 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
               Nochmal lesen
             </button>
           )}
-          <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP, perfekt)}>
-            {verdientXP > 0 ? "Weiter →" : "Trotzdem weiter →"}
-          </button>
+          <div style={{ display: "flex", gap: "0.75rem", marginTop: "1rem" }}>
+            <button className="weiter-btn" style={{ flex: 1 }} onClick={() => onAbgeschlossen(verdientXP, perfekt)}>
+              {verdientXP > 0 ? "Weiter →" : "Trotzdem weiter →"}
+            </button>
+            {alleRichtig && (
+              <button
+                className="weiter-btn"
+                style={{ flex: 1, background: "#2a2040" }}
+                onClick={() => navigatorTeilen(`Ich habe gerade gelernt: ${lektion.titel} 📚 #Lumio #Finanzbildung`)}
+              >
+                Teilen 📤
+              </button>
+            )}
+          </div>
         </div>
       </div>
     )
   }
+}
+
+function FeedbackModal({ onClose }) {
+  const [sterne, setSterne] = useState(0)
+  const [text, setText] = useState("")
+  const [submitted, setSubmitted] = useState(false)
+
+  function abschicken() {
+    const abgeschl = JSON.parse(localStorage.getItem("abgeschlosseneLektionen") || "[]")
+    const eintrag = { sterne, text, datum: getHeute(), lektionen: abgeschl.length }
+    const bisheriges = JSON.parse(localStorage.getItem("feedbackEintraege") || "[]")
+    bisheriges.push(eintrag)
+    localStorage.setItem("feedbackEintraege", JSON.stringify(bisheriges))
+    setSubmitted(true)
+    setTimeout(onClose, 2200)
+  }
+
+  if (submitted) {
+    return (
+      <div className="level-up-overlay" onClick={onClose}>
+        <div className="level-up-modal" onClick={e => e.stopPropagation()}>
+          <div className="level-up-emoji">🙏</div>
+          <h2 className="level-up-titel">Danke!</h2>
+          <p className="level-up-sub">Dein Feedback hilft uns, Lumio besser zu machen.</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="level-up-overlay" onClick={onClose}>
+      <div className="level-up-modal" onClick={e => e.stopPropagation()}>
+        <div className="level-up-emoji">💬</div>
+        <h2 className="level-up-titel">Wie gefällt dir Lumio bisher?</h2>
+        <div className="feedback-sterne">
+          {[1, 2, 3, 4, 5].map(s => (
+            <span key={s} className={`feedback-stern${s <= sterne ? " aktiv" : ""}`} onClick={() => setSterne(s)}>★</span>
+          ))}
+        </div>
+        <textarea
+          className="feedback-textarea"
+          placeholder="Was können wir besser machen? (optional)"
+          value={text}
+          onChange={e => setText(e.target.value)}
+          rows={3}
+        />
+        <div style={{ display: "flex", gap: "0.75rem", marginTop: "1rem" }}>
+          <button className="weiter-btn" style={{ flex: 1, background: "#2a2040" }} onClick={onClose}>Überspringen</button>
+          <button className="weiter-btn" style={{ flex: 1 }} disabled={sterne === 0} onClick={abschicken}>Senden</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ErsteLeKtionEmailModal({ onClose }) {
+  return (
+    <div className="level-up-overlay" onClick={onClose}>
+      <div className="level-up-modal" onClick={e => e.stopPropagation()}>
+        <div className="level-up-emoji">📚</div>
+        <h2 className="level-up-titel">Du lernst gerade – bleib dabei!</h2>
+        <p className="level-up-sub" style={{ marginBottom: "1.25rem" }}>
+          Wir erinnern dich wöchentlich an deinen Fortschritt.
+        </p>
+        <EmailSubscribe compact />
+        <button
+          style={{ marginTop: "0.875rem", background: "none", border: "none", color: "#666", fontSize: "0.85rem", cursor: "pointer", padding: "0.25rem" }}
+          onClick={onClose}
+        >
+          Nein danke
+        </button>
+      </div>
+    </div>
+  )
 }
 
 function LevelUpModal({ levelUpInfo, onClose }) {
@@ -6798,10 +6905,14 @@ function LevelUpModal({ levelUpInfo, onClose }) {
 
   const unlockedKats = kategorien.filter(k => k.minLevel === newLevel)
 
-  function handleShare() {
-    const text = `Ich bin gerade Level ${newLevel} "${newName}" bei Lumio! 📈 #Investieren #Lumio`
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(() => alert("Text kopiert!"))
+  const [shareKopiert, setShareKopiert] = useState(false)
+
+  async function handleShare() {
+    const text = `Ich bin gerade Level ${newLevel} (${newName}) bei Lumio! 🚀 Kostenlose Finanzbildung: lumio.app`
+    const success = await navigatorTeilen(text)
+    if (success && !navigator.share) {
+      setShareKopiert(true)
+      setTimeout(() => setShareKopiert(false), 2000)
     }
   }
 
@@ -6831,7 +6942,9 @@ function LevelUpModal({ levelUpInfo, onClose }) {
         )}
         <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}>
           <button className="weiter-btn" style={{ flex: 1 }} onClick={onClose}>Weiter →</button>
-          <button className="weiter-btn" style={{ flex: 1, background: "#2a2040" }} onClick={handleShare}>Teilen 📤</button>
+          <button className="weiter-btn" style={{ flex: 1, background: "#2a2040" }} onClick={handleShare}>
+            {shareKopiert ? "✓ Kopiert!" : "Teilen 📤"}
+          </button>
         </div>
       </div>
     </div>
@@ -7431,7 +7544,26 @@ const FALLBACK_NEWS = [
   },
 ]
 
-function NewsScreen({ onZurueck, onOeffnen }) {
+function TippDerWocheKarte({ onLektionClick }) {
+  const tipp = getTippDerWoche()
+  return (
+    <div className="tipp-woche-karte">
+      <div className="tipp-woche-accent" />
+      <div className="tipp-woche-content">
+        <span className="tipp-woche-label">TIPP DER WOCHE</span>
+        <h3 className="tipp-woche-titel">{tipp.titel}</h3>
+        <p className="tipp-woche-text">{tipp.text}</p>
+        {tipp.lektionId && onLektionClick && (
+          <button className="tipp-woche-btn" onClick={() => onLektionClick(tipp.lektionId)}>
+            Mehr dazu lernen →
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function NewsScreen({ onZurueck, onOeffnen, onLektionClick }) {
   const [news, setNews] = useState([])
   const [laden, setLaden] = useState(true)
   const [istFallback, setIstFallback] = useState(false)
@@ -7527,6 +7659,8 @@ function NewsScreen({ onZurueck, onOeffnen }) {
         <p className="xp-info">📰 Aktuelle Finanz-News</p>
       </div>
 
+      <TippDerWocheKarte onLektionClick={onLektionClick} />
+
       {istFallback && (
         <p className="news-fallback-hinweis">
           📶 Live-Feeds werden auf lumio.app geladen
@@ -7572,6 +7706,12 @@ function NewsScreen({ onZurueck, onOeffnen }) {
           ))}
         </div>
       )}
+
+      <EmailSubscribe
+        compact
+        title="📬 Finanz-News direkt ins Postfach"
+        subtitle="Wöchentlich die wichtigsten News. Kein Spam."
+      />
     </div>
   )
 }
@@ -7720,15 +7860,17 @@ function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung }) {
     insights.push(`Erhöhe um 20 € und du hast ${formatEuro(mehr)} mehr.`)
   }
 
-  function teilen() {
+  async function teilen() {
     const steuerZeile = steuerAn ? `\n💼 Nach Steuern: ${formatEuro(nettoEndwert)}` : ""
     const text = [
-      `💡 Mein Sparplan auf Lumio:`,
-      `📊 ${sparrate} €/Monat × ${laufzeit} Jahre bei ${aktuelleProzent} % p.a.`,
-      `💰 Endwert: ${formatEuro(ergebnis)}${steuerZeile}`,
-      `📈 Davon Zinseszins: ${formatEuro(gewinn)} (${gewinnPct} %)`,
-      `🚀 Berechne deinen Plan auf lumio.app`,
+      `Mit ${sparrate}€/Monat werde ich in ${laufzeit} Jahren ${formatEuro(ergebnis)} haben. Zinseszins ist magisch! 📈 #Lumio`,
+      `📊 ${sparrate} €/Monat × ${laufzeit} Jahre @ ${aktuelleProzent} % p.a.${steuerZeile}`,
+      `💰 Davon Zinseszins: ${formatEuro(gewinn)} (${gewinnPct} %)`,
+      `🔢 lumio.app`,
     ].join("\n")
+    if (navigator.share) {
+      try { await navigator.share({ text }); return } catch {}
+    }
     if (navigator.clipboard) {
       navigator.clipboard.writeText(text).then(() => {
         setKopiert(true)
@@ -8070,13 +8212,13 @@ const SIMULATED_USERS = [
 ]
 
 const TIPPS_DER_WOCHE = [
-  { titel: "Der Zinseszins-Trick", text: "Warren Buffett hat 99% seines Vermögens nach seinem 52. Geburtstag gemacht. Nicht weil er besser wurde – sondern weil Zinseszins Zeit braucht. Je früher du anfängst, desto mehr arbeitet die Mathematik für dich." },
-  { titel: "Kosten sind der stille Renditefresser", text: "1% höhere Kosten klingt nach nichts. Bei 50.000€ über 20 Jahre sind das über 12.000€ die du verlierst. ETFs mit 0,1% TER statt 1,5% TER können deinen Endbetrag um 25% erhöhen." },
-  { titel: "Time in Market schlägt Timing", text: "Studien zeigen: Wer die 10 besten Börsentage der letzten 20 Jahre verpasste, halbierte seine Rendite. Die besten Tage kommen oft kurz nach den schlimmsten. Wer dabei bleibt, gewinnt." },
-  { titel: "Der Notgroschen schützt dein Investment", text: "Ohne Notgroschen bist du gezwungen ETFs zu verkaufen wenn du Geld brauchst – oft genau wenn sie günstig sind. 3 Monatsausgaben auf dem Tagesgeld = du musst nie aus Not verkaufen." },
-  { titel: "Diversifikation ist Frühstück essen", text: "Diversifikation nennt man 'The only free lunch in finance'. Du reduzierst Risiko ohne Rendite zu opfern. Ein MSCI World ETF gibt dir 1.500 Unternehmen für einen Preis." },
-  { titel: "Inflation ist unsichtbarer Diebstahl", text: "Bei 3% Inflation verlieren 10.000€ auf dem Konto in 10 Jahren 26% ihrer Kaufkraft. Du hast 'noch 10.000€', kannst aber nur noch für 7.400€ kaufen. Investieren ist kein Luxus, sondern Selbstschutz." },
-  { titel: "Sparrate > Rendite für Einsteiger", text: "Im ersten Jahr ist deine Sparrate wichtiger als deine Rendite. 100€/Monat extra bringen dir über 30 Jahre bei 7% fast 120.000€ mehr als 50€/Monat. Fang mit dem Maximum an, das du dir leisten kannst." },
+  { titel: "Der Zinseszins-Effekt", lektionId: 1, text: "Wusstest du? 100€/Monat bei 7% Rendite werden in 30 Jahren zu 121.997€. Du zahlst nur 36.000€ ein. Der Rest ist purer Zinseszins." },
+  { titel: "Sparerpauschbetrag", lektionId: null, text: "Du hast 1.000€ steuerfrei pro Jahr auf Kapitalerträge. Hast du deinen Freistellungsauftrag eingerichtet? Ohne ihn zahlt die Bank automatisch 26% Steuer." },
+  { titel: "Cost Averaging", lektionId: null, text: "Timing the market oder time in market? Studien zeigen: Regelmäßiges Investieren schlägt Markt-Timing in 94% der Fälle über 20 Jahre." },
+  { titel: "Notgroschen First", lektionId: null, text: "Bevor du investierst: Baue einen Notgroschen von 3-6 Monatsausgaben auf. Ohne ihn zwingst du dich möglicherweise, ETFs im schlimmsten Moment zu verkaufen." },
+  { titel: "TER Vergleich", lektionId: null, text: "Ein ETF mit 0.5% TER vs. 0.1% TER. Bei 10.000€ über 30 Jahre: 4.700€ Unterschied – nur wegen 0.4% Kostenunterschied." },
+  { titel: "Rebalancing", lektionId: null, text: "Einmal pro Jahr: Prüfe ob dein Portfolio noch deiner Ziel-Aufteilung entspricht. Neue Einzahlungen in den untergewichteten Teil – keine Steuern ausgelöst." },
+  { titel: "Behavioral Finance", lektionId: null, text: "Der größte Feind deiner Rendite bist du selbst. Anleger die in Crashs verkaufen, verlieren im Schnitt 3-4% p.a. gegenüber denen die nichts tun." },
 ]
 
 function getWeeklyXP(xpTaeglich) {
@@ -8218,14 +8360,16 @@ function RanglisteScreen({ xp, xpTaeglich, userName, onZurueck }) {
 
 function StreakShareModal({ streak, onClose }) {
   const [kopiert, setKopiert] = useState(false)
-  const shareText = `Ich lerne seit ${streak} Tagen täglich Finanzen mit Lumio! 📈 #Lumio #Finanzbildung #Investing`
+  const shareText = `🔥 ${streak} Tage Streak bei Lumio! Jeden Tag 5 Minuten Finanzwissen. lumio.app`
 
-  function kopieren() {
+  async function teilen() {
+    if (navigator.share) {
+      try { await navigator.share({ text: shareText }); return } catch {}
+    }
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(shareText).then(() => {
-        setKopiert(true)
-        setTimeout(() => setKopiert(false), 2000)
-      })
+      await navigator.clipboard.writeText(shareText)
+      setKopiert(true)
+      setTimeout(() => setKopiert(false), 2000)
     }
   }
 
@@ -8236,8 +8380,8 @@ function StreakShareModal({ streak, onClose }) {
         <h2 className="ssm-titel">{streak} Tage Streak!</h2>
         <p className="ssm-sub">Krasse Leistung – du bist jetzt besser als 95% aller Anfänger.</p>
         <div className="ssm-text-preview">{shareText}</div>
-        <button className="ssm-copy-btn" onClick={kopieren}>
-          {kopiert ? "✓ Kopiert!" : "📋 Text kopieren"}
+        <button className="ssm-copy-btn" onClick={teilen}>
+          {kopiert ? "✓ Kopiert!" : "📤 Teilen"}
         </button>
         <button className="ssm-close-btn" onClick={onClose}>Schließen</button>
       </div>
@@ -8307,6 +8451,8 @@ function App() {
   const [kategorienBonus, setKategorienBonus]     = useState(() => JSON.parse(localStorage.getItem("kategorienBonus") || "[]"))
   const [aktionsplaene, setAktionsplaene]         = useState(() => JSON.parse(localStorage.getItem("aktionsplaene") || "{}"))
   const [aktiversAktionsplanId, setAktiversAktionsplanId] = useState(null)
+  const [zeigeEmailModal, setZeigeEmailModal]     = useState(false)
+  const [zeigeFeedbackModal, setZeigeFeedbackModal] = useState(false)
 
   useEffect(() => {
     const heute = getHeute()
@@ -8449,6 +8595,19 @@ function App() {
       const lektioneHeuteFinal = Object.values(lektionDaten).filter(d => d === heute).length
       if (lektioneHeuteFinal >= 3) freischaltenAchievement("schnellstarter")
       if (lektioneHeuteFinal >= 5) freischaltenAchievement("wissens_marathon")
+
+      // Erste Lektion: E-Mail Modal einmalig zeigen
+      if (neueAbgeschlossen.length === 1 && !localStorage.getItem("emailModalShown")) {
+        localStorage.setItem("emailModalShown", "true")
+        setZeigeEmailModal(true)
+      }
+
+      // Feedback Modal nach jeder 5. Lektion
+      const lastFeedbackAt = Number(localStorage.getItem("lastFeedbackAt") || 0)
+      if (neueAbgeschlossen.length % 5 === 0 && neueAbgeschlossen.length > lastFeedbackAt) {
+        localStorage.setItem("lastFeedbackAt", neueAbgeschlossen.length)
+        setZeigeFeedbackModal(true)
+      }
     }
 
     // Perfektionist: 10 in Folge
@@ -8660,7 +8819,14 @@ function App() {
           />
         )}
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveHauptkategorie === "news" && (
-          <NewsScreen onZurueck={() => setAktiveHauptkategorie(null)} onOeffnen={newsOeffnen} />
+          <NewsScreen
+            onZurueck={() => setAktiveHauptkategorie(null)}
+            onOeffnen={newsOeffnen}
+            onLektionClick={(lektionId) => {
+              const found = kategorien.flatMap(k => (lernpfad[k.id] || []).map(l => ({ lektion: l, kat: k }))).find(({ lektion: l }) => l.id === lektionId)
+              if (found) { setAktiveHauptkategorie(null); setAktiveKategorie(found.kat); setAktiveLektion(found.lektion) }
+            }}
+          />
         )}
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveHauptkategorie === "rechner" && (
           <RechnerScreen onZurueck={() => setAktiveHauptkategorie(null)} userFinanzsituation={userFinanzsituation} onRechnerOeffnung={rechnerOeffnen} />
@@ -8701,6 +8867,8 @@ function App() {
       )}
       <LevelUpModal levelUpInfo={levelUpInfo} onClose={() => setLevelUpInfo(null)} />
       <AchievementModal achievement={pendingAchievement} onClose={() => setPendingAchievement(null)} />
+      {zeigeEmailModal && <ErsteLeKtionEmailModal onClose={() => setZeigeEmailModal(false)} />}
+      {zeigeFeedbackModal && <FeedbackModal onClose={() => setZeigeFeedbackModal(false)} />}
       <nav className="bottom-nav">
         {[
           { id: "home",      label: "Home",      svg: <HomeIcon      size={22}/> },
