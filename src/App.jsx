@@ -457,17 +457,20 @@ Das ist keine Magie. Das ist Mathematik: Risiko verteilen nennt man Diversifikat
         {
           text: "Was ist ein ETF?",
           antworten: ["Eine einzelne Aktie", "Ein Fonds der viele Aktien bündelt und an der Börse handelbar ist", "Ein Sparkonto mit fester Rendite", "Eine Kryptowährung"],
-          richtig: 1
+          richtig: 1,
+          erklaerung: "ETF steht für Exchange Traded Fund – ein Fonds der an der Börse gehandelt wird. Er enthält viele Aktien gleichzeitig und kann wie eine normale Aktie ge- und verkauft werden."
         },
         {
           text: "Anna investiert 100€/Monat für 25 Jahre bei 7% Rendite. Was hat sie am Ende ungefähr?",
           antworten: ["30.000€", "45.000€", "81.000€", "120.000€"],
-          richtig: 2
+          richtig: 2,
+          erklaerung: "Bei 7% Rendite und Cost-Averaging über 25 Jahre ergibt sich ca. 81.000€. Du hast 30.000€ eingezahlt – die restlichen 51.000€ sind reiner Zinseszins."
         },
         {
           text: "Was ist TER und warum ist sie wichtig?",
           antworten: ["Eine Steuer auf ETF-Gewinne", "Die jährliche Kostenquote – sie reduziert deine Rendite direkt", "Die Mindestinvestitionssumme", "Der Name des Index"],
-          richtig: 1
+          richtig: 1,
+          erklaerung: "TER (Total Expense Ratio) ist die jährliche Kostenquote. Sie wird automatisch aus dem ETF-Wert abgezogen. Für 10.000€ investiert kostet ein ETF mit 0,2% TER nur 20€ pro Jahr."
         }
       ]
     },
@@ -491,9 +494,9 @@ Beispiel mit Zahlen: Du investierst 10.000€. Nach 30 Jahren bei 7% Rendite:
 Der Unterschied? 17.000€ – nur wegen der Kosten.`,
       xp: 20,
       fragen: [
-        { text: "Was ist ein Index?", antworten: ["Ein teurer Investmentfonds", "Eine Liste von Unternehmen nach festen Regeln", "Ein staatliches Sparprogramm", "Eine Kryptowährung"], richtig: 1 },
-        { text: "Warum sind ETFs so günstig?", antworten: ["Sie investieren nur in kleine Unternehmen", "Sie werden passiv verwaltet – kein teurer Fondsmanager", "Sie haben staatliche Förderung", "Sie kaufen nur eine Aktie"], richtig: 1 },
-        { text: "Was kostet ein typischer ETF auf den MSCI World pro Jahr?", antworten: ["0–0,05%", "0,1–0,2%", "1–2%", "5%"], richtig: 1 }
+        { text: "Was ist ein Index?", antworten: ["Ein teurer Investmentfonds", "Eine Liste von Unternehmen nach festen Regeln", "Ein staatliches Sparprogramm", "Eine Kryptowährung"], richtig: 1, erklaerung: "Ein Index ist eine Liste von Unternehmen nach festen Regeln – z.B. die 40 größten deutschen Unternehmen im DAX. Keine menschliche Entscheidung, nur klare Regeln." },
+        { text: "Warum sind ETFs so günstig?", antworten: ["Sie investieren nur in kleine Unternehmen", "Sie werden passiv verwaltet – kein teurer Fondsmanager", "Sie haben staatliche Förderung", "Sie kaufen nur eine Aktie"], richtig: 1, erklaerung: "ETFs werden passiv verwaltet – sie folgen einfach dem Index. Das spart teure Fondsmanager. Ergebnis: ETFs kosten 0,1–0,2% TER, aktive Fonds 1,5–2% – ein riesiger Unterschied über Zeit." },
+        { text: "Was kostet ein typischer ETF auf den MSCI World pro Jahr?", antworten: ["0–0,05%", "0,1–0,2%", "1–2%", "5%"], richtig: 1, erklaerung: "MSCI World ETFs von iShares oder Xtrackers kosten 0,1–0,2% TER pro Jahr. Bei 0,2% verlierst du nur 20€ pro 10.000€ – verglichen mit 150–200€ bei aktiven Fonds." }
       ]
     },
     {
@@ -514,9 +517,9 @@ Aber der MSCI World hat eine Lücke: Er enthält keine Schwellenländer. China, 
 Für den Einstieg gilt: MSCI World oder ACWI sind beide solide. Du kannst nicht viel falsch machen.`,
       xp: 20,
       fragen: [
-        { text: "Wie hoch ist der US-Anteil im MSCI World ungefähr?", antworten: ["30%", "50%", "70%", "90%"], richtig: 2 },
-        { text: "Was fehlt im MSCI World?", antworten: ["Europäische Unternehmen", "US-Technologiefirmen", "Schwellenländer wie China und Indien", "Finanzunternehmen"], richtig: 2 },
-        { text: "Was ist der Unterschied zwischen MSCI World und MSCI ACWI?", antworten: ["Kein Unterschied", "ACWI enthält zusätzlich Schwellenländer", "ACWI ist teurer", "ACWI enthält nur europäische Firmen"], richtig: 1 }
+        { text: "Wie hoch ist der US-Anteil im MSCI World ungefähr?", antworten: ["30%", "50%", "70%", "90%"], richtig: 2, erklaerung: "Etwa 70% des MSCI World sind US-Unternehmen – dominiert von Apple, Microsoft, NVIDIA & Co. Das bedeutet: wenn die US-Wirtschaft schwächelt, spürt dein ETF das besonders." },
+        { text: "Was fehlt im MSCI World?", antworten: ["Europäische Unternehmen", "US-Technologiefirmen", "Schwellenländer wie China und Indien", "Finanzunternehmen"], richtig: 2, erklaerung: "Schwellenländer wie China, Indien und Brasilien sind im MSCI World nicht enthalten. Zusammen machen sie ca. 12% der Weltmarktkapitalisierung aus. Der MSCI ACWI schließt diese Lücke." },
+        { text: "Was ist der Unterschied zwischen MSCI World und MSCI ACWI?", antworten: ["Kein Unterschied", "ACWI enthält zusätzlich Schwellenländer", "ACWI ist teurer", "ACWI enthält nur europäische Firmen"], richtig: 1, erklaerung: "ACWI steht für All Country World Index. Er enthält zusätzlich rund 2.000 Unternehmen aus 24 Schwellenländern. Wer maximal global diversifizieren will, wählt den ACWI." }
       ]
     },
     {
@@ -540,9 +543,9 @@ Thesaurierend: 200€ werden sofort reinvestiert und wachsen weiter mit.
 Steuerlich gibt es Nuancen (dazu kommt eine eigene Lektion), aber für den Einstieg gilt: Wenn du langfristig aufbauen willst und das Geld nicht brauchst – thesaurierend ist dein Freund.`,
       xp: 20,
       fragen: [
-        { text: "Was macht ein thesaurierender ETF mit Dividenden?", antworten: ["Er zahlt sie aus", "Er reinvestiert sie automatisch", "Er spart sie für 5 Jahre", "Er löscht sie"], richtig: 1 },
-        { text: "Warum ist thesaurierend für Langfristanleger oft besser?", antworten: ["Es ist steuerfreier", "Der Zinseszinseffekt wirkt stärker", "Es gibt mehr Dividenden", "Es ist einfacher zu verkaufen"], richtig: 1 },
-        { text: "Was passiert bei einem ausschüttenden ETF mit den Dividenden?", antworten: ["Sie werden reinvestiert", "Sie verfallen", "Sie werden auf dein Konto ausgezahlt", "Sie gehen an den Staat"], richtig: 2 }
+        { text: "Was macht ein thesaurierender ETF mit Dividenden?", antworten: ["Er zahlt sie aus", "Er reinvestiert sie automatisch", "Er spart sie für 5 Jahre", "Er löscht sie"], richtig: 1, erklaerung: "Thesaurierend kommt von lateinisch 'thesaurus' (Schatz). Der ETF kauft mit Dividenden automatisch weitere Anteile – du bekommst mehr Stücke statt Geld auf dein Konto." },
+        { text: "Warum ist thesaurierend für Langfristanleger oft besser?", antworten: ["Es ist steuerfreier", "Der Zinseszinseffekt wirkt stärker", "Es gibt mehr Dividenden", "Es ist einfacher zu verkaufen"], richtig: 1, erklaerung: "Reinvestierte Dividenden verdienen selbst wieder Zinsen – das ist der Zinseszins-Effekt. 200€ Dividende sofort reinvestiert wachsen über 30 Jahre auf über 1.500€ bei 7% Rendite." },
+        { text: "Was passiert bei einem ausschüttenden ETF mit den Dividenden?", antworten: ["Sie werden reinvestiert", "Sie verfallen", "Sie werden auf dein Konto ausgezahlt", "Sie gehen an den Staat"], richtig: 2, erklaerung: "Bei ausschüttenden ETFs werden Dividenden auf dein Verrechnungskonto ausgezahlt. Du musst aktiv entscheiden ob du reinvestierst – und zahlst sofort 26,375% Abgeltungssteuer." }
       ]
     },
     {
@@ -563,9 +566,9 @@ Tracking Difference vs. TER: Die TER ist nicht die einzige Kennzahl. Die Trackin
 Fazit: Für 90% der Anleger sind günstige, große ETFs auf bekannte Indizes die beste Wahl. MSCI World ETFs von Xtrackers, iShares oder Vanguard liegen alle unter 0,25% TER – das ist fair.`,
       xp: 20,
       fragen: [
-        { text: "Was bedeutet TER?", antworten: ["Trade Execution Rate", "Total Expense Ratio", "Tax Exemption Rule", "Transfer Equity Ratio"], richtig: 1 },
-        { text: "Wie werden ETF-Kosten abgezogen?", antworten: ["Als jährliche Rechnung", "Automatisch aus dem ETF-Wert", "Beim Kauf einmalig", "Beim Verkauf"], richtig: 1 },
-        { text: "Was ist die Tracking Difference?", antworten: ["Die Transaktionskosten", "Wie gut der ETF seinen Index wirklich abbildet", "Der Spread beim Kauf", "Die jährliche Steuer"], richtig: 1 }
+        { text: "Was bedeutet TER?", antworten: ["Trade Execution Rate", "Total Expense Ratio", "Tax Exemption Rule", "Transfer Equity Ratio"], richtig: 1, erklaerung: "TER steht für Total Expense Ratio – die Gesamtkostenquote. Sie beinhaltet Verwaltungsgebühren und alle Betriebskosten des ETF. Sie wird täglich anteilig aus dem Kurswert abgezogen." },
+        { text: "Wie werden ETF-Kosten abgezogen?", antworten: ["Als jährliche Rechnung", "Automatisch aus dem ETF-Wert", "Beim Kauf einmalig", "Beim Verkauf"], richtig: 1, erklaerung: "Die TER ist bereits im täglichen Kurswert eingepreist – du siehst keine separate Rechnung. Der NAV des ETF steigt einfach langsamer als der Index, um die Kosten zu reflektieren." },
+        { text: "Was ist die Tracking Difference?", antworten: ["Die Transaktionskosten", "Wie gut der ETF seinen Index wirklich abbildet", "Der Spread beim Kauf", "Die jährliche Steuer"], richtig: 1, erklaerung: "Die TD zeigt die echte Performance-Differenz zwischen ETF und Index – inklusive aller Kosten und Erträge aus Wertpapierleihe. Manche ETFs haben negative TD und performen sogar besser als ihr Index." }
       ]
     },
     {
@@ -586,9 +589,9 @@ Klingt kompliziert – und birgt tatsächlich ein kleines Zusatzrisiko: Kontrahe
 Für wen ist was sinnvoll? Als Einsteiger: physisch replizierende ETFs auf bekannte Indizes. Einfach, transparent, sicher. Synthetische ETFs können in bestimmten Situationen Vorteile haben (z.B. bei US-Dividendenbesteuerung), aber das ist fortgeschrittenes Terrain.`,
       xp: 20,
       fragen: [
-        { text: "Was macht ein physisch replizierender ETF?", antworten: ["Er kauft Derivate", "Er kauft die Aktien des Index direkt", "Er leiht sich Aktien", "Er kopiert andere ETFs"], richtig: 1 },
-        { text: "Was ist Kontrahentenrisiko bei synthetischen ETFs?", antworten: ["Der Index fällt", "Die Bank die den Swap garantiert könnte pleite gehen", "Die TER steigt", "Der ETF wird geschlossen"], richtig: 1 },
-        { text: "Was ist Sampling bei physischer Replikation?", antworten: ["Nur die wichtigsten Aktien des Index werden gekauft", "Alle Aktien werden gekauft", "Aktien werden verliehen", "Der Index wird monatlich gewechselt"], richtig: 0 }
+        { text: "Was macht ein physisch replizierender ETF?", antworten: ["Er kauft Derivate", "Er kauft die Aktien des Index direkt", "Er leiht sich Aktien", "Er kopiert andere ETFs"], richtig: 1, erklaerung: "Ein physisch replizierender ETF kauft buchstäblich alle Aktien des Index. Beim S&P 500 bedeutet das: 500 Aktien im richtigen Verhältnis. Transparent, verständlich und empfohlen für Einsteiger." },
+        { text: "Was ist Kontrahentenrisiko bei synthetischen ETFs?", antworten: ["Der Index fällt", "Die Bank die den Swap garantiert könnte pleite gehen", "Die TER steigt", "Der ETF wird geschlossen"], richtig: 1, erklaerung: "Bei synthetischen ETFs gibt es einen Swap-Partner (meist eine große Bank). Geht diese Bank pleite, könnte der Swap wertlos werden. Regulatoren begrenzen das Risiko durch 102-105% Sicherheitenanforderungen." },
+        { text: "Was ist Sampling bei physischer Replikation?", antworten: ["Nur die wichtigsten Aktien des Index werden gekauft", "Alle Aktien werden gekauft", "Aktien werden verliehen", "Der Index wird monatlich gewechselt"], richtig: 0, erklaerung: "Beim optimierten Sampling kauft der ETF nur die wichtigsten Aktien – nicht jede winzige Position. Das spart Transaktionskosten bei Indizes mit tausenden Titeln wie dem MSCI World." }
       ]
     },
     {
@@ -607,9 +610,9 @@ In der Praxis ist dieses Risiko bei großen ETFs von namhaften Anbietern sehr ge
 Für dich als Anleger: Du musst das nicht aktiv managen. Aber es erklärt warum manche ETFs so günstig oder sogar "gratis" erscheinen – sie verdienen durch Wertpapierleihe.`,
       xp: 25,
       fragen: [
-        { text: "Warum haben manche ETFs eine negative Tracking Difference?", antworten: ["Sie haben Fehler im System", "Sie verdienen durch Wertpapierleihe Extraeinnahmen", "Sie betrügen Anleger", "Der Index wird falsch berechnet"], richtig: 1 },
-        { text: "An wen verleihen ETFs ihre Aktien?", antworten: ["An andere Privatanleger", "An die Regierung", "An Marktteilnehmer wie Hedgefonds", "An andere ETFs"], richtig: 2 },
-        { text: "Wie wird das Risiko der Wertpapierleihe begrenzt?", antworten: ["Gar nicht", "Durch Sicherheiten die der Entleiher stellen muss", "Durch staatliche Garantien", "Durch Versicherungen"], richtig: 1 }
+        { text: "Warum haben manche ETFs eine negative Tracking Difference?", antworten: ["Sie haben Fehler im System", "Sie verdienen durch Wertpapierleihe Extraeinnahmen", "Sie betrügen Anleger", "Der Index wird falsch berechnet"], richtig: 1, erklaerung: "Wenn Wertpapierleihe-Einnahmen die TER übersteigen, performt der ETF besser als sein Index. Das klingt nach einem Fehler, ist aber real – und gut für dich als Anleger." },
+        { text: "An wen verleihen ETFs ihre Aktien?", antworten: ["An andere Privatanleger", "An die Regierung", "An Marktteilnehmer wie Hedgefonds", "An andere ETFs"], richtig: 2, erklaerung: "Hauptsächlich an Hedgefonds für Leerverkäufe. Sie leihen sich Aktien, verkaufen sie sofort, kaufen später günstiger zurück und geben sie zurück. Der ETF kassiert dafür eine Leihgebühr." },
+        { text: "Wie wird das Risiko der Wertpapierleihe begrenzt?", antworten: ["Gar nicht", "Durch Sicherheiten die der Entleiher stellen muss", "Durch staatliche Garantien", "Durch Versicherungen"], richtig: 1, erklaerung: "Entleiher müssen Sicherheiten von 102–105% des geliehenen Wertes stellen. Fällt der Entleiher aus, verkauft der ETF die Sicherheiten. Bei großen Anbietern wie iShares ist das Risiko sehr gering." }
       ]
     },
     {
@@ -633,9 +636,9 @@ Die gute Nachricht: Sparerpauschbetrag. Jeder Deutsche hat 1.000€ (Singles) bz
 Praxis-Tipp: Stell einen Freistellungsauftrag bei deiner Depotbank. Sonst zahlt die Bank automatisch Steuern, auch wenn deine Gewinne unter dem Freibetrag liegen.`,
       xp: 25,
       fragen: [
-        { text: "Wie hoch ist die Abgeltungssteuer in Deutschland?", antworten: ["15%", "19%", "25% + Soli = 26,375%", "30%"], richtig: 2 },
-        { text: "Was ist der Sparerpauschbetrag für Singles?", antworten: ["500€", "801€", "1.000€", "2.000€"], richtig: 2 },
-        { text: "Was ist ein Freistellungsauftrag?", antworten: ["Ein Antrag auf Steuerfreiheit für alle Gewinne", "Ein Auftrag der die Bank anweist Gewinne bis zum Freibetrag steuerfrei zu lassen", "Eine Versicherung gegen Verluste", "Ein staatlicher Sparbonus"], richtig: 1 }
+        { text: "Wie hoch ist die Abgeltungssteuer in Deutschland?", antworten: ["15%", "19%", "25% + Soli = 26,375%", "30%"], richtig: 2, erklaerung: "25% Abgeltungssteuer + 5,5% Solidaritätszuschlag = 26,375%. Ggf. plus Kirchensteuer. Diese Steuer gilt für alle Kapitalerträge – Dividenden, realisierte Kursgewinne, Vorabpauschale." },
+        { text: "Was ist der Sparerpauschbetrag für Singles?", antworten: ["500€", "801€", "1.000€", "2.000€"], richtig: 2, erklaerung: "Seit 2023 gilt ein Sparerpauschbetrag von 1.000€ für Einzelpersonen (2.000€ für Verheiratete). Innerhalb dieses Betrags sind alle Kapitalerträge steuerfrei – nutze ihn mit einem Freistellungsauftrag." },
+        { text: "Was ist ein Freistellungsauftrag?", antworten: ["Ein Antrag auf Steuerfreiheit für alle Gewinne", "Ein Auftrag der die Bank anweist Gewinne bis zum Freibetrag steuerfrei zu lassen", "Eine Versicherung gegen Verluste", "Ein staatlicher Sparbonus"], richtig: 1, erklaerung: "Der Freistellungsauftrag weist die Depotbank an, Erträge bis zum Freibetrag nicht zu versteuern. Ohne ihn zieht die Bank automatisch Steuern ab – auch wenn deine Gewinne unter 1.000€ liegen." }
       ]
     },
     {
@@ -658,9 +661,9 @@ Psychologischer Vorteil: Du musst nie fragen "ist jetzt der richtige Zeitpunkt?"
 Zinseszins über Zeit: 100€/Monat, 8% Rendite, 30 Jahre → über 140.000€. Du hast 36.000€ eingezahlt. Die restlichen 104.000€? Reiner Zinseszins.`,
       xp: 25,
       fragen: [
-        { text: "Was ist der Cost-Averaging-Effekt?", antworten: ["Du kaufst immer zum gleichen Preis", "Du kaufst automatisch mehr Anteile wenn es günstig ist", "Du sparst Steuern durch regelmäßiges Kaufen", "Du vermeidest Verluste"], richtig: 1 },
-        { text: "Was ist ein großer psychologischer Vorteil des Sparplans?", antworten: ["Du siehst täglich deinen Gewinn", "Du musst nie den richtigen Kaufzeitpunkt finden", "Du bekommst staatliche Förderung", "Du kannst jederzeit kostenlos verkaufen"], richtig: 1 },
-        { text: "Ab wie viel Euro bieten viele Broker Sparpläne an?", antworten: ["10€", "25€", "50€", "1€"], richtig: 3 }
+        { text: "Was ist der Cost-Averaging-Effekt?", antworten: ["Du kaufst immer zum gleichen Preis", "Du kaufst automatisch mehr Anteile wenn es günstig ist", "Du sparst Steuern durch regelmäßiges Kaufen", "Du vermeidest Verluste"], richtig: 1, erklaerung: "Durch regelmäßiges Kaufen erwirbt man bei niedrigen Kursen automatisch mehr Anteile und bei hohen weniger. Über Zeit sinkt der durchschnittliche Einkaufspreis – ohne dass man etwas tun muss." },
+        { text: "Was ist ein großer psychologischer Vorteil des Sparplans?", antworten: ["Du siehst täglich deinen Gewinn", "Du musst nie den richtigen Kaufzeitpunkt finden", "Du bekommst staatliche Förderung", "Du kannst jederzeit kostenlos verkaufen"], richtig: 1, erklaerung: "Market Timing ist einer der häufigsten Anfängerfehler. Ein Sparplan eliminiert die Frage nach dem 'richtigen Zeitpunkt' – du investierst automatisch, egal ob Krise oder Boom." },
+        { text: "Ab wie viel Euro bieten viele Broker Sparpläne an?", antworten: ["10€", "25€", "50€", "1€"], richtig: 3, erklaerung: "Neobroker wie Trade Republic oder Scalable Capital bieten Sparpläne ab 1€ an. Das bedeutet: Jeder kann heute anfangen, unabhängig vom Einkommen." }
       ]
     },
     {
@@ -689,9 +692,9 @@ Kaufe ETFs die an deutschen Börsen (XETRA) gut handelbar sind. Großes Volumen 
 Konkrete Empfehlung für den Start: iShares Core MSCI World UCITS ETF (ISIN: IE00B4L5Y983) oder Xtrackers MSCI World Swap UCITS ETF. Beide unter 0,2% TER, milliardenschwer, bewährt.`,
       xp: 25,
       fragen: [
-        { text: "Was ist die klassische '70/30-Strategie'?", antworten: ["70% Aktien, 30% Anleihen", "70% MSCI World, 30% Emerging Markets", "70% thesaurierend, 30% ausschüttend", "70% ETF, 30% Einzelaktien"], richtig: 1 },
-        { text: "Wie groß sollte ein ETF mindestens sein?", antworten: ["1 Million Euro", "10 Millionen Euro", "100 Millionen Euro", "1 Milliarde Euro"], richtig: 2 },
-        { text: "Was sind die drei größten ETF-Anbieter?", antworten: ["Deutsche Bank, Commerzbank, DKB", "iShares, Xtrackers, Vanguard", "Trade Republic, Scalable, Comdirect", "Apple, Google, Microsoft"], richtig: 1 }
+        { text: "Was ist die klassische '70/30-Strategie'?", antworten: ["70% Aktien, 30% Anleihen", "70% MSCI World, 30% Emerging Markets", "70% thesaurierend, 30% ausschüttend", "70% ETF, 30% Einzelaktien"], richtig: 1, erklaerung: "70% MSCI World (entwickelte Länder) + 30% Emerging Markets ETF (China, Indien, Brasilien...). Diese Kombination gilt als optimales Gleichgewicht zwischen Stabilität und Wachstumspotenzial." },
+        { text: "Wie groß sollte ein ETF mindestens sein?", antworten: ["1 Million Euro", "10 Millionen Euro", "100 Millionen Euro", "1 Milliarde Euro"], richtig: 2, erklaerung: "ETFs unter 50 Mio. Fondsvolumen laufen Gefahr geschlossen zu werden. Über 100 Mio. ist das Risiko sehr gering. Große MSCI World ETFs haben mehrere Milliarden – kein Problem." },
+        { text: "Was sind die drei größten ETF-Anbieter?", antworten: ["Deutsche Bank, Commerzbank, DKB", "iShares, Xtrackers, Vanguard", "Trade Republic, Scalable, Comdirect", "Apple, Google, Microsoft"], richtig: 1, erklaerung: "iShares (BlackRock), Xtrackers (DWS/Deutsche Bank) und Vanguard sind die drei Marktführer. Alle bieten günstige ETFs mit TER unter 0,25% an – solide, reguliert, milliardenschwer." }
       ]
     },
     {
@@ -710,9 +713,9 @@ Wie oft rebalancieren? Einmal pro Jahr reicht. Manche machen es wenn die Abweich
 Praxis-Tipp: Nutze neue Einzahlungen zum Rebalancen. Statt zu verkaufen (was Steuern auslöst) kaufst du einfach mehr vom untergewichteten ETF. Effizienter und steuerschonender.`,
       xp: 25,
       fragen: [
-        { text: "Was ist Rebalancing?", antworten: ["Einen neuen ETF kaufen", "Das ursprüngliche Portfolio-Verhältnis wiederherstellen", "Alle ETFs verkaufen und neu kaufen", "Den ETF-Anbieter wechseln"], richtig: 1 },
-        { text: "Wie oft sollte man typischerweise rebalancen?", antworten: ["Täglich", "Monatlich", "Einmal pro Jahr", "Alle 10 Jahre"], richtig: 2 },
-        { text: "Was ist der steuerschonendste Weg zum Rebalancen?", antworten: ["Alles verkaufen und neu kaufen", "Neue Einzahlungen in den untergewichteten Teil stecken", "Dividenden zum Rebalancen nutzen", "Nichts tun"], richtig: 1 }
+        { text: "Was ist Rebalancing?", antworten: ["Einen neuen ETF kaufen", "Das ursprüngliche Portfolio-Verhältnis wiederherstellen", "Alle ETFs verkaufen und neu kaufen", "Den ETF-Anbieter wechseln"], richtig: 1, erklaerung: "Durch unterschiedliche Wertentwicklung weicht dein Portfolio von der Zielgewichtung ab. Rebalancing stellt das ursprüngliche Verhältnis wieder her – und verhindert unbewusstes Eingehen von mehr Risiko." },
+        { text: "Wie oft sollte man typischerweise rebalancen?", antworten: ["Täglich", "Monatlich", "Einmal pro Jahr", "Alle 10 Jahre"], richtig: 2, erklaerung: "Einmal jährlich reicht vollkommen aus. Häufigeres Rebalancing verursacht unnötige Steuern und Transaktionskosten. Alternativ: Rebalancen wenn die Abweichung mehr als 5% beträgt." },
+        { text: "Was ist der steuerschonendste Weg zum Rebalancen?", antworten: ["Alles verkaufen und neu kaufen", "Neue Einzahlungen in den untergewichteten Teil stecken", "Dividenden zum Rebalancen nutzen", "Nichts tun"], richtig: 1, erklaerung: "Neue Einzahlungen in den untergewichteten ETF zu lenken statt etwas zu verkaufen vermeidet Steuerereignisse komplett. Du nutzt frisches Kapital statt bereits investiertes zu verschieben." }
       ]
     },
     {
@@ -743,9 +746,9 @@ Einmal pro Jahr: Rebalancing prüfen, Sparrate anpassen wenn sich Einkommen geä
 Glückwunsch – du weißt jetzt mehr über ETFs als 90% der deutschen Bevölkerung.`,
       xp: 30,
       fragen: [
-        { text: "Was ist einer der besten Broker für ETF-Sparpläne in Deutschland?", antworten: ["PayPal", "Trade Republic oder Scalable Capital", "Amazon", "Ebay"], richtig: 1 },
-        { text: "Was ist die einzige wirklich schlechte Entscheidung beim ETF-Investieren?", antworten: ["Zu früh anfangen", "Zu kleine Beträge investieren", "Verkaufen wenn es unten ist", "Thesaurierend statt ausschüttend wählen"], richtig: 2 },
-        { text: "Wie oft sollte man sein ETF-Portfolio aktiv überprüfen?", antworten: ["Täglich", "Wöchentlich", "Monatlich", "Einmal pro Jahr"], richtig: 3 }
+        { text: "Was ist einer der besten Broker für ETF-Sparpläne in Deutschland?", antworten: ["PayPal", "Trade Republic oder Scalable Capital", "Amazon", "Ebay"], richtig: 1, erklaerung: "Trade Republic und Scalable Capital sind die beliebtesten Neobroker in Deutschland. Beide bieten kostenlose Sparpläne ab 1€, benutzerfreundliche Apps und BaFin-regulierten Schutz." },
+        { text: "Was ist die einzige wirklich schlechte Entscheidung beim ETF-Investieren?", antworten: ["Zu früh anfangen", "Zu kleine Beträge investieren", "Verkaufen wenn es unten ist", "Thesaurierend statt ausschüttend wählen"], richtig: 2, erklaerung: "Panikverkäufe in Krisen sind der teuerste Fehler. Wer 2008 durchgehalten hat, erlebte danach die stärkste Dekade der Börsengeschichte. Die einzige schlechte Entscheidung ist das Aussteigen bei -30%." },
+        { text: "Wie oft sollte man sein ETF-Portfolio aktiv überprüfen?", antworten: ["Täglich", "Wöchentlich", "Monatlich", "Einmal pro Jahr"], richtig: 3, erklaerung: "Tägliches Schauen erhöht Stress und führt zu Überreaktionen. Eine jährliche Überprüfung genügt: Rebalancing prüfen, Sparrate anpassen wenn nötig. Dann wieder loslassen." }
       ]
     }
   ],
@@ -3164,7 +3167,10 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 
         </div>
         {gewaehlt !== null && (
           <div className={`feedback ${richtigGewaehlt ? "feedback-richtig" : "feedback-falsch"}`}>
-            <p style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>{richtigGewaehlt ? <><CheckIcon size={16} color="#10B981"/> Richtig!</> : <><XCircleIcon size={16} color="#EF4444"/> Falsch!</>}</p>
+            <p style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontWeight: 700 }}>
+              {richtigGewaehlt ? <><CheckIcon size={16} color="#10B981"/> Richtig!</> : <><XCircleIcon size={16} color="#EF4444"/> Falsch</>}
+            </p>
+            {frage.erklaerung && <p className="quiz-erklaerung">{frage.erklaerung}</p>}
             <button className="weiter-btn" onClick={naechsteFrage}>
               {fragenIdx + 1 >= fragen.length ? "Ergebnis →" : "Weiter →"}
             </button>
@@ -3175,25 +3181,32 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 
   }
 
   if (phase === "ergebnis") {
-    const perfekt = richtige === fragen.length
-    const verdientXP = perfekt ? lektion.xp : 0
+    const alleRichtig = richtige === fragen.length
+    const fastRichtig = richtige === fragen.length - 1
+    const verdientXP = alleRichtig ? lektion.xp : fastRichtig ? Math.round(lektion.xp / 2) : 0
+    const perfekt = alleRichtig
     return (
       <div className="screen">
         <div className="ergebnis-screen">
-          <div className="ergebnis-emoji">{perfekt ? <TrophyIcon size={52} color="#EAB308"/> : <LernenIcon size={52} color="#7C3AED"/>}</div>
-          <h1 className="ergebnis-titel">{perfekt ? "Perfekt!" : "Fast!"}</h1>
+          <div className="ergebnis-emoji">
+            {alleRichtig ? <TrophyIcon size={52} color="#EAB308"/> : <LernenIcon size={52} color="#7C3AED"/>}
+          </div>
+          <h1 className="ergebnis-titel">
+            {alleRichtig ? "Perfekt! 🎉" : fastRichtig ? "Fast perfekt!" : "Noch einmal!"}
+          </h1>
           <p className="ergebnis-sub">{richtige} von {fragen.length} Fragen richtig</p>
-          {perfekt
+          {verdientXP > 0
             ? <p className="ergebnis-xp">+{verdientXP} XP</p>
-            : <p className="ergebnis-sub" style={{ marginTop: "0.25rem" }}>Alle Fragen richtig für XP – versuch es nochmal</p>}
-          {!perfekt && (
+            : <p className="ergebnis-sub" style={{ marginTop: "0.25rem", color: "#888" }}>Noch einmal für volle XP</p>
+          }
+          {richtige < fragen.length && (
             <button className="weiter-btn" style={{ marginTop: "1.5rem", background: "#2a2040", color: "#fff" }}
               onClick={() => { setPhase("cards"); setCardIdx(0); setFragenIdx(0); setGewaehlt(null); setRichtige(0) }}>
               Nochmal lesen
             </button>
           )}
-          <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP)}>
-            {perfekt ? "Weiter" : "Trotzdem weiter"}
+          <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP, perfekt)}>
+            {verdientXP > 0 ? "Weiter →" : "Trotzdem weiter →"}
           </button>
         </div>
       </div>
@@ -3204,8 +3217,15 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 
     <div className="cl-screen">
       <div className="cl-topbar">
         <button className="cl-back-btn" onClick={zurueckCard}>←</button>
-        <div className="cl-prog-wrap">
-          <div className="cl-prog-fill" style={{ width: `${(cardIdx / TOTAL) * 100}%` }} />
+        <div className="cl-dots">
+          {Array.from({ length: TOTAL }, (_, i) => (
+            <button
+              key={i}
+              className={`cl-dot ${i === cardIdx ? "active" : i < cardIdx ? "done" : ""}`}
+              onClick={() => { if (i < cardIdx) { animDirRef.current = "from-left"; setCardIdx(i) } }}
+              aria-label={`Karte ${i + 1}`}
+            />
+          ))}
         </div>
         <span className="cl-prog-label">{cardIdx + 1} / {TOTAL}</span>
       </div>
@@ -8466,6 +8486,21 @@ function L906Screen({ lektion, onZurueck, onAbgeschlossen }) {
   return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
 }
 
+function calcReadTime(text) {
+  if (!text) return "~3 Min"
+  const words = text.trim().split(/\s+/).length
+  const mins = Math.max(1, Math.round(words / 200))
+  return `~${mins} Min`
+}
+
+function parseHL(text) {
+  if (!text) return text
+  const parts = text.split(/\*\*(.+?)\*\*/g)
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <span key={i} className="hl">{part}</span> : part
+  )
+}
+
 function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
   const [phase, setPhase] = useState("lesen")
   const [aktualeFrage, setAktualeFrage] = useState(0)
@@ -8474,6 +8509,7 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
 
   const fragen = lektion.fragen
   const aktuelleFrage = fragen[aktualeFrage]
+  const readTime = calcReadTime(lektion.inhalt)
 
   function antworten(index) {
     if (gewaehlt !== null) return
@@ -8498,7 +8534,7 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
           <div className="lektion-progress" style={{ flex: 1, margin: 0 }}>
             <div className="lektion-progress-fill" style={{ width: "40%" }} />
           </div>
-          <span className="lektion-progress-label">Lesen · ~5 Min</span>
+          <span className="lektion-progress-label">Lesen · {readTime}</span>
         </div>
         <p className="theorie-label" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}><LernenIcon size={14} color="#7C3AED"/> Lerneinheit</p>
         <h2 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "1.25rem", letterSpacing: "-0.02em" }}>{lektion.titel}</h2>
@@ -8529,14 +8565,15 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
               key={i}
               className={`antwort-btn ${gewaehlt !== null ? i === aktuelleFrage.richtig ? "richtig" : gewaehlt === i ? "falsch" : "" : ""}`}
               onClick={() => antworten(i)}
-            >
-              {a}
-            </button>
+            >{a}</button>
           ))}
         </div>
         {gewaehlt !== null && (
           <div className={`feedback ${richtigGewaehlt ? "feedback-richtig" : "feedback-falsch"}`}>
-            <p style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>{richtigGewaehlt ? <><CheckIcon size={16} color="#10B981"/> Richtig!</> : <><XCircleIcon size={16} color="#EF4444"/> Falsch!</>}</p>
+            <p style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontWeight: 700 }}>
+              {richtigGewaehlt ? <><CheckIcon size={16} color="#10B981"/> Richtig!</> : <><XCircleIcon size={16} color="#EF4444"/> Falsch</>}
+            </p>
+            {aktuelleFrage.erklaerung && <p className="quiz-erklaerung">{aktuelleFrage.erklaerung}</p>}
             <button className="weiter-btn" onClick={naechsteFrage}>
               {aktualeFrage + 1 >= fragen.length ? "Ergebnis →" : "Weiter →"}
             </button>
@@ -8547,25 +8584,32 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
   }
 
   if (phase === "ergebnis") {
-    const perfekt = richtige === fragen.length
-    const verdientXP = perfekt ? lektion.xp : 0
+    const alleRichtig = richtige === fragen.length
+    const fastRichtig = richtige === fragen.length - 1
+    const verdientXP = alleRichtig ? lektion.xp : fastRichtig ? Math.round(lektion.xp / 2) : 0
+    const perfekt = alleRichtig
     return (
       <div className="screen">
         <div className="ergebnis-screen">
-          <div className="ergebnis-emoji">{perfekt ? <TrophyIcon size={52} color="#EAB308"/> : <LernenIcon size={52} color="#7C3AED"/>}</div>
-          <h1 className="ergebnis-titel">{perfekt ? "Perfekt!" : "Fast!"}</h1>
+          <div className="ergebnis-emoji">
+            {alleRichtig ? <TrophyIcon size={52} color="#EAB308"/> : <LernenIcon size={52} color="#7C3AED"/>}
+          </div>
+          <h1 className="ergebnis-titel">
+            {alleRichtig ? "Perfekt! 🎉" : fastRichtig ? "Fast perfekt!" : "Noch einmal!"}
+          </h1>
           <p className="ergebnis-sub">{richtige} von {fragen.length} Fragen richtig</p>
-          {perfekt
+          {verdientXP > 0
             ? <p className="ergebnis-xp">+{verdientXP} XP</p>
-            : <p className="ergebnis-sub" style={{ marginTop: "0.25rem" }}>Alle Fragen richtig für XP – versuch es nochmal</p>}
-          {!perfekt && (
+            : <p className="ergebnis-sub" style={{ marginTop: "0.25rem", color: "#888" }}>Noch einmal für volle XP</p>
+          }
+          {richtige < fragen.length && (
             <button className="weiter-btn" style={{ marginTop: "1.5rem", background: "#2a2040", color: "#fff" }}
               onClick={() => { setPhase("lesen"); setAktualeFrage(0); setGewaehlt(null); setRichtige(0) }}>
               Nochmal lesen
             </button>
           )}
-          <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP)}>
-            {perfekt ? "Weiter" : "Trotzdem weiter"}
+          <button className="weiter-btn" style={{ marginTop: "1rem" }} onClick={() => onAbgeschlossen(verdientXP, perfekt)}>
+            {verdientXP > 0 ? "Weiter →" : "Trotzdem weiter →"}
           </button>
         </div>
       </div>
@@ -8575,17 +8619,49 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
 
 function LevelUpModal({ levelUpInfo, onClose }) {
   if (!levelUpInfo) return null
-  const levelName = LEVEL_NAMEN[levelUpInfo.newLevel] || ""
-  const levelIcon = LEVEL_ICONS[levelUpInfo.newLevel] || "⭐"
+  const newLevel = levelUpInfo.newLevel
+  const oldLevel = levelUpInfo.oldLevel || (newLevel - 1)
+  const newName = LEVEL_NAMEN[newLevel] || ""
+  const oldName = LEVEL_NAMEN[oldLevel] || ""
+  const newIcon = LEVEL_ICONS[newLevel] || "⭐"
+
+  const unlockedKats = kategorien.filter(k => k.minLevel === newLevel)
+
+  function handleShare() {
+    const text = `Ich bin gerade Level ${newLevel} "${newName}" bei Lumio! 📈 #Investieren #Lumio`
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => alert("Text kopiert!"))
+    }
+  }
+
   return (
     <div className="level-up-overlay" onClick={onClose}>
       <div className="level-up-modal" onClick={e => e.stopPropagation()}>
-        <div className="level-up-emoji"><TrophyIcon size={52} color="#EAB308"/></div>
-        <h2 className="level-up-titel">Level Up!</h2>
-        <div className="level-up-zahl">{levelUpInfo.newLevel}</div>
-        <p className="level-up-name"><StarIcon size={16} color="#EAB308"/> {levelName}</p>
-        <p className="level-up-sub">Du bist jetzt Level {levelUpInfo.newLevel}!</p>
-        <button className="weiter-btn" onClick={onClose}>Weiter →</button>
+        <div className="level-up-emoji">{newIcon}</div>
+        <h2 className="level-up-titel">Level Up! 🎉</h2>
+        {oldName && (
+          <p className="level-up-transition">
+            <span className="lut-old">{oldName}</span>
+            <span className="lut-arrow"> → </span>
+            <span className="lut-new">{newName}</span>
+          </p>
+        )}
+        <div className="level-up-zahl">{newLevel}</div>
+        {unlockedKats.length > 0 && (
+          <div className="level-up-unlocked">
+            <p className="luu-label">Neu freigeschaltet:</p>
+            {unlockedKats.map(k => (
+              <div key={k.id} className="luu-item">
+                <span>{k.icon}</span>
+                <span>{k.name}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}>
+          <button className="weiter-btn" style={{ flex: 1 }} onClick={onClose}>Weiter →</button>
+          <button className="weiter-btn" style={{ flex: 1, background: "#2a2040" }} onClick={handleShare}>Teilen 📤</button>
+        </div>
       </div>
     </div>
   )
@@ -9767,6 +9843,14 @@ function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung }) {
   )
 }
 
+function XpToast({ amount, onDone }) {
+  useEffect(() => {
+    const t = setTimeout(onDone, 2000)
+    return () => clearTimeout(t)
+  }, [])
+  return <div className="xp-toast">+{amount} XP</div>
+}
+
 function App() {
   const [onboardingComplete, setOnboardingComplete] = useState(() => !!localStorage.getItem("onboardingComplete"))
   const [welcomeScreenSeen, setWelcomeScreenSeen]   = useState(() => !!localStorage.getItem("welcomeScreenSeen"))
@@ -9787,6 +9871,8 @@ function App() {
   const [abgeschlosseneLektionen, setAbgeschlosseneLektionen] = useState(() => JSON.parse(localStorage.getItem("abgeschlosseneLektionen") || "[]"))
   const [abgeschlosseneQuests, setAbgeschlosseneQuests]       = useState(() => JSON.parse(localStorage.getItem("abgeschlosseneQuests") || "{}"))
   const [levelUpInfo, setLevelUpInfo]   = useState(null)
+  const [xpToast, setXpToast]           = useState(null)
+  const [streakMsg, setStreakMsg]       = useState(null)
   // ── Gamification ──
   const [achievements, setAchievements]           = useState(() => JSON.parse(localStorage.getItem("achievements") || "{}"))
   const [xpTaeglich, setXpTaeglich]               = useState(() => JSON.parse(localStorage.getItem("xpTaeglich") || "{}"))
@@ -9803,13 +9889,18 @@ function App() {
     const heute = getHeute()
     const gestern = new Date(Date.now() - 86400000).toISOString().split("T")[0]
     if (letzterTag && letzterTag !== heute && letzterTag !== gestern) {
-      // Check Comeback Kid: pause von 3+ Tagen
       const diffTage = Math.floor((Date.now() - new Date(letzterTag).getTime()) / 86400000)
       if (diffTage >= 3) freischaltenAchievement("comeback_kid")
+      if (streak > 0) {
+        setStreakMsg(`Dein ${streak}-Tage Streak ist abgelaufen. Fang heute neu an! 🔥`)
+      }
       setStreak(0)
       localStorage.setItem("streak", 0)
+    } else if (letzterTag === gestern) {
+      if (streak > 0) {
+        setStreakMsg(`Dein ${streak}-Tage Streak wartet auf dich! Leg heute los. 🔥`)
+      }
     }
-    // Erster Tag Achievement
     if (!achievements["erster_tag"]) freischaltenAchievement("erster_tag")
   }, [])
 
@@ -9856,12 +9947,13 @@ function App() {
   function addXP(menge) {
     if (menge <= 0) return
     updateTagesXP(menge)
+    setXpToast({ amount: menge, key: Date.now() })
     setXp(prev => {
       const altesLevel = berechneLevel(prev)
       const neueXP     = prev + menge
       const neuesLevel = berechneLevel(neueXP)
       localStorage.setItem("xp", neueXP)
-      if (neuesLevel > altesLevel) setLevelUpInfo({ newLevel: neuesLevel })
+      if (neuesLevel > altesLevel) setLevelUpInfo({ newLevel: neuesLevel, oldLevel: altesLevel })
       return neueXP
     })
   }
@@ -10069,6 +10161,12 @@ function App() {
   return (
     <div className="app">
       <div className="content">
+        {aktiverTab === "home" && streakMsg && (
+          <div className="streak-msg-banner" onClick={() => setStreakMsg(null)}>
+            <span>{streakMsg}</span>
+            <span style={{ opacity: 0.5, marginLeft: "auto" }}>×</span>
+          </div>
+        )}
         {aktiverTab === "home" && aktiversAktionsplanId && (
           <AktionsplanScreen
             planId={aktiversAktionsplanId}
@@ -10115,6 +10213,7 @@ function App() {
           <EntdeckenScreen userFinanzsituation={userFinanzsituation} onRechnerOeffnung={rechnerOeffnen} onNewsOeffnen={newsOeffnen} />
         )}
       </div>
+      {xpToast && <XpToast key={xpToast.key} amount={xpToast.amount} onDone={() => setXpToast(null)} />}
       <LevelUpModal levelUpInfo={levelUpInfo} onClose={() => setLevelUpInfo(null)} />
       <AchievementModal achievement={pendingAchievement} onClose={() => setPendingAchievement(null)} />
       <nav className="bottom-nav">

@@ -5349,3 +5349,136 @@ body {
   margin: 0.25rem 0 0;
   text-align: center;
 }
+
+/* =============================================
+   QUIZ ERKLAERUNG + HIGHLIGHT
+============================================= */
+.quiz-erklaerung {
+  font-size: 0.85rem;
+  color: #b8b0cc;
+  line-height: 1.55;
+  margin: 0.6rem 0 0.75rem;
+  padding: 0.6rem 0.75rem;
+  background: #ffffff08;
+  border-radius: 8px;
+  border-left: 2px solid #7C3AED66;
+}
+
+.hl {
+  background: #7C3AED33;
+  color: #c4b5fd;
+  border-radius: 4px;
+  padding: 0 4px;
+  font-weight: 600;
+}
+
+/* =============================================
+   CL DOTS NAVIGATION
+============================================= */
+.cl-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: center;
+}
+.cl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid #555;
+  background: transparent;
+  padding: 0;
+  cursor: default;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.cl-dot.done {
+  background: #7C3AED55;
+  border-color: #7C3AED88;
+  cursor: pointer;
+}
+.cl-dot.active {
+  background: #7C3AED;
+  border-color: #7C3AED;
+  width: 20px;
+  border-radius: 4px;
+}
+
+/* =============================================
+   XP TOAST
+============================================= */
+@keyframes xp-fly {
+  0%   { opacity: 0; transform: translateY(0) scale(0.8); }
+  20%  { opacity: 1; transform: translateY(-12px) scale(1.1); }
+  80%  { opacity: 1; transform: translateY(-28px) scale(1); }
+  100% { opacity: 0; transform: translateY(-48px) scale(0.9); }
+}
+.xp-toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #7C3AED, #9D174D);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 20px #7C3AED55;
+  pointer-events: none;
+  z-index: 999;
+  animation: xp-fly 2s ease forwards;
+}
+
+/* =============================================
+   STREAK MESSAGE BANNER
+============================================= */
+.streak-msg-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.75rem 1rem 0;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #7C3AED22, #9D174D11);
+  border: 1px solid #7C3AED44;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: #c4b5fd;
+  cursor: pointer;
+}
+
+/* =============================================
+   LEVEL UP IMPROVEMENTS
+============================================= */
+.level-up-transition {
+  font-size: 0.88rem;
+  margin: 0.25rem 0 0.5rem;
+  color: #888;
+}
+.lut-old { color: #666; text-decoration: line-through; }
+.lut-arrow { color: #555; }
+.lut-new { color: #a78bfa; font-weight: 700; }
+.level-up-unlocked {
+  background: #7C3AED11;
+  border: 1px solid #7C3AED33;
+  border-radius: 10px;
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+.luu-label {
+  font-size: 0.78rem;
+  color: #888;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.luu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #a78bfa;
+  padding: 0.2rem 0;
+}
