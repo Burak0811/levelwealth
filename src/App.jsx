@@ -11,9 +11,6 @@ import {
 
 import { kategorien, hauptkategorien, LERNPLAN_ZIELE, AKTIONSPLAN_DATEN, AKTIONSPLAN_TRIGGER, dailyQuests, lernpfad } from "./lernpfadData.js"
 
-console.log("APP VERSION 2.0 GELADEN")
-
-
 // ─── XP & Level System ───────────────────────────────────────────────────────
 
 const LEVEL_XP = [0, 100, 250, 450, 700, 1000, 1350, 1700, 2050, 2400, 2750, 3250, 3750, 4250, 4750, 5250, 6000, 6750, 7500, 8250, 9000]
@@ -1350,14 +1347,6 @@ function L1Screen({ lektion, onZurueck, onAbgeschlossen }) {
 function CardLektionScreen({ lektion, onZurueck, onAbgeschlossen }) {
   const props = { lektion, onZurueck, onAbgeschlossen }
   if (lektion.id === 1)   return <L1Screen   {...props} />
-  if (lektion.id === 601) return <L601Screen {...props} />
-  if (lektion.id === 602) return <L602Screen {...props} />
-  if (lektion.id === 603) return <L603Screen {...props} />
-  if (lektion.id === 701) return <L701Screen {...props} />
-  if (lektion.id === 702) return <L702Screen {...props} />
-  if (lektion.id === 703) return <L703Screen {...props} />
-  if (lektion.id === 801) return <L801Screen {...props} />
-  if (lektion.id === 802) return <L802Screen {...props} />
   if (lektion.id === 302) return <L302Screen {...props} />
   if (lektion.id === 303) return <L303Screen {...props} />
   if (lektion.id === 304) return <L304Screen {...props} />
@@ -1636,7 +1625,8 @@ function L301Screen({ lektion, onZurueck, onAbgeschlossen }) {
         </div>
         {gewaehlt !== null && (
           <div className={`feedback ${richtigGewaehlt ? "feedback-richtig" : "feedback-falsch"}`}>
-            <p style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>{richtigGewaehlt ? <><CheckIcon size={16} color="#10B981"/> Richtig!</> : <><XCircleIcon size={16} color="#EF4444"/> Falsch!</>}</p>
+            <p style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontWeight: 700 }}>{richtigGewaehlt ? <><CheckIcon size={16} color="#10B981"/> Richtig!</> : <><XCircleIcon size={16} color="#EF4444"/> Falsch!</>}</p>
+            {frage.erklaerung && <p className="quiz-erklaerung">{frage.erklaerung}</p>}
             <button className="weiter-btn" onClick={naechsteFrage}>
               {fragenIdx + 1 >= fragen.length ? "Ergebnis →" : "Weiter →"}
             </button>
@@ -8788,6 +8778,24 @@ function App() {
     window.visualViewport.addEventListener("resize", handleResize)
     return () => window.visualViewport.removeEventListener("resize", handleResize)
   }, [])
+
+  useEffect(() => {
+    if (aktiveLektion) {
+      document.title = `Lumio – ${aktiveLektion.titel}`
+    } else if (aktiverTab === "profil") {
+      document.title = "Lumio – Dein Profil"
+    } else if (aktiverTab === "quest") {
+      document.title = "Lumio – Daily Quest"
+    } else if (aktiveHauptkategorie === "challenges") {
+      document.title = "Lumio – Challenges"
+    } else if (aktiveHauptkategorie === "rechner") {
+      document.title = "Lumio – Rechner"
+    } else if (aktiveHauptkategorie === "news") {
+      document.title = "Lumio – News"
+    } else {
+      document.title = "Lumio – Dein Finanz-Coach"
+    }
+  }, [aktiverTab, aktiveLektion, aktiveHauptkategorie])
 
   function freischaltenAchievement(id) {
     setAchievements(prev => {

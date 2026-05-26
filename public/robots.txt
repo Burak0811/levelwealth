@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lumio1324r5421.netlify.app/sitemap.xml
