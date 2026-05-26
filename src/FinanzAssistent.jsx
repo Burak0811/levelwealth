@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react"
 
-// TODO: Anthropic API Key hier einfügen
 const ANTHROPIC_KEY = import.meta.env.VITE_ANTHROPIC_KEY ?? ""
 
 const QUICK_REPLIES = [
