@@ -12,6 +12,57 @@ import {
 import { kategorien, hauptkategorien, LERNPLAN_ZIELE, AKTIONSPLAN_DATEN, AKTIONSPLAN_TRIGGER, dailyQuests, lernpfad } from "./lernpfadData.js"
 import FinanzAssistent from "./FinanzAssistent.jsx"
 
+// ─── Sound System ────────────────────────────────────────────────────────────
+
+function playSound(type) {
+  if (localStorage.getItem("soundEnabled") !== "true") return
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)()
+    const gain = ctx.createGain()
+    gain.connect(ctx.destination)
+    if (type === "richtig") {
+      const freqs = [523, 659, 784]
+      freqs.forEach((f, i) => {
+        const o = ctx.createOscillator(); const g = ctx.createGain()
+        o.connect(g); g.connect(ctx.destination)
+        o.frequency.value = f
+        g.gain.setValueAtTime(0.08, ctx.currentTime + i * 0.1)
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.35)
+        o.start(ctx.currentTime + i * 0.1); o.stop(ctx.currentTime + i * 0.1 + 0.35)
+      })
+    } else if (type === "falsch") {
+      const o = ctx.createOscillator()
+      o.connect(gain); o.frequency.value = 196
+      gain.gain.setValueAtTime(0.08, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35)
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.35)
+    } else if (type === "xp") {
+      const o = ctx.createOscillator()
+      o.connect(gain); o.frequency.value = 880
+      gain.gain.setValueAtTime(0.05, ctx.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18)
+      o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.18)
+    } else if (type === "levelup") {
+      [523, 659, 784, 1047].forEach((f, i) => {
+        const o = ctx.createOscillator(); const g = ctx.createGain()
+        o.connect(g); g.connect(ctx.destination)
+        o.frequency.value = f; o.type = "sine"
+        g.gain.setValueAtTime(0.08, ctx.currentTime + i * 0.1)
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.45)
+        o.start(ctx.currentTime + i * 0.1); o.stop(ctx.currentTime + i * 0.1 + 0.45)
+      })
+    }
+  } catch {}
+}
+
+// Pre-computed confetti positions for LevelUpModal (deterministic)
+const CONFETTI = Array.from({ length: 20 }, (_, i) => ({
+  cx: `${((i * 53 + 11) % 280) - 140}px`,
+  cc: ["#7C3AED","#9D174D","#EAB308","#10B981","#3B82F6"][i % 5],
+  cd: `${0.7 + (i % 4) * 0.12}s`,
+  cdelay: `${i * 0.04}s`,
+}))
+
 // ─── XP & Level System ───────────────────────────────────────────────────────
 
 const LEVEL_XP = [0, 100, 250, 450, 700, 1000, 1350, 1700, 2050, 2400, 2750, 3250, 3750, 4250, 4750, 5250, 6000, 6750, 7500, 8250, 9000]
@@ -274,6 +325,18 @@ function OnboardingFlow({ onComplete }) {
   const r20 = 0.07 / 12
   const n20 = 20 * 12
   const projection = Math.round(budget * ((Math.pow(1 + r20, n20) - 1) / r20))
+  const eingezahlt20 = budget * n20
+  const eingezahltPct20 = projection > 0 ? Math.min(98, Math.round((eingezahlt20 / projection) * 100)) : 50
+  const multiplier20 = projection > 0 && eingezahlt20 > 0 ? (projection / eingezahlt20).toFixed(1) : "?"
+
+  function getBudgetKontext(bud) {
+    if (bud <= 25)  return "💡 Entspricht einem Kaffee pro Tag"
+    if (bud <= 50)  return "📱 Weniger als ein Handyvertrag pro Monat"
+    if (bud <= 100) return "🎬 Ein Streaming-Abo im Monat"
+    if (bud <= 150) return "🍕 Zwei Restaurantbesuche weniger"
+    if (bud <= 200) return "🚇 Dein Nahverkehrsticket im Monat"
+    return "🚀 Starkes Fundament für deine Zukunft"
+  }
 
   const lernplanSchritte = {
     1: ["Was ist ein ETF? – und warum er dein bester Freund ist", "Zinseszins: Die mächtigste Kraft beim Investieren", "Deinen ersten Sparplan einrichten – Schritt für Schritt"],
@@ -501,6 +564,7 @@ function OnboardingFlow({ onComplete }) {
           </div>
           <h2 className="ob-new-headline">Wie viel pro Monat?</h2>
           <p className="ob-new-sub">Kein Mindestbetrag – jeder fängt irgendwo an.</p>
+          <p className="ob-budget-context">{getBudgetKontext(budget)}</p>
           <div className="ob-budget-giant">{budget} €</div>
           <input
             type="range"
@@ -510,10 +574,19 @@ function OnboardingFlow({ onComplete }) {
             className="ob-budget-slider"
             style={{ background: sliderBgOb(budget, 10, 500) }}
           />
-          <div className="ob-budget-projection">
-            Das wären in 20 Jahren: <strong>{projection.toLocaleString("de-DE")} €</strong>
+          <div className="ob-budget-bars">
+            <div className="ob-bb-row">
+              <span className="ob-bb-label">Eingezahlt</span>
+              <div className="ob-bb-track"><div className="ob-bb-fill ob-bb-eingezahlt" style={{ width: `${eingezahltPct20}%` }} /></div>
+              <span className="ob-bb-val">{eingezahlt20.toLocaleString("de-DE")} €</span>
+            </div>
+            <div className="ob-bb-row">
+              <span className="ob-bb-label">Mit Zinseszins</span>
+              <div className="ob-bb-track"><div className="ob-bb-fill ob-bb-zinseszins" style={{ width: "100%" }} /></div>
+              <span className="ob-bb-val ob-bb-val-hl">{projection.toLocaleString("de-DE")} €</span>
+            </div>
           </div>
-          <p className="ob-budget-hint">Bei 7 % durchschnittlicher ETF-Rendite</p>
+          <p className="ob-budget-multiplier">Das ist <strong>{multiplier20}×</strong> dein Einsatz · bei 7% p.a.</p>
           <button className="ob-new-btn" onClick={() => goTo(6)}>Weiter →</button>
         </div>
 
@@ -1575,7 +1648,12 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8,
   function antworten(idx) {
     if (gewaehlt !== null) return
     setGewaehlt(idx)
-    if (idx === fragen[fragenIdx].richtig) setRichtige(r => r + 1)
+    if (idx === fragen[fragenIdx].richtig) {
+      setRichtige(r => r + 1)
+      playSound("richtig")
+    } else {
+      playSound("falsch")
+    }
   }
   function naechsteFrage() {
     if (fragenIdx + 1 >= fragen.length) setPhase("ergebnis")
@@ -1765,7 +1843,12 @@ function L301Screen({ lektion, onZurueck, onAbgeschlossen }) {
   function antworten(idx) {
     if (gewaehlt !== null) return
     setGewaehlt(idx)
-    if (idx === fragen[fragenIdx].richtig) setRichtige(r => r + 1)
+    if (idx === fragen[fragenIdx].richtig) {
+      setRichtige(r => r + 1)
+      playSound("richtig")
+    } else {
+      playSound("falsch")
+    }
   }
 
   function naechsteFrage() {
@@ -8501,6 +8584,11 @@ function LevelUpModal({ levelUpInfo, onClose }) {
   return (
     <div className="level-up-overlay" onClick={onClose}>
       <div className="level-up-modal" onClick={e => e.stopPropagation()}>
+        <div className="lup-confetti">
+          {CONFETTI.map((c, i) => (
+            <div key={i} className="lup-conf-dot" style={{ "--cx": c.cx, "--cc": c.cc, "--cd": c.cd, "--cdelay": c.cdelay }} />
+          ))}
+        </div>
         <div className="level-up-emoji">{newIcon}</div>
         <h2 className="level-up-titel">Level Up! 🎉</h2>
         {oldName && (
@@ -8837,6 +8925,12 @@ function AktionsplanScreen({ planId, aktionsplaene, onSchrittToggle, onBonusXP, 
 }
 
 function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWissenslevel, achievements, xpTaeglich, streakFreezes, onStreakFreeze, aktionsplaene, onAktionsplanOeffnen }) {
+  const [soundOn, setSoundOn] = useState(() => localStorage.getItem("soundEnabled") === "true")
+  function toggleSound() {
+    const neu = !soundOn
+    setSoundOn(neu)
+    localStorage.setItem("soundEnabled", String(neu))
+  }
   const lvl         = getLevelInfo(xp)
   const circumf     = 2 * Math.PI * 44
   const dashOffset  = circumf - (lvl.fortschritt / 100) * circumf
@@ -9063,6 +9157,24 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWisse
           </div>
         </>
       )}
+
+      {abgeschlosseneLektionen.length === 0 && (
+        <div className="empty-state" style={{ marginTop: "1rem" }}>
+          <span className="empty-state-icon">🌱</span>
+          <p className="empty-state-title">Du fängst gerade an</p>
+          <p className="empty-state-sub">Dein Profil füllt sich mit jeder abgeschlossenen Lektion. Starte jetzt!</p>
+        </div>
+      )}
+
+      <h3 className="profil-section-titel" style={{ marginTop: "1.5rem" }}>Einstellungen</h3>
+      <div className="sound-toggle-row">
+        <div>
+          <p className="sound-toggle-label">🔊 Sounds</p>
+          <p className="sound-toggle-sub">Audio-Feedback beim Lernen</p>
+        </div>
+        <button className={`sound-switch ${soundOn ? "on" : ""}`} onClick={toggleSound} aria-label={soundOn ? "Sounds deaktivieren" : "Sounds aktivieren"} />
+      </div>
+
     </div>
   )
 }
@@ -9446,9 +9558,10 @@ function NewsScreen({ onZurueck, onOeffnen, onLektionClick }) {
       <TippDerWocheKarte onLektionClick={onLektionClick} />
 
       {istFallback && (
-        <p className="news-fallback-hinweis">
-          📶 Live-Feeds werden auf lumio.app geladen
-        </p>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#1A1728", border: "1px solid #2A2040", borderRadius: "10px", padding: "10px 14px", marginBottom: "0.75rem" }}>
+          <p style={{ fontSize: "0.78rem", color: "#888", margin: 0 }}>📶 Live-Feeds werden auf lumio.app geladen</p>
+          <button onClick={ladeNews} style={{ background: "#7C3AED22", border: "1px solid #7C3AED44", color: "#a78bfa", borderRadius: "8px", padding: "4px 10px", fontSize: "0.72rem" }}>Erneut laden</button>
+        </div>
       )}
 
       <div className="news-filter-leiste">
@@ -9464,8 +9577,10 @@ function NewsScreen({ onZurueck, onOeffnen, onLektionClick }) {
       </div>
 
       {sichtbareNews.length === 0 ? (
-        <div className="news-leer">
-          <p>Keine News für diesen Filter.</p>
+        <div className="empty-state">
+          <span className="empty-state-icon">📰</span>
+          <p className="empty-state-title">Keine News gefunden</p>
+          <p className="empty-state-sub">Kein Treffer für diesen Filter. Versuche "Alle".</p>
         </div>
       ) : (
         <div className="news-liste">
@@ -10096,11 +10211,19 @@ function RanglisteScreen({ xp, xpTaeglich, userName, onZurueck }) {
         </div>
       </div>
 
-      <div className="rl-rang-banner">
-        <span className="rl-rang-label">Dein Rang</span>
-        <span className="rl-rang-zahl">#{userRang}</span>
-        <span className="rl-rang-sub">von {liste.length} Usern</span>
-      </div>
+      {xp === 0 ? (
+        <div className="empty-state" style={{ marginTop: "1.5rem" }}>
+          <span className="empty-state-icon">🏆</span>
+          <p className="empty-state-title">Noch kein Ranking</p>
+          <p className="empty-state-sub">Sammle deine ersten XP um in die Rangliste aufgenommen zu werden.</p>
+        </div>
+      ) : (
+        <div className="rl-rang-banner">
+          <span className="rl-rang-label">Dein Rang</span>
+          <span className="rl-rang-zahl">#{userRang}</span>
+          <span className="rl-rang-sub">von {liste.length} Usern</span>
+        </div>
+      )}
 
       {top3.length >= 3 && (
         <div className="rl-podium">
@@ -10346,12 +10469,13 @@ function App() {
     if (menge <= 0) return
     updateTagesXP(menge)
     setXpToast({ amount: menge, key: Date.now() })
+    playSound("xp")
     setXp(prev => {
       const altesLevel = berechneLevel(prev)
       const neueXP     = prev + menge
       const neuesLevel = berechneLevel(neueXP)
       localStorage.setItem("xp", neueXP)
-      if (neuesLevel > altesLevel) setLevelUpInfo({ newLevel: neuesLevel, oldLevel: altesLevel })
+      if (neuesLevel > altesLevel) { setLevelUpInfo({ newLevel: neuesLevel, oldLevel: altesLevel }); playSound("levelup") }
       return neueXP
     })
   }

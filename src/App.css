@@ -6340,3 +6340,198 @@ button {
   transition: background 0.15s;
 }
 .cl-help-btn:active { background: #7C3AED44; }
+
+/* ═══════════════════════════════════════════════════════════
+   POLISH – MICRO-INTERACTIONS, ANIMATIONS, EMPTY STATES
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Screen & Modal Enter Animations ──────────────────────── */
+@keyframes screenEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes modalEnter {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.screen, .cl-screen, .entdecken-screen { animation: screenEnter 0.25s ease-out both; }
+.level-up-modal { animation: modalEnter 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* ─── Global Button Press Feedback ─────────────────────────── */
+.ob-new-btn, .ob-plan-start-btn, .weiter-btn, .cl-weiter-btn,
+.ob-budget-btn, .nav-btn, .hub-row, .acc-kat-header,
+.ch-claim-btn, .tipp-woche-btn, .ap-weiter-btn,
+.fa-fab, .fa-send-btn, .fa-qr-btn, .gl-alpha-btn,
+.ws2-btn, .fab-start, .entd-alle-btn, .entd-tab-btn {
+  transition: transform 0.1s ease, filter 0.1s ease, box-shadow 0.1s ease;
+  position: relative;
+  overflow: hidden;
+}
+.ob-new-btn:active, .ob-plan-start-btn:active, .weiter-btn:active,
+.cl-weiter-btn:active, .ch-claim-btn:active, .tipp-woche-btn:active,
+.ap-weiter-btn:active, .ws2-btn:active, .fab-start:active,
+.entd-alle-btn:active, .fa-fab:active {
+  transform: scale(0.96);
+  filter: brightness(0.88);
+}
+/* Ripple */
+.ob-new-btn::after, .weiter-btn::after, .cl-weiter-btn::after,
+.ws2-btn::after, .fab-start::after, .fa-fab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #ffffff22 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.ob-new-btn:active::after, .weiter-btn:active::after, .cl-weiter-btn:active::after,
+.ws2-btn:active::after, .fab-start:active::after, .fa-fab:active::after {
+  opacity: 1;
+}
+
+/* ─── Card Hover Effects ────────────────────────────────────── */
+.news-karte, .lektion-karte, .acc-kat-header, .hub-row, .fh-karte,
+.gl-karte, .emp-card, .ob-leben-card, .ob-alter-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+@media (hover: hover) {
+  .news-karte:hover, .lektion-karte:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px #7C3AED22;
+    border-color: #7C3AED44;
+  }
+  .hub-row:hover {
+    transform: translateY(-1px);
+    background: var(--c-card-hover);
+  }
+}
+
+/* ─── Quiz Feedback Animations ──────────────────────────────── */
+@keyframes feedbackBounce {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-6px); }
+  60%  { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  15%     { transform: translateX(-6px); }
+  30%     { transform: translateX(5px); }
+  45%     { transform: translateX(-4px); }
+  60%     { transform: translateX(3px); }
+  75%     { transform: translateX(-2px); }
+}
+.feedback-richtig { animation: feedbackBounce 0.35s ease-out; box-shadow: 0 0 16px #10B98122; }
+.feedback-falsch  { animation: shake 0.4s ease-out; box-shadow: 0 0 16px #EF444422; }
+
+/* Correct answer button glow */
+.antwort-btn.richtig { animation: feedbackBounce 0.35s ease-out 0.05s both; }
+.antwort-btn.falsch  { animation: shake 0.4s ease-out 0.05s both; }
+
+/* ─── XP Bar Pulse ──────────────────────────────────────────── */
+@keyframes xpPulse {
+  0%,100% { transform: scaleY(1); filter: brightness(1); }
+  50%     { transform: scaleY(1.15); filter: brightness(1.3); }
+}
+.hero-xp-fill.pulse { animation: xpPulse 0.5s ease-out; }
+
+/* ─── Streak Flame Waggle ───────────────────────────────────── */
+@keyframes flameWaggle {
+  0%,100% { transform: rotate(0deg); }
+  20%     { transform: rotate(-12deg) scale(1.1); }
+  50%     { transform: rotate(12deg) scale(1.15); }
+  75%     { transform: rotate(-6deg); }
+}
+.flame-waggle { animation: flameWaggle 0.5s ease-out; }
+.hero-streak-pill.aktiv { transition: transform 0.2s ease; }
+.hero-streak-pill.aktiv:active { transform: scale(0.95); }
+
+/* ─── Level-Up Confetti ─────────────────────────────────────── */
+.lup-confetti {
+  position: absolute; inset: 0; overflow: hidden;
+  pointer-events: none; border-radius: inherit;
+}
+@keyframes confettiFall {
+  0%   { transform: translateY(-20px) translateX(var(--cx)) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(260px) translateX(calc(var(--cx) + 20px)) rotate(540deg); opacity: 0; }
+}
+.lup-conf-dot {
+  position: absolute;
+  top: 10%; left: 50%;
+  width: 7px; height: 7px;
+  border-radius: 2px;
+  background: var(--cc);
+  animation: confettiFall var(--cd) ease-in var(--cdelay) both;
+}
+
+/* ─── Checkmark Draw Animation ──────────────────────────────── */
+@keyframes drawCheck {
+  from { stroke-dashoffset: 60; opacity: 0.3; }
+  to   { stroke-dashoffset: 0;  opacity: 1; }
+}
+.check-draw { stroke-dasharray: 60; animation: drawCheck 0.6s ease-out both; }
+
+/* ─── Accessibility Focus Ring ──────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #7C3AED;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ─── Onboarding Budget Bars ────────────────────────────────── */
+.ob-budget-context {
+  font-size: 0.8rem; color: #a78bfa;
+  text-align: center; margin: 0.25rem 0 0.5rem;
+  min-height: 1.2em;
+  transition: opacity 0.2s ease;
+}
+.ob-budget-bars { margin: 0.75rem 0; display: flex; flex-direction: column; gap: 8px; }
+.ob-bb-row { display: flex; align-items: center; gap: 8px; }
+.ob-bb-label { font-size: 0.72rem; color: #888; min-width: 82px; }
+.ob-bb-track { flex: 1; height: 7px; background: #1A1728; border-radius: 4px; overflow: hidden; }
+.ob-bb-fill { height: 100%; border-radius: 4px; transition: width 0.35s cubic-bezier(0.4,0,0.2,1); }
+.ob-bb-eingezahlt { background: #3D3060; }
+.ob-bb-zinseszins { background: linear-gradient(90deg, #7C3AED, #9D174D); }
+.ob-bb-val { font-size: 0.7rem; min-width: 60px; text-align: right; }
+.ob-bb-val-hl { color: #a78bfa; font-weight: 700; }
+.ob-budget-multiplier {
+  font-size: 0.85rem; color: #888;
+  text-align: center; margin: 0.25rem 0 0.75rem;
+}
+.ob-budget-multiplier strong { color: #10B981; }
+
+/* ─── Empty States ──────────────────────────────────────────── */
+.empty-state {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 2.5rem 1rem; text-align: center; gap: 0.75rem;
+}
+.empty-state-icon { font-size: 3rem; line-height: 1; }
+.empty-state-title { font-size: 1.05rem; font-weight: 700; color: #fff; }
+.empty-state-sub { font-size: 0.82rem; color: #666; line-height: 1.55; max-width: 260px; }
+.empty-state-btn {
+  margin-top: 0.5rem; padding: 10px 22px; border-radius: 22px;
+  background: linear-gradient(135deg, #7C3AED, #9D174D);
+  color: #fff; font-weight: 700; font-size: 0.85rem; border: none;
+}
+
+/* ─── Sound Toggle in Profil ────────────────────────────────── */
+.sound-toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #12101A; border: 1px solid #2A2040; border-radius: 12px;
+  padding: 12px 16px; margin-bottom: 0.75rem;
+}
+.sound-toggle-label { font-size: 0.9rem; color: #ccc; }
+.sound-toggle-sub { font-size: 0.72rem; color: #555; }
+.sound-switch {
+  width: 42px; height: 24px; border-radius: 12px;
+  background: #2A2040; border: none; position: relative;
+  transition: background 0.2s;
+  cursor: pointer; flex-shrink: 0;
+}
+.sound-switch.on { background: #7C3AED; }
+.sound-switch::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 18px; height: 18px; border-radius: 50%; background: white;
+  transition: transform 0.2s;
+}
+.sound-switch.on::after { transform: translateX(18px); }
