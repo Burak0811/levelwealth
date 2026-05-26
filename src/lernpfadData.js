@@ -33,7 +33,7 @@ export const kategorien = [
     icon: "⚡",
     farbe: "#9D174D",
     minLevel: 15,
-    lektionenAnzahl: 12
+    lektionenAnzahl: 10
   },
   {
     id: 5,
@@ -1331,6 +1331,268 @@ Krypto kann dein Leben verändern – in beide Richtungen. Wissen und Vorsicht s
         { text: "Was ist Phishing im Krypto-Kontext?", antworten: ["Eine Mining-Methode", "Betrügerische Nachrichten die deine Seed Phrase stehlen wollen", "Eine Art DeFi-Protokoll", "Ein Krypto-Handelsbot"], richtig: 1 },
         { text: "Was solltest du tun wenn jemand nach deiner Seed Phrase fragt?", antworten: ["Sie nur an vertrauenswürdige Plattformen weitergeben", "Sie niemals weitergeben – keine legitime Plattform fragt je danach", "Sie verschlüsselt senden", "Nur bei Hardware Wallet-Support teilen"], richtig: 1 },
         { text: "Was ist ein wichtiges Risikomanagement-Prinzip bei Krypto?", antworten: ["Alles in einen Coin investieren für maximale Rendite", "Mit Kredit investieren für mehr Gewinn", "Nie mehr investieren als du bereit bist komplett zu verlieren", "Täglich handeln um Gewinne zu maximieren"], richtig: 2 }
+      ]
+    }
+  ],
+  4: [
+    {
+      id: 401,
+      typ: "cards",
+      titel: "Was sind Hebelprodukte – und warum sind sie gefährlich?",
+      xp: 35,
+      fragen: [
+        {
+          text: "Was bedeutet ein 10x Hebel bei einem Investment von 1.000 €?",
+          antworten: ["Du investierst 10.000 €", "Du kontrollierst eine 10.000 €-Position mit nur 1.000 € Einsatz", "Du bekommst 10× Dividenden", "Der Gewinn ist garantiert 10× höher"],
+          richtig: 1,
+          erklaerung: "Mit 10× Hebel kontrollierst du eine 10.000 €-Position mit 1.000 € Eigenkapital. +10% Marktbewegung → +100% auf deinen Einsatz. Aber auch −10% → −100% – Totalverlust."
+        },
+        {
+          text: "Was ist Margin?",
+          antworten: ["Der Gewinn aus dem Hebelprodukt", "Die Sicherheitsleistung die du hinterlegst um eine gehebelte Position zu eröffnen", "Die jährliche Gebühr", "Der maximale Verlust"],
+          richtig: 1,
+          erklaerung: "Margin ist die Sicherheitsleistung – der Geldbetrag den du hinterlegen musst. Fällt der Wert unter die Maintenance Margin, erfolgt ein Margin Call oder automatische Liquidation."
+        },
+        {
+          text: "Was passiert bei einer Liquidation?",
+          antworten: ["Die Position wird gewinnbringend geschlossen", "Die Position wird automatisch geschlossen – der Einsatz kann vollständig verloren sein", "Du bekommst Kapital von der Plattform", "Verluste werden auf nächste Woche übertragen"],
+          richtig: 1,
+          erklaerung: "Bei Liquidation schließt die Plattform deine Position zwangsweise wenn dein Kapital nicht mehr ausreicht. Beim 10× Hebel passiert das schon bei −10% Marktbewegung – der gesamte Einsatz ist weg."
+        }
+      ]
+    },
+    {
+      id: 402,
+      typ: "cards",
+      titel: "CFDs verstehen – warum 74 % der Anleger verlieren",
+      xp: 35,
+      fragen: [
+        {
+          text: "Was ist ein CFD (Contract for Difference)?",
+          antworten: ["Eine Aktie mit fester Rendite", "Ein Vertrag auf die Kursdifferenz – du besitzt das Underlying nicht", "Ein ETF auf Rohstoffe", "Ein Staatsfonds für Privatanleger"],
+          richtig: 1,
+          erklaerung: "CFD steht für Contract for Difference. Du wettest auf die Kursbewegung ohne das Asset je zu besitzen. Bei Schließung wird nur die Differenz zwischen Eröffnungs- und Schlusskurs ausgezahlt."
+        },
+        {
+          text: "Warum müssen EU-regulierte CFD-Anbieter eine Verlustwarnung anzeigen?",
+          antworten: ["Wegen der hohen Gewinne für Profis", "Weil 74 % der Privatanleger Geld verlieren – gesetzliche Transparenzpflicht", "Weil CFDs in der EU verboten sind", "Nur bei Hebeln über 50×"],
+          richtig: 1,
+          erklaerung: "EU-Regulierung (ESMA) schreibt vor, dass Anbieter die prozentuale Verlustquote ihrer Kunden offenlegen. Bei manchen Anbietern verlieren 80–85 % der Retail-Trader."
+        },
+        {
+          text: "Was sind Overnight-Gebühren bei CFDs?",
+          antworten: ["Gebühren für den ersten Kauf", "Tägliche Finanzierungskosten für Positionen die über Nacht gehalten werden", "Steuern auf CFD-Gewinne", "Gebühren für automatische Stop-Loss"],
+          richtig: 1,
+          erklaerung: "Overnight-Gebühren (Swap/Rollover) fallen täglich an wenn du eine CFD-Position über Nacht hältst. Sie basieren auf Interbanken-Zinssatz + Aufschlag. Bei längerem Halten summieren sie sich erheblich."
+        }
+      ]
+    },
+    {
+      id: 403,
+      typ: "cards",
+      titel: "Optionen Grundlagen: Calls und Puts",
+      xp: 40,
+      fragen: [
+        {
+          text: "Was ist eine Call-Option?",
+          antworten: ["Das Recht eine Aktie zu einem Preis zu VERKAUFEN", "Das Recht eine Aktie zu einem festgelegten Preis zu KAUFEN", "Eine Pflicht zum Kauf bei Fälligkeit", "Eine Aktie mit hoher Dividende"],
+          richtig: 1,
+          erklaerung: "Eine Call-Option gibt das RECHT (nicht die Pflicht), eine Aktie bis zum Verfallsdatum zum Strike Price zu kaufen. Du profitierst wenn der Kurs steigt. Maximalverlust: die bezahlte Prämie."
+        },
+        {
+          text: "Was ist der Strike Price?",
+          antworten: ["Der aktuelle Marktpreis", "Der festgelegte Preis zu dem die Option ausgeübt werden kann", "Der maximale Verlust", "Der Preis der Prämie"],
+          richtig: 1,
+          erklaerung: "Der Strike Price (Ausübungspreis) ist der vereinbarte Preis zu dem du kaufen (Call) oder verkaufen (Put) kannst. Liegt der Marktpreis über dem Strike, ist ein Call 'in the money'."
+        },
+        {
+          text: "Was ist die maximale Verlustmöglichkeit beim KAUF einer Option?",
+          antworten: ["Unbegrenzte Verluste", "Die bezahlte Prämie – nicht mehr", "50 % des investierten Betrags", "Der Wert des Underlyings"],
+          richtig: 1,
+          erklaerung: "Als Käufer einer Option riskierst du maximal die bezahlte Prämie. Verfällt die Option wertlos, verlierst du 100 % der Prämie. Anders als beim Verkäufer – der hat unbegrenzte Verlustmöglichkeiten."
+        }
+      ]
+    },
+    {
+      id: 404,
+      typ: "cards",
+      titel: "Optionen Strategien für Einsteiger",
+      xp: 40,
+      fragen: [
+        {
+          text: "Was ist ein Covered Call?",
+          antworten: ["Eine Call-Option kaufen als Absicherung", "Call-Optionen auf Aktien die man bereits besitzt verkaufen um Prämien einzunehmen", "Eine Option mit unlimitiertem Gewinnpotenzial", "Ein ETF mit integrierter Optionsstrategie"],
+          richtig: 1,
+          erklaerung: "Beim Covered Call verkaufst du Call-Optionen auf Aktien die du bereits besitzt. Du kassierst die Prämie, begrenzt aber deinen maximalen Gewinn. Geeignet für stagnierende Märkte – kein Einsteiger-Instrument."
+        },
+        {
+          text: "Wofür wird ein Protective Put genutzt?",
+          antworten: ["Um von fallenden Kursen zu profitieren", "Als Versicherung – Put-Option kaufen um bestehende Aktien gegen Kursverluste abzusichern", "Um Dividenden zu maximieren", "Um Steuern zu sparen"],
+          richtig: 1,
+          erklaerung: "Ein Protective Put ist wie eine Portfolio-Versicherung: Du kaufst eine Put-Option auf Aktien die du besitzt. Fällt der Kurs stark, schützt die Put-Option. Kostet Prämie, schützt Kapital."
+        },
+        {
+          text: "Für wen sind fortgeschrittene Optionsstrategien geeignet?",
+          antworten: ["Für alle Anleger ab Level 1", "Für erfahrene Anleger mit tiefem Verständnis von Optionsmechanik und Risiken", "Für alle die den Strike Price kennen", "Nur für institutionelle Anleger"],
+          richtig: 1,
+          erklaerung: "Optionsstrategien erfordern Verständnis von Greeks (Delta, Gamma, Theta, Vega), Risikomanagement und Marktdynamik. Einsteiger verlieren häufig die gesamte Prämie. Erst nach intensivem Studium empfohlen."
+        }
+      ]
+    },
+    {
+      id: 405,
+      typ: "cards",
+      titel: "Futures – was sie von Optionen unterscheidet",
+      xp: 35,
+      fragen: [
+        {
+          text: "Was ist der wichtigste Unterschied zwischen Futures und Optionen?",
+          antworten: ["Futures sind teurer", "Futures sind PFLICHT zum Kauf/Verkauf – Optionen geben nur ein RECHT", "Futures gibt es nur für Rohstoffe", "Optionen werden täglich abgerechnet"],
+          richtig: 1,
+          erklaerung: "Bei einem Future haben BEIDE Seiten eine Pflicht: Käufer muss kaufen, Verkäufer muss liefern – zum vereinbarten Preis. Bei Optionen hat nur der Verkäufer eine Pflicht; der Käufer hat das Recht aber nicht die Pflicht."
+        },
+        {
+          text: "Wer nutzt Futures hauptsächlich zur Absicherung?",
+          antworten: ["Privatanleger für schnelle Gewinne", "Unternehmen wie Landwirte und Airlines zur Preissicherung", "Nationalbanken für Währungspolitik", "Neobroker für Kundendepots"],
+          richtig: 1,
+          erklaerung: "Airlines kaufen Kerosin-Futures um sich gegen steigende Ölpreise abzusichern. Landwirte sichern Erntepreise ab. Das ist der legitime Kernzweck: Preis-Unsicherheit eliminieren."
+        },
+        {
+          text: "Was ist ein Rollover bei Futures?",
+          antworten: ["Ein automatischer Gewinn nach Ablauf", "Eine Gebühr über Nacht", "Das Wechseln in den nächsten Kontrakt vor dem Verfallsdatum", "Die Steuer auf ausgelaufene Futures"],
+          richtig: 2,
+          erklaerung: "Futures haben ein festes Verfallsdatum. Wer die Position länger halten will, muss vor Verfall in den nächsten Kontrakt 'rollen'. Dabei entstehen Rollkosten oder -gewinne je nach Marktstruktur."
+        }
+      ]
+    },
+    {
+      id: 406,
+      typ: "cards",
+      titel: "Krypto-Derivate: Bitcoin Futures und Perpetuals",
+      xp: 40,
+      fragen: [
+        {
+          text: "Was sind Perpetual Swaps?",
+          antworten: ["Bitcoin Futures ohne Verfallsdatum mit Funding Rate statt Rollover", "Physische Bitcoin-Lieferung nach 30 Tagen", "Staatlich regulierte Krypto-Sparpläne", "DeFi-Protokolle für Staking"],
+          richtig: 0,
+          erklaerung: "Perpetual Swaps sind Futures ohne Verfallsdatum. Statt 'rollen' bezahlen/empfangen Longs und Shorts eine Funding Rate alle 8 Stunden – sie hält den Futures-Preis nahe am Spot-Kurs. Extrem beliebt und extrem riskant."
+        },
+        {
+          text: "Was bedeutet Funding Rate bei Perpetual Swaps?",
+          antworten: ["Die tägliche Krypto-Inflation", "Eine regelmäßige Zahlung zwischen Longs und Shorts die den Futures-Preis am Spot-Kurs hält", "Die Steuern auf Krypto-Derivate", "Die Transaktionsgebühr der Plattform"],
+          richtig: 1,
+          erklaerung: "Ist die Funding Rate positiv zahlen Longs an Shorts (mehr Käufer als Verkäufer). Ist sie negativ zahlen Shorts an Longs. Bei 0,1% Funding alle 8h zahlst du schon ~10,9% pro Monat allein an Haltekosten."
+        },
+        {
+          text: "Wie hoch kann der Hebel bei manchen Krypto-Börsen maximal sein?",
+          antworten: ["5×", "20×", "50×", "125×"],
+          richtig: 3,
+          erklaerung: "Plattformen wie Bybit bieten bis zu 125× Hebel auf Bitcoin. Das bedeutet: Bitcoin fällt 0,8% → Totalverlust. EU-regulierte Plattformen begrenzen Krypto-Hebel auf 2× – aus gutem Grund."
+        }
+      ]
+    },
+    {
+      id: 407,
+      typ: "cards",
+      titel: "Knock-Out Zertifikate und Turbos erklärt",
+      xp: 35,
+      fragen: [
+        {
+          text: "Was ist ein Knock-Out Zertifikat?",
+          antworten: ["Eine Aktie die nach Verlust aus der Börse fällt", "Ein Hebelprodukt das sofort wertlos wird wenn der Kurs die Barrier berührt", "Ein gesichertes Tagesgeldkonto", "Ein Fonds mit Kapitalgarantie"],
+          richtig: 1,
+          erklaerung: "Knock-Out Zertifikate sind Hebelprodukte mit einer Barrier (Schwelle). Berührt der Kurs des Basiswerts diese Schwelle – auch nur kurz – wird das Zertifikat sofort wertlos. Dieses Ereignis heißt Knock-Out."
+        },
+        {
+          text: "Was unterscheidet Knock-Outs von klassischen Optionen?",
+          antworten: ["Kein wesentlicher Unterschied", "Knock-Outs reagieren fast 1:1 auf den Basiswert (wenig Zeitwertverlust) aber enden sofort beim Berühren der Barrier", "Knock-Outs sind durch Staatsfonds besichert", "Optionen verfallen nach 1 Tag, Knock-Outs nicht"],
+          richtig: 1,
+          erklaerung: "Knock-Outs bilden den Basiswert nahezu 1:1 ab (Delta ≈ 1) und haben kaum Zeitwertverlust – ein Vorteil. Nachteil: ein Moment wo der Kurs die Barrier berührt und das gesamte Investment ist wertlos."
+        },
+        {
+          text: "Was passiert wenn ein Knock-Out 'ausgeknockt' wird?",
+          antworten: ["Du bekommst den vollen Einsatz zurück", "Das Zertifikat verfällt wertlos oder mit minimalem Restwert", "Du kannst zu einem Discount nachkaufen", "Die Position wird in eine Put-Option umgewandelt"],
+          richtig: 1,
+          erklaerung: "Beim Knock-Out verfällt das Zertifikat sofort. Je nach Produkttyp gibt es einen kleinen Restwert oder es ist vollständig wertlos. Der Knock-Out kann in Sekunden passieren – auch wenn der Kurs danach sofort wieder steigt."
+        }
+      ]
+    },
+    {
+      id: 408,
+      typ: "cards",
+      titel: "Risikomanagement bei Hebelprodukten",
+      xp: 40,
+      fragen: [
+        {
+          text: "Wie viel Prozent des Kapitals sollte man maximal in einem einzigen Trade riskieren?",
+          antworten: ["10–20 % – für maximalen Gewinn", "5–10 % – branchenüblich", "1–2 % – Standardregel des professionellen Trading", "50 % wenn man sehr sicher ist"],
+          richtig: 2,
+          erklaerung: "Die '1–2%-Regel' ist der goldene Standard: Pro Trade nie mehr als 1–2% des Gesamtkapitals riskieren. Bei 10.000 € sind das 100–200 € maximaler Verlust – klingt wenig, schützt aber vor dem katastrophalen Totalverlust."
+        },
+        {
+          text: "Was ist Position Sizing?",
+          antworten: ["Die Gesamtgröße des Portfolios", "Das bewusste Berechnen wie viel in eine Position investiert wird – basierend auf dem maximalen Risiko", "Die Anzahl offener Positionen", "Der Hebel einer Position"],
+          richtig: 1,
+          erklaerung: "Position Sizing berechnet wie viel Kapital in eine Position fließen soll. Formel: Positionsgröße = (Kapital × Risikoanteil) / (Einstiegspreis − Stop-Loss-Preis). Das kontrolliert den maximalen Verlust unabhängig vom Hebel."
+        },
+        {
+          text: "Was ist der maximale Drawdown?",
+          antworten: ["Der höchste Einzel-Tagesverlust", "Der größte prozentuale Rückgang vom Höchststand zum Tiefststand des Portfolios", "Die durchschnittliche Verlustrate", "Der Totalverlust aller Positionen"],
+          richtig: 1,
+          erklaerung: "Maximaler Drawdown (Max DD) misst den größten Verlust vom Peak zum Trough. Bei 50% Drawdown braucht man 100% Rendite um auf null zu kommen. Professionelle Trader halten den Max DD unter 20–25%."
+        }
+      ]
+    },
+    {
+      id: 409,
+      typ: "cards",
+      titel: "Steuerliche Behandlung von Derivaten in Deutschland",
+      xp: 40,
+      fragen: [
+        {
+          text: "Können Verluste aus Termingeschäften (Optionen, Futures) mit ETF-Gewinnen verrechnet werden?",
+          antworten: ["Ja, vollständig", "Ja, aber nur bis 20.000 €", "Nein – separater Verlustverrechnungstopf der nur mit Termingeschäfts-Gewinnen verrechnet werden kann", "Ja, aber nur im gleichen Steuerjahr"],
+          richtig: 2,
+          erklaerung: "Seit 2021 gibt es in Deutschland einen separaten Verlustverrechnungstopf für Termingeschäfte (§20 Abs. 6 Satz 5 EStG). Verluste aus Optionen, Futures und CFDs können NUR mit Gewinnen aus Termingeschäften verrechnet werden – nicht mit ETF-Gewinnen."
+        },
+        {
+          text: "Was bedeutet der 20.000 €-Cap bei Termingeschäftsverlusten?",
+          antworten: ["Man kann maximal 20.000 € in Derivate investieren", "Verluste aus Termingeschäften können pro Jahr maximal 20.000 € mit Gewinnen verrechnet werden – der Rest wird vorgetragen", "Gewinne bis 20.000 € sind steuerfrei", "Der Sparerpauschbetrag gilt auch für Derivate"],
+          richtig: 1,
+          erklaerung: "Seit Jahressteuergesetz 2020: Verlustverrechnung aus Termingeschäften ist auf 20.000 € pro Jahr begrenzt. Wer 100.000 € verliert, kann nur 20.000 € sofort verrechnen – ein massiver Nachteil für aktive Derivatehändler."
+        },
+        {
+          text: "Wie werden CFD-Gewinne in Deutschland besteuert?",
+          antworten: ["Mit 19 % Mehrwertsteuer", "Mit Abgeltungssteuer 25 % + Soli = 26,375 %", "Mit dem 1-Jahres-Steuerfreiheits-Prinzip wie Krypto", "Mit dem persönlichen Einkommensteuersatz"],
+          richtig: 1,
+          erklaerung: "CFD-Gewinne unterliegen der Abgeltungssteuer (25% + Soli = 26,375%). Verluste kommen in den separaten Termingeschäfts-Verlustverrechnungstopf (max. 20.000 €/Jahr). Diese Asymmetrie benachteiligt Trader erheblich."
+        }
+      ]
+    },
+    {
+      id: 410,
+      typ: "cards",
+      titel: "Wann Hebelprodukte sinnvoll sind – und für wen",
+      xp: 45,
+      fragen: [
+        {
+          text: "Was ist die legitime Nutzung von Optionen für langfristige Anleger?",
+          antworten: ["Für tägliche Gewinne durch Optionshandel", "Als Versicherung (Protective Put) um ein bestehendes Portfolio gegen starke Rückschläge abzusichern", "Um den MSCI World zu hebeln für mehr Rendite", "Für wöchentliche Einnahmen durch Optionsverkäufe"],
+          richtig: 1,
+          erklaerung: "Hedging ist der einzige Grund für die meisten langfristigen Anleger Optionen zu verwenden: eine Put-Option schützt dein Portfolio wie eine Versicherung. Du zahlst eine Prämie und bist gegen starke Kurseinbrüche geschützt."
+        },
+        {
+          text: "Was zeigt der Vergleich zwischen aktivem Trading und Buy-and-Hold ETF über 10+ Jahre?",
+          antworten: ["Aktive Trader erzielen im Schnitt höhere Renditen", "Der ETF-Sparplan schlägt die meisten aktiven Trader nach Kosten und Steuern langfristig", "Beide Strategien sind langfristig gleich gut", "Hebelprodukte sind nach Steuer immer effizienter"],
+          richtig: 1,
+          erklaerung: "Studien (DALBAR, SPIVA) zeigen: 85–90% der aktiven Trader underperformen den Marktindex langfristig. Ein simpler ETF-Sparplan mit MSCI World schlägt die meisten Privattrader nach Kosten, Steuern und psychologischen Fehlern."
+        },
+        {
+          text: "Für welche Anlegergruppe sind Hebelprodukte möglicherweise geeignet?",
+          antworten: ["Alle die höhere Rendite wollen", "Erfahrene Anleger mit klarer Strategie, Risikokapital und tiefem technischen Verständnis", "Einsteiger mit großem Kapital", "ETF-Anleger ab Level 10 in Lumio"],
+          richtig: 1,
+          erklaerung: "Hebelprodukte sind für erfahrene Anleger die: tiefes technisches Verständnis haben, nur Risikokapital einsetzen das sie komplett verlieren können, klare Strategien befolgen und Steuerregeln kennen. Das trifft auf sehr wenige Privatanleger zu."
+        }
       ]
     }
   ],

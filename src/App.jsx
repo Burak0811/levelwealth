@@ -1370,6 +1370,16 @@ function CardLektionScreen({ lektion, onZurueck, onAbgeschlossen }) {
   if (lektion.id === 706) return <L706Screen {...props} />
   if (lektion.id === 707) return <L707Screen {...props} />
   if (lektion.id === 708) return <L708Screen {...props} />
+  if (lektion.id === 401) return <L401Screen {...props} />
+  if (lektion.id === 402) return <L402Screen {...props} />
+  if (lektion.id === 403) return <L403Screen {...props} />
+  if (lektion.id === 404) return <L404Screen {...props} />
+  if (lektion.id === 405) return <L405Screen {...props} />
+  if (lektion.id === 406) return <L406Screen {...props} />
+  if (lektion.id === 407) return <L407Screen {...props} />
+  if (lektion.id === 408) return <L408Screen {...props} />
+  if (lektion.id === 409) return <L409Screen {...props} />
+  if (lektion.id === 410) return <L410Screen {...props} />
   if (lektion.id === 801) return <L801Screen {...props} />
   if (lektion.id === 802) return <L802Screen {...props} />
   if (lektion.id === 803) return <L803Screen {...props} />
@@ -6758,6 +6768,1328 @@ function L906Screen({ lektion, onZurueck, onAbgeschlossen }) {
             <div className="cl-takeaway"><span className="cl-takeaway-icon">📵</span><p>Handyversicherung: 100 €/Jahr für selten genutzten Schutz – selbst ansparen statt versichern</p></div>
             <div className="cl-takeaway"><span className="cl-takeaway-icon">💰</span><p>Restschuldversicherung: 3–8 % der Kreditsumme – Risikolebensversicherung 10× günstiger</p></div>
             <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Nur große existenzielle Risiken versichern – kleine Risiken selbst tragen und ansparen</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+// ─── Hebel & Optionen Screens ────────────────────────────────────────────────
+
+function L401Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [einsatz, setEinsatz]     = useState(1000)
+  const [hebel, setHebel]         = useState(10)
+  const [bewegung, setBewegung]   = useState(10)
+  const positionswert  = einsatz * hebel
+  const gewinnVerlust  = Math.round(positionswert * bewegung / 100)
+  const renditeEinsatz = Math.round((gewinnVerlust / einsatz) * 100)
+  const liquidiert     = renditeEinsatz <= -100
+
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ein Trader setzt 1.000 € mit 10× Hebel ein. Der Markt fällt 10 %. Er verliert nicht 100 € – er verliert alles."</div>
+          <p className="cl-hook-sub">Hebel multipliziert Gewinne. Und Verluste.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was ist ein Hebel?</h2>
+          <p className="cl-card-sub">Stell dir vor, du willst ein Haus kaufen das 100.000 € kostet.</p>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem 1.25rem", marginTop: "0.75rem", lineHeight: 1.7 }}>
+            <p style={{ color: "#ccc", fontSize: "0.9rem" }}>
+              Du hast nur 10.000 € Eigenkapital. Die Bank leiht dir 90.000 €. Du kontrollierst das gesamte Haus – aber mit 10× Hebel.<br /><br />
+              Steigt das Haus um 10 % → du hast 10.000 € gewonnen. Das sind <strong style={{ color: "#10B981" }}>100 % Rendite auf deinen Einsatz</strong>.<br /><br />
+              Fällt es um 10 % → <strong style={{ color: "#ef4444" }}>dein gesamtes Eigenkapital ist weg.</strong>
+            </p>
+          </div>
+          <div className="cl-fakt-box" style={{ marginTop: "1rem" }}>
+            <span className="cl-fakt-icon">💡</span>
+            <p>Leverage kommt aus dem Englischen: Hebel. In der Finanzwelt bedeutet es: mehr kontrollieren als man tatsächlich besitzt.</p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Margin – die Sicherheitsleistung</h2>
+          <div className="cl-invisible-liste">
+            {[
+              { icon: "💰", name: "Initial Margin", val: "Betrag den du bei Eröffnung hinterlegst (z.B. 1.000 €)" },
+              { icon: "⚠️", name: "Maintenance Margin", val: "Mindestbetrag um die Position offen zu halten" },
+              { icon: "📞", name: "Margin Call", val: "Warnung: Nachschuss erforderlich oder Position wird geschlossen" },
+              { icon: "💀", name: "Liquidation", val: "Automatische Schließung wenn Kapital erschöpft ist" },
+            ].map(r => (
+              <div key={r.name} className="cl-invisible-zeile" style={{ alignItems: "flex-start" }}>
+                <span className="cl-inv-icon">{r.icon}</span>
+                <div>
+                  <p style={{ color: "#fff", fontWeight: 600, fontSize: "0.85rem", margin: 0 }}>{r.name}</p>
+                  <p style={{ color: "#aaa", fontSize: "0.78rem", margin: 0 }}>{r.val}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Hebel multipliziert ALLES</h2>
+          <p className="cl-card-sub">Visualisierung: 1.000 € Einsatz, verschiedene Hebel</p>
+          <svg viewBox="0 0 260 160" style={{ width: "100%", marginTop: "0.75rem" }}>
+            {[
+              { hebel: "1×", gewinn: 100, verlust: -100, x: 20 },
+              { hebel: "5×", gewinn: 500, verlust: -500, x: 80 },
+              { hebel: "10×", gewinn: 1000, verlust: -1000, x: 140 },
+              { hebel: "20×", gewinn: 2000, verlust: -2000, x: 200 },
+            ].map((d, i) => {
+              const maxVal = 2000
+              const ghPx = Math.min((Math.abs(d.gewinn) / maxVal) * 60, 60)
+              const vlPx = Math.min((Math.abs(d.verlust) / maxVal) * 60, 60)
+              return (
+                <g key={i}>
+                  <rect x={d.x} y={80 - ghPx} width="40" height={ghPx} fill="#10B981" rx="3" opacity="0.85" />
+                  <rect x={d.x} y={80} width="40" height={vlPx} fill="#ef4444" rx="3" opacity="0.85" />
+                  <text x={d.x + 20} y={74 - ghPx} textAnchor="middle" fill="#10B981" fontSize="7.5" fontWeight="700">+{d.gewinn}€</text>
+                  <text x={d.x + 20} y={85 + vlPx} textAnchor="middle" fill="#ef4444" fontSize="7.5" fontWeight="700">{d.verlust}€</text>
+                  <text x={d.x + 20} y="155" textAnchor="middle" fill="#888" fontSize="8">{d.hebel}</text>
+                </g>
+              )
+            })}
+            <line x1="10" y1="80" x2="250" y2="80" stroke="#444" strokeWidth="1" />
+            <text x="10" y="13" fill="#666" fontSize="7">Markt +10% – Gewinn/Verlust auf 1.000 € Einsatz</text>
+          </svg>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Hebel-Rechner</h2>
+          <p className="cl-card-sub">Einsatz: <strong>{einsatz.toLocaleString("de-DE")} €</strong></p>
+          <input type="range" min={100} max={5000} step={100} value={einsatz} onChange={e => setEinsatz(Number(e.target.value))} className="rc-slider rc-slider-full" style={{ background: sliderBg(einsatz, 100, 5000), marginBottom: "0.75rem" }} />
+          <p className="cl-card-sub">Hebel: <strong>{hebel}×</strong></p>
+          <input type="range" min={2} max={20} step={1} value={hebel} onChange={e => setHebel(Number(e.target.value))} className="rc-slider rc-slider-full" style={{ background: sliderBg(hebel, 2, 20), marginBottom: "0.75rem" }} />
+          <p className="cl-card-sub">Marktbewegung: <strong style={{ color: bewegung >= 0 ? "#10B981" : "#ef4444" }}>{bewegung >= 0 ? "+" : ""}{bewegung} %</strong></p>
+          <input type="range" min={-50} max={50} step={1} value={bewegung} onChange={e => setBewegung(Number(e.target.value))} className="rc-slider rc-slider-full" style={{ background: sliderBg(bewegung + 50, 0, 100), marginBottom: "1rem" }} />
+          <div className="cl-kaffee-ergebnis">
+            <div className="cl-kaffee-zeile"><span>Positionswert</span><span>{positionswert.toLocaleString("de-DE")} €</span></div>
+            <div className="cl-kaffee-zeile"><span>Gewinn/Verlust</span><span className="cl-kaffee-wert cl-kaffee-big" style={{ color: gewinnVerlust >= 0 ? "#10B981" : "#ef4444" }}>{gewinnVerlust >= 0 ? "+" : ""}{gewinnVerlust.toLocaleString("de-DE")} €</span></div>
+            <div className="cl-kaffee-zeile"><span>Rendite auf Einsatz</span><span style={{ color: renditeEinsatz >= 0 ? "#10B981" : "#ef4444", fontWeight: 700 }}>{renditeEinsatz >= 0 ? "+" : ""}{renditeEinsatz} %</span></div>
+          </div>
+          {liquidiert && <div style={{ background: "#ef444422", border: "1px solid #ef444455", borderRadius: "8px", padding: "0.6rem 0.8rem", marginTop: "0.75rem" }}><p style={{ color: "#ef4444", fontSize: "0.82rem", margin: 0, fontWeight: 600 }}>⚠️ LIQUIDATION – Totalverlust des Einsatzes</p></div>}
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die Liquidations-Falle</h2>
+          <p className="cl-card-sub">Wie schnell ist man liquidiert?</p>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.5rem" }}>
+            {[
+              { hebel: "2×", abstand: "50 %" },
+              { hebel: "5×", abstand: "20 %" },
+              { hebel: "10×", abstand: "10 %" },
+              { hebel: "20×", abstand: "5 %" },
+              { hebel: "100×", abstand: "1 %" },
+            ].map(r => (
+              <div key={r.hebel} style={{ display: "flex", justifyContent: "space-between", padding: "0.4rem 0", borderBottom: "1px solid #2a2040" }}>
+                <span style={{ color: "#ccc", fontWeight: 600 }}>{r.hebel} Hebel</span>
+                <span style={{ color: "#ef4444" }}>Liquidation bei −{r.abstand}</span>
+              </div>
+            ))}
+          </div>
+          <div className="cl-fakt-box" style={{ marginTop: "1rem" }}>
+            <span className="cl-fakt-icon">⚠️</span>
+            <p>Bitcoin schwankt täglich 2–5 %. Bei 20× Hebel reicht eine normale Tagesbewegung für den Totalverlust.</p>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wer nutzt Hebelprodukte wirklich?</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🏦</span><p><strong>Institutionen:</strong> Hedgefonds zur Renditeoptimierung und Absicherung – mit professionellem Risikomanagement</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">✈️</span><p><strong>Airlines & Industrie:</strong> Futures zur Preissicherung von Rohstoffen – legitimes Hedging</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚠️</span><p><strong>Privatanleger:</strong> Oft Zocken und FOMO – ohne Strategie, ohne Risikomanagement. Ergebnis: 74–85 % verlieren</p></div>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Das Wichtigste über Hebelprodukte</h2>
+          <p className="cl-card-sub">3 Regeln die du dir merken musst</p>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📐</span><p>Hebel multipliziert Gewinne UND Verluste – symmetrisch. Es gibt kein "Heads I win, Tails you lose"</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💀</span><p>Totalverlust ist keine Ausnahme – bei hohem Hebel ist er die Normalität. Liquidation in Sekunden möglich</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Für 95 % der Privatanleger: Finger weg. Ein ETF-Sparplan schlägt Trading langfristig – ohne Stress</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L402Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"CFD-Anbieter verdienen wenn du verlierst. 74 % der Privatanleger verlieren Geld mit CFDs."</div>
+          <p className="cl-hook-sub">Das steht in der Pflichtangabe jedes EU-regulierten Anbieters.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was ist ein CFD?</h2>
+          <p className="cl-card-sub">Contract for Difference – Differenzkontrakt</p>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem 1.25rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.9rem" }}>
+              Du wettest auf die Kursbewegung eines Assets – Aktie, Index, Rohstoff, Krypto – <strong style={{ color: "#fff" }}>ohne es jemals zu besitzen</strong>.<br /><br />
+              Apple steht bei 190 $. Du öffnest einen Long-CFD. Apple steigt auf 200 $ → du bekommst 10 $ pro CFD.<br />
+              Apple fällt auf 180 $ → du verlierst 10 $ pro CFD.<br /><br />
+              Dazu kommt ein Hebel der alles multipliziert.
+            </p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">CFD vs. direkter Aktienkauf</h2>
+          <svg viewBox="0 0 260 140" style={{ width: "100%", marginTop: "0.75rem" }}>
+            <rect x="5" y="10" width="115" height="120" rx="8" fill="#1a1a2e" stroke="#7C3AED44" strokeWidth="1" />
+            <text x="62" y="30" textAnchor="middle" fill="#7C3AED" fontSize="9" fontWeight="700">DIREKT KAUF</text>
+            {[
+              "✅ Du besitzt die Aktie",
+              "✅ Dividendenberechtigt",
+              "✅ Kein Ablaufdatum",
+              "✅ Kein Overnight-Zins",
+              "❌ Kein Hebel",
+            ].map((t, i) => <text key={i} x="12" y={47 + i * 16} fill="#ccc" fontSize="7.5">{t}</text>)}
+            <rect x="140" y="10" width="115" height="120" rx="8" fill="#1a1a2e" stroke="#ef444444" strokeWidth="1" />
+            <text x="197" y="30" textAnchor="middle" fill="#ef4444" fontSize="9" fontWeight="700">CFD</text>
+            {[
+              "❌ Kein Eigentum",
+              "❌ Keine Dividende",
+              "⚠️ Overnight-Gebühren",
+              "⚠️ Hebel = mehr Risiko",
+              "✅ Leerverkäufe möglich",
+            ].map((t, i) => <text key={i} x="147" y={47 + i * 16} fill="#ccc" fontSize="7.5">{t}</text>)}
+          </svg>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Warum verdient der Anbieter wenn du verlierst?</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.5rem", lineHeight: 1.7 }}>
+            <p style={{ color: "#ccc", fontSize: "0.88rem" }}>
+              Viele CFD-Anbieter sind sogenannte <strong style={{ color: "#fff" }}>"Market Maker"</strong> – sie nehmen die Gegenseite deines Trades.<br /><br />
+              Wenn du long gehst (Kurs steigt), ist der Anbieter short. Wenn du verlierst, gewinnt der Anbieter direkt.<br /><br />
+              Dazu kommen: <strong style={{ color: "#F59E0B" }}>Spreads</strong> (Differenz Kauf-/Verkaufspreis), <strong style={{ color: "#F59E0B" }}>Overnight-Gebühren</strong> und <strong style={{ color: "#F59E0B" }}>Finanzierungskosten</strong>.
+            </p>
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die versteckten Kosten von CFDs</h2>
+          <div className="cl-invisible-liste">
+            {[
+              { icon: "💸", name: "Spread", val: "Differenz zwischen Kauf- und Verkaufspreis. Bei DAX-CFDs ca. 0,5–1 Punkt" },
+              { icon: "🌙", name: "Overnight-Swap", val: "Täglich 0,02–0,05 % Finanzierungskosten. ~15 % p.a. bei gehaltenen Long-Positionen" },
+              { icon: "📉", name: "Slippage", val: "Bei Markteröffnung oder Nachrichten: Kurs springt weg bevor deine Order ausgeführt wird" },
+              { icon: "⚡", name: "Requotes", val: "Broker lehnt deine Order ab und bietet einen schlechteren Kurs" },
+            ].map(r => (
+              <div key={r.name} className="cl-invisible-zeile" style={{ alignItems: "flex-start" }}>
+                <span className="cl-inv-icon">{r.icon}</span>
+                <div>
+                  <p style={{ color: "#fff", fontWeight: 600, fontSize: "0.85rem", margin: 0 }}>{r.name}</p>
+                  <p style={{ color: "#aaa", fontSize: "0.78rem", margin: 0 }}>{r.val}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die offizielle EU-Warnung</h2>
+          <div style={{ background: "#ef444415", border: "2px solid #ef444444", borderRadius: "12px", padding: "1.25rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ef4444", fontWeight: 700, marginBottom: "0.5rem" }}>⚠️ Pflichtangabe bei EU-regulierten Anbietern:</p>
+            <p style={{ color: "#ffaaaa", fontSize: "0.88rem", lineHeight: 1.6, margin: 0 }}>
+              "74–82 % der Kleinanlegerkonten verlieren Geld beim CFD-Handel mit diesem Anbieter. Sie sollten sich überlegen, ob Sie es sich leisten können, das hohe Risiko einzugehen, Ihr Geld zu verlieren."
+            </p>
+          </div>
+          <div className="cl-fakt-box" style={{ marginTop: "1rem" }}>
+            <span className="cl-fakt-icon">💡</span>
+            <p>Diese Zahl ist der Durchschnitt. Manche Anbieter melden bis zu 85 % Verlustquote.</p>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wann werden CFDs trotzdem genutzt?</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🔽</span><p><strong>Leerverkäufe:</strong> CFDs erlauben es auf fallende Kurse zu setzen – ohne Aktien zu leihen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🛡️</span><p><strong>Hedging:</strong> Profis sichern Aktienpositionen kurzfristig mit Index-CFDs ab</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚡</span><p><strong>Kurzfristiges Trading:</strong> Day-Trader nutzen niedrige Spreads und schnelle Ausführung – mit professionellem Risikomanagement</p></div>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Das Fazit zu CFDs</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📊</span><p>74–85 % der Privatanleger verlieren Geld mit CFDs – das ist Fakt, kein Gerücht</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💸</span><p>Versteckte Kosten (Spread + Overnight) fressen Gewinne systematisch auf</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Für Einsteiger gilt: CFDs sind kein Investmentvehikel – sie sind ein Glücksspielprodukt mit Finanzverpackung</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L403Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Eine Option gibt dir das Recht – nicht die Pflicht – eine Aktie zu kaufen oder zu verkaufen."</div>
+          <p className="cl-hook-sub">Das klingt einfach. Die Realität ist komplexer.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Call-Option – das Recht zu kaufen</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem 1.25rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#10B981", fontWeight: 700, marginBottom: "0.5rem" }}>📈 CALL OPTION</p>
+            <p style={{ color: "#ccc", fontSize: "0.88rem", lineHeight: 1.7 }}>
+              Du kaufst das Recht, Apple-Aktien bis zum <strong style={{ color: "#fff" }}>15. März</strong> zum Preis von <strong style={{ color: "#fff" }}>190 $ (Strike)</strong> zu kaufen.<br /><br />
+              Du zahlst dafür eine <strong style={{ color: "#F59E0B" }}>Prämie von 5 $</strong> pro Aktie.<br /><br />
+              Apple steigt auf 210 $: Du kaufst für 190 $, verkaufst für 210 $ → <strong style={{ color: "#10B981" }}>Gewinn: 15 $ (nach Prämie)</strong><br />
+              Apple bleibt unter 190 $: Du übst nicht aus → <strong style={{ color: "#ef4444" }}>Verlust: 5 $ Prämie</strong>
+            </p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Put-Option – das Recht zu verkaufen</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem 1.25rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ef4444", fontWeight: 700, marginBottom: "0.5rem" }}>📉 PUT OPTION</p>
+            <p style={{ color: "#ccc", fontSize: "0.88rem", lineHeight: 1.7 }}>
+              Du kaufst das Recht, Apple-Aktien bis zum <strong style={{ color: "#fff" }}>15. März</strong> für <strong style={{ color: "#fff" }}>190 $ (Strike)</strong> zu VERKAUFEN.<br /><br />
+              Du zahlst eine <strong style={{ color: "#F59E0B" }}>Prämie von 4 $</strong>.<br /><br />
+              Apple fällt auf 170 $: Du verkaufst für 190 $ was nur 170 $ wert ist → <strong style={{ color: "#10B981" }}>Gewinn: 16 $</strong><br />
+              Apple bleibt über 190 $: Du übst nicht aus → <strong style={{ color: "#ef4444" }}>Verlust: 4 $ Prämie</strong>
+            </p>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Auszahlungsdiagramm: Call vs. Put</h2>
+          <svg viewBox="0 0 260 150" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <line x1="10" y1="120" x2="250" y2="120" stroke="#444" strokeWidth="1" />
+            <line x1="130" y1="10" x2="130" y2="140" stroke="#444" strokeWidth="1" strokeDasharray="4,3" />
+            <text x="125" y="148" fill="#888" fontSize="7.5" textAnchor="middle">Strike</text>
+            <polyline points="10,120 130,120 250,20" stroke="#10B981" strokeWidth="2" fill="none" />
+            <text x="220" y="18" fill="#10B981" fontSize="7.5">CALL</text>
+            <polyline points="10,20 130,120 250,120" stroke="#ef4444" strokeWidth="2" fill="none" />
+            <text x="12" y="18" fill="#ef4444" fontSize="7.5">PUT</text>
+            <text x="50" y="90" fill="#ccc" fontSize="7">Kurs fällt ↙</text>
+            <text x="160" y="90" fill="#ccc" fontSize="7">Kurs steigt ↗</text>
+            <text x="10" y="12" fill="#666" fontSize="6.5">Gewinn (nach Prämie)</text>
+          </svg>
+          <p style={{ color: "#aaa", fontSize: "0.78rem", textAlign: "center", marginTop: "0.5rem" }}>Beim Strike-Preis ist der Break-even (nach Prämienabzug)</p>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Strike Price, Expiry & Premium</h2>
+          <div className="cl-invisible-liste">
+            {[
+              { icon: "🎯", name: "Strike Price", val: "Ausübungspreis – zu diesem Preis kannst du die Aktie kaufen (Call) oder verkaufen (Put)" },
+              { icon: "📅", name: "Expiry Date", val: "Verfallsdatum – danach verfällt die Option wertlos wenn nicht ausgeübt" },
+              { icon: "💵", name: "Premium", val: "Preis der Option – was du als Käufer zahlst, als Verkäufer einnimmst" },
+              { icon: "📊", name: "In/Out of Money", val: "In the money = innerer Wert vorhanden. Out of money = nur noch Zeitwert" },
+            ].map(r => (
+              <div key={r.name} className="cl-invisible-zeile" style={{ alignItems: "flex-start" }}>
+                <span className="cl-inv-icon">{r.icon}</span>
+                <div>
+                  <p style={{ color: "#fff", fontWeight: 600, fontSize: "0.85rem", margin: 0 }}>{r.name}</p>
+                  <p style={{ color: "#aaa", fontSize: "0.78rem", margin: 0 }}>{r.val}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die Immobilien-Analogie</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem 1.25rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.88rem" }}>
+              Du willst ein Haus kaufen (Preis: 300.000 €) bist aber noch nicht sicher.<br /><br />
+              Du zahlst dem Verkäufer <strong style={{ color: "#F59E0B" }}>5.000 € Reservierungsgebühr (= Prämie)</strong> für das Recht, das Haus in 3 Monaten für 300.000 € zu kaufen.<br /><br />
+              <strong style={{ color: "#10B981" }}>Haus steigt auf 330.000 €?</strong> Du kaufst für 300.000 €. Gewinn: 25.000 € (nach Prämie).<br />
+              <strong style={{ color: "#ef4444" }}>Haus fällt auf 270.000 €?</strong> Du kaufst nicht. Verlust: 5.000 € Prämie.<br /><br />
+              Das ist genau wie eine Call-Option.
+            </p>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Zeitwertverlust (Theta Decay)</h2>
+          <p className="cl-card-sub">Der größte Feind des Options-Käufers</p>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.5rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.88rem" }}>
+              Optionen verlieren jeden Tag automatisch an Wert – auch wenn der Kurs sich nicht bewegt. Dieses "Schmelzen" heißt <strong style={{ color: "#fff" }}>Theta Decay</strong>.<br /><br />
+              Je näher das Verfallsdatum, desto schneller schmilzt der Zeitwert.<br /><br />
+              <strong style={{ color: "#F59E0B" }}>Konsequenz:</strong> Als Optionskäufer kämpfst du gegen die Zeit. Du musst Recht haben – UND schnell genug.
+            </p>
+          </div>
+          <div className="cl-fakt-box" style={{ marginTop: "1rem" }}>
+            <span className="cl-fakt-icon">💡</span>
+            <p>Deshalb verkaufen Profis oft Optionen statt sie zu kaufen – Theta Decay arbeitet für den Verkäufer.</p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was du über Optionen wissen musst</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📞</span><p>Call = Recht zu kaufen (profitiert von steigenden Kursen)</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📉</span><p>Put = Recht zu verkaufen (profitiert von fallenden Kursen)</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⏰</span><p>Theta Decay – Optionen verlieren täglich Wert. Du musst richtig UND schnell liegen</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L404Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Covered Calls, Protective Puts, Cash-Secured Puts. Diese Strategien klingen einfach – und sind trotzdem nur für Erfahrene."</div>
+          <p className="cl-hook-sub">Verstehen heißt nicht bereit sein.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Covered Call – Prämien auf bestehende Aktien</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#10B981", fontWeight: 700, marginBottom: "0.5rem" }}>📞 COVERED CALL</p>
+            <p style={{ color: "#ccc", fontSize: "0.88rem", lineHeight: 1.7 }}>
+              Du besitzt 100 Apple-Aktien à 190 $.<br />
+              Du verkaufst eine Call-Option mit Strike 200 $ und kassierst 3 $ Prämie pro Aktie = <strong style={{ color: "#10B981" }}>300 $ eingenommen</strong>.<br /><br />
+              <strong>Apple unter 200 $ am Verfallstag:</strong> Option verfällt wertlos. Du behältst die 300 $ Prämie. ✅<br />
+              <strong>Apple über 200 $:</strong> Aktien werden für 200 $ "abgerufen". Du verpasst Gewinne über 200 $. ⚠️
+            </p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Protective Put – Portfolio-Versicherung</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#0EA5E9", fontWeight: 700, marginBottom: "0.5rem" }}>🛡️ PROTECTIVE PUT</p>
+            <p style={{ color: "#ccc", fontSize: "0.88rem", lineHeight: 1.7 }}>
+              Du besitzt Apple-Aktien und kaufst gleichzeitig eine Put-Option mit Strike 170 $. Prämie: 2 $.<br /><br />
+              <strong>Apple fällt auf 150 $:</strong> Deine Put-Option ist 20 $ wert. Verlust begrenzt auf Strike minus Prämie. ✅<br />
+              <strong>Apple steigt:</strong> Put verfällt wertlos. Du verlierst nur die Prämie – wie eine Versicherung die du nicht brauchst. ✅
+            </p>
+          </div>
+          <div className="cl-fakt-box" style={{ marginTop: "1rem" }}>
+            <span className="cl-fakt-icon">💡</span>
+            <p>Viele institutionelle Anleger kaufen vor unsicheren Ereignissen (Earnings, Fed-Entscheidung) Protective Puts.</p>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Cash-Secured Put – günstig einsteigen</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#F59E0B", fontWeight: 700, marginBottom: "0.5rem" }}>💰 CASH-SECURED PUT</p>
+            <p style={{ color: "#ccc", fontSize: "0.88rem", lineHeight: 1.7 }}>
+              Du willst Apple gerne für 170 $ kaufen, aber sie stehen bei 190 $.<br />
+              Du verkaufst einen Put mit Strike 170 $ und kassierst 2 $ Prämie.<br /><br />
+              <strong>Apple über 170 $:</strong> Put verfällt wertlos. Du hast 2 $ Prämie verdient. ✅<br />
+              <strong>Apple unter 170 $:</strong> Du musst für 170 $ kaufen. Aber das wolltest du ja! ✅ (Gesamtkosten: 168 $ nach Prämie)
+            </p>
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Risiko-Rendite-Profile im Vergleich</h2>
+          <svg viewBox="0 0 260 150" style={{ width: "100%", marginTop: "0.5rem" }}>
+            {[
+              { name: "Covered Call", risiko: 35, rendite: 55, farbe: "#10B981", x: 30 },
+              { name: "Protective Put", risiko: 20, rendite: 75, farbe: "#0EA5E9", x: 100 },
+              { name: "Cash-Sec. Put", risiko: 50, rendite: 45, farbe: "#F59E0B", x: 170 },
+            ].map((d, i) => (
+              <g key={i}>
+                <rect x={d.x} y={130 - d.rendite} width="50" height={d.rendite} fill={d.farbe} rx="4" opacity="0.7" />
+                <rect x={d.x} y={130} width="50" height={d.risiko * 0.4} fill="#ef4444" rx="4" opacity="0.5" />
+                <text x={d.x + 25} y={125 - d.rendite} textAnchor="middle" fill={d.farbe} fontSize="7" fontWeight="700">+{d.rendite}%</text>
+                <text x={d.x + 25} y={148} textAnchor="middle" fill="#888" fontSize="6.5">{d.name}</text>
+              </g>
+            ))}
+            <line x1="20" y1="130" x2="240" y2="130" stroke="#333" strokeWidth="1" />
+            <text x="10" y="10" fill="#666" fontSize="6.5">Grün = möglicher Gewinn · Rot = möglicher Verlust (vereinfacht)</text>
+          </svg>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die Greeks – was Optionen wirklich treibt</h2>
+          <div className="cl-invisible-liste">
+            {[
+              { icon: "Δ", name: "Delta", val: "Wie stark die Option auf €1 Kursbewegung reagiert (0–1)" },
+              { icon: "Γ", name: "Gamma", val: "Wie schnell sich Delta verändert – nimmt zu je näher am Verfall" },
+              { icon: "Θ", name: "Theta", val: "Täglicher Zeitwertverlust. Feind des Käufers, Freund des Verkäufers" },
+              { icon: "V", name: "Vega", val: "Sensitivität gegenüber Volatilität. Höhere Vola = teurere Optionen" },
+            ].map(r => (
+              <div key={r.name} className="cl-invisible-zeile" style={{ alignItems: "flex-start" }}>
+                <span className="cl-inv-icon" style={{ fontSize: "1rem", fontStyle: "italic" }}>{r.icon}</span>
+                <div>
+                  <p style={{ color: "#fff", fontWeight: 600, fontSize: "0.85rem", margin: 0 }}>{r.name}</p>
+                  <p style={{ color: "#aaa", fontSize: "0.78rem", margin: 0 }}>{r.val}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Warum Optionen für Einsteiger gefährlich sind</h2>
+          <div style={{ background: "#ef444415", border: "1px solid #ef444444", borderRadius: "12px", padding: "1rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ffaaaa", lineHeight: 1.7, fontSize: "0.88rem" }}>
+              ❌ Optionsverkäufer haben <strong>unbegrenzte Verlustmöglichkeiten</strong> (beim nackten Call)<br />
+              ❌ Theta Decay arbeitet gegen jeden Optionskäufer<br />
+              ❌ 4 Greeks die man gleichzeitig im Kopf hat – und das in Echtzeit<br />
+              ❌ Volatilität kann explodieren und Optionen unbezahlbar teuer machen<br /><br />
+              <strong style={{ color: "#ef4444" }}>Diese Strategien sind für erfahrene Anleger – nicht für Einsteiger.</strong>
+            </p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Optionsstrategien auf einen Blick</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📞</span><p><strong>Covered Call:</strong> Auf bestehende Aktien Prämien verdienen – Upside begrenzt</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🛡️</span><p><strong>Protective Put:</strong> Portfolio absichern wie eine Versicherung – kostet Prämie</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💰</span><p><strong>Cash-Secured Put:</strong> Aktien günstiger einsammeln – oder Prämie kassieren</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L405Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Ein Landwirt weiß nicht welchen Preis er im Herbst für seinen Weizen bekommt. Ein Futures-Kontrakt gibt ihm heute die Antwort."</div>
+          <p className="cl-hook-sub">Futures wurden für Sicherheit erfunden – nicht für Spekulation.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was ist ein Future?</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem 1.25rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.9rem" }}>
+              Ein Future ist ein <strong style={{ color: "#fff" }}>verbindlicher Vertrag</strong>, eine bestimmte Menge eines Assets zu einem festgelegten Preis an einem zukünftigen Datum zu kaufen oder zu verkaufen.<br /><br />
+              Beide Seiten <strong style={{ color: "#F59E0B" }}>müssen</strong> erfüllen – Käufer muss kaufen, Verkäufer muss liefern.<br /><br />
+              Im Gegensatz zur Option gibt es kein Wahlrecht – es ist eine Pflicht.
+            </p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Option vs. Future – der entscheidende Unterschied</h2>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.78rem", marginTop: "0.75rem" }}>
+              <thead>
+                <tr>
+                  {["", "Option", "Future"].map(h => <th key={h} style={{ padding: "6px 4px", color: "#888", fontWeight: 600, borderBottom: "1px solid #333", textAlign: "center" }}>{h}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { label: "Käufer", opt: "Recht (nicht Pflicht)", fut: "Pflicht" },
+                  { label: "Verkäufer", opt: "Pflicht", fut: "Pflicht" },
+                  { label: "Max. Verlust Käufer", opt: "Prämie", fut: "Unbegrenzt" },
+                  { label: "Vorauskosten", opt: "Prämie zahlen", fut: "Margin hinterlegen" },
+                  { label: "Typische Nutzung", opt: "Absicherung/Spekulation", fut: "Lieferung/Hedging" },
+                ].map(row => (
+                  <tr key={row.label}>
+                    <td style={{ padding: "7px 4px", color: "#bbb", fontWeight: 600 }}>{row.label}</td>
+                    <td style={{ padding: "7px 4px", color: "#ddd", textAlign: "center", borderBottom: "1px solid #222" }}>{row.opt}</td>
+                    <td style={{ padding: "7px 4px", color: "#ddd", textAlign: "center", borderBottom: "1px solid #222" }}>{row.fut}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wer nutzt Futures – und warum?</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🌾</span><p><strong>Landwirte:</strong> Sichern heute den Preis für die Herbsternte ab – Planungssicherheit</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">✈️</span><p><strong>Airlines:</strong> Kerosin-Futures sichern Treibstoffkosten – Southwest Airlines spart so Milliarden</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🏦</span><p><strong>Fondsmanager:</strong> Index-Futures zur Portfolioabsicherung oder für schnelle Marktexposure</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎲</span><p><strong>Spekulanten:</strong> Liquidity Provider die mit Prognosen Geld verdienen wollen</p></div>
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Futures-Zeitstrahl</h2>
+          <svg viewBox="0 0 260 120" style={{ width: "100%", marginTop: "0.75rem" }}>
+            <line x1="20" y1="60" x2="240" y2="60" stroke="#7C3AED" strokeWidth="2" />
+            {[
+              { x: 20, label: "Heute", sub: "Kontrakt\neröffnet", color: "#7C3AED" },
+              { x: 80, label: "Mtg. 1", sub: "Daily\nSettlement", color: "#888" },
+              { x: 140, label: "Mtg. 2", sub: "Rollover\nmöglich", color: "#F59E0B" },
+              { x: 220, label: "Verfall", sub: "Lieferung\noder Cash", color: "#10B981" },
+            ].map((d, i) => (
+              <g key={i}>
+                <circle cx={d.x} cy="60" r="5" fill={d.color} />
+                <text x={d.x} y="45" textAnchor="middle" fill={d.color} fontSize="7.5" fontWeight="600">{d.label}</text>
+                <text x={d.x} y="80" textAnchor="middle" fill="#888" fontSize="6.5">{d.sub.split("\n")[0]}</text>
+                <text x={d.x} y="93" textAnchor="middle" fill="#888" fontSize="6.5">{d.sub.split("\n")[1]}</text>
+              </g>
+            ))}
+          </svg>
+          <div className="cl-fakt-box" style={{ marginTop: "0.75rem" }}>
+            <span className="cl-fakt-icon">💡</span>
+            <p>Daily Settlement: Futures werden täglich abgerechnet – Gewinne und Verluste werden täglich auf dein Konto gebucht oder abgezogen.</p>
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Rollover – die ewige Verlängerung</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.5rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.88rem" }}>
+              Futures laufen ab. Wer langfristig investiert bleibt, muss regelmäßig "rollen" – den auslaufenden Kontrakt verkaufen und den nächsten kaufen.<br /><br />
+              <strong style={{ color: "#fff" }}>Rollkosten entstehen durch:</strong><br />
+              • Preisunterschied zwischen altem und neuem Kontrakt<br />
+              • Transaktionsgebühren<br />
+              • Contango (neuer Kontrakt teurer) vs. Backwardation (neuer günstiger)
+            </p>
+          </div>
+          <div className="cl-fakt-box" style={{ marginTop: "1rem" }}>
+            <span className="cl-fakt-icon">💡</span>
+            <p>Öl-ETFs verlieren regelmäßig durch Rollkosten – sie kaufen täglich teurere Futures und verlieren systematisch gegenüber dem Spotpreis.</p>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Contango und Backwardation</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.5rem" }}>
+            <div style={{ display: "flex", gap: "1rem" }}>
+              <div style={{ flex: 1, background: "#ef444415", borderRadius: "8px", padding: "0.75rem" }}>
+                <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.4rem" }}>📈 CONTANGO</p>
+                <p style={{ color: "#ccc", fontSize: "0.78rem", lineHeight: 1.6 }}>Futures teurer als Spot. Rollover kostet Geld. Schadet Long-Investoren.</p>
+              </div>
+              <div style={{ flex: 1, background: "#10B98115", borderRadius: "8px", padding: "0.75rem" }}>
+                <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.4rem" }}>📉 BACKWARDATION</p>
+                <p style={{ color: "#ccc", fontSize: "0.78rem", lineHeight: 1.6 }}>Futures günstiger als Spot. Rollover bringt Gewinn. Nutzt Long-Investoren.</p>
+              </div>
+            </div>
+          </div>
+          <p style={{ color: "#aaa", fontSize: "0.8rem", marginTop: "0.75rem", textAlign: "center" }}>Öl und Rohstoffe sind oft in Contango – das macht Commodity-ETFs langfristig teuer.</p>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Futures – das Wichtigste</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📜</span><p>Futures sind verbindliche Verträge – beide Seiten MÜSSEN erfüllen (anders als Optionen)</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🌾</span><p>Landwirte und Airlines nutzen sie zur Preissicherung – das ist der eigentliche Zweck</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🔄</span><p>Rollkosten sind real – langfristig gehaltene Commodity-Futures verlieren systematisch durch Contango</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L406Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Krypto-Börsen bieten bis zu 125× Hebel. Das ist kein Investment – das ist Glücksspiel."</div>
+          <p className="cl-hook-sub">Der Unterschied: beim Glücksspiel verlierst du nur den Einsatz.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Bitcoin Futures</h2>
+          <div className="cl-invisible-liste">
+            {[
+              { icon: "📅", name: "Regulierte Futures", val: "CME Group (Chicago) bietet regulierte Bitcoin-Futures – physisch oder cash-settled" },
+              { icon: "💵", name: "Kontraktgröße", val: "1 CME Bitcoin-Future = 5 Bitcoin. Sehr groß, nur für institutionelle Trader" },
+              { icon: "⚖️", name: "Regulierung", val: "Unter CFTC-Aufsicht – deutlich sicherer als unregulierte Krypto-Börsen" },
+              { icon: "📊", name: "Preis-Discovery", val: "CME Futures gelten als Referenz für institutionelle Bitcoin-Preise" },
+            ].map(r => (
+              <div key={r.name} className="cl-invisible-zeile" style={{ alignItems: "flex-start" }}>
+                <span className="cl-inv-icon">{r.icon}</span>
+                <div>
+                  <p style={{ color: "#fff", fontWeight: 600, fontSize: "0.85rem", margin: 0 }}>{r.name}</p>
+                  <p style={{ color: "#aaa", fontSize: "0.78rem", margin: 0 }}>{r.val}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Perpetual Swaps – kein Verfallsdatum</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.88rem" }}>
+              Perpetual Swaps sind die <strong style={{ color: "#fff" }}>beliebtesten Krypto-Derivate</strong> – erhältlich auf Bybit, Binance, Bitmex und Co.<br /><br />
+              Sie funktionieren wie Futures aber ohne Verfalldatum. Stattdessen gibt es die <strong style={{ color: "#F59E0B" }}>Funding Rate</strong> – eine regelmäßige Zahlung die den Preis am Spot-Kurs hält.
+            </p>
+          </div>
+          <svg viewBox="0 0 260 80" style={{ width: "100%", marginTop: "0.75rem" }}>
+            <rect x="10" y="15" width="70" height="50" rx="8" fill="#1a1a2e" stroke="#10B98144" />
+            <text x="45" y="44" textAnchor="middle" fill="#10B981" fontSize="8" fontWeight="700">LONGS</text>
+            <rect x="180" y="15" width="70" height="50" rx="8" fill="#1a1a2e" stroke="#ef444444" />
+            <text x="215" y="44" textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="700">SHORTS</text>
+            <line x1="85" y1="40" x2="178" y2="40" stroke="#F59E0B" strokeWidth="1.5" markerEnd="url(#arrow)" />
+            <text x="130" y="33" textAnchor="middle" fill="#F59E0B" fontSize="7.5">Funding Rate</text>
+            <text x="130" y="55" textAnchor="middle" fill="#888" fontSize="6.5">(alle 8 Stunden)</text>
+          </svg>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Die Funding Rate – ein versteckter Kostenfaktor</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.5rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.88rem" }}>
+              Funding Rate = 0,01 % pro 8 Stunden = <strong style={{ color: "#F59E0B" }}>3× täglich</strong><br /><br />
+              Das sind 0,03 % pro Tag oder ~<strong style={{ color: "#ef4444" }}>10,9 % pro Monat</strong> an reinen Haltekosten.<br /><br />
+              Bei 100.000 $ Long-Position zahlst du ~10.900 $ nur für das Halten – schon bevor der Markt sich bewegt hat.<br /><br />
+              In starken Bull-Märkten kann die Rate 0,1 %+ pro 8h erreichen. Das sind <strong style={{ color: "#ef4444" }}>109 % Jahreskosten.</strong>
+            </p>
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Liquidation bei Krypto – wie schnell geht das?</h2>
+          <svg viewBox="0 0 260 140" style={{ width: "100%", marginTop: "0.75rem" }}>
+            <text x="10" y="15" fill="#888" fontSize="7.5">Bitcoin bei 100.000 $ – Liquidationspreise</text>
+            {[
+              { hebel: "2×", liqPct: 50, liqPx: 50000, color: "#10B981" },
+              { hebel: "5×", liqPct: 20, liqPx: 80000, color: "#F59E0B" },
+              { hebel: "10×", liqPct: 10, liqPx: 90000, color: "#ef9334" },
+              { hebel: "25×", liqPct: 4, liqPx: 96000, color: "#ef4444" },
+            ].map((d, i) => (
+              <g key={i}>
+                <rect x="10" y={25 + i * 27} width="200" height="18" rx="3" fill="#1a1a2e" />
+                <rect x="10" y={25 + i * 27} width={(d.liqPct / 100) * 200} height="18" rx="3" fill={d.color} opacity="0.3" />
+                <text x="15" y={38 + i * 27} fill={d.color} fontSize="7.5" fontWeight="600">{d.hebel} Hebel – Liq. bei {d.liqPx.toLocaleString("de-DE")} $ (−{d.liqPct} %)</text>
+              </g>
+            ))}
+          </svg>
+          <p style={{ color: "#aaa", fontSize: "0.78rem", marginTop: "0.5rem", textAlign: "center" }}>Bitcoin bewegt sich täglich 2–5 %. Bei 25× Hebel reicht eine normale Korrektur.</p>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">⚠️ Klare Risiko-Warnung</h2>
+          <div style={{ background: "#ef444415", border: "2px solid #ef444455", borderRadius: "12px", padding: "1.25rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ef4444", fontWeight: 700, marginBottom: "0.75rem" }}>Krypto-Derivate mit hohem Hebel:</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              {[
+                "Liquidation in Sekunden – rund um die Uhr, 7 Tage die Woche",
+                "Börsen können technische Fehler haben oder manipuliert sein",
+                "Keine Einlagensicherung – Plattform-Insolvenz = Totalverlust (FTX 2022)",
+                "Steuerlich komplex – jede Liquidation ist ein steuerpflichtiges Ereignis",
+                "Psychologische Sucht – Adrenalin bei hohem Hebel ist real und gefährlich",
+              ].map((t, i) => <p key={i} style={{ color: "#ffaaaa", fontSize: "0.82rem", margin: 0 }}>⛔ {t}</p>)}
+            </div>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">EU-Regulierung vs. unregulierte Plattformen</h2>
+          <div style={{ display: "flex", gap: "0.75rem", marginTop: "0.75rem" }}>
+            <div style={{ flex: 1, background: "#10B98115", border: "1px solid #10B98133", borderRadius: "10px", padding: "0.75rem" }}>
+              <p style={{ color: "#10B981", fontWeight: 700, fontSize: "0.82rem", marginBottom: "0.4rem" }}>🇪🇺 EU reguliert</p>
+              <p style={{ color: "#ccc", fontSize: "0.75rem", lineHeight: 1.5 }}>Max. 2× Hebel auf Krypto<br />Einlagenschutz<br />Strikte Dokumentation</p>
+            </div>
+            <div style={{ flex: 1, background: "#ef444415", border: "1px solid #ef444433", borderRadius: "10px", padding: "0.75rem" }}>
+              <p style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.82rem", marginBottom: "0.4rem" }}>🌍 Unreguliert</p>
+              <p style={{ color: "#ccc", fontSize: "0.75rem", lineHeight: 1.5 }}>Bis 125× Hebel<br />Kein Schutz<br />Offshore-Jurisdiktion</p>
+            </div>
+          </div>
+          <div className="cl-fakt-box" style={{ marginTop: "1rem" }}>
+            <span className="cl-fakt-icon">💡</span>
+            <p>FTX hatte Millionen Kunden. 2022 war es pleite. 8 Milliarden Dollar Kundengeld weg.</p>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Krypto-Derivate – das Fazit</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚡</span><p>125× Hebel + 24/7-Märkte = Liquidation in Sekunden. Kein Wochenende, keine Pause</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💸</span><p>Funding Rate = versteckte Haltekosten die bis zu 100 %+ p.a. betragen können</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Wenn überhaupt: nur auf regulierten Plattformen, nur mit Risikokapital, nur mit 2× max.</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L407Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Du hast alles richtig analysiert. Der Kurs steigt um 15 %. Dein Knock-Out hat vorher die Barrier berührt. Du bekommst nichts."</div>
+          <p className="cl-hook-sub">Das ist kein Sonderfall. Das ist das Design.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was sind Knock-Out Zertifikate?</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem 1.25rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.9rem" }}>
+              Knock-Out Zertifikate (auch: Turbos, Mini-Futures) sind <strong style={{ color: "#fff" }}>Hebelprodukte</strong> die den Basiswert nahezu 1:1 abbilden – aber mit Hebel.<br /><br />
+              Der Hebel entsteht durch die <strong style={{ color: "#F59E0B" }}>Barrier</strong> – eine Schwelle unter (Long) oder über (Short) dem aktuellen Kurs.<br /><br />
+              Je näher die Barrier am aktuellen Kurs, desto höher der Hebel.
+            </p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wie der Hebel funktioniert</h2>
+          <p className="cl-card-sub">DAX bei 18.000 Punkten</p>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.5rem" }}>
+            {[
+              { barrier: "17.000", hebel: "18×", abstand: "5,6 %" },
+              { barrier: "16.000", hebel: "9×", abstand: "11,1 %" },
+              { barrier: "14.000", hebel: "4,5×", abstand: "22,2 %" },
+              { barrier: "10.000", hebel: "2,25×", abstand: "44,4 %" },
+            ].map(r => (
+              <div key={r.barrier} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.5rem 0", borderBottom: "1px solid #2a2040" }}>
+                <span style={{ color: "#ccc", fontSize: "0.82rem" }}>Barrier: {r.barrier}</span>
+                <span style={{ color: "#F59E0B", fontWeight: 700 }}>Hebel ≈ {r.hebel}</span>
+                <span style={{ color: "#ef4444", fontSize: "0.78rem" }}>KO bei −{r.abstand}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Was passiert beim Knock-Out?</h2>
+          <svg viewBox="0 0 260 140" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <polyline points="10,90 60,80 100,60 130,50 155,40" stroke="#10B981" strokeWidth="2" fill="none" />
+            <line x1="10" y1="100" x2="250" y2="100" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="5,3" />
+            <text x="15" y="95" fill="#ef4444" fontSize="7.5">Barrier</text>
+            <circle cx="155" cy="100" r="5" fill="#ef4444" />
+            <text x="157" y="90" fill="#ef4444" fontSize="7.5">KO</text>
+            <polyline points="155,100 200,100 250,100" stroke="#888" strokeWidth="2" fill="none" strokeDasharray="3,2" />
+            <polyline points="155,40 170,30 200,10 240,20" stroke="#aaa" strokeWidth="1.5" fill="none" strokeDasharray="3,2" opacity="0.4" />
+            <text x="170" y="115" fill="#aaa" fontSize="6.5">Position wertlos</text>
+            <text x="165" y="25" fill="#aaa" fontSize="6.5" opacity="0.5">Kurs steigt danach</text>
+            <text x="10" y="12" fill="#666" fontSize="6.5">Kursverlauf → Knock-Out-Event</text>
+          </svg>
+          <p style={{ color: "#aaa", fontSize: "0.78rem", textAlign: "center" }}>Auch wenn der Kurs danach wieder steigt: nach dem KO ist das Zertifikat wertlos.</p>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Knock-Out vs. Turbo – der Unterschied</h2>
+          <div style={{ display: "flex", gap: "0.75rem", marginTop: "0.75rem" }}>
+            <div style={{ flex: 1, background: "#1a1a2e", border: "1px solid #7C3AED33", borderRadius: "10px", padding: "0.75rem" }}>
+              <p style={{ color: "#7C3AED", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.4rem" }}>Knock-Out</p>
+              <p style={{ color: "#ccc", fontSize: "0.75rem", lineHeight: 1.6 }}>Barrier = Stop-Loss-Level<br />Bei KO: kleiner Restwert möglich<br />Emittiert von Banken</p>
+            </div>
+            <div style={{ flex: 1, background: "#1a1a2e", border: "1px solid #F59E0B33", borderRadius: "10px", padding: "0.75rem" }}>
+              <p style={{ color: "#F59E0B", fontWeight: 700, fontSize: "0.85rem", marginBottom: "0.4rem" }}>Turbo</p>
+              <p style={{ color: "#ccc", fontSize: "0.75rem", lineHeight: 1.6 }}>Open-End (kein Verfall)<br />Tägliche Anpassung der Barrier<br />Overnight-Finanzierungskosten</p>
+            </div>
+          </div>
+          <div className="cl-fakt-box" style={{ marginTop: "1rem" }}>
+            <span className="cl-fakt-icon">💡</span>
+            <p>In Deutschland sind Knock-Out Zertifikate nach Aktien und ETFs das drittbeliebteste Anlageprodukt – trotz der extremen Risiken.</p>
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Kosten und versteckte Gebühren</h2>
+          <div className="cl-invisible-liste">
+            {[
+              { icon: "💸", name: "Spread", val: "Differenz Kauf/Verkauf. Bei liquiden Produkten 0,5–1 Punkt, bei exotischen bis 5 Punkte" },
+              { icon: "🌙", name: "Finanzierungskosten", val: "Open-End Turbos: täglich Zinsen auf den Basispreis. ~3–5 % p.a. (verschiebt Barrier täglich)" },
+              { icon: "🏦", name: "Emittentenrisiko", val: "Zertifikate sind Schuldverschreibungen der Bank. Bankpleite = Verlust möglich" },
+              { icon: "📉", name: "Gap-Risiko", val: "Kurs springt über Barrier – Restwert kann sogar negativ werden (Nachschusspflicht!)" },
+            ].map(r => (
+              <div key={r.name} className="cl-invisible-zeile" style={{ alignItems: "flex-start" }}>
+                <span className="cl-inv-icon">{r.icon}</span>
+                <div>
+                  <p style={{ color: "#fff", fontWeight: 600, fontSize: "0.85rem", margin: 0 }}>{r.name}</p>
+                  <p style={{ color: "#aaa", fontSize: "0.78rem", margin: 0 }}>{r.val}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Für wen könnten Knock-Outs geeignet sein?</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">✅</span><p>Erfahrene Trader die kurzfristige, präzise Marktschwankungen handeln (Day-Trading)</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">✅</span><p>Anleger die bestehende Positionen kurzfristig mit KO-Puts absichern wollen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">❌</span><p>NICHT für Einsteiger, NICHT als langfristige Anlage, NICHT mit Kapital das man braucht</p></div>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Knock-Outs – das Wichtigste</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💣</span><p>Knock-Out-Event: Barrier kurz berührt → sofort wertlos. Kein zweite Chance</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📐</span><p>Je näher die Barrier am Kurs, desto höher der Hebel – und desto schneller der KO</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">⚠️</span><p>Emittentenrisiko: Zertifikate sind Bankanleihen – Bankpleite bedeutet Verlust auch ohne KO</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L408Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [kapital, setKapital]       = useState(10000)
+  const [risikoAnt, setRisikoAnt]   = useState(1)
+  const [slAbstand, setSlAbstand]   = useState(5)
+  const maxVerlust    = Math.round(kapital * risikoAnt / 100)
+  const posGrösse     = Math.round(maxVerlust / (slAbstand / 100))
+
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Riskiere nie mehr als 1–2 % deines Kapitals in einem einzigen Trade."</div>
+          <p className="cl-hook-sub">Diese Regel trennt professionelle Trader von Zockern.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Warum 1–2 % Regel?</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.88rem" }}>
+              Du hast 10.000 €. Du verlierst 10 Trades in Folge (passiert auch Profis).<br /><br />
+              <strong style={{ color: "#ef4444" }}>Bei 10 % Risiko pro Trade:</strong> Nach 10 Verlusten → 3.487 € übrig (−65 %)<br />
+              <strong style={{ color: "#10B981" }}>Bei 1 % Risiko pro Trade:</strong> Nach 10 Verlusten → 9.044 € übrig (−9,6 %)<br /><br />
+              Der Unterschied? <strong style={{ color: "#fff" }}>Recovery.</strong> Von −65 % brauchst du +186 % um auf null zu kommen. Von −9,6 % brauchst du +10,6 %.
+            </p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Stop-Loss – dein Sicherheitsnetz</h2>
+          <div className="cl-invisible-liste">
+            {[
+              { icon: "🛑", name: "Was ist ein Stop-Loss?", val: "Automatische Verkaufsorder wenn der Kurs einen definierten Preis unterschreitet" },
+              { icon: "📐", name: "Wo platzieren?", val: "Unter technischen Unterstützungsniveaus oder in fixer % Distanz zum Einstieg" },
+              { icon: "⚠️", name: "Slippage-Risiko", val: "Bei Markteröffnung oder Lücken springt der Kurs über den Stop-Loss – Ausführung schlechter" },
+              { icon: "🎯", name: "Mental vs. Hard Stop", val: "Hard Stop = automatisch in der Plattform. Mental Stop = gefährlich (Hoffnung schlägt Disziplin)" },
+            ].map(r => (
+              <div key={r.name} className="cl-invisible-zeile" style={{ alignItems: "flex-start" }}>
+                <span className="cl-inv-icon">{r.icon}</span>
+                <div>
+                  <p style={{ color: "#fff", fontWeight: 600, fontSize: "0.85rem", margin: 0 }}>{r.name}</p>
+                  <p style={{ color: "#aaa", fontSize: "0.78rem", margin: 0 }}>{r.val}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Position-Sizing Rechner</h2>
+          <p className="cl-card-sub">Kapital: <strong>{kapital.toLocaleString("de-DE")} €</strong></p>
+          <input type="range" min={1000} max={50000} step={500} value={kapital} onChange={e => setKapital(Number(e.target.value))} className="rc-slider rc-slider-full" style={{ background: sliderBg(kapital, 1000, 50000), marginBottom: "0.75rem" }} />
+          <p className="cl-card-sub">Risiko pro Trade: <strong>{risikoAnt} %</strong></p>
+          <input type="range" min={0.5} max={5} step={0.5} value={risikoAnt} onChange={e => setRisikoAnt(Number(e.target.value))} className="rc-slider rc-slider-full" style={{ background: sliderBg(risikoAnt, 0.5, 5), marginBottom: "0.75rem" }} />
+          <p className="cl-card-sub">Stop-Loss Abstand: <strong>{slAbstand} %</strong></p>
+          <input type="range" min={1} max={20} step={1} value={slAbstand} onChange={e => setSlAbstand(Number(e.target.value))} className="rc-slider rc-slider-full" style={{ background: sliderBg(slAbstand, 1, 20), marginBottom: "1rem" }} />
+          <div className="cl-kaffee-ergebnis">
+            <div className="cl-kaffee-zeile"><span>Max. Verlust</span><span className="cl-kaffee-wert cl-kaffee-big" style={{ color: "#ef4444" }}>{maxVerlust.toLocaleString("de-DE")} €</span></div>
+            <div className="cl-kaffee-zeile"><span>Positionsgröße</span><span style={{ color: "#10B981", fontWeight: 700 }}>{posGrösse.toLocaleString("de-DE")} €</span></div>
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Kelly-Kriterium – optimale Positionsgröße</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.88rem" }}>
+              John Kelly (Bell Labs, 1956) entwickelte die optimale Formel für Positionsgrößen:<br /><br />
+              <strong style={{ color: "#F59E0B", fontFamily: "monospace" }}>f* = (p × b − q) / b</strong><br /><br />
+              • p = Gewinnwahrscheinlichkeit<br />
+              • q = 1 − p (Verlustwahrscheinlichkeit)<br />
+              • b = Gewinn/Verlust Verhältnis (Reward/Risk)<br /><br />
+              Profis verwenden <strong style={{ color: "#fff" }}>½ oder ¼ Kelly</strong> – voller Kelly ist zu aggressiv.
+            </p>
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Maximaler Drawdown – der echte Test</h2>
+          <svg viewBox="0 0 260 140" style={{ width: "100%", marginTop: "0.75rem" }}>
+            <polyline points="10,120 40,100 70,80 90,70 110,85 130,95 150,105 170,100 200,70 230,50 250,40" stroke="#7C3AED" strokeWidth="2" fill="none" />
+            <line x1="90" y1="70" x2="150" y2="70" stroke="#ef4444" strokeWidth="1" strokeDasharray="3,2" />
+            <line x1="90" y1="70" x2="90" y2="105" stroke="#ef4444" strokeWidth="1" />
+            <line x1="150" y1="105" x2="150" y2="105" stroke="#ef4444" strokeWidth="1" />
+            <rect x="90" y="70" width="60" height="35" fill="#ef444415" />
+            <text x="120" y="92" textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="700">Max DD</text>
+            <text x="10" y="12" fill="#666" fontSize="7">Portfolio-Performance mit Drawdown-Phase</text>
+            <text x="170" y="48" fill="#10B981" fontSize="7.5">Recovery ✓</text>
+          </svg>
+          <div className="cl-fakt-box">
+            <span className="cl-fakt-icon">⚠️</span>
+            <p>Bei 50% Drawdown brauchst du 100% Rendite um auf null zu kommen. Halte Max DD unter 20–25%.</p>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Risiko-Pyramide</h2>
+          <svg viewBox="0 0 260 150" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <polygon points="130,10 20,135 240,135" fill="none" stroke="#7C3AED44" strokeWidth="1" />
+            <polygon points="130,40 50,135 210,135" fill="#7C3AED22" stroke="#7C3AED44" strokeWidth="1" />
+            <text x="130" y="100" textAnchor="middle" fill="#7C3AED" fontSize="8" fontWeight="600">Stop-Loss</text>
+            <text x="130" y="114" textAnchor="middle" fill="#aaa" fontSize="7">immer definiert</text>
+            <polygon points="130,10 75,90 185,90" fill="#F59E0B22" stroke="#F59E0B44" strokeWidth="1" />
+            <text x="130" y="65" textAnchor="middle" fill="#F59E0B" fontSize="8" fontWeight="600">Position Sizing</text>
+            <text x="130" y="77" textAnchor="middle" fill="#aaa" fontSize="7">max 1–2 % Risiko</text>
+            <polygon points="130,10 100,50 160,50" fill="#10B98122" stroke="#10B98144" strokeWidth="1" />
+            <text x="130" y="36" textAnchor="middle" fill="#10B981" fontSize="7.5" fontWeight="600">Setup-Qualität</text>
+          </svg>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Risikomanagement – die goldenen Regeln</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Nie mehr als 1–2 % des Kapitals in einem Trade riskieren – ohne Ausnahme</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🛑</span><p>Stop-Loss immer setzen – vor dem Trade, nicht danach. Mental Stop funktioniert nicht</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📊</span><p>Position Sizing berechnen: Positionsgröße = Max. Verlust / Stop-Loss-Abstand</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L409Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Verluste aus Optionen können NICHT mit ETF-Gewinnen verrechnet werden. Das kostet Anleger jährlich Tausende Euro."</div>
+          <p className="cl-hook-sub">Steuerrecht schlägt Marktlogik – verstehe die Regeln bevor du handelst.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Der separate Verlustverrechnungstopf</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.88rem" }}>
+              Seit 2021 gibt es in Deutschland <strong style={{ color: "#fff" }}>3 separate Töpfe</strong> für Kapitalverluste:<br /><br />
+              🪣 <strong style={{ color: "#7C3AED" }}>Aktien-Topf:</strong> Verluste nur mit Aktiengewinnen verrechenbar<br />
+              🪣 <strong style={{ color: "#F59E0B" }}>Sonstiger Topf:</strong> Verluste aus ETFs, Anleihen, Dividenden<br />
+              🪣 <strong style={{ color: "#ef4444" }}>Termingeschäfts-Topf:</strong> Optionen, Futures, CFDs – NUR untereinander verrechenbar
+            </p>
+          </div>
+          <div className="cl-fakt-box" style={{ marginTop: "1rem" }}>
+            <span className="cl-fakt-icon">⚠️</span>
+            <p>Das gilt seit Jahressteuergesetz 2020. Vorher konnten Verluste freier verrechnet werden.</p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Der 20.000 € Cap – ein massiver Nachteil</h2>
+          <div style={{ background: "#ef444415", border: "1px solid #ef444444", borderRadius: "12px", padding: "1rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ef4444", fontWeight: 700, marginBottom: "0.5rem" }}>§20 Abs. 6 Satz 5 EStG</p>
+            <p style={{ color: "#ffaaaa", lineHeight: 1.7, fontSize: "0.88rem" }}>
+              Verluste aus Termingeschäften können pro Jahr nur bis zu <strong>20.000 €</strong> mit Gewinnen aus Termingeschäften verrechnet werden.<br /><br />
+              Der Rest wird auf das nächste Jahr vorgetragen – aber wieder mit 20.000 € Cap.
+            </p>
+          </div>
+          <div style={{ background: "#1a1a2e", borderRadius: "10px", padding: "0.75rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ccc", fontSize: "0.82rem", lineHeight: 1.6 }}>
+              Beispiel: Du verlierst 100.000 € mit Optionen. Du gewinnst 100.000 € mit CFDs.<br />
+              Steuerpflichtig: 80.000 € Gewinn (nur 20.000 € Verlust anrechenbar). Steuer: ~21.100 €.
+            </p>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Vergleich: ETFs vs. Termingeschäfte steuerlich</h2>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.78rem", marginTop: "0.75rem" }}>
+              <thead>
+                <tr>
+                  {["", "ETFs/Aktien", "Optionen/CFDs"].map(h => <th key={h} style={{ padding: "6px 4px", color: "#888", fontWeight: 600, borderBottom: "1px solid #333", textAlign: "left" }}>{h}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { label: "Gewinne", etf: "26,375 % AbgSt", deriv: "26,375 % AbgSt" },
+                  { label: "Verluste", etf: "Freie Verrechnung", deriv: "NUR mit Termin-Gewinnen" },
+                  { label: "Jahrescap", etf: "Unbegrenzt", deriv: "Max. 20.000 €/Jahr" },
+                  { label: "Haltedauer", etf: "Irrelevant für Steuer", deriv: "Irrelevant für Steuer" },
+                ].map(row => (
+                  <tr key={row.label}>
+                    <td style={{ padding: "7px 4px", color: "#bbb", fontWeight: 600 }}>{row.label}</td>
+                    <td style={{ padding: "7px 4px", color: "#10B981", borderBottom: "1px solid #222" }}>{row.etf}</td>
+                    <td style={{ padding: "7px 4px", color: "#ef4444", borderBottom: "1px solid #222" }}>{row.deriv}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Steuerpflichtige Ereignisse bei Derivaten</h2>
+          <div className="cl-invisible-liste">
+            {[
+              { icon: "✅", name: "Option mit Gewinn verkauft", val: "Steuerpflichtig – Abgeltungssteuer auf Gewinn" },
+              { icon: "✅", name: "Option wertlos verfallen", val: "Verlust → in Termingeschäfts-Topf (max. 20k/Jahr)" },
+              { icon: "✅", name: "CFD-Trade geschlossen", val: "Gewinn/Verlust → Termingeschäfts-Topf" },
+              { icon: "✅", name: "Prämie als Optionsverkäufer", val: "Sofort steuerpflichtig wenn Option verfällt oder geschlossen" },
+              { icon: "⚠️", name: "Glattstellung der Gegenposition", val: "Beides steuerpflichtig – nicht nur der Saldo" },
+            ].map(r => (
+              <div key={r.name} className="cl-invisible-zeile" style={{ alignItems: "flex-start" }}>
+                <span className="cl-inv-icon">{r.icon}</span>
+                <div>
+                  <p style={{ color: "#fff", fontWeight: 600, fontSize: "0.82rem", margin: 0 }}>{r.name}</p>
+                  <p style={{ color: "#aaa", fontSize: "0.75rem", margin: 0 }}>{r.val}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Praktisches Beispiel: Jahresbilanz</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.5rem" }}>
+            <p style={{ color: "#ccc", fontSize: "0.82rem", lineHeight: 1.8 }}>
+              Max hat 2024 folgendes Depot:<br />
+              📈 ETF-Gewinne: +15.000 € → 1.000 € Steuer (nach Freibetrag)<br />
+              📉 Optionsverluste: −30.000 € → <strong style={{ color: "#ef4444" }}>NICHT mit ETF-Gewinnen verrechenbar!</strong><br />
+              📈 CFD-Gewinne: +25.000 € → davon 20.000 € Verluste anrechenbar<br />
+              Steuer auf verbleibende 5.000 €: 1.319 €<br /><br />
+              <strong style={{ color: "#fff" }}>Gesamtsteuer: ~2.319 €</strong> obwohl netto 10.000 € Gesamtgewinn
+            </p>
+          </div>
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Dokumentation und Jahresabschluss</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📋</span><p><strong>Jahressteuerbescheinigung:</strong> Broker stellt sie bis Ende Februar aus. Termingeschäfts-Topf wird separat ausgewiesen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🔄</span><p><strong>Verlustvortrag:</strong> Nicht verrechnete Verluste werden automatisch ins nächste Jahr vorgetragen</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📊</span><p><strong>Tools:</strong> Koinly, Taxfix oder direkter Steuerberater für komplexe Derivate-Situationen empfohlen</p></div>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Steuern bei Derivaten – das Fazit</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🪣</span><p>Separater Termingeschäfts-Topf seit 2021 – Verluste NICHT mit ETF-Gewinnen verrechenbar</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🔒</span><p>20.000 € Cap pro Jahr – wer mehr verliert zahlt trotzdem Steuern auf Gewinne</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📜</span><p>Diese Asymmetrie macht aktives Derivate-Trading steuerlich besonders unvorteilhaft</p></div>
+          </div>
+          <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
+        </div>
+      )
+      default: return null
+    }
+  }
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+}
+
+function L410Screen({ lektion, onZurueck, onAbgeschlossen }) {
+  const [bereitFragen, setBereitFragen] = useState({ f1: null, f2: null, f3: null, f4: null, f5: null })
+  const alleBeantwortet = Object.values(bereitFragen).every(v => v !== null)
+  const jaAntworten = Object.values(bereitFragen).filter(v => v === "ja").length
+
+  function getEmpfehlung() {
+    if (jaAntworten >= 4) return { text: "Du hast die Voraussetzungen – aber starte mit kleinen Beträgen und nur auf regulierten Plattformen.", farbe: "#F59E0B" }
+    if (jaAntworten >= 2) return { text: "Noch nicht bereit. Baue erst mehr Erfahrung mit ETFs und Aktien auf.", farbe: "#ef9334" }
+    return { text: "Definitiv noch nicht bereit. Bleib bei ETF-Sparplänen – sie schlagen aktives Trading langfristig.", farbe: "#ef4444" }
+  }
+
+  function renderCard(idx) {
+    switch (idx) {
+      case 0: return (
+        <div className="cl-card cl-card-hook">
+          <div className="cl-hook-statement">"Für 95 % der Privatanleger gilt: Finger weg von Hebelprodukten. Ein ETF-Sparplan schlägt Trading langfristig – ohne Stress."</div>
+          <p className="cl-hook-sub">Das ist keine Meinung. Das sind Daten.</p>
+        </div>
+      )
+      case 1: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Hedging – die legitime Nutzung</h2>
+          <div style={{ background: "#1a1a2e", borderRadius: "12px", padding: "1rem", marginTop: "0.75rem" }}>
+            <p style={{ color: "#ccc", lineHeight: 1.7, fontSize: "0.88rem" }}>
+              Du hast ein ETF-Portfolio im Wert von 50.000 € und hast Angst vor einem Kursrückgang in den nächsten 3 Monaten (z.B. wegen einer erwarteten Rezession).<br /><br />
+              Statt alles zu verkaufen kaufst du Put-Optionen auf den MSCI World – Prämie: ~1.000 €.<br /><br />
+              Markt fällt 20 %: Dein Portfolio verliert 10.000 €, die Put-Option gewinnt ~8.000 € → <strong style={{ color: "#10B981" }}>Nettoverlust: nur 3.000 € statt 10.000 €</strong>
+            </p>
+          </div>
+        </div>
+      )
+      case 2: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Professionelle Nutzung</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🏦</span><p><strong>Hedgefonds:</strong> Long-Short-Strategien mit Optionen und Futures zur Renditeoptimierung bei neutralem Marktrisiko</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🌾</span><p><strong>Produzenten:</strong> Rohstoff-Futures zur Plaungssicherheit – essentiell für die Agrarwirtschaft</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💼</span><p><strong>Market Maker:</strong> Stellen Liquidität zur Verfügung und hedgen ihr eigenes Risiko mit Optionen</p></div>
+          </div>
+        </div>
+      )
+      case 3: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">ETF-Sparplan vs. aktives Trading – die Fakten</h2>
+          <svg viewBox="0 0 260 150" style={{ width: "100%", marginTop: "0.5rem" }}>
+            <polyline points="10,130 60,110 110,85 160,60 210,35 250,20" stroke="#7C3AED" strokeWidth="2.5" fill="none" />
+            <polyline points="10,130 40,125 80,120 120,115 160,125 200,110 250,105" stroke="#ef4444" strokeWidth="2" fill="none" strokeDasharray="4,2" />
+            <text x="220" y="16" fill="#7C3AED" fontSize="7.5" fontWeight="700">MSCI World ETF</text>
+            <text x="215" y="100" fill="#ef4444" fontSize="7.5">Avg. Trader</text>
+            <text x="10" y="12" fill="#666" fontSize="6.5">10-Jahres-Performance (vereinfacht)</text>
+            <line x1="10" y1="130" x2="250" y2="130" stroke="#333" strokeWidth="1" />
+          </svg>
+          <p style={{ color: "#aaa", fontSize: "0.78rem", textAlign: "center" }}>SPIVA-Studie: 85–90 % der aktiven Trader underperformen den Index über 10 Jahre.</p>
+        </div>
+      )
+      case 4: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wann NICHT mit Hebelprodukten handeln</h2>
+          <div style={{ background: "#ef444415", border: "1px solid #ef444444", borderRadius: "12px", padding: "1rem", marginTop: "0.75rem" }}>
+            {[
+              "Wenn du weniger als 2 Jahre aktive Börsenerfahrung hast",
+              "Wenn du dein Notgroschen-Kapital einsetzt",
+              "Wenn du dir Kapital geliehen hast (Kredit, Dispo)",
+              "Wenn du im Job oder privat gerade Stress hast",
+              "Wenn du aus FOMO handelst weil 'alle verdienen'",
+              "Wenn du nicht erklären kannst was Margin, Theta und Liquidation bedeuten",
+            ].map((t, i) => <p key={i} style={{ color: "#ffaaaa", fontSize: "0.82rem", margin: "0.3rem 0" }}>⛔ {t}</p>)}
+          </div>
+        </div>
+      )
+      case 5: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Bin ich bereit für Hebelprodukte?</h2>
+          <p className="cl-card-sub" style={{ marginBottom: "0.75rem" }}>Beantworte ehrlich – 5 Fragen:</p>
+          {[
+            { key: "f1", frage: "Habe ich 2+ Jahre aktive Börsenerfahrung?" },
+            { key: "f2", frage: "Ist das Kapital Risikokapital (Totalverlust okay)?" },
+            { key: "f3", frage: "Kenne ich Greeks, Margin und Stop-Loss im Detail?" },
+            { key: "f4", frage: "Habe ich eine klare schriftliche Trading-Strategie?" },
+            { key: "f5", frage: "Handle ich auf regulierten Plattformen mit max. 5× Hebel?" },
+          ].map(f => (
+            <div key={f.key} style={{ marginBottom: "0.5rem" }}>
+              <p style={{ color: "#ccc", fontSize: "0.8rem", marginBottom: "0.3rem" }}>{f.frage}</p>
+              <div style={{ display: "flex", gap: "0.5rem" }}>
+                <button onClick={() => setBereitFragen(p => ({ ...p, [f.key]: "ja" }))} style={{ flex: 1, padding: "0.35rem", borderRadius: "8px", border: bereitFragen[f.key] === "ja" ? "2px solid #10B981" : "1px solid #333", background: bereitFragen[f.key] === "ja" ? "#10B98122" : "#1a1a2e", color: "#10B981", cursor: "pointer", fontSize: "0.8rem" }}>✅ Ja</button>
+                <button onClick={() => setBereitFragen(p => ({ ...p, [f.key]: "nein" }))} style={{ flex: 1, padding: "0.35rem", borderRadius: "8px", border: bereitFragen[f.key] === "nein" ? "2px solid #ef4444" : "1px solid #333", background: bereitFragen[f.key] === "nein" ? "#ef444422" : "#1a1a2e", color: "#ef4444", cursor: "pointer", fontSize: "0.8rem" }}>❌ Nein</button>
+              </div>
+            </div>
+          ))}
+          {alleBeantwortet && (
+            <div style={{ background: "#1a1a2e", borderRadius: "10px", padding: "0.75rem", marginTop: "0.75rem", borderLeft: `3px solid ${getEmpfehlung().farbe}` }}>
+              <p style={{ color: getEmpfehlung().farbe, fontWeight: 700, fontSize: "0.82rem", margin: 0 }}>{jaAntworten}/5 Ja – {getEmpfehlung().text}</p>
+            </div>
+          )}
+        </div>
+      )
+      case 6: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Wenn du trotzdem anfangen willst</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📚</span><p><strong>Schritt 1:</strong> 6 Monate Papiertrades (kein echtes Geld) – lerne ohne Verlustrisiko</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">💶</span><p><strong>Schritt 2:</strong> Mit max. 500 € Risikokapital starten – Geld das du vollständig verlieren kannst</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🇪🇺</span><p><strong>Schritt 3:</strong> Nur EU-regulierte Plattformen (IBKR, CapTrader) – max. 5× Hebel, nie mehr</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📊</span><p><strong>Schritt 4:</strong> Jede Trade dokumentieren – ohne Journal kein Lernen</p></div>
+          </div>
+        </div>
+      )
+      case 7: return (
+        <div className="cl-card">
+          <h2 className="cl-card-titel">Das ehrliche Fazit zu Hebelprodukten</h2>
+          <div className="cl-takeaways">
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">📊</span><p>85–90 % der aktiven Trader underperformen den MSCI World – über alle Zeiträume und Märkte</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🛡️</span><p>Legitime Nutzung: Hedging mit Protective Puts für erfahrene Langfristanleger</p></div>
+            <div className="cl-takeaway"><span className="cl-takeaway-icon">🎯</span><p>Für 95 % gilt: ETF-Sparplan, buy-and-hold, jährliches Rebalancing. Einfach. Effektiv. Bewiesen.</p></div>
           </div>
           <p className="cl-quiz-cta">Teste dein Wissen im Quiz!</p>
         </div>
