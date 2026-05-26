@@ -10,6 +10,7 @@ import {
 } from "./icons.jsx"
 
 import { kategorien, hauptkategorien, LERNPLAN_ZIELE, AKTIONSPLAN_DATEN, AKTIONSPLAN_TRIGGER, dailyQuests, lernpfad } from "./lernpfadData.js"
+import FinanzAssistent from "./FinanzAssistent.jsx"
 
 // ─── XP & Level System ───────────────────────────────────────────────────────
 
@@ -151,6 +152,39 @@ function getEmpfohleneKatId(userWissenslevel) {
   if (userWissenslevel >= 4) return 7
   if (userWissenslevel >= 3) return 2
   return 1
+}
+
+function getEmpfehlung(abgeschlosseneLektionen, userWissenslevel, userAktuelleSituation) {
+  const hatSchulden = (userAktuelleSituation || []).includes("schulden")
+  const etfLektionen = lernpfad[1] || []
+  const aktienLektionen = lernpfad[2] || []
+  const budgetLektionen = lernpfad[5] || []
+  const bankingLektionen = lernpfad[6] || []
+  const steuernLektionen = lernpfad[7] || []
+
+  const etfKomplett = etfLektionen.length > 0 && etfLektionen.every(l => abgeschlosseneLektionen.includes(l.id))
+  const budgetKomplett = budgetLektionen.length > 0 && budgetLektionen.every(l => abgeschlosseneLektionen.includes(l.id))
+  const bankingKomplett = bankingLektionen.length > 0 && bankingLektionen.every(l => abgeschlosseneLektionen.includes(l.id))
+
+  if (hatSchulden && !budgetKomplett) {
+    return { katId: 5, grund: "Weil du Schulden angegeben hast – Budgetierung hilft dir zuerst" }
+  }
+  if (etfKomplett && !aktienLektionen.every(l => abgeschlosseneLektionen.includes(l.id))) {
+    return { katId: 2, grund: "Weil du ETF Basics abgeschlossen hast" }
+  }
+  if (budgetKomplett && !bankingKomplett) {
+    return { katId: 6, grund: "Weil du Budgetierung abgeschlossen hast" }
+  }
+  if (bankingKomplett && !steuernLektionen.every(l => abgeschlosseneLektionen.includes(l.id))) {
+    return { katId: 7, grund: "Weil du Banking abgeschlossen hast" }
+  }
+  if ((userWissenslevel || 1) >= 4) {
+    return { katId: 4, grund: "Für dein Wissenslevel geeignet" }
+  }
+  if (etfKomplett) {
+    return { katId: 5, grund: "Weil du ETF Basics abgeschlossen hast" }
+  }
+  return { katId: 1, grund: "Der beste Einstieg ins Investieren" }
 }
 
 function getZielText(userZiel) {
@@ -748,7 +782,7 @@ function WelcomeScreen({ userFinanzsituation, userZiel, userName, onDone }) {
   )
 }
 
-function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosseneQuests, xpTaeglich, abgeschlosseneLektionen, userWissenslevel, userZiel, userFinanzsituation, onboardingDate, onLektionClick }) {
+function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosseneQuests, xpTaeglich, abgeschlosseneLektionen, userWissenslevel, userZiel, userFinanzsituation, onboardingDate, onLektionClick, userAktuelleSituation }) {
   const [expandedKatId, setExpandedKatId] = useState(null)
 
   const lvl        = getLevelInfo(xp)
@@ -763,6 +797,8 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
   const empKatId   = getEmpfohleneKatId(userWissenslevel || 1)
   const level      = berechneLevel(xp)
   const hatKeineLektionen = abgeschlosseneLektionen.length === 0
+  const empfehlung = abgeschlosseneLektionen.length > 0 ? getEmpfehlung(abgeschlosseneLektionen, userWissenslevel, userAktuelleSituation) : null
+  const empKat     = empfehlung ? kategorien.find(k => k.id === empfehlung.katId) : null
 
   const donutR    = 14
   const donutCirc = 2 * Math.PI * donutR
@@ -862,6 +898,21 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
       </div>
+
+      {/* ── EMPFEHLUNG ── */}
+      {empKat && (
+        <div className="emp-card" onClick={() => { setExpandedKatId(empKat.id); setTimeout(() => document.getElementById("lernpfade-section")?.scrollIntoView({ behavior: "smooth" }), 100) }}>
+          <div className="emp-icon">{empKat.icon}</div>
+          <div className="emp-text">
+            <span className="emp-label">Empfohlen für dich</span>
+            <p className="emp-name">{empKat.name}</p>
+            <p className="emp-grund">{empfehlung.grund}</p>
+          </div>
+          <div className="emp-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      )}
 
       {/* ── TIPP DES TAGES ── */}
       <div className="tipp-karte">
@@ -1106,6 +1157,111 @@ function KategorieDetail({ kategorie, abgeschlosseneLektionen, onZurueck, onLekt
   )
 }
 
+const GLOSSAR_BEGRIFFE = [
+  { term: "Abgeltungssteuer", def: "Steuer von 25% auf Kapitalerträge wie Dividenden und Kursgewinne in Deutschland. Ab 1.000€ (Single) greift der Sparerpauschbetrag.", kat: 7 },
+  { term: "Aktie", def: "Anteil an einem Unternehmen. Als Aktionär bist du Miteigentümer und hast Anspruch auf Dividenden und Stimmrecht.", kat: 2 },
+  { term: "Anleihe", def: "Schuldverschreibung: Du leihst einem Staat oder Unternehmen Geld und bekommst Zinsen zurück. Gilt als sicherer als Aktien.", kat: 1 },
+  { term: "Asset Allocation", def: "Aufteilung des Portfolios auf verschiedene Anlageklassen (Aktien, Anleihen, Immobilien). Beeinflusst Risiko und Rendite maßgeblich.", kat: 1 },
+  { term: "Ausschüttend", def: "ETF oder Fonds, der Dividenden und Zinsen regelmäßig an Anleger auszahlt. Gegenteil: thesaurierend.", kat: 1 },
+  { term: "Benchmark", def: "Vergleichsindex für Fonds und ETFs, z.B. DAX oder MSCI World. Zeigt, ob ein Fonds besser oder schlechter als der Markt abschneidet.", kat: 1 },
+  { term: "Beta", def: "Maß für die Volatilität einer Aktie im Vergleich zum Markt. Beta > 1 = volatiler, Beta < 1 = stabiler als der Markt.", kat: 2 },
+  { term: "Blue Chip", def: "Aktien großer, etablierter Unternehmen mit stabiler Dividendenhistorie. Beispiele: Apple, Microsoft, Nestlé.", kat: 2 },
+  { term: "Broker", def: "Finanzdienstleister, über den du Wertpapiere kaufen und verkaufen kannst. Beispiele: Trade Republic, Scalable Capital.", kat: 6 },
+  { term: "Budget", def: "Finanzplan, der Einnahmen und Ausgaben gegenüberstellt. Grundlage für erfolgreiches Sparen und Investieren.", kat: 5 },
+  { term: "Bull/Bear Market", def: "Bullenmarkt = steigende Kurse (optimistisch). Bärenmarkt = fallende Kurse (pessimistisch). Oft definiert als 20% Anstieg/Fall.", kat: 2 },
+  { term: "Call Option", def: "Recht, ein Wertpapier zu einem festgelegten Preis zu kaufen. Profitiert von steigenden Kursen. Zeitwert verfällt.", kat: 4 },
+  { term: "Cash Flow", def: "Geldfluss: Einnahmen minus Ausgaben in einem Zeitraum. Positiver Cash Flow = mehr rein als raus.", kat: 5 },
+  { term: "CFD", def: "Contract for Difference – spekulatives Instrument ohne Eigentum am Basiswert. Hoher Verlustrisiken durch Hebel. Nicht für Einsteiger.", kat: 4 },
+  { term: "Cost Averaging", def: "Regelmäßiges Investieren gleicher Beträge. Kaufst du bei hohen und niedrigen Kursen – resultiert in günstigem Durchschnittspreis.", kat: 1 },
+  { term: "DAX", def: "Deutscher Aktienindex mit den 40 größten börsennotierten Unternehmen Deutschlands. Berechnet als Performance-Index.", kat: 2 },
+  { term: "Depot", def: "Wertpapierkonto bei einer Bank oder einem Broker, auf dem deine Aktien, ETFs und andere Wertpapiere verwahrt werden.", kat: 6 },
+  { term: "Derivat", def: "Finanzinstrument, dessen Wert von einem Basiswert (Aktie, Index, Rohstoff) abhängt. Beispiele: Optionen, Futures, CFDs.", kat: 4 },
+  { term: "Diversifikation", def: "Risikostreuung durch Investition in verschiedene Anlagen. 'Lege nicht alle Eier in einen Korb.' ETFs sind automatisch diversifiziert.", kat: 1 },
+  { term: "Dividende", def: "Gewinnbeteiligung, die ein Unternehmen an seine Aktionäre ausschüttet. Meist quartalsmäßig oder jährlich.", kat: 2 },
+  { term: "DCA", def: "Dollar Cost Averaging – Strategie des regelmäßigen Investierens fixer Beträge, unabhängig vom aktuellen Kurs.", kat: 1 },
+  { term: "ETF", def: "Exchange Traded Fund – börsengehandelter Fonds, der einen Index wie den MSCI World abbildet. Günstig, breit diversifiziert.", kat: 1 },
+  { term: "Eigenkapital", def: "Eigene finanzielle Mittel, die du in eine Investition einbringst. Bei Immobilien: typisch 20% des Kaufpreises.", kat: 8 },
+  { term: "Emerging Markets", def: "Schwellenländer wie China, Indien, Brasilien. Höheres Wachstumspotenzial aber auch höheres Risiko als Industrienationen.", kat: 1 },
+  { term: "FIRE Movement", def: "Financial Independence, Retire Early – Bewegung mit dem Ziel, durch hohes Sparen früh finanziell unabhängig zu werden.", kat: 5 },
+  { term: "Fondssparplan", def: "Automatischer Kauf von Fondsanteilen in regelmäßigen Abständen. Ideal für langfristigen Vermögensaufbau.", kat: 1 },
+  { term: "Freistellungsauftrag", def: "Antrag bei der Bank, der sicherstellt, dass Erträge bis zum Sparerpauschbetrag (1.000€) steuerfrei bleiben.", kat: 7 },
+  { term: "Futures", def: "Terminkontrakte zum Kauf/Verkauf eines Basiswerts zu einem festgelegten Preis in der Zukunft. Wird für Absicherung und Spekulation genutzt.", kat: 4 },
+  { term: "Hedge", def: "Absicherungsstrategie gegen Verluste. Z.B. Put-Option kaufen, um Aktienposition gegen Kursverluste abzusichern.", kat: 4 },
+  { term: "Index", def: "Statistische Kennzahl, die die Performance einer Gruppe von Wertpapieren abbildet. Beispiele: MSCI World, DAX, S&P 500.", kat: 1 },
+  { term: "Inflation", def: "Anstieg des allgemeinen Preisniveaus. Entwertet Geld auf dem Konto. Historisch ~2% p.a. – Investieren schützt dagegen.", kat: 1 },
+  { term: "ISIN", def: "International Securities Identification Number – eindeutige 12-stellige Kennung für jedes Wertpapier weltweit.", kat: 6 },
+  { term: "KGV", def: "Kurs-Gewinn-Verhältnis: Aktienkurs geteilt durch Gewinn je Aktie. Niedrig = potenziell günstig. Basis für Bewertungsanalysen.", kat: 2 },
+  { term: "Leverage", def: "Hebelwirkung – Einsatz von Fremdkapital zum Verstärken von Gewinnen (und Verlusten). Erhöht Risiko erheblich.", kat: 4 },
+  { term: "Liquidität", def: "Wie schnell ein Vermögenswert in Bargeld umgewandelt werden kann. Aktien: hoch. Immobilien: niedrig.", kat: 5 },
+  { term: "MSCI World", def: "Index der ca. 1.500 größten Unternehmen aus 23 Industrienationen. Beliebtester ETF-Index für langfristige Anleger.", kat: 1 },
+  { term: "Marktkapitalisierung", def: "Gesamtwert aller ausstehenden Aktien eines Unternehmens. Kurs × Aktienanzahl = Marktkapitalisierung.", kat: 2 },
+  { term: "Option", def: "Recht (keine Pflicht), einen Basiswert zu kaufen (Call) oder zu verkaufen (Put) zu einem festgelegten Preis.", kat: 4 },
+  { term: "Portfolio", def: "Gesamtheit aller Finanzanlagen einer Person: Aktien, ETFs, Anleihen, Immobilien etc. Sollte diversifiziert sein.", kat: 1 },
+  { term: "Put Option", def: "Recht, ein Wertpapier zu einem festgelegten Preis zu verkaufen. Profitiert von fallenden Kursen.", kat: 4 },
+  { term: "Rebalancing", def: "Wiederherstellung der Zielgewichtung im Portfolio. Einmal jährlich reicht – Steuern und Kosten beachten.", kat: 1 },
+  { term: "REIT", def: "Real Estate Investment Trust – börsengehandelter Immobilienfonds. Ermöglicht Immobilien-Investitionen ohne direkten Kauf.", kat: 8 },
+  { term: "Rendite", def: "Gewinn einer Investition in Prozent, bezogen auf das eingesetzte Kapital. Historische ETF-Rendite: ca. 7-8% p.a.", kat: 1 },
+  { term: "S&P 500", def: "Index der 500 größten US-Unternehmen. Einer der wichtigsten Börsenindizes der Welt. Enthält Apple, Microsoft, Amazon.", kat: 2 },
+  { term: "Sparerpauschbetrag", def: "1.000€ jährliche Steuerfreigrenze für Kapitalerträge (Einzelperson). Wird über Freistellungsauftrag aktiviert.", kat: 7 },
+  { term: "Sparplan", def: "Automatisches, regelmäßiges Investieren eines Fixbetrags. Bereits ab 1€/Monat möglich. Ideal für Einsteiger.", kat: 1 },
+  { term: "TER", def: "Total Expense Ratio – jährliche Gesamtkostenquote eines ETFs. Gute ETFs: unter 0,25%. Aktive Fonds: oft 1,5%+.", kat: 1 },
+  { term: "Thesaurierend", def: "ETF, der Dividenden automatisch reinvestiert statt auszuschütten. Maximiert den Zinseszins-Effekt.", kat: 1 },
+  { term: "Tracking Error", def: "Abweichung der ETF-Rendite vom abgebildeten Index. Gute ETFs haben einen niedrigen Tracking Error.", kat: 1 },
+  { term: "Value Investing", def: "Strategie, unterbewertete Aktien zu kaufen. Geprägt von Benjamin Graham, bekannt durch Warren Buffett.", kat: 2 },
+  { term: "Volatilität", def: "Schwankungsbreite eines Wertpapiers. Hohe Volatilität = hohes Risiko und hohe Chance. Messzahl: Standardabweichung.", kat: 1 },
+  { term: "Yield", def: "Rendite oder Ertrag einer Anlage, meist in Prozent. Dividend Yield = Dividende geteilt durch Aktienkurs.", kat: 2 },
+  { term: "Zinseszins", def: "Zinsen auf bereits erhaltene Zinsen. Führt zu exponentiellem Wachstum. Albert Einstein soll es 'achtes Weltwunder' genannt haben.", kat: 1 },
+]
+
+function GlossarScreen() {
+  const [suche, setSuche]       = useState("")
+  const [aktivBuchstabe, setAktivBuchstabe] = useState(null)
+
+  const buchstaben = [...new Set(GLOSSAR_BEGRIFFE.map(b => b.term[0].toUpperCase()))].sort()
+
+  const gefiltert = GLOSSAR_BEGRIFFE.filter(b => {
+    const matchSuche = !suche || b.term.toLowerCase().includes(suche.toLowerCase()) || b.def.toLowerCase().includes(suche.toLowerCase())
+    const matchAlpha = !aktivBuchstabe || b.term.toUpperCase().startsWith(aktivBuchstabe)
+    return matchSuche && matchAlpha
+  }).sort((a, b) => a.term.localeCompare(b.term, "de"))
+
+  return (
+    <div className="gl-wrap">
+      <div className="gl-search-row">
+        <input
+          className="gl-search"
+          placeholder="Begriff suchen..."
+          value={suche}
+          onChange={e => { setSuche(e.target.value); setAktivBuchstabe(null) }}
+        />
+      </div>
+      <div className="gl-alpha-tabs">
+        {buchstaben.map(b => (
+          <button
+            key={b}
+            className={`gl-alpha-btn ${aktivBuchstabe === b ? "aktiv" : ""}`}
+            onClick={() => { setAktivBuchstabe(prev => prev === b ? null : b); setSuche("") }}
+          >{b}</button>
+        ))}
+      </div>
+      <div className="gl-liste">
+        {gefiltert.length === 0 && <p className="gl-leer">Kein Begriff gefunden.</p>}
+        {gefiltert.map(b => (
+          <div key={b.term} className="gl-karte">
+            <div className="gl-karte-top">
+              <span className="gl-term">{b.term}</span>
+              {b.kat && (
+                <span className="gl-lern-link">→ Mehr lernen</span>
+              )}
+            </div>
+            <p className="gl-def">{b.def}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function EntdeckenScreen({ userFinanzsituation, onRechnerOeffnung, onNewsOeffnen, xp, xpTaeglich, userName, onRanglisteOeffnen }) {
   const [tab, setTab] = useState("rangliste")
   const tipp = getTippDerWoche()
@@ -1121,6 +1277,7 @@ function EntdeckenScreen({ userFinanzsituation, onRechnerOeffnung, onNewsOeffnen
         <button className={`entd-tab-btn ${tab === "rangliste" ? "aktiv" : ""}`} onClick={() => setTab("rangliste")}>🏆 Rangliste</button>
         <button className={`entd-tab-btn ${tab === "news" ? "aktiv" : ""}`} onClick={() => setTab("news")}>📰 News</button>
         <button className={`entd-tab-btn ${tab === "rechner" ? "aktiv" : ""}`} onClick={() => setTab("rechner")}>🧮 Rechner</button>
+        <button className={`entd-tab-btn ${tab === "glossar" ? "aktiv" : ""}`} onClick={() => setTab("glossar")}>📚 Glossar</button>
       </div>
 
       {tab === "rangliste" && (
@@ -1167,6 +1324,7 @@ function EntdeckenScreen({ userFinanzsituation, onRechnerOeffnung, onNewsOeffnen
 
       {tab === "news" && <NewsScreen onZurueck={null} onOeffnen={onNewsOeffnen} />}
       {tab === "rechner" && <RechnerScreen onZurueck={null} userFinanzsituation={userFinanzsituation} onRechnerOeffnung={onRechnerOeffnung} />}
+      {tab === "glossar" && <GlossarScreen />}
     </div>
   )
 }
@@ -1341,11 +1499,11 @@ function L1Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} TOTAL={7} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} TOTAL={7} onAskAssistant={onAskAssistant} />
 }
 
-function CardLektionScreen({ lektion, onZurueck, onAbgeschlossen }) {
-  const props = { lektion, onZurueck, onAbgeschlossen }
+function CardLektionScreen({ lektion, onZurueck, onAbgeschlossen, onAskAssistant }) {
+  const props = { lektion, onZurueck, onAbgeschlossen, onAskAssistant }
   if (lektion.id === 1)   return <L1Screen   {...props} />
   if (lektion.id === 302) return <L302Screen {...props} />
   if (lektion.id === 303) return <L303Screen {...props} />
@@ -1395,7 +1553,7 @@ function CardLektionScreen({ lektion, onZurueck, onAbgeschlossen }) {
   return <L301Screen {...props} />
 }
 
-function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 }) {
+function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8, onAskAssistant }) {
   const [cardIdx, setCardIdx]     = useState(0)
   const [phase, setPhase]         = useState("cards")
   const [fragenIdx, setFragenIdx] = useState(0)
@@ -1519,6 +1677,9 @@ function CardShell({ lektion, onZurueck, onAbgeschlossen, renderCard, TOTAL = 8 
           ))}
         </div>
         <span className="cl-prog-label">{cardIdx + 1} / {TOTAL}</span>
+        {onAskAssistant && (
+          <button className="cl-help-btn" onClick={() => onAskAssistant(`Ich lerne gerade "${lektion.titel}". Kannst du mir das Thema einfacher erklären?`)} title="Assistent fragen">?</button>
+        )}
       </div>
       <div key={cardIdx} className={`cl-card-anim ${animDirRef.current}`}>
         {renderCard(cardIdx)}
@@ -2101,7 +2262,7 @@ function L601Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L602Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -2305,7 +2466,7 @@ function L602Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L603Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -2461,7 +2622,7 @@ function L603Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L701Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -2609,7 +2770,7 @@ function L701Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L702Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -2751,7 +2912,7 @@ function L702Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L703Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -2889,7 +3050,7 @@ function L703Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L801Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -3023,7 +3184,7 @@ function L801Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L802Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -3176,7 +3337,7 @@ function L802Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L901Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -3300,7 +3461,7 @@ function L901Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L902Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -3452,7 +3613,7 @@ function L902Screen({ lektion, onZurueck, onAbgeschlossen }) {
     }
   }
 
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L302Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -3581,7 +3742,7 @@ function L302Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L303Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -3710,7 +3871,7 @@ function L303Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L304Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -3825,7 +3986,7 @@ function L304Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L305Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -3951,7 +4112,7 @@ function L305Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L306Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -4084,7 +4245,7 @@ function L306Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L307Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -4210,7 +4371,7 @@ function L307Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L308Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -4339,7 +4500,7 @@ function L308Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L604Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -4475,7 +4636,7 @@ function L604Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L605Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -4615,7 +4776,7 @@ function L605Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L606Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -4740,7 +4901,7 @@ function L606Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L607Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -4868,7 +5029,7 @@ function L607Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L608Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -4996,7 +5157,7 @@ function L608Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L704Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -5130,7 +5291,7 @@ function L704Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L705Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -5271,7 +5432,7 @@ function L705Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L706Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -5403,7 +5564,7 @@ function L706Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L707Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -5535,7 +5696,7 @@ function L707Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L708Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -5675,7 +5836,7 @@ function L708Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L803Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -5798,7 +5959,7 @@ function L803Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L804Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -5941,7 +6102,7 @@ function L804Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L805Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -6077,7 +6238,7 @@ function L805Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L806Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -6206,7 +6367,7 @@ function L806Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L903Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -6348,7 +6509,7 @@ function L903Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L904Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -6481,7 +6642,7 @@ function L904Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L905Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -6630,7 +6791,7 @@ function L905Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L906Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -6775,7 +6936,7 @@ function L906Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 // ─── Hebel & Optionen Screens ────────────────────────────────────────────────
@@ -6930,7 +7091,7 @@ function L401Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L402Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -7053,7 +7214,7 @@ function L402Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L403Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -7177,7 +7338,7 @@ function L403Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L404Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -7304,7 +7465,7 @@ function L404Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L405Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -7443,7 +7604,7 @@ function L405Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L406Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -7580,7 +7741,7 @@ function L406Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L407Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -7706,7 +7867,7 @@ function L407Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L408Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -7837,7 +7998,7 @@ function L408Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L409Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -7973,7 +8134,7 @@ function L409Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function L410Screen({ lektion, onZurueck, onAbgeschlossen }) {
@@ -8097,7 +8258,7 @@ function L410Screen({ lektion, onZurueck, onAbgeschlossen }) {
       default: return null
     }
   }
-  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} />
+  return <CardShell lektion={lektion} onZurueck={onZurueck} onAbgeschlossen={onAbgeschlossen} renderCard={renderCard} onAskAssistant={onAskAssistant} />
 }
 
 function calcReadTime(text) {
@@ -10076,6 +10237,7 @@ function App() {
   const [aktiversAktionsplanId, setAktiversAktionsplanId] = useState(null)
   const [zeigeEmailModal, setZeigeEmailModal]         = useState(false)
   const [zeigeFeedbackModal, setZeigeFeedbackModal]   = useState(false)
+  const [assistentContextFrage, setAssistentContextFrage] = useState(null)
   const [challengesClaimed, setChallengesClaimed]     = useState(() => JSON.parse(localStorage.getItem("challengesClaimed") || "{}"))
   const [perfektQuizzeGesamt, setPerfektQuizzeGesamt] = useState(() => Number(localStorage.getItem("perfektQuizzeGesamt") || 0))
 
@@ -10515,6 +10677,7 @@ function App() {
             userFinanzsituation={userFinanzsituation}
             onboardingDate={onboardingDate}
             onLektionClick={(l, k) => { setAktiveKategorie(k); setAktiveLektion(l) }}
+            userAktuelleSituation={JSON.parse(localStorage.getItem("userAktuelleSituation") || "[]")}
           />
         )}
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveHauptkategorie === "news" && (
@@ -10545,7 +10708,7 @@ function App() {
           />
         )}
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ === "cards" && (
-          <CardLektionScreen lektion={aktiveLektion} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} />
+          <CardLektionScreen lektion={aktiveLektion} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} onAskAssistant={setAssistentContextFrage} />
         )}
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ !== "cards" && (
           <LektionScreen lektion={aktiveLektion} kategorie={aktiveKategorie} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} />
@@ -10582,6 +10745,14 @@ function App() {
       <AchievementModal achievement={pendingAchievement} onClose={() => setPendingAchievement(null)} />
       {zeigeEmailModal && <ErsteLeKtionEmailModal onClose={() => setZeigeEmailModal(false)} />}
       {zeigeFeedbackModal && <FeedbackModal onClose={() => setZeigeFeedbackModal(false)} />}
+      {!aktiveLektion && (
+        <FinanzAssistent
+          abgeschlosseneLektionen={abgeschlosseneLektionen}
+          level={berechneLevel(xp)}
+          contextFrage={assistentContextFrage}
+          onContextFrageUsed={() => setAssistentContextFrage(null)}
+        />
+      )}
       <nav className="bottom-nav">
         {[
           { id: "home",      label: "Home",      svg: <HomeIcon      size={22}/> },
