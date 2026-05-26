@@ -2138,9 +2138,9 @@ function OnboardingFlow({ onComplete }) {
 
   const alterOptionen = [
     { id: "unter18", label: "Unter 18",  icon: "🌱" },
-    { id: "18-24",   label: "18 – 24",   icon: "🎓" },
-    { id: "25-34",   label: "25 – 34",   icon: "💼" },
-    { id: "35plus",  label: "35+",        icon: "🏆" },
+    { id: "18-24",   label: "18 – 24",   icon: "⚡" },
+    { id: "25-34",   label: "25 – 34",   icon: "🚀" },
+    { id: "35plus",  label: "35+",        icon: "💎" },
   ]
 
   const lebensOptionen = [
@@ -2679,7 +2679,7 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
           const isEmp      = k.id === empKatId
           const lektionen  = lernpfad[k.id] || []
           return (
-            <div key={k.id} className="acc-kat-wrap">
+            <div key={k.id} className={`acc-kat-wrap ${isEmp && !gesperrt ? "emp" : ""}`}>
               <div
                 className={`acc-kat-header ${gesperrt ? "gesperrt" : ""} ${expanded ? "expanded" : ""}`}
                 onClick={() => !gesperrt && toggleKat(k.id)}
