@@ -4795,7 +4795,7 @@ body {
   margin-top: 1.25rem;
   box-shadow: 0 4px 20px #7C3AED44;
 }
-.ob-new-btn:disabled { opacity: 0.4; cursor: default; }
+.ob-new-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .ob-new-check {
   color: #10B981;
   font-size: 1rem;

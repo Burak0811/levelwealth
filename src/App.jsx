@@ -2226,13 +2226,14 @@ function OnboardingFlow({ onComplete }) {
               <div
                 key={a.id}
                 className={`ob-alter-card ${alter === a.id ? "ob-sel-new" : ""}`}
-                onClick={() => { setAlter(a.id); setTimeout(() => goTo(3), 350) }}
+                onClick={() => setAlter(a.id)}
               >
                 <span className="ob-alter-card-icon">{a.icon}</span>
                 <span className="ob-alter-card-label">{a.label}</span>
               </div>
             ))}
           </div>
+          <button className="ob-new-btn" disabled={!alter} onClick={() => goTo(3)}>Weiter →</button>
         </div>
 
         {/* ── Screen 3: Lebenssituation ── */}
@@ -2250,7 +2251,7 @@ function OnboardingFlow({ onComplete }) {
               <div
                 key={l.id}
                 className={`ob-leben-card ${lebenssituation === l.id ? "ob-sel-new" : ""}`}
-                onClick={() => { setLebenssituation(l.id); setTimeout(() => goTo(4), 350) }}
+                onClick={() => setLebenssituation(l.id)}
               >
                 <span className="ob-leben-icon">{l.icon}</span>
                 <div className="ob-leben-text">
@@ -2261,6 +2262,7 @@ function OnboardingFlow({ onComplete }) {
               </div>
             ))}
           </div>
+          <button className="ob-new-btn" disabled={!lebenssituation} onClick={() => goTo(4)}>Weiter →</button>
         </div>
 
         {/* ── Screen 4: Finanzsituation (multi-select) ── */}
