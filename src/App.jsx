@@ -2877,18 +2877,67 @@ function KategorieDetail({ kategorie, abgeschlosseneLektionen, onZurueck, onLekt
   )
 }
 
-function EntdeckenScreen({ userFinanzsituation, onRechnerOeffnung, onNewsOeffnen }) {
-  const [tab, setTab] = useState("news")
+function EntdeckenScreen({ userFinanzsituation, onRechnerOeffnung, onNewsOeffnen, xp, xpTaeglich, userName, onRanglisteOeffnen }) {
+  const [tab, setTab] = useState("rangliste")
+  const tipp = getTippDerWoche()
+  const weeklyXP = getWeeklyXP(xpTaeglich)
+  const rangListe = buildRangliste(xp, weeklyXP, userName)
+  const top5 = rangListe.slice(0, 5)
+  const userIdx = rangListe.findIndex(u => u.istUser)
+  const userRang = userIdx + 1
+
   return (
     <div className="entdecken-screen">
       <div className="entd-tab-bar">
+        <button className={`entd-tab-btn ${tab === "rangliste" ? "aktiv" : ""}`} onClick={() => setTab("rangliste")}>🏆 Rangliste</button>
         <button className={`entd-tab-btn ${tab === "news" ? "aktiv" : ""}`} onClick={() => setTab("news")}>📰 News</button>
         <button className={`entd-tab-btn ${tab === "rechner" ? "aktiv" : ""}`} onClick={() => setTab("rechner")}>🧮 Rechner</button>
       </div>
-      {tab === "news"
-        ? <NewsScreen onZurueck={null} onOeffnen={onNewsOeffnen} />
-        : <RechnerScreen onZurueck={null} userFinanzsituation={userFinanzsituation} onRechnerOeffnung={onRechnerOeffnung} />
-      }
+
+      {tab === "rangliste" && (
+        <div className="entd-content">
+          <div className="entd-rang-header">
+            <div className="entd-rang-dein">
+              <span className="entd-rang-label">Dein Rang</span>
+              <span className="entd-rang-zahl">#{userRang}</span>
+            </div>
+            <button className="entd-alle-btn" onClick={onRanglisteOeffnen}>Alle sehen →</button>
+          </div>
+          <div className="entd-mini-rl">
+            {top5.map((u, i) => (
+              <div key={u.name} className={`entd-rl-row ${u.istUser ? "eigener" : ""}`}>
+                <span className="entd-rl-rang">#{i + 1}</span>
+                <div className="entd-rl-avatar">{u.initials}</div>
+                <span className="entd-rl-name">{u.istUser ? "Du" : u.name}</span>
+                <span className="entd-rl-xp">{u.xp.toLocaleString("de-DE")} XP</span>
+              </div>
+            ))}
+            {userIdx >= 5 && (
+              <>
+                <div className="entd-rl-dots">···</div>
+                <div className="entd-rl-row eigener">
+                  <span className="entd-rl-rang">#{userRang}</span>
+                  <div className="entd-rl-avatar">{rangListe[userIdx].initials}</div>
+                  <span className="entd-rl-name">Du</span>
+                  <span className="entd-rl-xp">{xp.toLocaleString("de-DE")} XP</span>
+                </div>
+              </>
+            )}
+          </div>
+
+          <div className="entd-tipp-card">
+            <div className="entd-tipp-header">
+              <span className="entd-tipp-icon">💡</span>
+              <span className="entd-tipp-label">Tipp der Woche</span>
+            </div>
+            <h3 className="entd-tipp-titel">{tipp.titel}</h3>
+            <p className="entd-tipp-text">{tipp.text}</p>
+          </div>
+        </div>
+      )}
+
+      {tab === "news" && <NewsScreen onZurueck={null} onOeffnen={onNewsOeffnen} />}
+      {tab === "rechner" && <RechnerScreen onZurueck={null} userFinanzsituation={userFinanzsituation} onRechnerOeffnung={onRechnerOeffnung} />}
     </div>
   )
 }
@@ -9055,6 +9104,38 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWisse
         </div>
       </div>
 
+      {(() => {
+        const score = berechneFinanzScore(xp, streak, abgeschlosseneLektionen)
+        const scoreKat = getFinanzScoreKategorie(score)
+        const nextMilestone = [100, 300, 600, 1000, 1500, 2000].find(m => m > score) || score + 500
+        const pct = Math.min(100, Math.round((score / nextMilestone) * 100))
+        const circumfScore = 2 * Math.PI * 36
+        const dashScore = circumfScore - (pct / 100) * circumfScore
+        return (
+          <div className="finanz-score-card">
+            <div className="fsc-left">
+              <p className="fsc-label">Finanz-Score</p>
+              <p className="fsc-zahl" style={{ color: scoreKat.color }}>{score.toLocaleString("de-DE")}</p>
+              <p className="fsc-kat" style={{ color: scoreKat.color }}>{scoreKat.icon} {scoreKat.label}</p>
+            </div>
+            <div className="fsc-ring">
+              <svg viewBox="0 0 80 80" width={80} height={80}>
+                <defs>
+                  <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor={scoreKat.color}/>
+                    <stop offset="100%" stopColor={scoreKat.color + "88"}/>
+                  </linearGradient>
+                </defs>
+                <circle cx="40" cy="40" r="36" fill="none" stroke="#2a2040" strokeWidth="6"/>
+                <circle cx="40" cy="40" r="36" fill="none" stroke="url(#scoreGrad)"
+                  strokeWidth="6" strokeDasharray={circumfScore} strokeDashoffset={dashScore}
+                  strokeLinecap="round" transform="rotate(-90 40 40)"/>
+                <text x="40" y="45" textAnchor="middle" fill="#fff" fontSize="14" fontWeight="800">{pct}%</text>
+              </svg>
+            </div>
+          </div>
+        )
+      })()}
       <div className="profil-streak-card">
         <span className={`streak-flame${streak > 0 ? " active" : ""}`}><FlameIcon size={28} color={streak > 0 ? "#f97316" : "#555"}/></span>
         <div style={{ flex: 1 }}>
@@ -9843,6 +9924,222 @@ function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung }) {
   )
 }
 
+// ── Simulated Rangliste Users ──
+const SIMULATED_USERS = [
+  { name: "Sophie K.",  xp: 2840, wxp: 210, initials: "SK" },
+  { name: "Lukas M.",   xp: 2650, wxp: 195, initials: "LM" },
+  { name: "Anna R.",    xp: 2410, wxp: 175, initials: "AR" },
+  { name: "Tobias S.",  xp: 2180, wxp: 160, initials: "TS" },
+  { name: "Julia B.",   xp: 1950, wxp: 140, initials: "JB" },
+  { name: "Max H.",     xp: 1740, wxp: 120, initials: "MH" },
+  { name: "Laura K.",   xp: 1520, wxp: 100, initials: "LK" },
+  { name: "Stefan W.",  xp: 1350, wxp:  85, initials: "SW" },
+  { name: "Nina P.",    xp: 1180, wxp:  70, initials: "NP" },
+  { name: "Kevin F.",   xp: 1020, wxp:  60, initials: "KF" },
+  { name: "Sarah L.",   xp:  860, wxp:  50, initials: "SL" },
+  { name: "David M.",   xp:  720, wxp:  40, initials: "DM" },
+  { name: "Lea T.",     xp:  590, wxp:  30, initials: "LT" },
+  { name: "Jonas R.",   xp:  480, wxp:  22, initials: "JR" },
+  { name: "Marie N.",   xp:  390, wxp:  18, initials: "MN" },
+  { name: "Paul G.",    xp:  310, wxp:  15, initials: "PG" },
+  { name: "Emma S.",    xp:  240, wxp:  12, initials: "ES" },
+  { name: "Finn K.",    xp:  215, wxp:  10, initials: "FK" },
+  { name: "Felix W.",   xp:  180, wxp:   8, initials: "FW" },
+]
+
+const TIPPS_DER_WOCHE = [
+  { titel: "Der Zinseszins-Trick", text: "Warren Buffett hat 99% seines Vermögens nach seinem 52. Geburtstag gemacht. Nicht weil er besser wurde – sondern weil Zinseszins Zeit braucht. Je früher du anfängst, desto mehr arbeitet die Mathematik für dich." },
+  { titel: "Kosten sind der stille Renditefresser", text: "1% höhere Kosten klingt nach nichts. Bei 50.000€ über 20 Jahre sind das über 12.000€ die du verlierst. ETFs mit 0,1% TER statt 1,5% TER können deinen Endbetrag um 25% erhöhen." },
+  { titel: "Time in Market schlägt Timing", text: "Studien zeigen: Wer die 10 besten Börsentage der letzten 20 Jahre verpasste, halbierte seine Rendite. Die besten Tage kommen oft kurz nach den schlimmsten. Wer dabei bleibt, gewinnt." },
+  { titel: "Der Notgroschen schützt dein Investment", text: "Ohne Notgroschen bist du gezwungen ETFs zu verkaufen wenn du Geld brauchst – oft genau wenn sie günstig sind. 3 Monatsausgaben auf dem Tagesgeld = du musst nie aus Not verkaufen." },
+  { titel: "Diversifikation ist Frühstück essen", text: "Diversifikation nennt man 'The only free lunch in finance'. Du reduzierst Risiko ohne Rendite zu opfern. Ein MSCI World ETF gibt dir 1.500 Unternehmen für einen Preis." },
+  { titel: "Inflation ist unsichtbarer Diebstahl", text: "Bei 3% Inflation verlieren 10.000€ auf dem Konto in 10 Jahren 26% ihrer Kaufkraft. Du hast 'noch 10.000€', kannst aber nur noch für 7.400€ kaufen. Investieren ist kein Luxus, sondern Selbstschutz." },
+  { titel: "Sparrate > Rendite für Einsteiger", text: "Im ersten Jahr ist deine Sparrate wichtiger als deine Rendite. 100€/Monat extra bringen dir über 30 Jahre bei 7% fast 120.000€ mehr als 50€/Monat. Fang mit dem Maximum an, das du dir leisten kannst." },
+]
+
+function getWeeklyXP(xpTaeglich) {
+  const heute = new Date()
+  const day = heute.getDay()
+  const diff = day === 0 ? 6 : day - 1
+  const monday = new Date(heute)
+  monday.setDate(heute.getDate() - diff)
+  let total = 0
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday)
+    d.setDate(monday.getDate() + i)
+    const key = d.toISOString().split("T")[0]
+    total += xpTaeglich[key] || 0
+  }
+  return total
+}
+
+function getTippDerWoche() {
+  const week = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000))
+  return TIPPS_DER_WOCHE[week % TIPPS_DER_WOCHE.length]
+}
+
+function berechneFinanzScore(xp, streak, abgeschlosseneLektionen) {
+  const lektionenPunkte = abgeschlosseneLektionen.length * 10
+  const streakPunkte = Math.min(streak, 30) * 2
+  const uniqueKats = new Set(
+    abgeschlosseneLektionen.map(lid => {
+      for (const [k, ls] of Object.entries(lernpfad)) {
+        if ((ls || []).some(l => l.id === lid)) return k
+      }
+      return null
+    }).filter(Boolean)
+  ).size
+  const katPunkte = uniqueKats * 50
+  return lektionenPunkte + streakPunkte + katPunkte
+}
+
+function getFinanzScoreKategorie(score) {
+  if (score >= 1500) return { label: "Finanz-Profi",      color: "#EAB308", icon: "👑" }
+  if (score >= 1001) return { label: "Experte",           color: "#7C3AED", icon: "💎" }
+  if (score >=  601) return { label: "Fortgeschritten",   color: "#3b82f6", icon: "🚀" }
+  if (score >=  301) return { label: "Solides Wissen",    color: "#10B981", icon: "📈" }
+  if (score >=  101) return { label: "Grundkenntnisse",   color: "#f97316", icon: "🌱" }
+  return               { label: "Einsteiger",             color: "#888",    icon: "🔰" }
+}
+
+function buildRangliste(userXP, userWXP, userName) {
+  const userInit = userName
+    ? userName.trim().split(/\s+/).map(w => w[0]).join("").substring(0, 2).toUpperCase()
+    : "DU"
+  const allUsers = [
+    ...SIMULATED_USERS.map(u => ({ ...u, istUser: false })),
+    { name: "Du", xp: userXP, wxp: userWXP, initials: userInit, istUser: true }
+  ]
+  return [...allUsers].sort((a, b) => b.xp - a.xp)
+}
+
+function buildRanglisteWoche(userXP, userWXP, userName) {
+  const userInit = userName
+    ? userName.trim().split(/\s+/).map(w => w[0]).join("").substring(0, 2).toUpperCase()
+    : "DU"
+  const allUsers = [
+    ...SIMULATED_USERS.map(u => ({ ...u, istUser: false, sortXP: u.wxp })),
+    { name: "Du", xp: userXP, wxp: userWXP, initials: userInit, istUser: true, sortXP: userWXP }
+  ]
+  return [...allUsers].sort((a, b) => b.sortXP - a.sortXP)
+}
+
+function RanglisteScreen({ xp, xpTaeglich, userName, onZurueck }) {
+  const [modus, setModus] = useState("gesamt")
+  const weeklyXP = getWeeklyXP(xpTaeglich)
+  const liste = modus === "gesamt"
+    ? buildRangliste(xp, weeklyXP, userName)
+    : buildRanglisteWoche(xp, weeklyXP, userName)
+  const userIdx = liste.findIndex(u => u.istUser)
+  const userRang = userIdx + 1
+  const top3 = liste.slice(0, 3)
+  const rest = liste.slice(3)
+
+  const podiumOrder = top3.length >= 3 ? [top3[1], top3[0], top3[2]] : top3
+
+  return (
+    <div className="rl-screen">
+      <div className="rl-header">
+        {onZurueck && <button className="zurueck-btn" onClick={onZurueck} style={{ position: "absolute", left: "1rem" }}><ArrowLeftIcon size={16}/> Zurück</button>}
+        <h2 className="rl-titel">Rangliste</h2>
+        <div className="rl-toggle">
+          <button className={`rl-toggle-btn ${modus === "woche" ? "aktiv" : ""}`} onClick={() => setModus("woche")}>Diese Woche</button>
+          <button className={`rl-toggle-btn ${modus === "gesamt" ? "aktiv" : ""}`} onClick={() => setModus("gesamt")}>Gesamt</button>
+        </div>
+      </div>
+
+      <div className="rl-rang-banner">
+        <span className="rl-rang-label">Dein Rang</span>
+        <span className="rl-rang-zahl">#{userRang}</span>
+        <span className="rl-rang-sub">von {liste.length} Usern</span>
+      </div>
+
+      {top3.length >= 3 && (
+        <div className="rl-podium">
+          {podiumOrder.map((u, i) => {
+            const rang = liste.indexOf(u) + 1
+            const medals = ["🥈", "🥇", "🥉"]
+            return (
+              <div key={u.name} className={`rl-podium-item rl-podium-${rang === 1 ? "gold" : rang === 2 ? "silber" : "bronze"} ${u.istUser ? "eigener" : ""}`}>
+                {rang === 1 && <span className="rl-krone">👑</span>}
+                <div className="rl-pod-avatar">{u.initials}</div>
+                <span className="rl-pod-medal">{medals[i]}</span>
+                <p className="rl-pod-name">{u.istUser ? "Du" : u.name}</p>
+                <p className="rl-pod-xp">{(modus === "gesamt" ? u.xp : u.wxp || u.xp).toLocaleString("de-DE")} XP</p>
+                <p className="rl-pod-level">{LEVEL_NAMEN[berechneLevel(u.xp)] || ""}</p>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      <div className="rl-liste">
+        {rest.map((u, i) => {
+          const rang = i + 4
+          return (
+            <div key={u.name} className={`rl-row ${u.istUser ? "eigener" : ""}`}>
+              <span className="rl-rang">{rang}</span>
+              <div className="rl-avatar">{u.initials}</div>
+              <div className="rl-info">
+                <span className="rl-name">{u.istUser ? `Du${userName ? ` (${userName})` : ""}` : u.name}</span>
+                <span className="rl-level-tag">{LEVEL_NAMEN[berechneLevel(u.xp)] || ""}</span>
+              </div>
+              {u.istUser && <span className="rl-du-badge">Du</span>}
+              <span className="rl-xp">{(modus === "gesamt" ? u.xp : u.wxp || u.xp).toLocaleString("de-DE")} XP</span>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function StreakShareModal({ streak, onClose }) {
+  const [kopiert, setKopiert] = useState(false)
+  const shareText = `Ich lerne seit ${streak} Tagen täglich Finanzen mit Lumio! 📈 #Lumio #Finanzbildung #Investing`
+
+  function kopieren() {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText).then(() => {
+        setKopiert(true)
+        setTimeout(() => setKopiert(false), 2000)
+      })
+    }
+  }
+
+  return (
+    <div className="ssm-overlay" onClick={onClose}>
+      <div className="ssm-modal" onClick={e => e.stopPropagation()}>
+        <div className="ssm-icon">🔥</div>
+        <h2 className="ssm-titel">{streak} Tage Streak!</h2>
+        <p className="ssm-sub">Krasse Leistung – du bist jetzt besser als 95% aller Anfänger.</p>
+        <div className="ssm-text-preview">{shareText}</div>
+        <button className="ssm-copy-btn" onClick={kopieren}>
+          {kopiert ? "✓ Kopiert!" : "📋 Text kopieren"}
+        </button>
+        <button className="ssm-close-btn" onClick={onClose}>Schließen</button>
+      </div>
+    </div>
+  )
+}
+
+function NudgeBanner({ nudge, onDismiss }) {
+  if (!nudge) return null
+  const colors = {
+    streak: { bg: "linear-gradient(135deg,#f97316,#ea580c)", border: "#f97316" },
+    level:  { bg: "linear-gradient(135deg,#7C3AED,#9D174D)", border: "#7C3AED" },
+    kat:    { bg: "linear-gradient(135deg,#10B981,#059669)", border: "#10B981" },
+  }
+  const c = colors[nudge.typ] || colors.level
+  return (
+    <div className="nudge-banner" style={{ background: c.bg, borderColor: c.border }}>
+      <span className="nudge-icon">{nudge.icon}</span>
+      <p className="nudge-text">{nudge.text}</p>
+      <button className="nudge-close" onClick={onDismiss}>×</button>
+    </div>
+  )
+}
+
 function XpToast({ amount, onDone }) {
   useEffect(() => {
     const t = setTimeout(onDone, 2000)
@@ -9873,6 +10170,10 @@ function App() {
   const [levelUpInfo, setLevelUpInfo]   = useState(null)
   const [xpToast, setXpToast]           = useState(null)
   const [streakMsg, setStreakMsg]       = useState(null)
+  const [streakShareModal, setStreakShareModal] = useState(null)
+  const [dismissedNudges, setDismissedNudges]   = useState(() => JSON.parse(localStorage.getItem("dismissedNudges") || "{}"))
+  const [zeigeRangliste, setZeigeRangliste]     = useState(false)
+  const [streakMilestonesShown, setStreakMilestonesShown] = useState(() => JSON.parse(localStorage.getItem("streakMilestonesShown") || "{}"))
   // ── Gamification ──
   const [achievements, setAchievements]           = useState(() => JSON.parse(localStorage.getItem("achievements") || "{}"))
   const [xpTaeglich, setXpTaeglich]               = useState(() => JSON.parse(localStorage.getItem("xpTaeglich") || "{}"))
@@ -9942,6 +10243,17 @@ function App() {
     setLetzterTag(heute)
     localStorage.setItem("streak", neuerStreak)
     localStorage.setItem("letzterTag", heute)
+    // Streak milestones: 7, 14, 30
+    const milestones = [7, 14, 30]
+    for (const m of milestones) {
+      if (neuerStreak === m && !streakMilestonesShown[m]) {
+        const neu = { ...streakMilestonesShown, [m]: true }
+        setStreakMilestonesShown(neu)
+        localStorage.setItem("streakMilestonesShown", JSON.stringify(neu))
+        setStreakShareModal(neuerStreak)
+        break
+      }
+    }
   }
 
   function addXP(menge) {
@@ -10094,6 +10406,7 @@ function App() {
     setAktiveKategorie(null)
     setAktiveLektion(null)
     setAktiversAktionsplanId(null)
+    setZeigeRangliste(false)
   }
 
   function aktionsplanSchrittToggle(planId, idx) {
@@ -10158,6 +10471,39 @@ function App() {
     )
   }
 
+  // Compute active nudge (only one at a time)
+  const heute = getHeute()
+  const hatAktivitaetHeute = letzterTag === heute
+  const gestern2 = new Date(Date.now() - 86400000).toISOString().split("T")[0]
+  const lvlInfo = getLevelInfo(xp)
+  let aktuellerNudge = null
+  if (!aktuellerNudge && streak > 0 && !hatAktivitaetHeute && letzterTag === gestern2 && !dismissedNudges["streak_warn"]) {
+    aktuellerNudge = { id: "streak_warn", typ: "streak", icon: "⚠️", text: `Dein ${streak}-Tage Streak ist in Gefahr! Mach heute noch eine Lektion.` }
+  }
+  if (!aktuellerNudge && lvlInfo.xpBenoetigt - lvlInfo.xpAktuell <= 30 && !dismissedNudges["level_nudge_" + lvlInfo.level]) {
+    aktuellerNudge = { id: "level_nudge_" + lvlInfo.level, typ: "level", icon: "⚡", text: `Noch ${lvlInfo.xpBenoetigt - lvlInfo.xpAktuell} XP bis Level ${lvlInfo.level + 1}! Eine Lektion reicht.` }
+  }
+  if (!aktuellerNudge) {
+    for (const kat of kategorien) {
+      const ls = lernpfad[kat.id] || []
+      if (ls.length === 0) continue
+      const abg = ls.filter(l => abgeschlosseneLektionen.includes(l.id)).length
+      const pctKat = abg / ls.length
+      const nudgeId = "kat_nudge_" + kat.id
+      if (pctKat >= 0.8 && pctKat < 1 && !dismissedNudges[nudgeId]) {
+        const verbleibend = ls.length - abg
+        aktuellerNudge = { id: nudgeId, typ: "kat", icon: "📈", text: `Du bist fast durch ${kat.name}! Noch ${verbleibend} Lektion${verbleibend > 1 ? "en" : ""}.` }
+        break
+      }
+    }
+  }
+
+  function dismissNudge(id) {
+    const neu = { ...dismissedNudges, [id]: true }
+    setDismissedNudges(neu)
+    localStorage.setItem("dismissedNudges", JSON.stringify(neu))
+  }
+
   return (
     <div className="app">
       <div className="content">
@@ -10209,11 +10555,28 @@ function App() {
         {aktiverTab === "profil" && (
           <ProfilScreen xp={xp} streak={streak} abgeschlosseneLektionen={abgeschlosseneLektionen} userName={userName} userWissenslevel={userWissenslevel} achievements={achievements} xpTaeglich={xpTaeglich} streakFreezes={streakFreezes} onStreakFreeze={streakFreeze} aktionsplaene={aktionsplaene} onAktionsplanOeffnen={aktionsplanOeffnen} />
         )}
-        {aktiverTab === "entdecken" && (
-          <EntdeckenScreen userFinanzsituation={userFinanzsituation} onRechnerOeffnung={rechnerOeffnen} onNewsOeffnen={newsOeffnen} />
+        {aktiverTab === "entdecken" && !zeigeRangliste && (
+          <EntdeckenScreen
+            userFinanzsituation={userFinanzsituation}
+            onRechnerOeffnung={rechnerOeffnen}
+            onNewsOeffnen={newsOeffnen}
+            xp={xp}
+            xpTaeglich={xpTaeglich}
+            userName={userName}
+            onRanglisteOeffnen={() => setZeigeRangliste(true)}
+          />
+        )}
+        {aktiverTab === "entdecken" && zeigeRangliste && (
+          <RanglisteScreen xp={xp} xpTaeglich={xpTaeglich} userName={userName} onZurueck={() => setZeigeRangliste(false)} />
         )}
       </div>
       {xpToast && <XpToast key={xpToast.key} amount={xpToast.amount} onDone={() => setXpToast(null)} />}
+      {aktuellerNudge && aktiverTab === "home" && !aktiveLektion && !aktiversAktionsplanId && (
+        <NudgeBanner nudge={aktuellerNudge} onDismiss={() => dismissNudge(aktuellerNudge.id)} />
+      )}
+      {streakShareModal && (
+        <StreakShareModal streak={streakShareModal} onClose={() => setStreakShareModal(null)} />
+      )}
       <LevelUpModal levelUpInfo={levelUpInfo} onClose={() => setLevelUpInfo(null)} />
       <AchievementModal achievement={pendingAchievement} onClose={() => setPendingAchievement(null)} />
       <nav className="bottom-nav">

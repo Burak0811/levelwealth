@@ -5482,3 +5482,234 @@ body {
   color: #a78bfa;
   padding: 0.2rem 0;
 }
+
+/* =============================================
+   RANGLISTE SCREEN
+============================================= */
+.rl-screen {
+  min-height: 100vh;
+  padding-bottom: 5rem;
+  background: var(--c-bg);
+}
+.rl-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1rem 0.5rem;
+  position: relative;
+}
+.rl-titel {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+.rl-toggle {
+  display: flex;
+  background: #1a1728;
+  border-radius: 10px;
+  padding: 3px;
+  gap: 3px;
+}
+.rl-toggle-btn {
+  padding: 0.4rem 1rem;
+  border: none;
+  background: transparent;
+  color: #888;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.rl-toggle-btn.aktiv { background: #7C3AED; color: #fff; }
+
+.rl-rang-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.75rem 1rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #7C3AED22, #9D174D11);
+  border: 1px solid #7C3AED44;
+  border-radius: 14px;
+}
+.rl-rang-label { font-size: 0.8rem; color: #888; }
+.rl-rang-zahl { font-size: 1.5rem; font-weight: 900; color: #a78bfa; }
+.rl-rang-sub { font-size: 0.78rem; color: #666; margin-left: auto; }
+
+.rl-podium {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 0.5rem 0.5rem;
+}
+.rl-podium-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+  max-width: 120px;
+  padding: 0.75rem 0.5rem;
+  border-radius: 14px;
+  position: relative;
+  background: #12101A;
+  border: 1px solid #2a2040;
+}
+.rl-podium-gold   { border-color: #EAB30866; background: linear-gradient(180deg, #EAB30811, #12101A); min-height: 140px; }
+.rl-podium-silber { border-color: #94a3b866; min-height: 120px; }
+.rl-podium-bronze { border-color: #d9770666; min-height: 110px; }
+.rl-podium-item.eigener { border-color: #7C3AED; background: linear-gradient(180deg,#7C3AED22,#12101A); }
+.rl-krone { font-size: 1.25rem; position: absolute; top: -14px; }
+.rl-pod-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg,#7C3AED,#9D174D);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 800; color: #fff;
+}
+.rl-pod-medal { font-size: 1.1rem; }
+.rl-pod-name { font-size: 0.8rem; font-weight: 700; text-align: center; }
+.rl-pod-xp { font-size: 0.72rem; color: #a78bfa; font-weight: 700; }
+.rl-pod-level { font-size: 0.65rem; color: #666; }
+
+.rl-liste { padding: 0.5rem 1rem 1rem; display: flex; flex-direction: column; gap: 6px; }
+.rl-row {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.7rem 0.875rem; border-radius: 12px;
+  background: #12101A; border: 1px solid #2a2040;
+}
+.rl-row.eigener { background: #7C3AED1A; border-color: #7C3AED66; }
+.rl-rang { font-size: 0.82rem; font-weight: 700; color: #666; width: 24px; flex-shrink: 0; }
+.rl-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #2a2040; display: flex; align-items: center;
+  justify-content: center; font-size: 0.72rem; font-weight: 700; flex-shrink: 0;
+}
+.rl-row.eigener .rl-avatar { background: linear-gradient(135deg,#7C3AED,#9D174D); color: #fff; }
+.rl-info { flex: 1; min-width: 0; }
+.rl-name { font-size: 0.85rem; font-weight: 600; display: block; }
+.rl-level-tag { font-size: 0.7rem; color: #888; }
+.rl-du-badge {
+  font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.5rem;
+  background: #7C3AED; color: #fff; border-radius: 999px; flex-shrink: 0;
+}
+.rl-xp { font-size: 0.82rem; font-weight: 700; color: #a78bfa; flex-shrink: 0; }
+
+/* =============================================
+   ENTDECKEN TAB REDESIGN
+============================================= */
+.entd-content { padding: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+.entd-rang-header { display: flex; align-items: center; justify-content: space-between; }
+.entd-rang-dein { display: flex; flex-direction: column; gap: 0.1rem; }
+.entd-rang-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; }
+.entd-rang-zahl { font-size: 1.75rem; font-weight: 900; color: #a78bfa; line-height: 1; }
+.entd-alle-btn {
+  font-size: 0.85rem; font-weight: 600; color: #a78bfa;
+  background: #7C3AED22; border: 1px solid #7C3AED44;
+  border-radius: 8px; padding: 0.4rem 0.875rem; cursor: pointer;
+}
+.entd-mini-rl { display: flex; flex-direction: column; gap: 6px; }
+.entd-rl-row {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.65rem 0.875rem; border-radius: 10px;
+  background: #12101A; border: 1px solid #2a2040;
+}
+.entd-rl-row.eigener { background: #7C3AED1A; border-color: #7C3AED55; }
+.entd-rl-rang { font-size: 0.78rem; font-weight: 700; color: #666; width: 20px; flex-shrink: 0; }
+.entd-rl-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: #2a2040; display: flex; align-items: center;
+  justify-content: center; font-size: 0.68rem; font-weight: 700; flex-shrink: 0;
+}
+.entd-rl-row.eigener .entd-rl-avatar { background: linear-gradient(135deg,#7C3AED,#9D174D); color: #fff; }
+.entd-rl-name { flex: 1; font-size: 0.85rem; font-weight: 600; }
+.entd-rl-xp { font-size: 0.8rem; font-weight: 700; color: #a78bfa; }
+.entd-rl-dots { text-align: center; color: #444; font-size: 1rem; padding: 0.25rem; }
+
+.entd-tipp-card {
+  background: linear-gradient(135deg,#7C3AED11,#9D174D08);
+  border: 1px solid #7C3AED33;
+  border-radius: 14px;
+  padding: 1rem 1.125rem;
+}
+.entd-tipp-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+.entd-tipp-icon { font-size: 1.1rem; }
+.entd-tipp-label { font-size: 0.72rem; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.06em; }
+.entd-tipp-titel { font-size: 1rem; font-weight: 800; margin-bottom: 0.5rem; }
+.entd-tipp-text { font-size: 0.85rem; color: #aaa; line-height: 1.6; }
+
+/* =============================================
+   FINANZ-SCORE CARD (Profil)
+============================================= */
+.finanz-score-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 1rem 1rem;
+  padding: 1rem 1.25rem;
+  background: #12101A;
+  border: 1px solid #2a2040;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px #00000033;
+}
+.fsc-left { flex: 1; }
+.fsc-label { font-size: 0.72rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.25rem; }
+.fsc-zahl { font-size: 2rem; font-weight: 900; line-height: 1; margin-bottom: 0.25rem; }
+.fsc-kat { font-size: 0.85rem; font-weight: 700; }
+.fsc-ring { flex-shrink: 0; }
+
+/* =============================================
+   STREAK SHARE MODAL
+============================================= */
+.ssm-overlay {
+  position: fixed; inset: 0; background: #00000088;
+  display: flex; align-items: flex-end; justify-content: center;
+  z-index: 1000; padding: 0 0 2rem;
+}
+.ssm-modal {
+  background: #1A1728;
+  border: 1px solid #7C3AED55;
+  border-radius: 24px 24px 16px 16px;
+  padding: 2rem 1.5rem 1.5rem;
+  width: 100%; max-width: 440px;
+  display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+}
+.ssm-icon { font-size: 3rem; }
+.ssm-titel { font-size: 1.5rem; font-weight: 900; text-align: center; }
+.ssm-sub { font-size: 0.9rem; color: #888; text-align: center; }
+.ssm-text-preview {
+  background: #0f0d18; border: 1px solid #2a2040;
+  border-radius: 10px; padding: 0.875rem 1rem;
+  font-size: 0.85rem; color: #ccc; line-height: 1.55;
+  width: 100%;
+}
+.ssm-copy-btn {
+  width: 100%; padding: 0.9rem;
+  background: linear-gradient(135deg,#7C3AED,#9D174D);
+  color: #fff; font-weight: 700; font-size: 0.95rem;
+  border: none; border-radius: 12px; cursor: pointer;
+}
+.ssm-close-btn {
+  background: transparent; border: none;
+  color: #666; font-size: 0.9rem; cursor: pointer;
+}
+
+/* =============================================
+   NUDGE BANNER
+============================================= */
+.nudge-banner {
+  position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 480px;
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  z-index: 998;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.nudge-icon { font-size: 1.1rem; flex-shrink: 0; }
+.nudge-text { flex: 1; font-size: 0.82rem; font-weight: 600; color: #fff; line-height: 1.35; }
+.nudge-close {
+  background: transparent; border: none;
+  color: rgba(255,255,255,0.7); font-size: 1.2rem; cursor: pointer;
+  flex-shrink: 0; padding: 0 0.25rem;
+}
