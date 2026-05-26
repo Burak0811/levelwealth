@@ -5951,3 +5951,184 @@ button {
   line-height: 1.5;
 }
 .feedback-textarea:focus { border-color: #7c3aed; }
+
+/* ─── Challenges Screen ─────────────────────────────────────────────────────── */
+
+.ch-karte {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  background: #13101e;
+  border: 1px solid #1e1830;
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.2s;
+  position: relative;
+}
+
+.ch-karte.ch-bereit {
+  border-color: #9D174D66;
+  background: #1a0f1a;
+}
+
+.ch-karte.ch-eingelo {
+  opacity: 0.55;
+}
+
+.ch-karte-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.ch-karte-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ch-karte-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.ch-karte-titel {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #e2ddf4;
+}
+
+.ch-xp-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #7C3AED;
+  background: #7C3AED18;
+  border: 1px solid #7C3AED33;
+  border-radius: 20px;
+  padding: 0.15rem 0.55rem;
+  white-space: nowrap;
+}
+
+.ch-karte-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+  line-height: 1.4;
+}
+
+.ch-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ch-progress-bg {
+  flex: 1;
+  height: 5px;
+  background: #2a2040;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.ch-progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+  will-change: transform;
+}
+
+.ch-progress-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.ch-check {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #10B981;
+  color: #fff;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.ch-claim-btn {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  background: linear-gradient(135deg, #9D174D, #7C3AED);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.3rem 0.875rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.ch-claim-btn:active { opacity: 0.85; transform: scale(0.97); }
+
+.ch-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.ch-toggle {
+  display: flex;
+  gap: 0.25rem;
+  background: #13101e;
+  border: 1px solid #1e1830;
+  border-radius: 20px;
+  padding: 0.2rem;
+}
+
+.ch-toggle-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.ch-toggle-btn.aktiv {
+  background: #7C3AED;
+  color: #fff;
+}
+
+.ch-liste {
+  padding-bottom: 1rem;
+}
+
+.ch-leer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 2rem 1rem;
+}
+
+.screen-header-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.15;
+}

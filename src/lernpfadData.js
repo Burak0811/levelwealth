@@ -117,7 +117,7 @@ export const hauptkategorien = [
     beschreibung: "Wöchentliche Aufgaben",
     farbe: "#9D174D",
     gradient: "linear-gradient(135deg, #831843, #9d174d)",
-    verfuegbar: false
+    verfuegbar: true
   }
 ]
 

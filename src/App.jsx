@@ -571,6 +571,71 @@ const HUB_SVGS = {
   challenges: <ChallengesIcon size={28} color="white" strokeWidth={1.5}/>,
 }
 
+// ─── Challenges System ────────────────────────────────────────────────────────
+
+const WEEKLY_CHALLENGES = [
+  { id: "w1", icon: "📚", titel: "Wissensdurst",      beschreibung: "Schließe 3 Lektionen diese Woche ab",        xp: 75,  typ: "lektionen",      ziel: 3 },
+  { id: "w2", icon: "⚡", titel: "Quiz-Perfektionist", beschreibung: "Schließe 2 Quizze ohne Fehler ab",           xp: 60,  typ: "perfekt_quizze",  ziel: 2 },
+  { id: "w3", icon: "🔥", titel: "Streak-Hüter",       beschreibung: "Lerne 5 Tage in Folge",                     xp: 80,  typ: "streak",           ziel: 5 },
+  { id: "w4", icon: "🧮", titel: "Rechner-Profi",       beschreibung: "Öffne den Zinseszinsrechner 3 Mal",         xp: 50,  typ: "rechner",          ziel: 3 },
+  { id: "w5", icon: "📰", titel: "News-Kenner",         beschreibung: "Öffne News 5 Mal diese Woche",              xp: 55,  typ: "news",             ziel: 5 },
+  { id: "w6", icon: "💰", titel: "XP-Jäger",            beschreibung: "Sammle 200 XP diese Woche",                 xp: 90,  typ: "xp",               ziel: 200 },
+  { id: "w7", icon: "🗺️", titel: "Lernpfad-Explorer",  beschreibung: "Schließe 5 Lektionen diese Woche ab",       xp: 100, typ: "lektionen",        ziel: 5 },
+]
+
+const MONTHLY_CHALLENGES = [
+  { id: "m1", icon: "⚔️", titel: "Monats-Krieger",     beschreibung: "Schließe 20 Lektionen diesen Monat ab",     xp: 250, typ: "lektionen",        ziel: 20 },
+  { id: "m2", icon: "🏗️", titel: "Portfolio-Aufbauer", beschreibung: "Lerne in 3 verschiedenen Kategorien",       xp: 200, typ: "kategorien",       ziel: 3 },
+  { id: "m3", icon: "🎯", titel: "Konsistenz-König",    beschreibung: "Erreiche einen 15-Tage Streak",             xp: 300, typ: "streak_gesamt",    ziel: 15 },
+]
+
+const PERMANENT_CHALLENGES = [
+  { id: "p1",  icon: "🌱", titel: "Erster Schritt",      beschreibung: "Schließe deine erste Lektion ab",          xp: 50,  typ: "lektionen_gesamt", ziel: 1 },
+  { id: "p2",  icon: "📖", titel: "Anfänger",             beschreibung: "Schließe 5 Lektionen ab",                  xp: 75,  typ: "lektionen_gesamt", ziel: 5 },
+  { id: "p3",  icon: "🎓", titel: "Lernender",            beschreibung: "Schließe 10 Lektionen ab",                 xp: 100, typ: "lektionen_gesamt", ziel: 10 },
+  { id: "p4",  icon: "📊", titel: "Fortgeschritten",      beschreibung: "Schließe 25 Lektionen ab",                 xp: 150, typ: "lektionen_gesamt", ziel: 25 },
+  { id: "p5",  icon: "🏆", titel: "Lektion-Meister",      beschreibung: "Schließe 50 Lektionen ab",                 xp: 250, typ: "lektionen_gesamt", ziel: 50 },
+  { id: "p6",  icon: "🔥", titel: "Streak-Starter",       beschreibung: "Erreiche einen 3-Tage Streak",             xp: 50,  typ: "streak_gesamt",    ziel: 3 },
+  { id: "p7",  icon: "🔥", titel: "Streak-Veteran",       beschreibung: "Erreiche einen 7-Tage Streak",             xp: 100, typ: "streak_gesamt",    ziel: 7 },
+  { id: "p8",  icon: "🔥", titel: "Streak-Legende",       beschreibung: "Erreiche einen 30-Tage Streak",            xp: 300, typ: "streak_gesamt",    ziel: 30 },
+  { id: "p9",  icon: "⚡", titel: "Quiz-Spezialist",      beschreibung: "Schließe 5 Quizze perfekt ab",             xp: 75,  typ: "perfekt_gesamt",   ziel: 5 },
+  { id: "p10", icon: "🧮", titel: "Zahlen-Fan",            beschreibung: "Öffne den Rechner 5 Mal",                  xp: 60,  typ: "rechner_gesamt",   ziel: 5 },
+  { id: "p11", icon: "📰", titel: "News-Follower",         beschreibung: "Öffne News 3 Mal",                         xp: 50,  typ: "news_gesamt",      ziel: 3 },
+  { id: "p12", icon: "✅", titel: "Kategorie-Bezwinger",   beschreibung: "Schließe eine Kategorie zu 100% ab",       xp: 200, typ: "kat_komplett",     ziel: 1 },
+  { id: "p13", icon: "🌟", titel: "Doppelt gut",           beschreibung: "Schließe 2 Kategorien zu 100% ab",         xp: 300, typ: "kat_komplett",     ziel: 2 },
+  { id: "p14", icon: "⬆️", titel: "Level 5",              beschreibung: "Erreiche Level 5",                         xp: 150, typ: "level",            ziel: 5 },
+  { id: "p15", icon: "🚀", titel: "Level 10",              beschreibung: "Erreiche Level 10",                        xp: 300, typ: "level",            ziel: 10 },
+]
+
+function getWeekKey(date = new Date()) {
+  const d = new Date(date)
+  d.setHours(0, 0, 0, 0)
+  d.setDate(d.getDate() + 4 - (d.getDay() || 7))
+  const yearStart = new Date(d.getFullYear(), 0, 1)
+  const weekNum = Math.ceil(((d - yearStart) / 86400000 + 1) / 7)
+  return `${d.getFullYear()}-W${String(weekNum).padStart(2, "0")}`
+}
+
+function getMonthKey(date = new Date()) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`
+}
+
+function getAktuelleWochenchallenge() {
+  const weekNum = parseInt(getWeekKey().split("-W")[1], 10)
+  return WEEKLY_CHALLENGES[weekNum % WEEKLY_CHALLENGES.length]
+}
+
+function getAktuelleMonatschallenge() {
+  const monthNum = new Date().getMonth()
+  return MONTHLY_CHALLENGES[monthNum % MONTHLY_CHALLENGES.length]
+}
+
+function getTageRestlicheWoche() {
+  const heute = new Date()
+  const tag = heute.getDay() || 7
+  return 7 - tag + 1
+}
+
 function WelcomeScreen({ userFinanzsituation, userZiel, userName, onDone }) {
   const [count, setCount]         = useState(0)
   const [factsVisible, setFacts]  = useState([false, false, false])
@@ -7578,6 +7643,199 @@ const FALLBACK_NEWS = [
   },
 ]
 
+function ChallengesScreen({ onZurueck, abgeschlosseneLektionen, streak, rechnerOeffnungen, newsOeffnungen, xpTaeglich, perfektQuizzeGesamt, challengesClaimed, onChallengeEinloesen, xp }) {
+  const [ansicht, setAnsicht] = useState("offen")
+
+  const weekKey  = getWeekKey()
+  const monthKey = getMonthKey()
+
+  const wochenStats  = JSON.parse(localStorage.getItem(`weeklyStats_${weekKey}`)  || '{"lektionen":0,"perfekt":0,"rechner":0,"news":0}')
+  const monatsStats  = JSON.parse(localStorage.getItem(`monthlyStats_${monthKey}`) || '{"lektionen":0,"kategorienSet":[]}')
+
+  const level = berechneLevel(xp)
+
+  // Weekly XP from xpTaeglich (Mon–Sun)
+  const heute = new Date()
+  const wochenStart = new Date(heute)
+  const tagIndex = heute.getDay() || 7
+  wochenStart.setDate(heute.getDate() - tagIndex + 1)
+  wochenStart.setHours(0, 0, 0, 0)
+  const wochenXP = Object.entries(xpTaeglich)
+    .filter(([d]) => new Date(d) >= wochenStart)
+    .reduce((sum, [, v]) => sum + v, 0)
+
+  // Completed categories
+  const katKomplett = kategorien.filter(k => {
+    const alleIds = (lernpfad[k.id] || []).map(l => l.id)
+    return alleIds.length > 0 && alleIds.every(id => abgeschlosseneLektionen.includes(id))
+  }).length
+
+  const aktuelleWC = getAktuelleWochenchallenge()
+  const aktuelleMC = getAktuelleMonatschallenge()
+  const tageRestlich = getTageRestlicheWoche()
+
+  function getWochenProgress(typ) {
+    switch (typ) {
+      case "lektionen":     return wochenStats.lektionen || 0
+      case "perfekt_quizze": return wochenStats.perfekt   || 0
+      case "streak":        return streak
+      case "rechner":       return wochenStats.rechner    || 0
+      case "news":          return wochenStats.news       || 0
+      case "xp":            return wochenXP
+      default: return 0
+    }
+  }
+
+  function getMonatsProgress(typ) {
+    switch (typ) {
+      case "lektionen":    return monatsStats.lektionen || 0
+      case "kategorien":   return (monatsStats.kategorienSet || []).length
+      case "streak_gesamt": return streak
+      default: return 0
+    }
+  }
+
+  function getPermanentProgress(typ) {
+    switch (typ) {
+      case "lektionen_gesamt": return abgeschlosseneLektionen.length
+      case "streak_gesamt":    return streak
+      case "perfekt_gesamt":   return perfektQuizzeGesamt
+      case "rechner_gesamt":   return rechnerOeffnungen
+      case "news_gesamt":      return newsOeffnungen
+      case "kat_komplett":     return katKomplett
+      case "level":            return level
+      default: return 0
+    }
+  }
+
+  const wClaimKey = `w_${aktuelleWC.id}_${weekKey}`
+  const mClaimKey = `m_${aktuelleMC.id}_${monthKey}`
+  const wFortschritt  = getWochenProgress(aktuelleWC.typ)
+  const mFortschritt  = getMonatsProgress(aktuelleMC.typ)
+  const wAbgeschlossen = wFortschritt >= aktuelleWC.ziel
+  const mAbgeschlossen = mFortschritt >= aktuelleMC.ziel
+  const wEingelo = !!challengesClaimed[wClaimKey]
+  const mEingelo = !!challengesClaimed[mClaimKey]
+
+  // Filter permanent challenges by ansicht
+  const permanentMitStatus = PERMANENT_CHALLENGES.map(c => {
+    const fortschritt = getPermanentProgress(c.typ)
+    const abgeschlossen = fortschritt >= c.ziel
+    const eingelo = !!challengesClaimed[`p_${c.id}`]
+    return { ...c, fortschritt, abgeschlossen, eingelo }
+  })
+  const offenePermanent     = permanentMitStatus.filter(c => !c.eingelo)
+  const abgeschlossenePermanent = permanentMitStatus.filter(c => c.eingelo)
+  const anzeigeListePermanent   = ansicht === "offen" ? offenePermanent : abgeschlossenePermanent
+
+  function ChallengeKarte({ icon, titel, beschreibung, xpBetrag, fortschritt, ziel, abgeschlossen, eingelo, claimKey, farbe = "#9D174D" }) {
+    const pct = Math.min(100, Math.round((fortschritt / ziel) * 100))
+    return (
+      <div className={`ch-karte ${eingelo ? "ch-eingelo" : abgeschlossen ? "ch-bereit" : ""}`}>
+        <div className="ch-karte-icon" style={{ background: farbe + "22", color: farbe }}>{icon}</div>
+        <div className="ch-karte-body">
+          <div className="ch-karte-header-row">
+            <span className="ch-karte-titel">{titel}</span>
+            <span className="ch-xp-badge">+{xpBetrag} XP</span>
+          </div>
+          <p className="ch-karte-desc">{beschreibung}</p>
+          <div className="ch-progress-row">
+            <div className="ch-progress-bg">
+              <div className="ch-progress-fill" style={{ width: `${pct}%`, background: farbe }} />
+            </div>
+            <span className="ch-progress-label">{Math.min(fortschritt, ziel)}/{ziel}</span>
+          </div>
+        </div>
+        {eingelo && <div className="ch-check">✓</div>}
+        {abgeschlossen && !eingelo && (
+          <button className="ch-claim-btn" onClick={() => onChallengeEinloesen(claimKey, xpBetrag)}>
+            Einlösen
+          </button>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <div className="screen">
+      <div className="screen-header" style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>
+        <button className="zurueck-btn" onClick={onZurueck}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div>
+          <h1 className="screen-header-title" style={{ background: "linear-gradient(135deg, #9D174D, #7C3AED)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", fontWeight: 800, fontSize: "1.7rem" }}>Challenges</h1>
+          <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "0.15rem" }}>{tageRestlich} Tag{tageRestlich !== 1 ? "e" : ""} bis zur neuen Wochenchallenge</p>
+        </div>
+      </div>
+
+      {/* ── Wöchentliche Challenge ── */}
+      <p className="section-label">DIESE WOCHE</p>
+      <ChallengeKarte
+        icon={aktuelleWC.icon}
+        titel={aktuelleWC.titel}
+        beschreibung={aktuelleWC.beschreibung}
+        xpBetrag={aktuelleWC.xp}
+        fortschritt={wFortschritt}
+        ziel={aktuelleWC.ziel}
+        abgeschlossen={wAbgeschlossen}
+        eingelo={wEingelo}
+        claimKey={wClaimKey}
+        farbe="#9D174D"
+      />
+
+      {/* ── Monatliche Challenge ── */}
+      <p className="section-label" style={{ marginTop: "1.5rem" }}>DIESEN MONAT</p>
+      <ChallengeKarte
+        icon={aktuelleMC.icon}
+        titel={aktuelleMC.titel}
+        beschreibung={aktuelleMC.beschreibung}
+        xpBetrag={aktuelleMC.xp}
+        fortschritt={mFortschritt}
+        ziel={aktuelleMC.ziel}
+        abgeschlossen={mAbgeschlossen}
+        eingelo={mEingelo}
+        claimKey={mClaimKey}
+        farbe="#7C3AED"
+      />
+
+      {/* ── Permanente Challenges ── */}
+      <div className="ch-toggle-row" style={{ marginTop: "1.75rem" }}>
+        <p className="section-label" style={{ margin: 0 }}>CHALLENGES</p>
+        <div className="ch-toggle">
+          <button className={`ch-toggle-btn ${ansicht === "offen" ? "aktiv" : ""}`} onClick={() => setAnsicht("offen")}>
+            Offen ({offenePermanent.length})
+          </button>
+          <button className={`ch-toggle-btn ${ansicht === "abgeschlossen" ? "aktiv" : ""}`} onClick={() => setAnsicht("abgeschlossen")}>
+            Fertig ({abgeschlossenePermanent.length})
+          </button>
+        </div>
+      </div>
+      <div className="ch-liste" style={{ marginTop: "0.75rem" }}>
+        {anzeigeListePermanent.length === 0 && (
+          <div className="ch-leer">
+            {ansicht === "offen" ? "Alle Challenges abgeschlossen! 🏆" : "Noch keine Challenge abgeschlossen."}
+          </div>
+        )}
+        {anzeigeListePermanent.map(c => (
+          <ChallengeKarte
+            key={c.id}
+            icon={c.icon}
+            titel={c.titel}
+            beschreibung={c.beschreibung}
+            xpBetrag={c.xp}
+            fortschritt={c.fortschritt}
+            ziel={c.ziel}
+            abgeschlossen={c.abgeschlossen}
+            eingelo={c.eingelo}
+            claimKey={`p_${c.id}`}
+            farbe="#7C3AED"
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function TippDerWocheKarte({ onLektionClick }) {
   const tipp = getTippDerWoche()
   return (
@@ -8494,8 +8752,10 @@ function App() {
   const [kategorienBonus, setKategorienBonus]     = useState(() => JSON.parse(localStorage.getItem("kategorienBonus") || "[]"))
   const [aktionsplaene, setAktionsplaene]         = useState(() => JSON.parse(localStorage.getItem("aktionsplaene") || "{}"))
   const [aktiversAktionsplanId, setAktiversAktionsplanId] = useState(null)
-  const [zeigeEmailModal, setZeigeEmailModal]     = useState(false)
-  const [zeigeFeedbackModal, setZeigeFeedbackModal] = useState(false)
+  const [zeigeEmailModal, setZeigeEmailModal]         = useState(false)
+  const [zeigeFeedbackModal, setZeigeFeedbackModal]   = useState(false)
+  const [challengesClaimed, setChallengesClaimed]     = useState(() => JSON.parse(localStorage.getItem("challengesClaimed") || "{}"))
+  const [perfektQuizzeGesamt, setPerfektQuizzeGesamt] = useState(() => Number(localStorage.getItem("perfektQuizzeGesamt") || 0))
 
   useEffect(() => {
     const heute = getHeute()
@@ -8605,6 +8865,10 @@ function App() {
       setAbgeschlosseneLektionen(neueAbgeschlossen)
       localStorage.setItem("abgeschlosseneLektionen", JSON.stringify(neueAbgeschlossen))
 
+      challengeTracking("lektion")
+      const katId = aktiveKategorie?.id
+      if (katId) challengeTracking("kat", katId)
+
       // Streak-Bonus
       if (verdientXP > 0) {
         if (streak >= 7)      bonusXP += 10
@@ -8612,7 +8876,6 @@ function App() {
       }
 
       // Erste Lektion in dieser Kategorie
-      const katId = aktiveKategorie?.id
       if (katId && !kategorienBonus.includes(`first_${katId}`)) {
         const istErsteInKat = !abgeschlosseneLektionen.some(lid => (lernpfad[katId] || []).find(l => l.id === lid))
         if (istErsteInKat) {
@@ -8672,6 +8935,7 @@ function App() {
       setPerfekteQuizze(newPQ)
       localStorage.setItem("perfekteQuizze", newPQ)
       if (newPQ >= 10) freischaltenAchievement("perfektionist")
+      challengeTracking("perfekt")
     } else {
       setPerfekteQuizze(0)
       localStorage.setItem("perfekteQuizze", 0)
@@ -8718,6 +8982,7 @@ function App() {
     setRechnerOeffnungen(n)
     localStorage.setItem("rechnerOeffnungen", n)
     if (n >= 10) freischaltenAchievement("zahlen_nerd")
+    challengeTracking("rechner")
   }
 
   function newsOeffnen() {
@@ -8725,6 +8990,44 @@ function App() {
     setNewsOeffnungen(n)
     localStorage.setItem("newsOeffnungen", n)
     if (n >= 7) freischaltenAchievement("news_junkie")
+    challengeTracking("news")
+  }
+
+  function challengeTracking(typ, katId = null) {
+    const weekKey  = getWeekKey()
+    const monthKey = getMonthKey()
+
+    const wKey = `weeklyStats_${weekKey}`
+    const ws   = JSON.parse(localStorage.getItem(wKey) || '{"lektionen":0,"perfekt":0,"rechner":0,"news":0}')
+    if (typ === "lektion") ws.lektionen = (ws.lektionen || 0) + 1
+    if (typ === "perfekt") ws.perfekt   = (ws.perfekt   || 0) + 1
+    if (typ === "rechner") ws.rechner   = (ws.rechner   || 0) + 1
+    if (typ === "news")    ws.news      = (ws.news      || 0) + 1
+    localStorage.setItem(wKey, JSON.stringify(ws))
+
+    const mKey = `monthlyStats_${monthKey}`
+    const ms   = JSON.parse(localStorage.getItem(mKey) || '{"lektionen":0,"kategorienSet":[]}')
+    if (typ === "lektion") ms.lektionen = (ms.lektionen || 0) + 1
+    if (typ === "kat" && katId && !(ms.kategorienSet || []).includes(katId)) {
+      ms.kategorienSet = [...(ms.kategorienSet || []), katId]
+    }
+    localStorage.setItem(mKey, JSON.stringify(ms))
+
+    if (typ === "perfekt") {
+      const n = Number(localStorage.getItem("perfektQuizzeGesamt") || 0) + 1
+      localStorage.setItem("perfektQuizzeGesamt", n)
+      setPerfektQuizzeGesamt(n)
+    }
+  }
+
+  function challengeEinloesen(claimKey, xpBetrag) {
+    setChallengesClaimed(prev => {
+      if (prev[claimKey]) return prev
+      const neu = { ...prev, [claimKey]: true }
+      localStorage.setItem("challengesClaimed", JSON.stringify(neu))
+      addXP(xpBetrag)
+      return neu
+    })
   }
 
   function streakFreeze() {
@@ -8886,6 +9189,20 @@ function App() {
         )}
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveHauptkategorie === "rechner" && (
           <RechnerScreen onZurueck={() => setAktiveHauptkategorie(null)} userFinanzsituation={userFinanzsituation} onRechnerOeffnung={rechnerOeffnen} />
+        )}
+        {aktiverTab === "home" && !aktiversAktionsplanId && aktiveHauptkategorie === "challenges" && (
+          <ChallengesScreen
+            onZurueck={() => setAktiveHauptkategorie(null)}
+            abgeschlosseneLektionen={abgeschlosseneLektionen}
+            streak={streak}
+            rechnerOeffnungen={rechnerOeffnungen}
+            newsOeffnungen={newsOeffnungen}
+            xpTaeglich={xpTaeglich}
+            perfektQuizzeGesamt={perfektQuizzeGesamt}
+            challengesClaimed={challengesClaimed}
+            onChallengeEinloesen={challengeEinloesen}
+            xp={xp}
+          />
         )}
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ === "cards" && (
           <CardLektionScreen lektion={aktiveLektion} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} />
