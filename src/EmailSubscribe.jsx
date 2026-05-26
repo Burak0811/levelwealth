@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-// TODO: Brevo API Key hier einfügen
-const BREVO_API_KEY = "BREVO_API_KEY_HIER"
+// Wert aus .env.local: VITE_BREVO_API_KEY=xkeysib-...
+const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY ?? ""
 
 export default function EmailSubscribe({ compact = false, title, subtitle }) {
   const [email, setEmail] = useState("")
@@ -18,7 +18,7 @@ export default function EmailSubscribe({ compact = false, title, subtitle }) {
           "Content-Type": "application/json",
           "api-key": BREVO_API_KEY,
         },
-        body: JSON.stringify({ email, listIds: [1], updateEnabled: true }),
+        body: JSON.stringify({ email, listIds: [3], updateEnabled: true }),
       })
       if (res.ok || res.status === 201 || res.status === 204) {
         setStatus("success")

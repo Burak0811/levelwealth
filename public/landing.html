@@ -882,8 +882,7 @@
     slider.addEventListener('input', updateCalc)
     updateCalc()
 
-    // TODO: Brevo API Key hier einfügen
-    const BREVO_API_KEY = 'BREVO_API_KEY_HIER'
+    const BREVO_API_KEY = 'REDACTED'
 
     async function newsletterAnmelden() {
       const emailEl = document.getElementById('newsletter-email')
@@ -899,7 +898,7 @@
         const res = await fetch('https://api.brevo.com/v3/contacts', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'api-key': BREVO_API_KEY },
-          body: JSON.stringify({ email, listIds: [1], updateEnabled: true }),
+          body: JSON.stringify({ email, listIds: [3], updateEnabled: true }),
         })
         if (res.ok || res.status === 201 || res.status === 204) {
           document.getElementById('newsletter-form').style.display = 'none'
