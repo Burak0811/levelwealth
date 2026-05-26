@@ -1,7 +1,14 @@
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+html {
+  overflow-x: hidden;
+  overscroll-behavior: none;
 }
 
 :root {
@@ -58,8 +65,24 @@ body {
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+input, textarea, select {
+  font-size: 16px; /* prevents iOS auto-zoom on focus */
+  font-family: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
 }
 
 .app {
@@ -68,13 +91,18 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
+  padding-top: env(safe-area-inset-top);
 }
 
 .content {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding-bottom: 80px;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 @keyframes screen-fade-in {
@@ -558,9 +586,14 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0.5rem 0.5rem 0.85rem;
+  padding: 0.5rem 0.5rem calc(env(safe-area-inset-bottom) + 8px);
   z-index: 100;
   gap: 0.25rem;
+  transition: transform 0.2s ease;
+}
+
+.keyboard-open .bottom-nav {
+  display: none;
 }
 
 .nav-btn {
@@ -5808,6 +5841,68 @@ body {
   font-weight: 800;
   color: #e2ddf4;
   margin-bottom: 0.4rem;
+}
+
+/* ── Performance: GPU-accelerated fills ── */
+.hero-xp-fill,
+.hero-tagesziel-fill,
+.acc-kat-bar-fill,
+.lektion-progress-fill,
+.ob-new-progress-fill,
+.rc-balken {
+  will-change: transform;
+}
+
+/* ── Skeleton shimmer ── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #1a1525 25%, #2a2040 50%, #1a1525 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 10px;
+}
+
+/* ── Error Screen ── */
+.error-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 1.25rem;
+  padding: 2rem;
+  text-align: center;
+}
+.error-screen p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+.error-screen button {
+  background: var(--gradient);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Always dark, regardless of system setting ── */
+@media (prefers-color-scheme: light) {
+  :root { color-scheme: dark; }
+  html  { background: #0D0A14; }
 }
 .tipp-woche-text {
   font-size: 0.82rem;

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, Component } from "react"
 import "./App.css"
 import EmailSubscribe from "./EmailSubscribe.jsx"
 import {
@@ -180,6 +180,40 @@ function getPersonalizedGreeting(userName, onboardingDate, abgeschlosseneLektion
 
 function getHeute() {
   return new Date().toISOString().split("T")[0]
+}
+
+function safeLocalStorage(key, value) {
+  try {
+    if (value !== undefined) { localStorage.setItem(key, value); return value }
+    return localStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+function Skeleton({ width = "100%", height = 18, borderRadius = 10, style = {} }) {
+  return (
+    <div
+      className="skeleton"
+      style={{ width, height, borderRadius, flexShrink: 0, ...style }}
+    />
+  )
+}
+
+class ErrorBoundary extends Component {
+  state = { hasError: false }
+  static getDerivedStateFromError() { return { hasError: true } }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="error-screen">
+          <p>😕 Etwas ist schiefgelaufen.</p>
+          <button onClick={() => window.location.reload()}>Neu laden</button>
+        </div>
+      )
+    }
+    return this.props.children
+  }
 }
 
 async function navigatorTeilen(text) {
@@ -7643,9 +7677,18 @@ function NewsScreen({ onZurueck, onOeffnen, onLektionClick }) {
     return (
       <div className="screen">
         {onZurueck && <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>}
-        <div className="news-laden">
-          <div className="news-spinner" />
-          <p className="news-laden-text">Lade aktuelle Finanz-News…</p>
+        <div className="screen-header" style={{ marginTop: "1rem" }}>
+          <Skeleton width="80px" height={28} borderRadius={8} style={{ marginBottom: "0.5rem" }} />
+          <Skeleton width="160px" height={14} borderRadius={6} />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+          {[1, 2, 3].map(i => (
+            <div key={i} style={{ background: "#12101a", border: "1px solid #2a2040", borderRadius: 16, padding: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <Skeleton width="90%" height={16} />
+              <Skeleton width="75%" height={13} />
+              <Skeleton width="50%" height={11} borderRadius={6} />
+            </div>
+          ))}
         </div>
       </div>
     )
@@ -8473,6 +8516,19 @@ function App() {
     if (!achievements["erster_tag"]) freischaltenAchievement("erster_tag")
   }, [])
 
+  useEffect(() => {
+    if (!window.visualViewport) return
+    const handleResize = () => {
+      if (window.visualViewport.height < window.innerHeight * 0.75) {
+        document.body.classList.add("keyboard-open")
+      } else {
+        document.body.classList.remove("keyboard-open")
+      }
+    }
+    window.visualViewport.addEventListener("resize", handleResize)
+    return () => window.visualViewport.removeEventListener("resize", handleResize)
+  }, [])
+
   function freischaltenAchievement(id) {
     setAchievements(prev => {
       if (prev[id]) return prev
@@ -8890,4 +8946,12 @@ function App() {
   )
 }
 
-export default App
+function AppRoot() {
+  return (
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
+  )
+}
+
+export default AppRoot
