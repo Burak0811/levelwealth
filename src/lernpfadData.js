@@ -2964,5 +2964,211 @@ Forex verstehen ist wertvoll für jeden Anleger. Aktiv Forex traden ist etwas an
         { text: "Was ist Paper Trading?", antworten: ["Trading mit echtem Geld auf Papier dokumentiert", "Simuliertes Trading ohne echtes Geld zum Lernen", "Trading von Anleihen", "Offline-Trading ohne Internet"], richtig: 1, erklaerung: "Paper Trading nutzt Simulatoren mit echten Marktdaten aber ohne echtes Geld. Ideal zum Lernen ohne finanzielles Risiko." }
       ]
     }
+  ],
+  13: [
+    {
+      id: 1301,
+      titel: "Dein erstes echtes Portfolio aufbauen",
+      inhalt: `Ein Portfolio ist mehr als eine Liste von ETFs. Es ist ein System das für dich arbeitet.
+
+Der Unterschied zwischen einer Investment-Sammlung und einem echten Portfolio: Ein Portfolio hat Struktur, klare Ziele und einen Plan für jede Marktphase. Wer einfach ETFs kauft ohne System landet oft mit Überlappungen, zu viel Risiko und Panik im nächsten Crash.
+
+Die 4 Grundprinzipien jedes guten Portfolios:
+
+1. Diversifikation: Nicht alle Eier in einen Korb. Geografisch, nach Asset-Klassen, nach Branchen.
+
+2. Kosten minimieren: Der günstigste Hebel auf langfristige Rendite. TER 0.1% statt 1.5% bedeutet über 30 Jahre Zehntausende Euro Unterschied.
+
+3. Steuern optimieren: Verluste realisieren, Freibetrag nutzen, richtiges Depot wählen.
+
+4. Rebalancing: Portfolio regelmäßig auf Ziel-Allokation zurücksetzen.
+
+Portfolio-Aufbau Schritt für Schritt:
+
+Schritt 1: Risikoprofil bestimmen. Wie viel Verlust kannst du emotional aushalten? 20%, 40%, 60%?
+
+Schritt 2: Asset Allocation festlegen. Wie viel in Aktien, Anleihen, Rohstoffe, Cash?
+
+Schritt 3: Günstige ETFs wählen. Für 90% der Anleger reicht ein einziger MSCI ACWI ETF.
+
+Schritt 4: Automatisieren. Sparplan einrichten, Einzahlungen automatisieren.
+
+Schritt 5: Jährlich prüfen. Nicht täglich schauen – das macht es nur schlechter.
+
+Das einfachste sinnvolle Portfolio: 1 MSCI ACWI ETF (2.800+ Unternehmen, 23 Länder). Fertig.`,
+      xp: 25,
+      fragen: [
+        { text: "Was ist das einfachste sinnvolle Portfolio für einen Einsteiger?", antworten: ["20 verschiedene ETFs", "Ein einziger globaler ETF wie MSCI ACWI", "50% Aktien 50% Krypto", "Nur deutsche Aktien"], richtig: 1, erklaerung: "Ein einziger MSCI ACWI ETF enthält über 2.800 Unternehmen aus 23 Ländern – perfekte Diversifikation mit minimalem Aufwand." },
+        { text: "Was sind die 4 Grundprinzipien eines guten Portfolios?", antworten: ["Timing, Analyse, Handeln, Gewinne sichern", "Diversifikation, Kosten minimieren, Steuern optimieren, Rebalancing", "Aktien, Anleihen, Gold, Cash", "Kaufen, Halten, Verkaufen, Wiederholen"], richtig: 1, erklaerung: "Diese 4 Prinzipien sind wissenschaftlich belegt und werden von den erfolgreichsten Privatanlegern konsequent angewendet." },
+        { text: "Was ist der erste Schritt beim Portfolio-Aufbau?", antworten: ["Den besten ETF finden", "Ein Depot eröffnen", "Das eigene Risikoprofil bestimmen", "So viel wie möglich investieren"], richtig: 2, erklaerung: "Ohne klares Risikoprofil wählst du die falsche Allokation – du könntest im nächsten Crash panisch verkaufen weil das Risiko zu hoch war." }
+      ]
+    },
+    {
+      id: 1302,
+      titel: "Asset Allocation: Die wichtigste Entscheidung",
+      inhalt: `90% deiner langfristigen Rendite hängen von einer einzigen Entscheidung ab: Wie viel in Aktien, wie viel in Anleihen?
+
+Die Wissenschaft ist eindeutig. Die bahnbrechende Studie von Brinson, Hood und Beebower (1986) untersuchte 91 große Pensionsfonds über 10 Jahre. Ergebnis: 93.6% der Rendite-Unterschiede zwischen Fonds wurden durch die Asset Allocation erklärt – nicht durch Stockpicking, nicht durch Market Timing.
+
+Was deine Asset Allocation bestimmt:
+
+Zeithorizont: Wann brauchst du das Geld? In 5 Jahren → weniger Risiko. In 30 Jahren → mehr Risiko möglich und sinnvoll.
+
+Risikotoleranz: Wie fühlst du dich wenn dein Portfolio 40% fällt? Kannst du ruhig schlafen und sogar nachkaufen? Oder würdest du verkaufen?
+
+Liquiditätsbedarf: Brauchst du möglicherweise das Geld für ein Haus? Notfallreserve separat halten.
+
+Einkommen und Stabilität: Stabiles Beamten-Einkommen erlaubt mehr Risiko als variables Freelancer-Einkommen.
+
+Beispiel-Allokationen:
+
+Aggressiv (junger Anleger, langer Horizont): 90% Aktien, 10% Anleihen
+Ausgewogen (mittleres Alter): 60% Aktien, 40% Anleihen
+Konservativ (nahe Rente): 30% Aktien, 70% Anleihen
+
+Faustregel: 100 minus Lebensalter = Aktien-Anteil. Modern: 110 oder 120 minus Alter.
+
+Die wichtigste Regel: Wähle eine Allokation die du auch in einem 50% Crash durchhältst.`,
+      xp: 25,
+      fragen: [
+        { text: "Wie viel Prozent der Renditeunterschiede werden laut Forschung durch Asset Allocation erklärt?", antworten: ["30%", "60%", "93.6%", "100%"], richtig: 2, erklaerung: "Die bahnbrechende Studie von Brinson, Hood und Beebower zeigte: 93.6% der Performance-Unterschiede kommen von der Asset Allocation, nicht vom Stockpicking." },
+        { text: "Was ist das wichtigste Kriterium bei der Wahl der Asset Allocation?", antworten: ["Maximale Rendite", "Was aktuell gut performt", "Eine Allokation die du auch in einem 50% Crash durchhältst", "Was Experten empfehlen"], richtig: 2, erklaerung: "Die beste Strategie ist die die du konsequent durchziehst. Eine zu aggressive Allokation führt oft zu Panikverkäufen im Crash." },
+        { text: "Was empfiehlt die Faustregel für Aktien-Anteil nach Alter?", antworten: ["Immer 100% Aktien", "100 minus Lebensalter = Aktien-Anteil", "50% unabhängig vom Alter", "Lebensalter in % als Aktien-Anteil"], richtig: 1, erklaerung: "100 minus Alter gibt den Aktien-Anteil: Mit 30 Jahren = 70% Aktien, mit 60 Jahren = 40% Aktien. Modernere Versionen nutzen 110 oder 120." }
+      ]
+    },
+    {
+      id: 1303,
+      titel: "Das All-Weather Portfolio",
+      inhalt: `Ray Dalio verwaltete über 100 Milliarden Dollar. Sein Geheimnis: Ein Portfolio das in JEDER Wirtschaftsphase funktioniert.
+
+Dalio identifizierte 4 Wirtschaftsphasen die das Anlageumfeld bestimmen:
+
+1. Wachstum + steigende Inflation → Rohstoffe und inflationsgeschützte Anleihen performen
+2. Wachstum + fallende Inflation → Aktien performen stark
+3. Rezession + steigende Inflation → Gold und Rohstoffe
+4. Rezession + fallende Inflation → Anleihen performen stark
+
+Das All-Weather Portfolio ist so gewichtet dass es in jeder Phase etwas hat das gut läuft:
+
+30% Aktien (US/Global): Wachstum und Wohlstand
+40% Langfristige Staatsanleihen (20-30 Jahre): Stabilität in Rezessionen
+15% Mittelfristige Staatsanleihen (7-10 Jahre): Zusätzliche Stabilität
+7.5% Gold: Inflations- und Krisenabsicherung
+7.5% Rohstoffe: Inflationsschutz und Diversifikation
+
+Historische Performance (1984-2013):
+All-Weather: ~9.7% p.a. bei nur 14% maximalen Verlust
+S&P 500: ~10.2% p.a. bei bis zu 50% maximalem Verlust
+
+Fast gleiche Rendite – aber dramatisch weniger Schmerz.
+
+Für wen geeignet: Anleger nahe der Rente, risikoscheue Investoren, wer 2008 panisch verkauft hat.
+Für wen weniger geeignet: Junge Anleger mit 30+ Jahren Horizont – hier ist ein aktienlastigeres Portfolio langfristig deutlich besser.`,
+      xp: 25,
+      fragen: [
+        { text: "Was ist das Ziel des All-Weather Portfolios?", antworten: ["Maximale Rendite", "In jeder Wirtschaftsphase stabile Performance ohne extreme Verluste", "Nur in Bullenmärkten investieren", "Immer den Markt schlagen"], richtig: 1, erklaerung: "All-Weather ist für Stabilität optimiert, nicht für maximale Rendite. Es soll in allen 4 Wirtschaftsphasen funktionieren." },
+        { text: "Wie hoch ist der Aktien-Anteil im All-Weather Portfolio?", antworten: ["70%", "50%", "30%", "10%"], richtig: 2, erklaerung: "Mit nur 30% Aktien ist All-Weather deutlich konservativer als die meisten Portfolios – dafür mit viel Anleihen, Gold und Rohstoffen stabilisiert." },
+        { text: "Für wen ist das All-Weather Portfolio weniger geeignet?", antworten: ["Rentner", "Risikoscheue Anleger", "25-jährige mit 30+ Jahren Anlagehorizont", "Konservative Anleger"], richtig: 2, erklaerung: "Junge Anleger können mehr Risiko tragen und profitieren von der höheren Rendite eines aktienorientierten Portfolios über lange Zeiträume." }
+      ]
+    },
+    {
+      id: 1304,
+      titel: "Factor Investing: Systematisch den Markt schlagen?",
+      inhalt: `Was wenn es bewiesene Eigenschaften gibt die Aktien langfristig überdurchschnittlich performen lassen? Das ist Factor Investing.
+
+Akademischer Hintergrund: Das Fama-French Drei-Faktor-Modell (1992) zeigte dass der Markt nicht vollständig effizient ist. Bestimmte Eigenschaften (Faktoren) von Aktien erklären langfristige Renditeunterschiede besser als das klassische CAPM-Modell.
+
+Die 5 wichtigsten Faktoren:
+
+Value: Günstig bewertete Aktien (niedriges KGV, KBV) schlagen langfristig teure Wachstumsaktien. Logik: Anleger überbezahlen für Wachstumsfantasie.
+
+Momentum: Was zuletzt gestiegen ist, steigt tendenziell weiter (3-12 Monate). Psychologisch erklärbar: Anleger reagieren zu langsam auf gute Nachrichten.
+
+Quality: Hochprofitable, finanziell solide Unternehmen mit stabilen Cashflows outperformen langfristig.
+
+Size (Small Cap): Kleine Unternehmen haben historisch große übertroffen – aber mit mehr Volatilität.
+
+Low Volatility: Aktien mit niedriger Schwankung performen risikoadjustiert besser als hochvolatile.
+
+Praktische Umsetzung – Faktor-ETFs:
+iShares Edge MSCI World Value Factor ETF
+iShares Edge MSCI World Momentum Factor ETF
+iShares Edge MSCI World Quality Factor ETF
+
+Core-Satellite Strategie: 70-80% MSCI World (Core) + 20-30% ausgewählte Faktor-ETFs (Satellite).
+
+Das größte Risiko: Faktoren können 5-10 Jahre underperformen. Value hatte 2007-2017 eine Dekade der Schwäche. Nur wer durchhält profitiert.`,
+      xp: 30,
+      fragen: [
+        { text: "Was ist der Value-Faktor beim Factor Investing?", antworten: ["In teure Wachstumsaktien investieren", "In fundamental günstig bewertete Aktien investieren die den Markt langfristig schlagen", "Aktien kaufen die gerade steigen", "Aktien mit hoher Dividende kaufen"], richtig: 1, erklaerung: "Value-Aktien handeln unter ihrem fundamentalen Wert (niedriges KGV, KBV). Langfristig haben sie den Markt historisch übertroffen." },
+        { text: "Was ist das größte Risiko beim Factor Investing?", antworten: ["Zu hohe Kosten", "Faktoren können für 5-10 Jahre underperformen bevor sie wieder funktionieren", "Nur für institutionelle Anleger", "Keine Diversifikation"], richtig: 1, erklaerung: "Value hatte 2007-2017 eine Dekade der Underperformance. Anleger die aufgaben verpassten die anschließende Outperformance 2020-2022." },
+        { text: "Was ist die Core-Satellite Strategie?", antworten: ["Nur Faktor-ETFs kaufen", "Kern: breiter Markt-ETF, Satellit: spezifische Faktor-ETFs als Beimischung", "Ausschließlich Small Caps", "50% Aktien 50% Anleihen"], richtig: 1, erklaerung: "Core-Satellite: 70-80% in günstigem MSCI World ETF (Core), 20-30% in spezifischen Faktor-ETFs (Satellite) für gezielte Wetten." }
+      ]
+    },
+    {
+      id: 1305,
+      titel: "Rebalancing Strategien im Detail",
+      inhalt: `Du hast 70% Aktien und 30% Anleihen geplant. Nach einem starken Aktienjahr: plötzlich 85/15. Du trägst mehr Risiko als gewollt.
+
+Warum Rebalancing wichtig ist:
+
+Ohne Rebalancing driftet dein Portfolio immer weiter in Richtung der Asset-Klasse die zuletzt am besten lief. Das klingt gut – ist aber gefährlich, weil du damit implizit den Gewinner kaufst und mehr Risiko aufnimmst als geplant. Rebalancing ist diszipliniertes antizyklisches Handeln.
+
+Zwei Hauptstrategien:
+
+Calendar Rebalancing: Einmal im Jahr (z.B. immer im Januar) alle Positionen auf Ziel-Allokation zurücksetzen. Einfach, planbar, wenig Aufwand.
+
+Threshold Rebalancing: Nur rebalancieren wenn eine Position mehr als 5% von der Ziel-Allokation abweicht. Effizienter als starres Kalender-Rebalancing.
+
+Die Kosten des Rebalancings:
+
+Transaktionskosten: Bei günstigen Brokern (Trade Republic, Scalable) oft vernachlässigbar.
+Steuern: Verkäufe von Gewinnen lösen Abgeltungssteuer aus.
+
+Die steuereffizienteste Methode:
+
+Neue Einzahlungen (Sparplan) gezielt in den untergewichteten Teil lenken. Kein Verkauf → keine Steuern, keine Transaktionskosten. Das funktioniert bei aktiven Sparern besonders gut.
+
+Der Rebalancing-Bonus:
+
+Rebalancing zwingt dich dazu was teuer ist zu verkaufen und was günstig ist zu kaufen. Studien zeigen einen kleinen aber konsistenten Renditevorteil durch dieses antizyklische Verhalten.`,
+      xp: 25,
+      fragen: [
+        { text: "Was ist der Vorteil von Threshold-Rebalancing gegenüber Calendar-Rebalancing?", antworten: ["Es ist einfacher", "Es rebalanciert nur wenn nötig (bei >5% Abweichung) – effizienter als starres jährliches Rebalancing", "Es kostet weniger", "Es ist steuerfreier"], richtig: 1, erklaerung: "Threshold-Rebalancing reagiert auf tatsächliche Abweichungen statt fixer Zeitpunkte – das führt zu besserem Risikomanagement." },
+        { text: "Was ist die steuerschonendste Rebalancing-Methode?", antworten: ["Alles verkaufen und neu kaufen", "Nur verkaufen was zu viel ist", "Neue Einzahlungen in den untergewichteten Teil lenken ohne zu verkaufen", "Rebalancing komplett vermeiden"], richtig: 2, erklaerung: "Durch neue Einzahlungen in untergewichtete Assets rebalancierst du ohne Verkäufe – keine Steuern ausgelöst, keine Transaktionskosten." },
+        { text: "Was ist der Rebalancing-Bonus?", antworten: ["Extra Rendite durch häufiges Handeln", "Systematisches Kaufen wenn günstig und Verkaufen wenn teuer durch den Rebalancing-Prozess", "Steuererstattung beim Rebalancing", "Broker-Rabatt für häufiges Rebalancing"], richtig: 1, erklaerung: "Rebalancing zwingt dich dazu aus Gewinnern zu verkaufen und Verlierer zu kaufen – das ist antizyklisch und kann langfristig einen kleinen Rendite-Bonus bringen." }
+      ]
+    },
+    {
+      id: 1306,
+      titel: "Portfolio für verschiedene Lebensphasen",
+      inhalt: `Ein 25-jähriger und ein 60-jähriger sollten komplett unterschiedliche Portfolios haben. Das nennt sich Lifecycle Investing.
+
+Phase 1: Aggressive Akkumulation (20-35 Jahre)
+80-100% Aktien, 0-20% Anleihen
+Empfehlung: MSCI World + Emerging Markets, monatlicher Sparplan
+Warum so aggressiv: Du hast 30-40 Jahre bis zur Rente. Ein 50% Crash erholt sich in 5-10 Jahren. Fehler sind lernbar. Zeit ist dein mächtigstes Asset.
+
+Phase 2: Balanciertes Wachstum (35-50 Jahre)
+60-80% Aktien, 20-40% Anleihen
+Sparraten oft höher (Karriere-Peak). Erste Anleihen-Beimischung. Portfolio wird größer – Verlustschutz wichtiger.
+
+Phase 3: Kapitalerhalt vorbereiten (50-60 Jahre)
+40-60% Aktien, 40-60% Anleihen
+Risiko systematisch reduzieren. Kein langer Zeithorizont mehr für Erholung nach großen Crashs.
+
+Phase 4: Entnahmephase (60+ Jahre)
+30-50% Aktien, 50-70% Anleihen/Stabile Assets
+Die 4%-Regel: Du kannst 4% des Portfolios jährlich entnehmen ohne es in 30 Jahren aufzubrauchen (Trinity-Studie).
+Sequence-of-Returns Risk: Ein großer Crash kurz nach Rentenbeginn ist viel schädlicher als derselbe Crash 10 Jahre früher – weil Anteile zu Tiefstkursen verkauft werden müssen.
+
+Glidepath: Der automatische Prozess die Allokation über die Jahre von aggressiv zu konservativ zu verschieben. Manche Target-Date Funds machen das automatisch.`,
+      xp: 30,
+      fragen: [
+        { text: "Welche Asset Allocation ist für einen 25-jährigen mit 30+ Jahren Horizont typischerweise optimal?", antworten: ["30% Aktien 70% Anleihen", "50/50", "80-100% Aktien da Zeit Risiko abfedert", "100% Gold"], richtig: 2, erklaerung: "Mit langem Zeithorizont kann man mehr Volatilität aushalten. Historisch hat ein junger Anleger mit 100% Aktien deutlich mehr Vermögen aufgebaut." },
+        { text: "Was ist die 4%-Regel in der Entnahmephase?", antworten: ["4% Rendite ist das Ziel", "Man kann 4% des Portfolios jährlich entnehmen ohne es in 30 Jahren aufzubrauchen", "4% sollten in Cash gehalten werden", "Nur 4% des Gehalts sparen"], richtig: 1, erklaerung: "Die Trinity-Studie zeigte: Bei 50/50 Portfolio kann man 30 Jahre lang 4% jährlich entnehmen ohne das Kapital zu verbrauchen – in den meisten Szenarien." },
+        { text: "Was ist Sequence-of-Returns Risk?", antworten: ["Das Risiko niedriger Renditen", "Das Risiko dass ein früher Crash in der Entnahmephase das Portfolio dauerhaft schädigt", "Zu früh zu investieren", "Falsche Reihenfolge beim Rebalancing"], richtig: 1, erklaerung: "Ein 30% Crash kurz nach Rentenbeginn ist viel schlimmer als derselbe Crash 10 Jahre früher – weil man Anteile zu schlechten Kursen verkaufen muss." }
+      ]
+    }
   ]
 }
