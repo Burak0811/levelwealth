@@ -6536,6 +6536,107 @@ button {
 }
 .sound-switch.on::after { transform: translateX(18px); }
 
+/* ─── Rechner Simplified (rcs) ─── */
+.rcs-header { margin: 1.25rem 0 1.5rem; text-align: center; }
+.rcs-titel { font-size: 1.45rem; font-weight: 800; margin: 0 0 0.35rem; }
+.rcs-subtitel { font-size: 0.875rem; color: var(--text-muted); margin: 0; }
+
+.rcs-inputs { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 1.5rem; }
+
+.rcs-block {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1rem 1.125rem 0.875rem;
+}
+.rcs-block-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.6rem;
+}
+.rcs-block-label { font-size: 0.875rem; font-weight: 600; color: var(--text-muted); }
+.rcs-block-wert  { font-size: 1.05rem; font-weight: 800; color: #fff; }
+.rcs-hint { font-size: 0.75rem; color: var(--text-muted); margin: 0.45rem 0 0; }
+
+.rcs-rendite-row { display: flex; gap: 0.5rem; margin-top: 0.6rem; }
+.rcs-rendite-btn {
+  flex: 1;
+  background: #1a1525;
+  border: 1.5px solid var(--card-border);
+  border-radius: 12px;
+  padding: 0.55rem 0.25rem;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  cursor: pointer; transition: border-color 0.15s, background 0.15s;
+}
+.rcs-rendite-btn.rcs-aktiv {
+  border-color: #7C3AED;
+  background: #7C3AED22;
+}
+.rcs-rendite-name { font-size: 0.72rem; color: var(--text-muted); }
+.rcs-rendite-btn.rcs-aktiv .rcs-rendite-name { color: #a78bfa; }
+.rcs-rendite-pct  { font-size: 0.95rem; font-weight: 800; color: #fff; }
+
+.rcs-ergebnis {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 1.5rem 1.25rem 1.25rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.rcs-ergebnis-zahl {
+  font-size: clamp(2rem, 10vw, 2.8rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #7C3AED, #9D174D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  margin: 0 0 0.2rem;
+}
+.rcs-ergebnis-jahre { font-size: 0.875rem; color: var(--text-muted); margin: 0 0 1rem; }
+.rcs-detail-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.875rem; padding: 0.45rem 0;
+  border-top: 1px solid var(--card-border);
+  color: var(--text-muted);
+}
+.rcs-gain-row { color: #fff; }
+.rcs-gain-val { color: #a78bfa; font-weight: 700; }
+.rcs-motivation {
+  margin: 1rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #a78bfa;
+  text-align: center;
+}
+
+.rcs-chart-wrap {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1rem 0.75rem 0.5rem;
+  margin-bottom: 1.25rem;
+}
+.rcs-svg { display: block; width: 100%; overflow: visible; }
+
+.rcs-cta-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #7C3AED, #9D174D);
+  border: none;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  transition: opacity 0.2s;
+}
+.rcs-cta-btn:disabled { opacity: 0.45; cursor: default; }
+.rcs-cta-btn:not(:disabled):active { opacity: 0.85; }
+
 /* ─── Überkategorien Accordion ─── */
 .ueberkategorien-liste {
   display: flex;

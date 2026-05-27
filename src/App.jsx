@@ -9681,17 +9681,12 @@ function sliderBg(val, min, max) {
   return `linear-gradient(to right, #7C3AED ${pct.toFixed(1)}%, #2A2040 ${pct.toFixed(1)}%)`
 }
 
-function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung }) {
+function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung, onEtfOeffnen }) {
   const defaultSpar = getBudgetDefault(userFinanzsituation)
-  const [sparrate, setSparrate]         = useState(defaultSpar)
-  const [startkapital, setStartkapital] = useState(0)
-  const [laufzeit, setLaufzeit]         = useState(20)
-  const [renditeTyp, setRenditeTyp]     = useState("realistisch")
-  const [animWert, setAnimWert]         = useState(0)
-  const [kopiert, setKopiert]           = useState(false)
-  const [inflationAn, setInflationAn]   = useState(true)
-  const [steuerAn, setSteuerAn]         = useState(false)
-  const [monatsbedarf, setMonatsbedarf] = useState(2000)
+  const [sparrate, setSparrate]     = useState(defaultSpar)
+  const [laufzeit, setLaufzeit]     = useState(20)
+  const [renditeTyp, setRenditeTyp] = useState("realistisch")
+  const [animWert, setAnimWert]     = useState(0)
   const animRef = useRef(null)
   const prevRef = useRef(0)
 
@@ -9702,41 +9697,28 @@ function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung }) {
   ]
 
   const aktuelleProzent = renditeOptionen.find(r => r.id === renditeTyp).prozent
-  const ergebnis   = berechneZinseszins(sparrate, startkapital, laufzeit, aktuelleProzent)
-  const eingezahlt = Math.round(startkapital + sparrate * laufzeit * 12)
-  const gewinn     = ergebnis - eingezahlt
-  const gewinnPct  = ergebnis > 0 ? Math.round((gewinn / ergebnis) * 100) : 0
+  const ergebnis        = berechneZinseszins(sparrate, 0, laufzeit, aktuelleProzent)
+  const eingezahlt      = Math.round(sparrate * laufzeit * 12)
+  const gewinn          = ergebnis - eingezahlt
+  const gewinnPct       = ergebnis > 0 ? Math.round((gewinn / ergebnis) * 100) : 0
 
-  // 1. Inflation (2 % p.a.)
-  const realerWert = Math.round(ergebnis / Math.pow(1.02, laufzeit))
+  const aktuellesJahr   = new Date().getFullYear()
+  const zukunftsJahr    = aktuellesJahr + laufzeit
 
-  // 2. Steuer (Abgeltungssteuer 26,375 %, Sparerpauschbetrag 1.000 €)
-  const steuerpflichtiger = Math.max(0, gewinn - 1000)
-  const steuer            = Math.round(steuerpflichtiger * 0.26375)
-  const nettoEndwert      = ergebnis - steuer
-
-  // 3. Freiheitszahl (4 %-Regel)
-  const freiheitskapital = Math.round(monatsbedarf * 12 / 0.04)
-  let freiheitsJahre = null
-  for (let j = 1; j <= 50; j++) {
-    if (berechneZinseszins(sparrate, startkapital, j, aktuelleProzent) >= freiheitskapital) {
-      freiheitsJahre = j
-      break
-    }
+  function sparsHinweis(v) {
+    if (v <= 25)  return "Weniger als ein Netflix-Abo"
+    if (v <= 50)  return "Etwa ein Restaurantbesuch"
+    if (v <= 100) return "Ein Handyvertrag im Monat"
+    if (v <= 200) return "Solides Fundament"
+    return "Starker Start"
   }
-  const freiheitsfortschritt = Math.min(100, Math.round((ergebnis / freiheitskapital) * 100))
 
-  // 4. Vergleich
-  const tagesgeldWert = berechneZinseszins(sparrate, startkapital, laufzeit, 2)
-  const girokontoReal = Math.round(eingezahlt / Math.pow(1.02, laufzeit))
-  const vergleichMax  = Math.max(ergebnis, 1)
-
-  // 5. ETF-Empfehlung
-  const empfehlung = sparrate < 50
-    ? { icon: "🌱", name: "Trade Republic Sparplan", sub: "Ab 1 € / Monat, null Gebühren – perfekt für den Einstieg" }
-    : sparrate <= 200
-    ? { icon: "📊", name: "Scalable Capital oder Trade Republic", sub: "MSCI World ETF – breit diversifiziert, günstig, bewährt" }
-    : { icon: "🚀", name: "MSCI World (70 %) + Emerging Markets (30 %)", sub: "Bewährte Core-Satellite-Strategie für ambitionierte Sparraten" }
+  function motivationSatz() {
+    if (gewinn > eingezahlt) return "Dein Geld arbeitet mehr als du eingezahlt hast. 🎯"
+    if (gewinn > 50000)      return "Das ist ein Jahresgehalt als reiner Zinseszins. 🚀"
+    if (laufzeit > 30)       return "Zeit ist dein größter Vorteil. Nutze ihn."
+    return "Der Zinseszins-Effekt macht den Unterschied."
+  }
 
   useEffect(() => { if (onRechnerOeffnung) onRechnerOeffnung() }, [])
 
@@ -9745,7 +9727,7 @@ function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung }) {
     const zu  = ergebnis
     prevRef.current = ergebnis
     if (animRef.current) cancelAnimationFrame(animRef.current)
-    const dauer = 500
+    const dauer = 400
     const start = performance.now()
     function frame(jetzt) {
       const t    = Math.min((jetzt - start) / dauer, 1)
@@ -9757,377 +9739,134 @@ function RechnerScreen({ onZurueck, userFinanzsituation, onRechnerOeffnung }) {
     return () => { if (animRef.current) cancelAnimationFrame(animRef.current) }
   }, [ergebnis])
 
-  // Chart data points
+  // Chart data
   const chartPunkte = []
   for (let j = 0; j <= laufzeit; j++) {
     chartPunkte.push({
-      wert: berechneZinseszins(sparrate, startkapital, j, aktuelleProzent),
-      einz: Math.round(startkapital + sparrate * j * 12),
+      wert: berechneZinseszins(sparrate, 0, j, aktuelleProzent),
+      einz: Math.round(sparrate * j * 12),
     })
   }
-
-  function zuPfad(key) {
-    const maxWert = Math.max(chartPunkte[chartPunkte.length - 1]?.wert || 1, 1)
-    const pL = 10, pR = 10, pT = 8, pB = 20
-    const w = 300 - pL - pR, h = 120 - pT - pB
-    return chartPunkte.map((p, i) => {
-      const x = (pL + (i / Math.max(laufzeit, 1)) * w).toFixed(1)
-      const y = (pT + h - (p[key] / maxWert) * h).toFixed(1)
-      return `${i === 0 ? "M" : "L"}${x},${y}`
-    }).join(" ")
-  }
-
-  const growthPath = zuPfad("wert")
-  const einzPath   = zuPfad("einz")
-  const fillPath   = growthPath + " L290,100 L10,100 Z"
-
-  const xTicks = []
-  const tickStep = laufzeit <= 10 ? 2 : laufzeit <= 20 ? 5 : 10
-  for (let j = 0; j <= laufzeit; j += tickStep) {
-    xTicks.push({ x: (10 + (j / Math.max(laufzeit, 1)) * 280).toFixed(1), label: `${j}J` })
-  }
-
-  const szen1 = ergebnis
-  const szen2 = berechneZinseszins(sparrate + 50, startkapital, laufzeit, aktuelleProzent)
-  const szen3 = berechneZinseszins(sparrate, startkapital, laufzeit + 5, aktuelleProzent)
-
-  const entnahme        = Math.round(ergebnis * 0.04 / 12)
-  const monatsgehaelter = (eingezahlt / 2000).toFixed(1)
-  const insights = [
-    `Du hast ${formatEuro(eingezahlt)} eingezahlt – der Rest ist purer Zinseszins.`,
-    `Das entspricht ${monatsgehaelter} Monatsgehältern bei 2.000 € Netto.`,
-    `Bei 4 % Entnahmerate: ${formatEuro(entnahme)} / Monat ohne das Kapital anzutasten.`,
-  ]
-  if (laufzeit > 30)
-    insights.push("Du profitierst vom vollen Zinseszins-Effekt – Zeit ist dein größter Vorteil.")
-  if (sparrate < 50) {
-    const mehr = berechneZinseszins(sparrate + 20, startkapital, laufzeit, aktuelleProzent) - ergebnis
-    insights.push(`Erhöhe um 20 € und du hast ${formatEuro(mehr)} mehr.`)
-  }
-
-  async function teilen() {
-    const steuerZeile = steuerAn ? `\n💼 Nach Steuern: ${formatEuro(nettoEndwert)}` : ""
-    const text = [
-      `Mit ${sparrate}€/Monat werde ich in ${laufzeit} Jahren ${formatEuro(ergebnis)} haben. Zinseszins ist magisch! 📈 #Lumio`,
-      `📊 ${sparrate} €/Monat × ${laufzeit} Jahre @ ${aktuelleProzent} % p.a.${steuerZeile}`,
-      `💰 Davon Zinseszins: ${formatEuro(gewinn)} (${gewinnPct} %)`,
-      `🔢 lumio.app`,
-    ].join("\n")
-    if (navigator.share) {
-      try { await navigator.share({ text }); return } catch {}
-    }
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(() => {
-        setKopiert(true)
-        setTimeout(() => setKopiert(false), 2500)
-      })
-    }
-  }
+  const svgW = 320, svgH = 130
+  const pL = 10, pR = 10, pT = 10, pB = 22
+  const chartW = svgW - pL - pR
+  const chartH = svgH - pT - pB
+  const maxWert = Math.max(chartPunkte[chartPunkte.length - 1]?.wert || 1, 1)
+  const xAt = i => (pL + (i / Math.max(laufzeit, 1)) * chartW).toFixed(1)
+  const yAt = v => (pT + chartH - (v / maxWert) * chartH).toFixed(1)
+  const growthPath = chartPunkte.map((p, i) => `${i === 0 ? "M" : "L"}${xAt(i)},${yAt(p.wert)}`).join(" ")
+  const einzPath   = chartPunkte.map((p, i) => `${i === 0 ? "M" : "L"}${xAt(i)},${yAt(p.einz)}`).join(" ")
+  const baseY      = (pT + chartH).toFixed(1)
+  const fillGrowth = `${growthPath} L${xAt(laufzeit)},${baseY} L${pL},${baseY} Z`
+  const fillEinz   = `${einzPath} L${xAt(laufzeit)},${baseY} L${pL},${baseY} Z`
 
   return (
     <div className="screen">
       {onZurueck && <button className="zurueck-btn" onClick={onZurueck}><ArrowLeftIcon size={16}/> Zurück</button>}
-      <div className="screen-header" style={{ marginTop: "1rem" }}>
-        <h1>Rechner</h1>
-        <p className="xp-info">🧮 Zinseszins-Rechner</p>
+
+      <div className="rcs-header">
+        <h1 className="rcs-titel">Was wird aus deinem Geld?</h1>
+        <p className="rcs-subtitel">Sieh wie der Zinseszins für dich arbeitet.</p>
       </div>
 
-      {/* ── Ergebnis ── */}
-      <div className="rc-ergebnis-card">
-        <p className="rc-ergebnis-label">In {laufzeit} Jahren hast du</p>
-        <p className="rc-ergebnis-zahl">{formatEuro(animWert)}</p>
-        {inflationAn && (
-          <p className="rc-ergebnis-real">≈ {formatEuro(realerWert)} in heutiger Kaufkraft</p>
-        )}
-        <div className="rc-balken-wrap">
-          <div className="rc-balken-row">
-            <div className="rc-balken rc-balken-lila"    style={{ width: `${100 - gewinnPct}%` }} />
-            <div className="rc-balken rc-balken-weinrot" style={{ width: `${gewinnPct}%` }} />
+      {/* ── Inputs ── */}
+      <div className="rcs-inputs">
+        <div className="rcs-block">
+          <div className="rcs-block-top">
+            <span className="rcs-block-label">Monatliche Sparrate</span>
+            <span className="rcs-block-wert">{sparrate} €</span>
           </div>
-          <div className="rc-balken-legende">
-            <span><span className="rc-legend-dot rc-dot-lila" />Eingezahlt: {formatEuro(eingezahlt)}</span>
-            <span><span className="rc-legend-dot rc-dot-weinrot" />Gewinn: {formatEuro(gewinn)} ({gewinnPct} %)</span>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Eingaben ── */}
-      <div className="rc-eingaben">
-        <div className="rc-zeile">
-          <label className="rc-label">Monatliche Sparrate</label>
-          <div className="rc-slider-row">
-            <input type="range" min={10} max={1000} step={10}
-              value={sparrate}
-              onChange={e => setSparrate(Number(e.target.value))}
-              className="rc-slider"
-              style={{ background: sliderBg(sparrate, 10, 1000) }}
-            />
-            <input type="number" min={10} max={1000}
-              value={sparrate}
-              onChange={e => setSparrate(Math.max(10, Math.min(1000, Number(e.target.value) || 10)))}
-              className="rc-zahl-input"
-            />
-            <span className="rc-unit">€</span>
-          </div>
-        </div>
-
-        <div className="rc-zeile">
-          <label className="rc-label">Startkapital</label>
-          <div className="rc-slider-row">
-            <input type="range" min={0} max={10000} step={100}
-              value={startkapital}
-              onChange={e => setStartkapital(Number(e.target.value))}
-              className="rc-slider"
-              style={{ background: sliderBg(startkapital, 0, 10000) }}
-            />
-            <input type="number" min={0} max={10000}
-              value={startkapital}
-              onChange={e => setStartkapital(Math.max(0, Math.min(10000, Number(e.target.value) || 0)))}
-              className="rc-zahl-input"
-            />
-            <span className="rc-unit">€</span>
-          </div>
-        </div>
-
-        <div className="rc-zeile">
-          <label className="rc-label">Anlagedauer: <strong>{laufzeit} Jahre</strong></label>
-          <input type="range" min={1} max={40} step={1}
-            value={laufzeit}
-            onChange={e => setLaufzeit(Number(e.target.value))}
+          <input type="range" min={10} max={1000} step={10}
+            value={sparrate} onChange={e => setSparrate(Number(e.target.value))}
             className="rc-slider rc-slider-full"
-            style={{ background: sliderBg(laufzeit, 1, 40) }}
+            style={{ background: sliderBg(sparrate, 10, 1000) }}
           />
+          <p className="rcs-hint">{sparsHinweis(sparrate)}</p>
         </div>
 
-        <div className="rc-zeile">
-          <label className="rc-label">Rendite</label>
-          <div className="rc-rendite-buttons">
+        <div className="rcs-block">
+          <div className="rcs-block-top">
+            <span className="rcs-block-label">Anlagedauer</span>
+            <span className="rcs-block-wert">{laufzeit} Jahre</span>
+          </div>
+          <input type="range" min={5} max={40} step={1}
+            value={laufzeit} onChange={e => setLaufzeit(Number(e.target.value))}
+            className="rc-slider rc-slider-full"
+            style={{ background: sliderBg(laufzeit, 5, 40) }}
+          />
+          <p className="rcs-hint">In {zukunftsJahr} wärst du ca. {25 + laufzeit} Jahre alt</p>
+        </div>
+
+        <div className="rcs-block">
+          <span className="rcs-block-label">Rendite</span>
+          <div className="rcs-rendite-row">
             {renditeOptionen.map(ro => (
-              <button
-                key={ro.id}
-                className={`rc-rendite-btn ${renditeTyp === ro.id ? "aktiv" : ""}`}
-                onClick={() => setRenditeTyp(ro.id)}
-              >
-                <span>{ro.label}</span>
-                <span className="rc-rendite-prozent">{ro.prozent} %</span>
+              <button key={ro.id}
+                className={`rcs-rendite-btn${renditeTyp === ro.id ? " rcs-aktiv" : ""}`}
+                onClick={() => setRenditeTyp(ro.id)}>
+                <span className="rcs-rendite-name">{ro.label}</span>
+                <span className="rcs-rendite-pct">{ro.prozent} %</span>
               </button>
             ))}
           </div>
+          <p className="rcs-hint">MSCI World: historisch ~7 % p.a.</p>
         </div>
+      </div>
+
+      {/* ── Ergebnis ── */}
+      <div className="rcs-ergebnis">
+        <p className="rcs-ergebnis-zahl">{formatEuro(animWert)}</p>
+        <p className="rcs-ergebnis-jahre">in {laufzeit} Jahren</p>
+        <div className="rcs-detail-row">
+          <span>📥 Eingezahlt</span>
+          <span>{formatEuro(eingezahlt)}</span>
+        </div>
+        <div className="rcs-detail-row rcs-gain-row">
+          <span>📈 Zinseszins-Gewinn</span>
+          <span className="rcs-gain-val">{formatEuro(gewinn)} ({gewinnPct} %)</span>
+        </div>
+        <p className="rcs-motivation">{motivationSatz()}</p>
       </div>
 
       {/* ── Chart ── */}
-      <div className="rc-chart-card">
-        <p className="rc-chart-titel">Wachstum über die Zeit</p>
-        <svg viewBox="0 0 300 120" className="rc-svg">
+      <div className="rcs-chart-wrap">
+        <svg viewBox={`0 0 ${svgW} ${svgH}`} width="100%" className="rcs-svg">
           <defs>
-            <linearGradient id="rcGradFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stopColor="#7C3AED" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#7C3AED" stopOpacity="0" />
+            <linearGradient id="rcsGrowFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stopColor="#7C3AED" stopOpacity="0.35"/>
+              <stop offset="100%" stopColor="#7C3AED" stopOpacity="0.04"/>
             </linearGradient>
-            <linearGradient id="rcLineGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%"   stopColor="#7C3AED" />
-              <stop offset="100%" stopColor="#9D174D" />
+            <linearGradient id="rcsEinzFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stopColor="#4B5563" stopOpacity="0.35"/>
+              <stop offset="100%" stopColor="#4B5563" stopOpacity="0.04"/>
+            </linearGradient>
+            <linearGradient id="rcsLineGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"   stopColor="#7C3AED"/>
+              <stop offset="100%" stopColor="#9D174D"/>
             </linearGradient>
           </defs>
-          <path d={fillPath}   fill="url(#rcGradFill)" />
-          <path d={einzPath}   fill="none" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.5" />
-          <path d={growthPath} fill="none" stroke="url(#rcLineGrad)" strokeWidth="2.5" strokeLinecap="round" />
-          {xTicks.map((t, i) => (
-            <text key={i} x={t.x} y={118} textAnchor="middle" fontSize="7" fill="#555">{t.label}</text>
-          ))}
+          <path d={fillEinz}   fill="url(#rcsEinzFill)"/>
+          <path d={fillGrowth} fill="url(#rcsGrowFill)"/>
+          <path d={einzPath}   fill="none" stroke="#555" strokeWidth="1.5" strokeDasharray="4 3"/>
+          <path d={growthPath} fill="none" stroke="url(#rcsLineGrad)" strokeWidth="2.5" strokeLinecap="round"/>
+          <text x={pL} y={svgH - 4} textAnchor="start" fontSize="9" fill="#666">{aktuellesJahr}</text>
+          <text x={svgW - pR} y={svgH - 4} textAnchor="end" fontSize="9" fill="#666">{zukunftsJahr}</text>
+          <text x={svgW - pR - 4}
+            y={Math.max(Number(yAt(chartPunkte[laufzeit]?.wert || ergebnis)) - 5, pT + 8)}
+            textAnchor="end" fontSize="8" fill="#a78bfa">{formatEuro(ergebnis)}</text>
+          <text x={svgW - pR - 4}
+            y={Math.min(Number(yAt(eingezahlt)) + 12, pT + chartH - 2)}
+            textAnchor="end" fontSize="8" fill="#6B7280">{formatEuro(eingezahlt)}</text>
         </svg>
-        <div className="rc-chart-legende">
-          <span><span className="rc-chart-dot rc-dot-lila-dash" /> Eingezahlt</span>
-          <span><span className="rc-chart-dot rc-dot-grad" /> Wachstum</span>
-        </div>
       </div>
 
-      {/* ── 1. Inflation ── */}
-      <div className="rc-card">
-        <div className="rc-card-header">
-          <p className="rc-section-titel rc-no-margin">🌡️ Inflation (2 % p.a.)</p>
-          <button className={`rc-toggle ${inflationAn ? "rc-toggle-an" : ""}`} onClick={() => setInflationAn(v => !v)}>
-            <span className="rc-toggle-knob" />
-          </button>
-        </div>
-        {inflationAn && (
-          <div className="rc-inflat-inhalt">
-            <div className="rc-zwei-werte">
-              <div className="rc-wert-block">
-                <p className="rc-wert-label">Nominaler Wert</p>
-                <p className="rc-wert-zahl rc-wert-nominal">{formatEuro(ergebnis)}</p>
-              </div>
-              <div className="rc-wert-trennlinie" />
-              <div className="rc-wert-block">
-                <p className="rc-wert-label">Reale Kaufkraft</p>
-                <p className="rc-wert-zahl rc-wert-real">{formatEuro(realerWert)}</p>
-              </div>
-            </div>
-            <p className="rc-card-hinweis">In heutiger Kaufkraft wären das {formatEuro(realerWert)} – Inflation frisst {formatEuro(ergebnis - realerWert)}.</p>
-          </div>
-        )}
-      </div>
-
-      {/* ── 2. Steuer ── */}
-      <div className="rc-card">
-        <div className="rc-card-header">
-          <p className="rc-section-titel rc-no-margin">🏛️ Abgeltungssteuer (26,375 %)</p>
-          <button className={`rc-toggle ${steuerAn ? "rc-toggle-an" : ""}`} onClick={() => setSteuerAn(v => !v)}>
-            <span className="rc-toggle-knob" />
-          </button>
-        </div>
-        {steuerAn && (
-          <div className="rc-steuer-inhalt">
-            <div className="rc-steuer-zeile">
-              <span>Brutto-Endwert</span>
-              <span className="rc-steuer-wert">{formatEuro(ergebnis)}</span>
-            </div>
-            <div className="rc-steuer-zeile">
-              <span>Abgeltungssteuer</span>
-              <span className="rc-steuer-minus">−{formatEuro(steuer)}</span>
-            </div>
-            <div className="rc-steuer-trennlinie" />
-            <div className="rc-steuer-zeile rc-steuer-netto-zeile">
-              <span>Netto-Endwert</span>
-              <span className="rc-steuer-netto-wert">{formatEuro(nettoEndwert)}</span>
-            </div>
-            <p className="rc-card-hinweis" style={{ marginTop: "0.6rem" }}>Sparerpauschbetrag 1.000 € bereits berücksichtigt.</p>
-          </div>
-        )}
-      </div>
-
-      {/* ── 3. Freiheitszahl ── */}
-      <div className="rc-card">
-        <p className="rc-section-titel">🗽 Finanzielle Freiheit (4 %-Regel)</p>
-        <div className="rc-freiheit-input">
-          <span className="rc-label rc-no-margin" style={{ flexShrink: 0 }}>Monatsbedarf:</span>
-          <input type="range" min={500} max={5000} step={100}
-            value={monatsbedarf}
-            onChange={e => setMonatsbedarf(Number(e.target.value))}
-            className="rc-slider"
-            style={{ background: sliderBg(monatsbedarf, 500, 5000) }}
-          />
-          <input type="number" min={500} max={5000}
-            value={monatsbedarf}
-            onChange={e => setMonatsbedarf(Math.max(500, Math.min(5000, Number(e.target.value) || 2000)))}
-            className="rc-zahl-input"
-          />
-          <span className="rc-unit">€</span>
-        </div>
-        <div className="rc-freiheit-result">
-          <p className="rc-freiheit-kapital">Freiheitskapital: <strong>{formatEuro(freiheitskapital)}</strong></p>
-          {freiheitsJahre !== null ? (
-            <p className="rc-freiheit-jahre">
-              Mit deinem Plan erreichst du das in <strong>{freiheitsJahre} Jahren</strong>{freiheitsJahre <= laufzeit ? " ✓" : ""}
-            </p>
-          ) : (
-            <p className="rc-freiheit-jahre rc-freiheit-nein">Ziel in 50 Jahren nicht erreicht – Sparrate erhöhen!</p>
-          )}
-        </div>
-        <div className="rc-fortschritt-bg">
-          <div className="rc-fortschritt-fill" style={{ width: `${freiheitsfortschritt}%` }} />
-        </div>
-        <div className="rc-fortschritt-labels">
-          <span>0 €</span>
-          <span className="rc-fortschritt-pct">{freiheitsfortschritt} % erreicht</span>
-          <span>{formatEuro(freiheitskapital)}</span>
-        </div>
-      </div>
-
-      {/* ── 4. Vergleich ── */}
-      <div className="rc-card">
-        <p className="rc-section-titel">📊 Girokonto vs. Tagesgeld vs. ETF</p>
-        <div className="rc-vergleich">
-          <div className="rc-vgl-zeile">
-            <span className="rc-vgl-icon">💸</span>
-            <div className="rc-vgl-info">
-              <div className="rc-vgl-kopf">
-                <span className="rc-vgl-name">Girokonto (0 %)</span>
-                <span className="rc-vgl-wert rc-vgl-rot">{formatEuro(eingezahlt)}</span>
-              </div>
-              <div className="rc-vgl-bar-bg">
-                <div className="rc-vgl-bar-fill rc-vgl-fill-rot" style={{ width: `${(eingezahlt / vergleichMax * 100).toFixed(1)}%` }} />
-              </div>
-              <span className="rc-vgl-sub">Kaufkraft real: {formatEuro(girokontoReal)}</span>
-            </div>
-          </div>
-          <div className="rc-vgl-zeile">
-            <span className="rc-vgl-icon">🏦</span>
-            <div className="rc-vgl-info">
-              <div className="rc-vgl-kopf">
-                <span className="rc-vgl-name">Tagesgeld (2 %)</span>
-                <span className="rc-vgl-wert rc-vgl-gelb">{formatEuro(tagesgeldWert)}</span>
-              </div>
-              <div className="rc-vgl-bar-bg">
-                <div className="rc-vgl-bar-fill rc-vgl-fill-gelb" style={{ width: `${(tagesgeldWert / vergleichMax * 100).toFixed(1)}%` }} />
-              </div>
-            </div>
-          </div>
-          <div className="rc-vgl-zeile">
-            <span className="rc-vgl-icon">📈</span>
-            <div className="rc-vgl-info">
-              <div className="rc-vgl-kopf">
-                <span className="rc-vgl-name">ETF ({aktuelleProzent} %)</span>
-                <span className="rc-vgl-wert rc-vgl-lila">{formatEuro(ergebnis)}</span>
-              </div>
-              <div className="rc-vgl-bar-bg">
-                <div className="rc-vgl-bar-fill rc-vgl-fill-lila" style={{ width: "100%" }} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Szenarien ── */}
-      <p className="rc-section-titel">Szenarien im Vergleich</p>
-      <div className="rc-szenarien">
-        <div className="rc-szenario rc-szen-aktiv">
-          <p className="rc-sz-label">Dein Plan</p>
-          <p className="rc-sz-wert">{formatEuro(szen1)}</p>
-          <p className="rc-sz-sub">{sparrate} €/Mo · {laufzeit}J</p>
-        </div>
-        <div className="rc-szenario">
-          <p className="rc-sz-label">+50 €/Mo</p>
-          <p className="rc-sz-wert">{formatEuro(szen2)}</p>
-          <p className="rc-sz-diff rc-diff-plus">+{formatEuro(szen2 - szen1)}</p>
-        </div>
-        <div className="rc-szenario">
-          <p className="rc-sz-label">+5 Jahre</p>
-          <p className="rc-sz-wert">{formatEuro(szen3)}</p>
-          <p className="rc-sz-diff rc-diff-plus">+{formatEuro(szen3 - szen1)}</p>
-        </div>
-      </div>
-
-      {/* ── Insights ── */}
-      <p className="rc-section-titel">Deine Insights</p>
-      <div className="rc-insights">
-        {insights.map((text, i) => (
-          <div key={i} className="rc-insight-zeile">
-            <span className="rc-insight-dot">💡</span>
-            <p className="rc-insight-text">{text}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* ── 5. ETF-Empfehlung ── */}
-      <div className="rc-empfehlung-card">
-        <p className="rc-section-titel">🎯 Deine ETF-Empfehlung</p>
-        <div className="rc-empfehlung-inhalt">
-          <span className="rc-empfehlung-icon">{empfehlung.icon}</span>
-          <div className="rc-empfehlung-text">
-            <p className="rc-empfehlung-name">{empfehlung.name}</p>
-            <p className="rc-empfehlung-sub">{empfehlung.sub}</p>
-          </div>
-        </div>
-        <button className="rc-empfehlung-link-btn" onClick={() => {}}>
-          🔗 Mehr erfahren (Link folgt)
-        </button>
-      </div>
-
-      {/* ── Teilen ── */}
-      <button className="rc-teilen-btn" onClick={teilen}>
-        {kopiert ? "✓ In Zwischenablage kopiert!" : "📤 Ergebnis teilen"}
+      {/* ── CTA ── */}
+      <button
+        className="rcs-cta-btn"
+        onClick={onEtfOeffnen}
+        disabled={!onEtfOeffnen}
+      >
+        Lern wie ETFs funktionieren →
       </button>
     </div>
   )
@@ -10861,7 +10600,17 @@ function App() {
           />
         )}
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveHauptkategorie === "rechner" && (
-          <RechnerScreen onZurueck={() => setAktiveHauptkategorie(null)} userFinanzsituation={userFinanzsituation} onRechnerOeffnung={rechnerOeffnen} />
+          <RechnerScreen
+            onZurueck={() => setAktiveHauptkategorie(null)}
+            userFinanzsituation={userFinanzsituation}
+            onRechnerOeffnung={rechnerOeffnen}
+            onEtfOeffnen={() => {
+              setAktiveHauptkategorie(null)
+              const etfKat = kategorien.find(k => k.id === 1)
+              const etfLektion = (lernpfad[1] || [])[0]
+              if (etfKat && etfLektion) { setAktiveKategorie(etfKat); setAktiveLektion(etfLektion) }
+            }}
+          />
         )}
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveHauptkategorie === "challenges" && (
           <ChallengesScreen
