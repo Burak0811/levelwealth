@@ -1109,7 +1109,7 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
 
 const ueberkategorien = [
   { id: "grundlagen", name: "Grundlagen", icon: "🏗️", beschreibung: "Das Fundament deiner Finanzen", farbe: "#10B981", minLevel: 1, kategorieIds: [5, 6, 9] },
-  { id: "anlageklassen", name: "Anlageklassen", icon: "📊", beschreibung: "Wo und wie du investierst", farbe: "#7C3AED", minLevel: 2, kategorieIds: [1, 2, 10, 11, 3, 8] },
+  { id: "anlageklassen", name: "Anlageklassen", icon: "📊", beschreibung: "Wo und wie du investierst", farbe: "#7C3AED", minLevel: 2, kategorieIds: [1, 2, 10, 11, 12, 3, 8] },
   { id: "fortgeschritten", name: "Fortgeschritten", icon: "🚀", beschreibung: "Für erfahrene Anleger", farbe: "#9D174D", minLevel: 8, kategorieIds: [7, 4] },
   { id: "extras", name: "Extras", icon: "⭐", beschreibung: "Ergänzendes Wissen", farbe: "#F59E0B", minLevel: 1, kategorieIds: [] }
 ]

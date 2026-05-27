@@ -2694,5 +2694,275 @@ Fazit: Rohstoffe sind Beimischung, nicht Kern. Wer den einfachen Weg will: MSCI 
         { text: "Was ist die sinnvollste Rohstoff-Beimischung für die meisten Privatanleger?", antworten: ["Breiter Rohstoff-ETF mit allen Kategorien", "Nur physisches Gold als Krisenabsicherung", "Nur Öl-Aktien", "Nur Agrarrohstoffe"], richtig: 0, erklaerung: "Ein breiter Rohstoff-ETF diversifiziert über alle Kategorien und reduziert das Einzelrohstoff-Risiko am stärksten." }
       ]
     }
+  ],
+  12: [
+    {
+      id: 1201,
+      titel: "Was ist Forex?",
+      inhalt: `6 Billionen Dollar täglich gehandelt – Forex ist der größte Finanzmarkt der Welt.
+
+Kein zentraler Handelsplatz, keine Börse – Forex läuft over-the-counter (OTC). Das bedeutet: Käufer und Verkäufer handeln direkt miteinander über ein globales Netzwerk aus Banken, Brokern und elektronischen Systemen. 24 Stunden täglich, 5 Tage die Woche.
+
+Die Hauptteilnehmer – von groß nach klein:
+
+Zentralbanken: Die eigentlichen Marktmacher. Die Fed, EZB, Bank of Japan können durch Zinsentscheidungen ganze Währungen bewegen.
+
+Geschäftsbanken: JP Morgan, Deutsche Bank, HSBC handeln für sich und ihre Kunden.
+
+Hedgefonds und institutionelle Anleger: Milliarden-Positionen, algorithmischer Handel.
+
+Privatanleger: Der kleinste Teil – weniger als 5% des Volumens.
+
+Die wichtigsten Grundbegriffe:
+
+Währungspaare (z.B. EUR/USD): Die erste Währung ist die Basiswährung, die zweite die Kurswährung.
+
+Bid/Ask Spread: Der Unterschied zwischen Kauf- und Verkaufspreis. Hier verdient der Broker.
+
+Pip: Kleinste standardisierte Preisbewegung = 0.0001 (bei den meisten Paaren).
+
+Die wichtigste Warnung vorab: 74-89% aller Retail-Trader verlieren beim Forex-Handel Geld. Das ist keine Meinung – EU-regulierte Broker müssen diese Zahlen veröffentlichen.`,
+      xp: 20,
+      fragen: [
+        { text: "Wie groß ist der tägliche Umsatz im Forex-Markt?", antworten: ["100 Milliarden Dollar", "1 Billion Dollar", "6 Billionen Dollar", "50 Milliarden Dollar"], richtig: 2, erklaerung: "Mit ca. 6 Billionen Dollar täglichem Umsatz ist Forex der größte Finanzmarkt weltweit – größer als alle Aktienmärkte zusammen." },
+        { text: "Was ist ein Pip im Forex-Handel?", antworten: ["Ein Gewinn von 1%", "Die kleinste standardisierte Preisbewegung (0.0001)", "Eine Handelsgebühr", "Ein Währungspaar"], richtig: 1, erklaerung: "Ein Pip (Percentage in Point) ist typischerweise 0.0001 – bei EUR/USD wäre ein Pip eine Bewegung von 1.2000 auf 1.2001." },
+        { text: "Wie viele Retail-Trader verlieren beim Forex-Handel Geld?", antworten: ["Etwa 30%", "Etwa 50%", "74-89%", "Weniger als 20%"], richtig: 2, erklaerung: "EU-regulierte Broker müssen ihre Verlustquoten veröffentlichen – typischerweise verlieren 74-89% der Privatanleger Geld." }
+      ]
+    },
+    {
+      id: 1202,
+      titel: "Währungspaare verstehen",
+      inhalt: `EUR/USD, USD/JPY, GBP/USD – wie liest man diese Paare und was bedeuten sie?
+
+Notation: Bei EUR/USD 1.0850 ist EUR die Basiswährung und USD die Kurswährung. Das bedeutet: 1 Euro kostet 1.0850 US-Dollar. Steigt der Kurs auf 1.0900, ist der Euro stärker geworden.
+
+Die drei Kategorien von Währungspaaren:
+
+Major Pairs – die Schwergewichte:
+EUR/USD: Meist gehandeltes Paar weltweit. Engster Spread, höchste Liquidität.
+USD/JPY: Dollar vs. Yen – wichtig für Carry Trades und asiatische Märkte.
+GBP/USD (Cable): Britisches Pfund vs. Dollar – hohe Volatilität.
+USD/CHF: Dollar vs. Schweizer Franken – CHF als sicherer Hafen.
+
+Minor Pairs – ohne US-Dollar:
+EUR/GBP, EUR/JPY, GBP/JPY – populär bei europäischen Tradern.
+Etwas höhere Spreads als Majors, aber immer noch liquide.
+
+Exotic Pairs – Schwellenländer-Währungen:
+USD/TRY (Türkische Lira): Sehr hohe Volatilität, sehr breiter Spread.
+EUR/PLN, USD/ZAR: Höheres Risiko, höhere Kosten.
+
+Für Einsteiger: Nur Major Pairs. Engste Spreads, meiste Informationen verfügbar, geringste Manipulationsgefahr.`,
+      xp: 20,
+      fragen: [
+        { text: "Was bedeutet EUR/USD 1.0850?", antworten: ["1 Dollar kostet 1.0850 Euro", "1 Euro kostet 1.0850 Dollar", "Der Spread beträgt 1.0850 Pips", "Der Tagesgewinn beträgt 1.0850%"], richtig: 1, erklaerung: "Bei EUR/USD ist EUR die Basiswährung – 1.0850 bedeutet dass 1 Euro 1.0850 US-Dollar kostet." },
+        { text: "Was sind Major Pairs im Forex?", antworten: ["Nur EUR/USD", "Währungspaare mit den größten Ländern", "Die liquidesten Paare mit höchstem Handelsvolumen meist gegen USD", "Paare zwischen EU-Ländern"], richtig: 2, erklaerung: "Major Pairs sind die liquidesten Forex-Paare mit engstem Spread: EUR/USD, USD/JPY, GBP/USD, USD/CHF und andere." },
+        { text: "Welches Währungspaar hat typischerweise den engsten Spread?", antworten: ["USD/TRY", "EUR/PLN", "EUR/USD", "GBP/JPY"], richtig: 2, erklaerung: "EUR/USD ist das meist gehandelte Währungspaar weltweit – durch die hohe Liquidität ist der Spread extrem eng." }
+      ]
+    },
+    {
+      id: 1203,
+      titel: "Was bewegt Wechselkurse?",
+      inhalt: `Warum fällt der Euro? Warum steigt der Dollar? Fünf Kräfte bestimmen Wechselkurse.
+
+1. Zinsdifferenzen – der wichtigste Faktor
+Höhere Zinsen = attraktivere Währung. Warum? Internationale Anleger wollen ihr Geld dort anlegen wo es mehr Zinsen bringt. Erhöht die Fed die Zinsen auf 5%, kaufen Anleger Dollar um US-Anleihen zu kaufen → Dollar steigt.
+
+Beispiel 2022: Fed erhöhte aggressiv – Dollar stieg auf 20-Jahres-Hoch. EUR/USD fiel unter die Parität (unter 1.00) zum ersten Mal seit 20 Jahren.
+
+2. Inflation
+Höhere Inflation = schwächere Währung. Wenn Preise schnell steigen verliert die Währung an Kaufkraft. Deshalb bekämpfen Zentralbanken Inflation – teilweise auch um die Währung zu stützen.
+
+3. Wirtschaftswachstum
+Starkes BIP-Wachstum, niedrige Arbeitslosigkeit → Investoren wollen investieren → Währungsnachfrage steigt.
+
+4. Politische Stabilität
+Politische Krisen, Wahlunsicherheit, Kriege treiben Kapital in sichere Währungen: USD, CHF, JPY.
+
+5. Marktsentiment und Spekulation
+Kurzfristig können Gerüchte, Tweets und Sentiment-Shifts Kurse bewegen – manchmal mehr als Fundamentaldaten.
+
+Kaufkraftparität (PPP): Langfristig tendieren Wechselkurse dazu, Preisunterschiede auszugleichen. Der Big Mac Index ist die berühmteste PPP-Illustration.`,
+      xp: 20,
+      fragen: [
+        { text: "Was passiert typischerweise mit einer Währung wenn die Zentralbank die Zinsen erhöht?", antworten: ["Sie schwächt sich ab", "Sie bleibt gleich", "Sie wertet auf – internationale Anleger kaufen für höhere Zinsen", "Sie wird instabil"], richtig: 2, erklaerung: "Höhere Zinsen machen eine Währung attraktiver für internationale Anleger die Rendite suchen – das erhöht die Nachfrage und stärkt die Währung." },
+        { text: "Was ist die Kaufkraftparität (PPP)?", antworten: ["Ein Forex-Trading-System", "Die Theorie dass Wechselkurse langfristig Preisunterschiede ausgleichen", "Ein Maß für Handelsbilanz", "Eine Zentralbank-Policy"], richtig: 1, erklaerung: "PPP besagt dass gleiche Güter langfristig überall gleich viel kosten sollten – Wechselkurse tendieren dazu sich in diese Richtung zu bewegen." },
+        { text: "Welche Nachricht würde typischerweise den Euro stärken?", antworten: ["EZB senkt Zinsen unerwartet", "Eurozone Inflation steigt stark", "Eurozone BIP-Wachstum übertrifft Erwartungen", "Politische Krise in Deutschland"], richtig: 2, erklaerung: "Stärkes Wirtschaftswachstum signalisiert eine gesunde Wirtschaft und erhöht die Attraktivität der Währung für Investoren." }
+      ]
+    },
+    {
+      id: 1204,
+      titel: "Warum die meisten Forex-Trader verlieren",
+      inhalt: `Die Statistik ist eindeutig: 74-89% verlieren. Hier sind die echten Gründe.
+
+Kosten fressen die Rendite auf:
+
+Spread-Kosten: Jeder Trade kostet sofort den Spread. Bei EUR/USD mit 1 Pip Spread und 0.1 Lot (10.000€) = 1€ pro Trade. Klingt wenig – aber 10 Trades täglich = 10€ täglich = 2.600€ pro Jahr. Bei 10.000€ Kapital sind das 26% Rendite die du jedes Jahr brauchst nur um die Kosten zu decken.
+
+Overnight Swap-Gebühren: Hältst du Positionen über Nacht, fallen Zinsen an (oder werden gutgeschrieben). Bei geheberten Positionen kann das erheblich sein.
+
+Der Hebel-Fallstrick:
+
+Viele Broker bieten 100x, 200x, sogar 500x Hebel an. Klingt verlockend.
+
+Realität: Ein Trader mit 1.000€ und 100x Hebel hat eine Marktposition von 100.000€. Bewegt sich der Markt 1% gegen ihn: Verlust 1.000€ = sein gesamtes Kapital. Margin Call.
+
+Psychologische Fallen:
+
+Revenge Trading: Nach einem Verlust impulsiv handeln um es "zurückzuholen". Führt fast immer zu noch größeren Verlusten.
+
+FOMO (Fear of Missing Out): In einen laufenden Trade einsteigen weil andere gerade gewinnen. Meist kauft man dann den Top.
+
+Overtrading: Zu viele Trades aus Langeweile oder Gier.
+
+Broker-Interessenkonflikt: Viele Retail-Broker sind Market Maker – du handelst gegen sie, nicht am echten Markt. Dein Verlust ist ihr Gewinn.`,
+      xp: 25,
+      fragen: [
+        { text: "Was ist Revenge Trading?", antworten: ["Eine profitable Strategie", "Nach einem Verlust impulsiv und mit höherem Einsatz handeln um Verluste auszugleichen", "Ein automatisches Trading-System", "Eine Form des Hedgings"], richtig: 1, erklaerung: "Revenge Trading ist eine der häufigsten und gefährlichsten Verhaltensweisen – emotionale Entscheidungen nach Verlusten führen meist zu noch größeren Verlusten." },
+        { text: "Wie viel verliert ein Trader mit 1.000€ Kapital und 100x Hebel wenn der Markt 1% gegen ihn läuft?", antworten: ["10€", "100€", "1.000€ – alles", "Nichts wegen Stop-Loss"], richtig: 2, erklaerung: "100x Hebel bedeutet 1% Marktbewegung = 100% Verlust des eingesetzten Kapitals. Margin Call oder Liquidation tritt ein." },
+        { text: "Was ist ein Market Maker Broker?", antworten: ["Ein Broker der nur Marktpreise anzeigt", "Ein Broker der als Gegenpartei auftritt und verdient wenn du verlierst", "Ein Broker mit den besten Spreads", "Ein regulierungsfreier Broker"], richtig: 1, erklaerung: "Bei Market Maker Brokern ist der Broker deine Gegenpartei – dein Verlust ist sein Gewinn. Das schafft einen Interessenkonflikt." }
+      ]
+    },
+    {
+      id: 1205,
+      titel: "Währungsrisiko beim ETF-Investieren",
+      inhalt: `Du glaubst kein Forex-Trader zu sein? Doch – sobald du in globale ETFs investierst.
+
+Wenn du den MSCI World ETF kaufst, investierst du in ca. 1.500 Unternehmen – aber rund 70% davon sind US-Unternehmen, deren Aktien in US-Dollar notieren. Du bist als Euro-Anleger automatisch im Forex-Markt.
+
+Wie das Währungsrisiko wirkt:
+
+Positiv: USD wertet gegenüber EUR auf
+Dein ETF gewinnt doppelt: Aktien steigen UND Dollar wird mehr wert.
+
+Negativ: USD wertet gegenüber EUR ab
+Selbst wenn US-Aktien steigen, kann der Währungseffekt die Rendite schmälern oder ins Negative drehen.
+
+Konkretes Beispiel 2022:
+MSCI World in USD: +5%
+EUR/USD-Bewegung: Dollar fiel um 8% gegenüber Euro
+Rendite für Euro-Anleger: +5% × 0.92 ≈ -3%
+Trotz Aktiengewinnen ein Verlust für Euro-Anleger.
+
+Umgekehrtes Beispiel 2014-2016:
+MSCI World in USD: +15%
+Dollar stieg 20% gegenüber Euro
+Rendite für Euro-Anleger: +38%
+
+Das Währungsrisiko ist keine Einbahnstraße – es kann stark für oder gegen dich arbeiten.
+
+Fazit: Für langfristige Anleger ist das Währungsrisiko oft eine zusätzliche Diversifikation. Die größte Wirtschaft der Welt (USA) zu halten ist sinnvoll – auch mit Währungsrisiko.`,
+      xp: 25,
+      fragen: [
+        { text: "Warum hat ein Euro-Anleger im MSCI World ein Währungsrisiko?", antworten: ["Weil der ETF teuer ist", "Weil 70% der Aktien in USD notieren – EUR/USD Schwankungen beeinflussen die Rendite", "Weil der ETF in Irland domiziliert ist", "Weil es keine Euro-ETFs gibt"], richtig: 1, erklaerung: "Der MSCI World enthält 70% US-Aktien. Wenn der Dollar gegenüber dem Euro fällt, reduziert das die Rendite für Euro-Anleger." },
+        { text: "Ein US-Aktien-ETF stieg 10% in USD. Der Dollar fiel 5% gegenüber Euro. Was ist die Rendite für den Euro-Anleger?", antworten: ["15%", "10%", "~4.5%", "-5%"], richtig: 2, erklaerung: "Näherungsweise: 10% Aktienrendite - 5% Währungsverlust = ~4.5% Rendite in Euro. Exakt: 1.10 × 0.95 - 1 = 4.5%." },
+        { text: "Wann ist das Währungsrisiko im MSCI World ein Vorteil?", antworten: ["Niemals", "Wenn der Dollar gegenüber dem Euro aufwertet", "Nur bei Inflation", "Wenn die EZB die Zinsen senkt"], richtig: 1, erklaerung: "Wertet der Dollar auf, profitieren Euro-Anleger doppelt: steigende Aktien UND steigende Währung. Das kann die Rendite erheblich steigern." }
+      ]
+    },
+    {
+      id: 1206,
+      titel: "Währungsgesicherte ETFs (Hedged)",
+      inhalt: `EUR-Hedged ETFs versprechen Währungsschutz. Aber was kostet das – und wann lohnt es sich?
+
+Wie Währungsabsicherung funktioniert:
+
+Der ETF-Anbieter kauft Forward-Kontrakte: Vereinbarungen den Dollar zu einem festgelegten Kurs in Euro zu tauschen. Egal wie sich EUR/USD entwickelt, der Wechselkurs ist "eingefroren". Das Währungsrisiko verschwindet – aber nicht kostenlos.
+
+Die Kosten der Absicherung:
+
+Hedging-Kosten entstehen durch die Zinsdifferenz zwischen den Währungen. Formel vereinfacht: Hedging-Kosten ≈ Zinsdifferenz der beiden Währungen.
+
+Beispiel: US-Zinsen 5%, Euro-Zinsen 3% → Hedging-Kosten ca. 2% p.a.
+Beispiel: US-Zinsen 0.5%, Euro-Zinsen 0% → Hedging-Kosten ca. 0.5% p.a.
+
+Praktischer Vergleich (2014-2024):
+In Jahren wo der Dollar stark wurde: Unhedged gewann durch Währungseffekt.
+In Jahren wo der Dollar fiel: Hedged schützte besser.
+Langfristig: Unhedged hatte oft ähnliche oder bessere Rendite, aber mehr Volatilität.
+
+Wann lohnt sich Hedging?
+Kurzfristiger Anlagehorizont (unter 3-5 Jahre): Währungsschwankungen können erheblich sein.
+Große Zinsdifferenzen und man erwartet Währungsausgleich.
+
+Wann lohnt es sich nicht?
+Langer Horizont (10+ Jahre): Währungseffekte gleichen sich tendenziell aus.
+Hohe Hedging-Kosten (2%+) fressen Rendite dauerhaft.`,
+      xp: 25,
+      fragen: [
+        { text: "Wie funktioniert ein währungsgesicherter ETF?", antworten: ["Er investiert nur in Euro-Aktien", "Er nutzt Forward-Kontrakte um Währungsschwankungen abzusichern", "Er hält nur Cash in Euro", "Er vermeidet US-Aktien"], richtig: 1, erklaerung: "Hedged ETFs kaufen Forward-Kontrakte die Währungsverluste ausgleichen – das kostet aber Geld (die Hedging-Kosten)." },
+        { text: "Was sind typische Kosten einer Währungsabsicherung?", antworten: ["Kostenlos", "0.01-0.05% p.a.", "0.5-2% p.a. abhängig von Zinsdifferenzen", "5-10% p.a."], richtig: 2, erklaerung: "Hedging-Kosten entstehen durch die Zinsdifferenz zwischen den Währungen – bei großen Differenzen (z.B. USD vs. JPY) können es 2%+ p.a. sein." },
+        { text: "Für wen lohnt sich ein währungsgesicherter ETF eher?", antworten: ["Langfristige Anleger mit 20+ Jahren Horizont", "Kurzfristige Anleger oder wenn große Zinsdifferenzen herrschen", "Einsteiger grundsätzlich", "Anleger die hohe Rendite wollen"], richtig: 1, erklaerung: "Langfristig gleichen sich Währungseffekte oft aus. Kurzfristig kann Hedging sinnvoll sein – aber die Kosten schmälern die Rendite." }
+      ]
+    },
+    {
+      id: 1207,
+      titel: "Carry Trade: Die Zinsdifferenz-Strategie",
+      inhalt: `Leihe in Japan zu 0.1%, lege in Australien zu 4.5% an. Die Zinsdifferenz ist dein Gewinn – solange der Kurs stabil bleibt.
+
+Was ist Carry Trade?
+
+Die Grundidee: Du leihst Geld in einer Währung mit niedrigen Zinsen (historisch: JPY und CHF) und legst es in einer Währung mit hohen Zinsen an (historisch: AUD, NZD, Schwellenländer).
+
+Beispiel konkret:
+Leihe 10 Mio. JPY zu 0.1% p.a. (Zinskosten: ~10.000 JPY)
+Tausche in AUD und lege zu 4.5% an (Zinsgewinn: ~450.000 JPY-Äquivalent)
+Zinsdifferenz-Gewinn: ~4.4% – ohne Kursbewegung
+
+Das Risiko: Wechselkurse bewegen sich
+
+Wenn der JPY gegenüber AUD um 5% aufwertet, verlierst du mehr durch den Kurs als du an Zinsen gewonnen hast. Der gesamte Zinsgewinn ist weg – plus Verlust.
+
+Carry Trade Unwind – das echte Risiko:
+
+Wenn viele Hedgefonds und Banken gleichzeitig ihre Carry Trades auflösen (oft in Krisenzeiten wenn Risikoaversion steigt), entsteht eine Kettenreaktion:
+Alle verkaufen AUD und kaufen JPY → JPY steigt stark → andere müssen auch auflösen → JPY steigt noch mehr.
+
+August 2024: Genau das passierte als die Bank of Japan die Zinsen erhöhte. Der JPY stieg in wenigen Tagen um 10%, weltweite Aktien fielen zeitgleich stark – der Carry Trade Unwind löste einen globalen Marktschock aus.`,
+      xp: 25,
+      fragen: [
+        { text: "Was ist die Grundidee des Carry Trades?", antworten: ["Schnelles Kaufen und Verkaufen von Währungen", "Leihen in Niedrigzins-Währung und Anlegen in Hochzins-Währung", "Nur in starke Währungen investieren", "Währungen gegeneinander absichern"], richtig: 1, erklaerung: "Carry Trade nutzt Zinsdifferenzen: günstig in JPY oder CHF leihen, teuer in AUD oder anderen Hochzinswährungen anlegen." },
+        { text: "Was ist das Hauptrisiko beim Carry Trade?", antworten: ["Zu hohe Gewinne", "Zinsen könnten fallen", "Wechselkursbewegung kann Zinsgewinn übersteigen und zu Verlusten führen", "Regulierung durch EZB"], richtig: 2, erklaerung: "Wenn die Hochzins-Währung stark fällt übersteigt der Währungsverlust den Zinsgewinn. Das passierte z.B. mit TRY-basierten Carry Trades." },
+        { text: "Was ist ein Carry Trade Unwind?", antworten: ["Eine profitable Exit-Strategie", "Wenn viele Trader gleichzeitig auflösen und starke Gegenbewegungen auslösen", "Das Ende einer Zinspolitik", "Ein regulatorisches Verfahren"], richtig: 1, erklaerung: "Wenn alle gleichzeitig ihre Carry Trades auflösen (z.B. bei Risikoscheu) entsteht eine Kettenreaktion mit starken Währungsbewegungen." }
+      ]
+    },
+    {
+      id: 1208,
+      titel: "Forex für Privatanleger: Fazit und Alternativen",
+      inhalt: `Ehrliches Fazit: Direktes Forex-Trading ist für 95% der Privatanleger keine gute Idee.
+
+Warum?
+
+Struktureller Nachteil: Du handelst gegen Zentralbanken, Hedgefonds und algorithmische Systeme mit milliardenschwerer Research-Infrastruktur. Was ist dein Vorteil?
+
+Kosten: Spread, Swap-Gebühren und Broker-Marge summieren sich. Breakeven erfordert konstante überdurchschnittliche Performance.
+
+Emotionale Fallen: Der Forex-Markt läuft 24/5. Das führt zu Overtrading und schlechten Entscheidungen.
+
+Kein struktureller Vorteil: Bei Aktien profitiert man vom Unternehmenswachstum (positiver Erwartungswert). Forex ist ein Nullsummenspiel – jeder Gewinner hat einen Verlierer.
+
+Bessere Wege zur Währungsdiversifikation:
+
+MSCI World ETF: Automatisch in USD, JPY, GBP, CHF und andere diversifiziert. Kein aktives Handeln nötig.
+
+Emerging Markets ETF: Exposure zu Schwellenländer-Währungen.
+
+Rohstoff-ETFs: Oft in USD gepreist – natürliche Währungsdiversifikation.
+
+Wenn du trotzdem Forex lernen willst:
+
+Paper Trading: Simuliertes Trading mit echten Daten, ohne echtes Geld. Kostenloses Lernen.
+
+Betrag begrenzen: Nie mehr als 1% des Gesamtvermögens in aktives Forex-Trading.
+
+ECN-Broker wählen: Kein Interessenkonflikt – du handelst am echten Markt, nicht gegen den Broker.
+
+Forex verstehen ist wertvoll für jeden Anleger. Aktiv Forex traden ist etwas anderes.`,
+      xp: 30,
+      fragen: [
+        { text: "Warum ist direktes Forex-Trading für die meisten Privatanleger nicht empfehlenswert?", antworten: ["Es ist illegal", "Hohe Kosten, professionelle Gegenparteien und emotionale Fallen machen konsistente Gewinne extrem schwer", "Es gibt keine Währungspaare mehr", "Zu geringe Renditen"], richtig: 1, erklaerung: "74-89% der Retail-Trader verlieren Geld. Die Kombination aus Spreads, Swap-Kosten und professionellen Gegenparteien ist sehr schwer zu überwinden." },
+        { text: "Wie bekommst du als ETF-Anleger automatisch Währungsdiversifikation?", antworten: ["Gar nicht", "Durch globale ETFs wie MSCI World die Aktien in verschiedenen Währungen halten", "Nur durch Hedged ETFs", "Durch Tagesgeld in Fremdwährungen"], richtig: 1, erklaerung: "Ein MSCI World ETF hält Aktien in USD, JPY, GBP, CHF und anderen Währungen – du bist automatisch breit diversifiziert ohne aktives Forex-Trading." },
+        { text: "Was ist Paper Trading?", antworten: ["Trading mit echtem Geld auf Papier dokumentiert", "Simuliertes Trading ohne echtes Geld zum Lernen", "Trading von Anleihen", "Offline-Trading ohne Internet"], richtig: 1, erklaerung: "Paper Trading nutzt Simulatoren mit echten Marktdaten aber ohne echtes Geld. Ideal zum Lernen ohne finanzielles Risiko." }
+      ]
+    }
   ]
 }
