@@ -79,6 +79,90 @@ export const kategorien = [
     farbe: "#8B5CF6",
     minLevel: 2,
     lektionenAnzahl: 6
+  },
+  {
+    id: 10,
+    name: "Anleihen",
+    beschreibung: "Staatsanleihen, Unternehmensanleihen & Zinsen",
+    icon: "📜",
+    farbe: "#0EA5E9",
+    minLevel: 2,
+    lektionenAnzahl: 8
+  },
+  {
+    id: 11,
+    name: "Rohstoffe",
+    beschreibung: "Gold, Öl und Industriemetalle als Investment",
+    icon: "🥇",
+    farbe: "#F59E0B",
+    minLevel: 3,
+    lektionenAnzahl: 8
+  },
+  {
+    id: 12,
+    name: "Forex",
+    beschreibung: "Währungen und Devisenhandel verstehen",
+    icon: "💱",
+    farbe: "#06B6D4",
+    minLevel: 4,
+    lektionenAnzahl: 8
+  },
+  {
+    id: 13,
+    name: "Portfolio-Strategie",
+    beschreibung: "Asset Allocation und Rebalancing für Profis",
+    icon: "🎯",
+    farbe: "#8B5CF6",
+    minLevel: 8,
+    lektionenAnzahl: 6
+  },
+  {
+    id: 14,
+    name: "Psychologie & Behavioral Finance",
+    beschreibung: "Warum du irrationale Entscheidungen triffst",
+    icon: "🧠",
+    farbe: "#EC4899",
+    minLevel: 1,
+    lektionenAnzahl: 6
+  }
+]
+
+export const ueberkategorien = [
+  {
+    id: "grundlagen",
+    name: "Grundlagen",
+    icon: "🏗️",
+    beschreibung: "Das Fundament deiner Finanzen",
+    farbe: "#10B981",
+    minLevel: 1,
+    kategorieIds: [5, 6, 9]
+  },
+  {
+    id: "anlageklassen",
+    name: "Anlageklassen",
+    icon: "📊",
+    beschreibung: "Wo und wie du investierst",
+    farbe: "#7C3AED",
+    minLevel: 2,
+    kategorieIds: [1, 2, 10, 11, 3, 12, 8]
+  },
+  {
+    id: "fortgeschritten",
+    name: "Fortgeschritten",
+    icon: "🚀",
+    beschreibung: "Für erfahrene Anleger",
+    farbe: "#9D174D",
+    minLevel: 8,
+    kategorieIds: [7, 4, 13]
+  },
+  {
+    id: "extras",
+    name: "Extras",
+    icon: "⭐",
+    beschreibung: "Ergänzendes Wissen",
+    farbe: "#F59E0B",
+    minLevel: 1,
+    kategorieIds: [14]
   }
 ]
 
@@ -2136,6 +2220,239 @@ Krypto kann dein Leben verändern – in beide Richtungen. Wissen und Vorsicht s
         { text: "Welche Versicherung ist in fast allen Fällen überflüssig und teuer?", antworten: ["Private Haftpflichtversicherung", "Handyversicherung (Selbst ansparen ist günstiger)", "Berufsunfähigkeitsversicherung", "Hausratversicherung"], richtig: 1 },
         { text: "Warum ist die Restschuldversicherung oft eine schlechte Wahl?", antworten: ["Sie ist zu günstig und deckt zu wenig", "Extrem hohe Kosten, schlechte Bedingungen – eine Risikolebensversicherung ist fast immer die bessere Alternative", "Sie zahlt immer zuverlässig", "Nur für sehr ältere Kreditnehmer relevant"], richtig: 1 },
         { text: "Wann kann eine Reiserücktrittsversicherung ausnahmsweise sinnvoll sein?", antworten: ["Sie ist grundsätzlich nie sinnvoll", "Bei teuren, nicht stornierbaren Reisen ab ~1.000 € mit relevanten Vorerkrankungen oder besonders flexibler Buchung", "Immer bei jeder Auslandsreise", "Ausschließlich bei Kreuzfahrten und Langstreckenflügen"], richtig: 1 }
+      ]
+    }
+  ],
+  10: [
+    {
+      id: 1001,
+      titel: "Was sind Anleihen?",
+      inhalt: `Deutschland zahlt dir Zinsen. So funktioniert eine Staatsanleihe.
+
+Eine Anleihe ist im Kern ein Kredit – aber diesmal bist du die Bank. Du leihst einem Staat oder Unternehmen Geld, und der Schuldner zahlt dir dafür regelmäßig Zinsen und am Ende die volle Summe zurück.
+
+Die drei wichtigsten Begriffe:
+
+Nennwert: Der Betrag den du am Ende zurückbekommst. Typisch: 1.000€.
+
+Kupon: Der jährliche Zinssatz. Eine Anleihe mit 3% Kupon auf 1.000€ Nennwert zahlt dir 30€ pro Jahr.
+
+Laufzeit: Wie lange die Anleihe läuft. 2 Jahre, 10 Jahre, 30 Jahre – alles ist möglich.
+
+Beispiel: Du kaufst eine 5-jährige Bundesanleihe mit 1.000€ Nennwert und 3% Kupon.
+Jahr 1: +30€ Zinsen
+Jahr 2: +30€ Zinsen
+Jahr 3: +30€ Zinsen
+Jahr 4: +30€ Zinsen
+Jahr 5: +30€ Zinsen + 1.000€ Rückzahlung
+Gesamt: 150€ Zinsen + 1.000€ zurück = 1.150€
+
+Das Wichtigste: Der Kurs einer Anleihe schwankt täglich – aber wenn du sie bis zum Ende hältst, bekommst du immer den Nennwert zurück. Das macht Anleihen so planbar.`,
+      xp: 20,
+      fragen: [
+        { text: "Was ist der Kupon einer Anleihe?", antworten: ["Der Name der Anleihe", "Der jährliche Zinssatz", "Die Laufzeit", "Das Emittenten-Rating"], richtig: 1, erklaerung: "Der Kupon ist der jährliche Zinssatz den der Emittent an den Anleihe-Inhaber zahlt." },
+        { text: "Du kaufst eine Anleihe: 1.000€ Nennwert, 3% Kupon, 5 Jahre. Wie viel Zinsen bekommst du insgesamt?", antworten: ["30€", "150€", "300€", "1.150€"], richtig: 1, erklaerung: "3% von 1.000€ = 30€ pro Jahr × 5 Jahre = 150€ Gesamtzinsen." },
+        { text: "Was passiert mit dem Kurs einer Anleihe wenn die Marktzinsen steigen?", antworten: ["Er steigt", "Er bleibt gleich", "Er fällt", "Er verdoppelt sich"], richtig: 2, erklaerung: "Steigen Marktzinsen, werden bestehende Anleihen mit niedrigerem Kupon unattraktiver – ihr Kurs fällt." }
+      ]
+    },
+    {
+      id: 1002,
+      titel: "Staatsanleihen",
+      inhalt: `Die USA haben 33 Billionen Dollar Schulden. Wer hat ihnen das Geld geliehen? Anleger weltweit.
+
+Staatsanleihen sind Anleihen die von Ländern ausgegeben werden um Schulden zu finanzieren. Sie gelten als die sicherste Form von Anleihen – aber nicht alle Länder sind gleich sicher.
+
+Ratings: Ratingagenturen wie S&P, Moody's und Fitch bewerten die Kreditwürdigkeit von Ländern.
+
+AAA – Höchste Bonität (Deutschland, Schweiz, Norwegen)
+AA bis A – Sehr gut bis gut (USA, Frankreich)
+BBB – Noch Investment Grade (Italien, Spanien)
+BB und schlechter – High Yield / Junk (Griechenland, Argentinien)
+
+Je besser das Rating, desto niedriger die Rendite – weil Anleger weniger Risikoaufschlag verlangen.
+
+Renditen im Vergleich (2024):
+Deutschland 10J: ~2,5% – sicherste Anleihe Europas
+USA 10J: ~4,5% – höheres Defizit, mehr Risiko eingepreist
+Griechenland 10J: ~3,8% – erholt von der Schuldenkrise, aber immer noch Aufschlag
+
+Die Bundesanleihe ist der Goldstandard in Europa. Wenn du nachts ruhig schlafen willst, ist sie dein Freund – auch wenn die Rendite nicht die höchste ist.`,
+      xp: 20,
+      fragen: [
+        { text: "Was bedeutet ein AAA-Rating bei einer Staatsanleihe?", antworten: ["Sehr hohe Rendite", "Höchste Bonität – geringstes Ausfallrisiko", "Staatlich garantiert", "Inflationsgeschützt"], richtig: 1, erklaerung: "AAA ist das höchste Rating und bedeutet dass der Emittent als extrem kreditwürdig gilt." },
+        { text: "Warum haben deutsche Bundesanleihen so niedrige Renditen?", antworten: ["Wegen hoher Inflation", "Wegen geringer Nachfrage", "Wegen höchster Bonität und Sicherheit", "Wegen EZB-Vorschriften"], richtig: 2, erklaerung: "Höhere Sicherheit = niedrigere Rendite. Investoren akzeptieren weniger Zins für das sichere Deutschland." },
+        { text: "Eine Staatsanleihe mit BB-Rating wird als was bezeichnet?", antworten: ["Investment Grade", "AAA-Status", "High Yield / Junk Bond", "Staatsgarantiert"], richtig: 2, erklaerung: "Unterhalb BBB- gilt eine Anleihe als High Yield oder Junk Bond – höheres Ausfallrisiko, aber höhere Rendite." }
+      ]
+    },
+    {
+      id: 1003,
+      titel: "Unternehmensanleihen",
+      inhalt: `Tesla bietet 5% Zinsen auf Anleihen. Bundesanleihen zahlen 2,5%. Der Unterschied heißt Risikoprämie.
+
+Unternehmensanleihen (Corporate Bonds) funktionieren genauso wie Staatsanleihen – nur dass Unternehmen der Schuldner sind. Und Unternehmen können pleite gehen. Deshalb zahlen sie mehr Zinsen.
+
+Der Spread ist der entscheidende Begriff: Er ist der Risikoaufschlag gegenüber einer risikofreien Staatsanleihe gleicher Laufzeit. Je höher der Spread, desto mehr Risiko sieht der Markt.
+
+Beispiel:
+10-jährige Bundesanleihe: 2,5% → Benchmark
+10-jährige Apple-Anleihe: 3,2% → Spread: 0,7% (niedrig, weil Apple sehr sicher gilt)
+10-jährige Tesla-Anleihe: 5,0% → Spread: 2,5% (höher, mehr Risiko)
+
+Investment Grade (BBB- und besser): Solide Unternehmen wie Apple, Volkswagen, Siemens. Viele institutionelle Anleger (Pensionsfonds, Versicherungen) dürfen nur diese kaufen.
+
+High Yield / Junk Bonds (BB und schlechter): Höheres Ausfallrisiko, aber deutlich mehr Zinsen. Attraktiv für risikobereite Anleger die höhere Renditen suchen.
+
+Wann lohnt sich das höhere Risiko? Wenn der Spread groß genug ist um das Ausfallrisiko zu kompensieren. Faustformel: Je näher an einer Wirtschaftskrise, desto vorsichtiger bei High Yield.`,
+      xp: 20,
+      fragen: [
+        { text: "Was ist der Spread bei Unternehmensanleihen?", antworten: ["Der Unterschied zwischen Kauf- und Verkaufspreis", "Der Risikoaufschlag gegenüber Staatsanleihen", "Die jährliche Managementgebühr", "Die Mindestinvestitionssumme"], richtig: 1, erklaerung: "Der Spread ist der Zinsaufschlag den Unternehmen gegenüber risikofreien Staatsanleihen zahlen müssen." },
+        { text: "Welche Anleihe zahlt typischerweise die höchste Rendite?", antworten: ["Deutsche Bundesanleihe", "Apple Unternehmensanleihe", "High Yield Bond eines kleinen Unternehmens", "EZB-Anleihe"], richtig: 2, erklaerung: "Höheres Risiko = höhere Rendite. High Yield Bonds zahlen am meisten weil das Ausfallrisiko am höchsten ist." },
+        { text: "Was bedeutet Investment Grade?", antworten: ["Nur für professionelle Investoren", "Rating von BBB- oder besser – gilt als relativ sicher", "Staatlich geförderte Anleihe", "Anleihe mit garantierter Rendite"], richtig: 1, erklaerung: "Investment Grade bedeutet BBB- oder besser bei S&P – viele institutionelle Anleger dürfen nur Investment Grade kaufen." }
+      ]
+    },
+    {
+      id: 1004,
+      titel: "Anleihen-ETFs",
+      inhalt: `Einzelne Anleihen kaufen ist kompliziert und teuer. Anleihen-ETFs lösen das.
+
+Eine einzelne Unternehmensanleihe kostet oft 1.000€ Mindesteinsatz. Willst du diversifizieren und 50 verschiedene Anleihen kaufen? 50.000€ Mindestanlage – unrealistisch für die meisten Anleger.
+
+Anleihen-ETFs lösen dieses Problem: Sie bündeln hunderte oder tausende Anleihen in einem handelbaren Wertpapier. Schon ab 50€ kannst du in ein global diversifiziertes Anleihen-Portfolio investieren.
+
+Die wichtigsten Typen:
+
+Staatsanleihen-ETFs: Z.B. iShares Core Euro Government Bond ETF (TER 0,09%). Enthält Anleihen der Eurozone-Länder. Sehr sicher, niedrige Rendite.
+
+Unternehmensanleihen-ETFs: Z.B. iShares Core EUR Corporate Bond ETF (TER 0,20%). Investment-Grade-Anleihen europäischer Unternehmen. Etwas mehr Rendite, etwas mehr Risiko.
+
+Globale Anleihen-ETFs: Z.B. Vanguard Global Bond ETF. Weltweit diversifiziert, oft währungsgesichert (hedged) um Wechselkursrisiko zu reduzieren.
+
+Wie sie sich im Portfolio verhalten: Anleihen-ETFs schwanken weniger als Aktien-ETFs, reagieren aber auf Zinsänderungen. Steigen die Zinsen, fallen Anleihen-ETFs – das ist normal und vorübergehend wenn du langfristig investierst.`,
+      xp: 20,
+      fragen: [
+        { text: "Was ist ein Vorteil von Anleihen-ETFs gegenüber Einzelanleihen?", antworten: ["Höhere Rendite", "Einfachere Diversifikation mit kleinen Beträgen", "Keine Kosten", "Staatliche Garantie"], richtig: 1, erklaerung: "Anleihen-ETFs ermöglichen mit kleinen Beträgen in hunderte Anleihen gleichzeitig zu investieren." },
+        { text: "Was passiert mit einem Anleihen-ETF wenn die Zinsen stark steigen?", antworten: ["Er steigt stark", "Er bleibt stabil", "Er fällt im Wert", "Er wird aufgelöst"], richtig: 2, erklaerung: "Steigende Zinsen lassen Anleihekurse fallen – das betrifft auch Anleihen-ETFs die viele Anleihen halten." },
+        { text: "Welchen Anleihen-ETF würdest du für maximale Sicherheit wählen?", antworten: ["High Yield Corporate Bond ETF", "Emerging Markets Bond ETF", "Euro Government Bond ETF mit AAA-Anleihen", "Convertible Bond ETF"], richtig: 2, erklaerung: "Staatsanleihen hoher Bonität (AAA) sind am sichersten – High Yield und Emerging Markets haben mehr Risiko." }
+      ]
+    },
+    {
+      id: 1005,
+      titel: "Zinsen und Anleihekurse",
+      inhalt: `Die EZB erhöht die Zinsen. Deine Anleihe verliert an Wert. Warum?
+
+Das ist die wichtigste Beziehung die du über Anleihen verstehen musst: Zinsen und Anleihekurse bewegen sich entgegengesetzt.
+
+Warum? Stell dir vor du hältst eine Anleihe mit 2% Kupon. Dann steigen die Marktzinsen auf 4%. Plötzlich kannst du neue Anleihen kaufen die 4% zahlen. Deine alte 2%-Anleihe ist weniger attraktiv – ihr Kurs fällt bis sie wieder wettbewerbsfähig ist.
+
+Duration: Die entscheidende Kennzahl um Zinsrisiko zu messen.
+
+Duration gibt an wie viele Jahre es im Durchschnitt dauert bis du dein investiertes Geld (durch Kupons und Rückzahlung) zurückbekommst. Aber wichtiger: sie misst die Zinssensitivität.
+
+Faustregel: Bei einer Zinsänderung von 1% verändert sich der Anleihekurs um ca. die Duration in Prozent.
+
+Beispiel:
+Anleihe mit Duration 2: Zinsen +1% → Kurs ca. -2%
+Anleihe mit Duration 8: Zinsen +1% → Kurs ca. -8%
+Anleihe mit Duration 20: Zinsen +1% → Kurs ca. -20%
+
+Konsequenz: Kurzlaufende Anleihen (niedrige Duration) sind viel weniger zinssensitiv als langlaufende. In einem Umfeld steigender Zinsen schützen dich kurze Laufzeiten.`,
+      xp: 25,
+      fragen: [
+        { text: "Was bedeutet Duration bei Anleihen?", antworten: ["Die Restlaufzeit der Anleihe", "Die durchschnittliche Zeit bis zur Rückzahlung gewichtet nach Cashflows", "Der Zinssatz", "Das Rating"], richtig: 1, erklaerung: "Duration misst die Zinssensitivität – je höher die Duration, desto stärker reagiert die Anleihe auf Zinsänderungen." },
+        { text: "Zinsen steigen um 1%. Eine Anleihe hat Duration 8. Was passiert mit dem Kurs?", antworten: ["Steigt um 8%", "Fällt um ca. 8%", "Bleibt gleich", "Fällt um 1%"], richtig: 1, erklaerung: "Als Faustregel: Kursveränderung ≈ -Duration × Zinsänderung. Bei Duration 8 und +1% Zinsen: ca. -8% Kursverlust." },
+        { text: "Welche Anleihe ist bei steigenden Zinsen weniger riskant?", antworten: ["30-jährige Staatsanleihe", "10-jährige Unternehmensanleihe", "2-jährige Bundesanleihe", "Ewige Anleihe (Perpetual)"], richtig: 2, erklaerung: "Kurzlaufende Anleihen haben niedrigere Duration und reagieren weniger stark auf Zinsänderungen." }
+      ]
+    },
+    {
+      id: 1006,
+      titel: "Inflation und Anleihen",
+      inhalt: `3% Kupon klingt gut. Aber bei 4% Inflation verlierst du real an Kaufkraft.
+
+Nominalrendite vs. Realrendite – das ist der Unterschied zwischen dem was die Bank dir verspricht und dem was du wirklich gewinnst.
+
+Fisher-Gleichung (vereinfacht):
+Realrendite ≈ Nominalrendite - Inflation
+
+Beispiel:
+Anleihe zahlt 3% Kupon, Inflation beträgt 4%
+Realrendite: 3% - 4% = -1%
+Du verlierst tatsächlich Kaufkraft – auch wenn auf dem Papier Gewinne entstehen.
+
+Die Lösung: Inflationsgeschützte Anleihen
+
+TIPS (USA): Treasury Inflation-Protected Securities. Der Nennwert wird regelmäßig mit der US-Inflation (CPI) angepasst. Steigt die Inflation um 3%, steigt auch dein Nennwert um 3%.
+
+Linker (Deutschland/Europa): Inflationsgebundene Bundesanleihen. Gleiche Logik, nur mit europäischer Inflation (HICP) verknüpft.
+
+Wann sind sie sinnvoll? Wenn du erwartest dass die Inflation höher wird als der Markt eingepreist hat. Sie bieten keine garantiert bessere Rendite – nur Schutz gegen Inflationsüberraschungen.
+
+Wichtig: In Zeiten niedriger Inflation können klassische Anleihen besser abschneiden als inflationsgeschützte.`,
+      xp: 25,
+      fragen: [
+        { text: "Wie berechnet man die Realrendite?", antworten: ["Kupon + Inflation", "Nominalrendite - Inflation", "Rendite × Laufzeit", "Kupon ÷ Kurs"], richtig: 1, erklaerung: "Realrendite = Nominalrendite - Inflation. Bei 3% Kupon und 4% Inflation: -1% Realrendite – du verlierst Kaufkraft." },
+        { text: "Was sind TIPS?", antworten: ["Tipps für bessere Anleihen-Auswahl", "US-Staatsanleihen die gegen Inflation geschützt sind", "Kurzfristige Unternehmensanleihen", "Anleihen von Tech-Unternehmen"], richtig: 1, erklaerung: "Treasury Inflation-Protected Securities – der Nennwert wird mit der US-Inflation angepasst." },
+        { text: "Wann sind inflationsgeschützte Anleihen besonders attraktiv?", antworten: ["Bei niedriger Inflation", "Bei Deflation", "Wenn Inflation erwartet höher ist als eingepreist", "Immer – sie sind immer besser"], richtig: 2, erklaerung: "Inflationsgeschützte Anleihen lohnen sich wenn die tatsächliche Inflation höher ausfällt als der Markt erwartet hat." }
+      ]
+    },
+    {
+      id: 1007,
+      titel: "Anleihen im Portfolio",
+      inhalt: `60% Aktien + 40% Anleihen. Diese Regel hat Generationen von Investoren begleitet. Gilt sie noch?
+
+Das klassische 60/40 Portfolio ist einer der bekanntesten Anlageansätze überhaupt. Die Idee: Aktien liefern Wachstum, Anleihen liefern Stabilität und dämpfen Schwankungen.
+
+Historisch war die Korrelation zwischen Aktien und Anleihen negativ: Wenn Aktien fallen, steigen Anleihen oft – ein natürlicher Puffer. Das machte das 60/40 Portfolio so attraktiv.
+
+Dann kam 2022: Die EZB und Fed erhöhten die Zinsen drastisch. Aktien fielen wegen der Rezessionsangst. Anleihen fielen wegen der steigenden Zinsen. Beide Asset-Klassen auf einmal im Minus – das schlechteste Jahr für das 60/40 Portfolio seit Jahrzehnten.
+
+Was lernen wir daraus? Anleihen schützen nicht immer. Aber langfristig bleibt ihre dämpfende Wirkung wertvoll.
+
+Für wen sind Anleihen sinnvoll?
+Anleger kurz vor der Rente: Kapitalerhalt wichtiger als Wachstum. Anleihen reduzieren Volatilität.
+Anleger mit kurzen Zeithorizonten (unter 5 Jahre): Aktienmarkt kann in diesem Zeitraum stark schwanken.
+Anleger die schlecht schlafen wenn ihr Portfolio -30% macht.
+
+Für wen weniger sinnvoll?
+Junge Anleger (20-35 Jahre) mit langem Horizont: Du hast Zeit Korrekturen auszusitzen. Mehr Aktien = mehr langfristiges Wachstum.`,
+      xp: 25,
+      fragen: [
+        { text: "Was bedeutet die klassische 60/40 Portfolio-Regel?", antworten: ["60% Aktien, 40% Anleihen", "60% ETFs, 40% Einzelaktien", "60% Aktien, 40% Cash", "60% national, 40% international"], richtig: 0, erklaerung: "Das klassische 60/40 Portfolio besteht aus 60% Aktien für Wachstum und 40% Anleihen für Stabilität." },
+        { text: "Für wen sind Anleihen im Portfolio besonders sinnvoll?", antworten: ["20-jährige Einsteiger", "Anleger kurz vor der Rente die Risiko reduzieren wollen", "Alle Anleger unabhängig vom Alter", "Nur professionelle Investoren"], richtig: 1, erklaerung: "Je näher die Rente, desto wichtiger wird Kapitalerhalt gegenüber Wachstum – Anleihen reduzieren Volatilität." },
+        { text: "Was passierte 2022 mit dem klassischen 60/40 Portfolio?", antworten: ["Es war das beste Jahr seit 2008", "Aktien und Anleihen fielen gleichzeitig – schlechtestes Jahr seit Jahrzehnten", "Anleihen schützten perfekt vor Aktienverlusten", "Keine ungewöhnliche Performance"], richtig: 1, erklaerung: "2022 stiegen Zinsen stark – Anleihen und Aktien fielen gleichzeitig. Die historisch negative Korrelation brach zusammen." }
+      ]
+    },
+    {
+      id: 1008,
+      titel: "Deine erste Anleihen-Investition",
+      inhalt: `Genug Theorie. So investierst du jetzt konkret in Anleihen.
+
+Schritt 1: Das richtige Depot
+Du brauchst kein spezielles Depot – dein normales Aktiendepot bei Trade Republic, Scalable Capital oder einer Direktbank reicht. Anleihen-ETFs handelst du dort genauso wie Aktien-ETFs.
+
+Schritt 2: Welche Anleihen-ETFs für Einsteiger?
+
+Für maximale Sicherheit (Euro-Staatsanleihen):
+iShares Core Euro Government Bond ETF – ISIN: IE00B4WXJJ64 – TER: 0,09%
+Enthält Anleihen der Eurozone-Länder. Sehr sicher, moderate Rendite.
+
+Für etwas mehr Rendite (Euro-Unternehmensanleihen):
+Vanguard EUR Corporate Bond ETF – TER: 0,09%
+Investment-Grade-Unternehmensanleihen aus Europa.
+
+Schritt 3: Wie viel Anleihen-Anteil?
+Daumenregel: Lebensalter in % als Anleihen-Quote.
+30 Jahre alt → 30% Anleihen, 70% Aktien
+50 Jahre alt → 50% Anleihen, 50% Aktien
+
+Für junge Anleger (unter 35) mit langem Horizont ist diese Regel oft zu konservativ – viele bevorzugen 80-90% Aktien und 10-20% Anleihen oder gar keine Anleihen bis 40+.
+
+Schritt 4: Rebalancing
+Einmal pro Jahr prüfen ob deine Allokation noch stimmt. Haben Aktien stark zugelegt? Verkaufe etwas und kaufe Anleihen nach. So behältst du dein geplantes Risikoprofil bei.`,
+      xp: 30,
+      fragen: [
+        { text: "Was ist eine gute Daumenregel für den Anleihen-Anteil im Portfolio?", antworten: ["Immer 50%", "Lebensalter in Prozent als Anleihen-Quote", "Nie Anleihen", "Immer 40%"], richtig: 1, erklaerung: "Die Faustregel 'Lebensalter = Anleihen-Anteil' gibt jungen Anlegern mehr Aktien und älteren mehr Anleihen." },
+        { text: "Welchen Anleihen-ETF würdest du als Einsteiger wählen?", antworten: ["Hochzins-Unternehmensanleihen ETF", "Emerging Markets Bond ETF", "Euro Government Bond ETF mit niedrigem TER", "Anleihen eines einzelnen Unternehmens"], richtig: 2, erklaerung: "Für Einsteiger: breite Diversifikation, niedrige Kosten, solide Qualität – Euro Government Bond ETFs erfüllen das." },
+        { text: "Warum ist Rebalancing zwischen Aktien und Anleihen wichtig?", antworten: ["Um täglich zu handeln", "Um die ursprüngliche Risikoallokation beizubehalten", "Um Steuern zu sparen", "Es ist nicht wichtig"], richtig: 1, erklaerung: "Ohne Rebalancing verschiebt sich die Allokation – nach starken Aktienjahren hat man mehr Risiko als geplant." }
       ]
     }
   ]
