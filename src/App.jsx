@@ -1107,8 +1107,25 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
   )
 }
 
+const ueberkategorien = [
+  { id: "grundlagen", name: "Grundlagen", icon: "🏗️", beschreibung: "Das Fundament deiner Finanzen", farbe: "#10B981", minLevel: 1, kategorieIds: [5, 6, 9] },
+  { id: "anlageklassen", name: "Anlageklassen", icon: "📊", beschreibung: "Wo und wie du investierst", farbe: "#7C3AED", minLevel: 2, kategorieIds: [1, 2, 3, 8] },
+  { id: "fortgeschritten", name: "Fortgeschritten", icon: "🚀", beschreibung: "Für erfahrene Anleger", farbe: "#9D174D", minLevel: 8, kategorieIds: [7, 4] },
+  { id: "extras", name: "Extras", icon: "⭐", beschreibung: "Ergänzendes Wissen", farbe: "#F59E0B", minLevel: 1, kategorieIds: [] }
+]
+
 function LernpfadeScreen({ xp, onKategorieClick, onZurueck, abgeschlosseneLektionen }) {
   const level = berechneLevel(xp)
+  const [offene, setOffene] = useState(new Set(["grundlagen"]))
+
+  function toggleUeberkategorie(id) {
+    setOffene(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
+
   return (
     <div className="screen">
       <button className="zurueck-btn" onClick={onZurueck}>
@@ -1120,35 +1137,64 @@ function LernpfadeScreen({ xp, onKategorieClick, onZurueck, abgeschlosseneLektio
           <BoltIcon size={14}/> {xp} XP · Level {level}
         </p>
       </div>
-      <div className="kategorien-liste">
-        {kategorien.map((k) => {
-          const gesperrt = level < k.minLevel
-          const abgeschlossen = (lernpfad[k.id] || []).filter(l => abgeschlosseneLektionen.includes(l.id)).length
-          const gesamt = (lernpfad[k.id] || []).length
-          const fortschritt = gesamt > 0 ? Math.round((abgeschlossen / gesamt) * 100) : 0
+      <div className="ueberkategorien-liste">
+        {ueberkategorien.map((uk) => {
+          const gesperrt = level < uk.minLevel
+          const istOffen = !gesperrt && offene.has(uk.id)
+          const pfade = uk.kategorieIds.map(kid => kategorien.find(k => k.id === kid)).filter(Boolean)
           return (
-            <div
-              key={k.id}
-              className={`kategorie-karte ${gesperrt ? "gesperrt" : ""}`}
-              onClick={() => !gesperrt && onKategorieClick(k)}
-            >
-              <div className="kategorie-icon" style={{ background: gesperrt ? "#1a1525" : k.farbe + "22", color: gesperrt ? "#444" : k.farbe }}>
-                {gesperrt
-                  ? <LockIcon size={22} color="#444"/>
-                  : <KatIcon id={k.id} size={22} color={k.farbe}/>
-                }
-              </div>
-              <div className="kategorie-info">
-                <div className="kategorie-top">
-                  <h2>{k.name}</h2>
-                  {gesperrt && <span className="lock-label">ab Level {k.minLevel}</span>}
+            <div key={uk.id} className={`uk-karte${gesperrt ? " uk-gesperrt" : ""}${istOffen ? " uk-offen" : ""}`}>
+              <div
+                className="uk-header"
+                style={{ borderBottomColor: istOffen ? uk.farbe + "33" : "transparent" }}
+                onClick={() => !gesperrt && toggleUeberkategorie(uk.id)}
+              >
+                <div className="uk-header-left">
+                  <div className="uk-icon" style={{ background: gesperrt ? "#1a1525" : uk.farbe + "22", color: gesperrt ? "#444" : uk.farbe }}>
+                    {gesperrt ? <LockIcon size={20} color="#444"/> : <span>{uk.icon}</span>}
+                  </div>
+                  <div>
+                    <h2 className="uk-name">{uk.name}</h2>
+                    <p className="uk-beschreibung">{gesperrt ? `Ab Level ${uk.minLevel}` : uk.beschreibung}</p>
+                  </div>
                 </div>
-                <p className="kategorie-beschreibung">{k.beschreibung}</p>
-                <div className="fortschritt-bar">
-                  <div className="fortschritt-fill" style={{ width: `${fortschritt}%` }} />
+                <div className="uk-chevron" style={{ color: gesperrt ? "#444" : uk.farbe }}>
+                  {gesperrt
+                    ? <span className="uk-lock-badge">ab Level {uk.minLevel}</span>
+                    : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: istOffen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}><polyline points="6 9 12 15 18 9"/></svg>
+                  }
                 </div>
-                <p className="kategorie-meta">{fortschritt}% · {k.lektionenAnzahl} Lektionen</p>
               </div>
+              {istOffen && (
+                <div className="uk-inhalt">
+                  {pfade.length === 0 ? (
+                    <p className="uk-leer">Bald verfügbar</p>
+                  ) : pfade.map((k) => {
+                    const katGesperrt = level < k.minLevel
+                    const abgeschlossen = (lernpfad[k.id] || []).filter(l => abgeschlosseneLektionen.includes(l.id)).length
+                    const gesamt = (lernpfad[k.id] || []).length
+                    const fortschritt = gesamt > 0 ? Math.round((abgeschlossen / gesamt) * 100) : 0
+                    return (
+                      <div
+                        key={k.id}
+                        className={`uk-pfad-zeile${katGesperrt ? " uk-pfad-gesperrt" : ""}`}
+                        onClick={() => !katGesperrt && onKategorieClick(k)}
+                      >
+                        <div className="uk-pfad-icon" style={{ background: katGesperrt ? "#1a1525" : k.farbe + "22", color: katGesperrt ? "#444" : k.farbe }}>
+                          {katGesperrt ? <LockIcon size={14} color="#444"/> : <KatIcon id={k.id} size={14} color={k.farbe}/>}
+                        </div>
+                        <div className="uk-pfad-info">
+                          <span className="uk-pfad-name">{k.name}</span>
+                          <div className="uk-pfad-bar">
+                            <div className="uk-pfad-fill" style={{ width: `${fortschritt}%`, background: k.farbe }}/>
+                          </div>
+                        </div>
+                        <span className="uk-pfad-meta">{katGesperrt ? `Lvl ${k.minLevel}` : `${fortschritt}%`}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           )
         })}

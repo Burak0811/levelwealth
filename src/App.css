@@ -6535,3 +6535,72 @@ button {
   transition: transform 0.2s;
 }
 .sound-switch.on::after { transform: translateX(18px); }
+
+/* ─── Überkategorien Accordion ─── */
+.ueberkategorien-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.uk-karte {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.uk-karte.uk-offen {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.12);
+}
+.uk-karte.uk-gesperrt { opacity: 0.5; }
+.uk-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.25rem;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+  user-select: none;
+}
+.uk-karte:not(.uk-gesperrt) .uk-header:hover { background: rgba(255,255,255,0.03); }
+.uk-karte.uk-gesperrt .uk-header { cursor: not-allowed; }
+.uk-header-left { display: flex; align-items: center; gap: 0.9rem; }
+.uk-icon {
+  width: 46px; height: 46px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; flex-shrink: 0;
+}
+.uk-name { font-size: 1rem; font-weight: 700; margin: 0 0 0.1rem; }
+.uk-beschreibung { font-size: 0.75rem; color: var(--text-muted); margin: 0; }
+.uk-chevron { display: flex; align-items: center; }
+.uk-lock-badge {
+  font-size: 0.7rem; color: var(--text-muted);
+  background: #ffffff11; padding: 0.2rem 0.55rem; border-radius: 20px;
+}
+.uk-inhalt {
+  padding: 0.75rem 1.25rem 1rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.uk-leer { font-size: 0.8rem; color: var(--text-muted); text-align: center; padding: 0.75rem 0; }
+.uk-pfad-zeile {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.6rem 0.75rem; border-radius: 12px;
+  cursor: pointer; transition: background 0.15s;
+  background: rgba(255,255,255,0.03);
+}
+.uk-pfad-zeile:not(.uk-pfad-gesperrt):hover { background: rgba(255,255,255,0.07); }
+.uk-pfad-zeile.uk-pfad-gesperrt { opacity: 0.45; cursor: not-allowed; }
+.uk-pfad-icon {
+  width: 30px; height: 30px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.uk-pfad-info { flex: 1; min-width: 0; }
+.uk-pfad-name {
+  font-size: 0.85rem; font-weight: 600; display: block;
+  margin-bottom: 0.25rem; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.uk-pfad-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+.uk-pfad-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+.uk-pfad-meta { font-size: 0.72rem; color: var(--text-muted); flex-shrink: 0; }
