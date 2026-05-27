@@ -3170,5 +3170,212 @@ Glidepath: Der automatische Prozess die Allokation über die Jahre von aggressiv
         { text: "Was ist Sequence-of-Returns Risk?", antworten: ["Das Risiko niedriger Renditen", "Das Risiko dass ein früher Crash in der Entnahmephase das Portfolio dauerhaft schädigt", "Zu früh zu investieren", "Falsche Reihenfolge beim Rebalancing"], richtig: 1, erklaerung: "Ein 30% Crash kurz nach Rentenbeginn ist viel schlimmer als derselbe Crash 10 Jahre früher – weil man Anteile zu schlechten Kursen verkaufen muss." }
       ]
     }
+  ],
+  14: [
+    {
+      id: 1401,
+      titel: "Behavioral Finance: Warum wir irrational sind",
+      inhalt: `Du glaubst du triffst rationale Finanzentscheidungen. Daniel Kahneman gewann den Wirtschaftsnobelpreis damit zu beweisen dass du falsch liegst.
+
+Behavioral Finance ist die Schnittstelle zwischen Psychologie und Ökonomie. Während die klassische Ökonomie den rationalen Homo Economicus annimmt, zeigen Kahneman und Tversky: Menschen handeln systematisch irrational – und zwar vorhersehbar.
+
+System 1 vs. System 2 Denken:
+
+System 1 ist schnell, automatisch, emotional, unbewusst. Es urteilt sofort, nutzt Heuristiken und macht 95% unserer täglichen Entscheidungen.
+
+System 2 ist langsam, bewusst, rational, anstrengend. Es analysiert, rechnet und überlegt – aber es erschöpft sich schnell.
+
+Beim Investieren dominiert System 1 – und das kostet Rendite.
+
+Die Prospect Theory: Kahnemans wichtigste Erkenntnis
+
+100€ verlieren schmerzt psychologisch etwa doppelt so stark wie 100€ gewinnen Freude bereitet. Das bedeutet: Wir sind keine rationalen Nutzenoptimierer – wir sind Verlustvermeider.
+
+Praktische Konsequenz: Ein Anleger mit 10.000€ Portfolio, der täglich den Kurs checkt, sieht bei einem normalen Markt (50% Tage rauf, 50% runter) häufiger Verluste als Gewinne – weil Verluste schwerer wiegen. Ergebnis: Stress, schlechte Stimmung, impulsive Verkäufe.
+
+Lösung: Weniger schauen. Wirklich.`,
+      xp: 20,
+      fragen: [
+        { text: "Was ist der Unterschied zwischen System 1 und System 2 Denken?", antworten: ["System 1 ist klüger", "System 1 ist schnell und emotional, System 2 ist langsam und rational", "System 2 macht mehr Fehler", "Kein relevanter Unterschied beim Investieren"], richtig: 1, erklaerung: "Kahneman beschreibt System 1 als automatisches emotionales Denken und System 2 als bewusstes rationales Denken. Beim Investieren dominiert oft System 1 – mit kostspieligen Folgen." },
+        { text: "Was ist Prospect Theory?", antworten: ["Die Theorie dass Aktien langfristig steigen", "Verluste schmerzen psychologisch etwa doppelt so stark wie gleich große Gewinne Freude bereiten", "Die beste Investmentstrategie", "Wie man zukünftige Renditen berechnet"], richtig: 1, erklaerung: "Kahneman und Tversky zeigten: 100€ verlieren schmerzt mehr als 100€ gewinnen Freude macht. Das erklärt viele irrationale Investment-Entscheidungen." },
+        { text: "Welches Verhalten zeigt System 1 beim täglichen Portfolio-Check?", antworten: ["Ruhige rationale Analyse", "Emotionale Reaktion auf Kursbewegungen die zu impulsiven Entscheidungen führt", "Langfristiges Denken", "Keine Reaktion"], richtig: 1, erklaerung: "Tägliches Portfolio-Checken aktiviert System 1 – jedes Minus löst Stress aus, jedes Plus Euphorie. Das führt zu Übertrading und schlechten Entscheidungen." }
+      ]
+    },
+    {
+      id: 1402,
+      titel: "Die 7 größten Investment-Fehler",
+      inhalt: `Diese 7 Fehler kosten deutsche Privatanleger jährlich Milliarden Euro. Erkennst du dich wieder?
+
+1. Herd Mentality (Herdenverhalten)
+Kaufen wenn alle kaufen (auf dem Hoch) und verkaufen wenn alle verkaufen (auf dem Tief). FOMO und Panik in Reinform. Der typische Privatanleger kauft Aktien am Hochpunkt und verkauft am Tiefpunkt – genau falsch.
+
+2. Recency Bias
+Jüngste Entwicklungen zu stark gewichten und in die Zukunft extrapolieren. 1999: Tech-Aktien steigen 40% – alle kaufen Tech. 2000: Tech-Blase platzt. Wer kurz vor dem Crash einstieg verlor alles.
+
+3. Overconfidence (Selbstüberschätzung)
+80% der Anleger glauben überdurchschnittlich gut investieren zu können. Statistisch unmöglich. Die Hälfte muss unterdurchschnittlich sein.
+
+4. Disposition Effect (Loss Aversion in Aktion)
+Gewinner zu früh verkaufen (Gewinne realisieren fühlt sich gut an) und Verlierer zu lange halten (Verlust nicht realisieren = kein Verlust im Kopf). Steuerlich und renditetechnisch fatal.
+
+5. Mental Accounting
+Geld in mentale Töpfe einteilen die rational gleich sind aber emotional unterschiedlich behandelt werden. Urlaubsgeld wird leichtsinnig ausgegeben, Erbschaft wird zu konservativ angelegt.
+
+6. Anchoring
+Zu stark an einem Referenzwert festhalten. "Ich kaufe nach wenn er wieder auf meinen Kaufpreis fällt" – der Kaufpreis ist für den Markt irrelevant.
+
+7. Sunk Cost Fallacy
+Weiter in ein schlechtes Investment investieren weil man schon viel investiert hat. Vergangene Kosten sind vergangen – sie sollten zukünftige Entscheidungen nicht beeinflussen.`,
+      xp: 25,
+      fragen: [
+        { text: "Was ist der Disposition Effect?", antworten: ["Aktien zu früh kaufen", "Gewinner zu früh verkaufen und Verlierer zu lange halten", "Zu diversifiziert sein", "Zu selten handeln"], richtig: 1, erklaerung: "Anleger realisieren Gewinne zu früh (Freude) und halten Verlustpositionen zu lange (Schmerz vermeiden) – das ist steuerlich und renditetechnisch suboptimal." },
+        { text: "Was ist Recency Bias?", antworten: ["Nur in bekannte Aktien investieren", "Jüngste Entwicklungen zu stark gewichten und in die Zukunft extrapolieren", "Zu konservativ investieren", "Alte Nachrichten ignorieren"], richtig: 1, erklaerung: "Recency Bias lässt uns denken was zuletzt passierte wird weitergehen. Das führt zu Käufen nach starken Rallyes und Verkäufen nach Crashes – genau falsch." },
+        { text: "Was ist die Sunk Cost Fallacy beim Investieren?", antworten: ["Zu früh Gewinne mitnehmen", "Weiter in ein schlechtes Investment investieren weil man schon viel investiert hat", "Zu wenig diversifizieren", "Zu häufig rebalancen"], richtig: 1, erklaerung: "Vergangene Investitionen sind vergangen – sie sollten keine zukünftigen Entscheidungen beeinflussen. Nur zukünftige Aussichten zählen." }
+      ]
+    },
+    {
+      id: 1403,
+      titel: "Marktpsychologie: Angst und Gier",
+      inhalt: `An der Börse werden Aktien verkauft, nicht gekauft. Niemand verkauft dir eine Aktie wenn er glaubt sie steigt. Verstehe wer auf der anderen Seite steht.
+
+Der Fear & Greed Cycle – der ewige Kreislauf:
+
+Optimismus → Aufregung → Euphorie (MARKTHOCH) → Angst → Panik → Kapitulation (MARKTBODEN) → Depression → Hoffnung → Optimismus.
+
+Dieser Zyklus wiederholt sich immer wieder. Dotcom-Blase 2000. Finanzkrise 2008. Corona-Crash 2020. Krypto 2021.
+
+Warren Buffetts berühmtestes Zitat: "Sei ängstlich wenn andere gierig sind, und gierig wenn andere ängstlich sind."
+
+Das ist leichter gesagt als getan. Im März 2020 herrschte maximale Panik – Supermärkte wurden ausgeräumt, Ausgangssperren weltweit, Rezessionsangst. Der S&P 500 fiel 34% in 5 Wochen. Wer kaufte erlebte eine der stärksten Rallyes der Geschichte: +100% in 12 Monaten.
+
+Der CNN Fear & Greed Index misst täglich das Marktsentiment auf einer Skala von 0 (extreme Angst) bis 100 (extreme Gier). Als Contrarian-Indikator nutzbar.
+
+FOMO als Investment-Killer:
+
+Bitcoin stieg 2021 auf 60.000 Dollar. Alle redeten davon. Wer kaufte weil alle kauften zahlte den Hochpunkt. 12 Monate später: 16.000 Dollar. -73%.
+
+Die wichtigste Lektion: Wenn du in Finanz-News überall über dasselbe liest – ist der Trade oft schon vorbei.`,
+      xp: 20,
+      fragen: [
+        { text: "Was empfiehlt Warren Buffett wenn Gier im Markt herrscht?", antworten: ["Mitgierig sein und kaufen", "Ängstlich sein und Risiko reduzieren", "Den Markt verlassen", "In Gold investieren"], richtig: 1, erklaerung: "Buffetts berühmtes Zitat: 'Sei ängstlich wenn andere gierig sind, und gierig wenn andere ängstlich sind.' Antizyklisches Denken ist der Schlüssel." },
+        { text: "Wann war historisch ein guter Kaufzeitpunkt laut Fear & Greed Logik?", antworten: ["Als Bitcoin 2021 auf Allzeithoch war", "Als alle begeistert von Tech-Aktien 1999 waren", "Im Corona-Crash März 2020 bei maximaler Panik", "Als Immobilienpreise 2021 Höchststände erreichten"], richtig: 2, erklaerung: "Im März 2020 herrschte maximale Panik – der S&P 500 fiel 34%. Wer kaufte erlebte eine der stärksten Rallyes der Geschichte: +100% in 12 Monaten." },
+        { text: "Was ist FOMO beim Investieren?", antworten: ["Eine Trading-Strategie", "Fear Of Missing Out – Angst etwas zu verpassen führt zu impulsiven Käufen auf Hochs", "Ein Risikomanagement-Tool", "Ein ETF-Typ"], richtig: 1, erklaerung: "FOMO treibt Anleger dazu auf Hochs zu kaufen wenn alle begeistert sind – genau der falsche Zeitpunkt. Gut sichtbar bei Krypto 2021 und Meme-Stocks." }
+      ]
+    },
+    {
+      id: 1404,
+      titel: "Wie du emotionale Entscheidungen vermeidest",
+      inhalt: `Die beste Investment-Entscheidung triffst du wenn du keine treffen musst. Automatisierung ist das mächtigste Tool gegen Behavioral Biases.
+
+Das Investment Policy Statement (IPS):
+
+Schreibe einmal – im Ruhezustand – deine Investment-Regeln auf:
+Warum investiere ich? (Ziele)
+Welche Asset Allocation halte ich?
+Wann und wie rebalanciere ich?
+Unter welchen Umständen verkaufe ich? (Spoiler: sehr selten)
+Was mache ich NICHT, egal was passiert?
+
+Im nächsten Crash liest du dein IPS bevor du irgendetwas tust.
+
+Automatisierung eliminiert Entscheidungen:
+
+Sparplan = keine monatliche Entscheidung "Investiere ich diesen Monat?" Die Antwort ist immer Ja – automatisch. Keine FOMO, keine Angst, kein Timing.
+
+Kein tägliches Portfolio-Checken:
+
+Studie: Anleger die täglich ihr Portfolio checken haben schlechtere Renditen als solche die monatlich oder quartalsweise schauen. Weniger Information = bessere Entscheidungen (paradox aber wahr).
+
+Pre-Commitment:
+
+Entscheide heute: "Wenn mein Portfolio 30% fällt, kaufe ich nach und verkaufe nicht." Schreib es auf. Im Crash ist es zu spät für rationale Entscheidungen.
+
+Cooling-off-Periode:
+
+Bevor du etwas verkaufst: 48 Stunden warten. Meist ist der Impuls dann weg.`,
+      xp: 25,
+      fragen: [
+        { text: "Was ist ein Investment Policy Statement (IPS)?", antworten: ["Ein staatlich vorgeschriebenes Dokument", "Dein persönliches schriftliches Regelwerk für Investmententscheidungen", "Ein Vertrag mit dem Broker", "Eine Art Testament"], richtig: 1, erklaerung: "Ein IPS ist dein persönliches Regelwerk: Warum du investierst, welche Allokation, wann du rebalancierst und – wichtig – wann du NICHT verkaufst." },
+        { text: "Was ist die effektivste Maßnahme gegen emotionale Investment-Entscheidungen?", antworten: ["Mehr Finanznachrichten lesen", "Täglich das Portfolio checken", "Automatisierung durch Sparpläne – keine monatlichen Entscheidungen nötig", "Einem Finanzberater alles übergeben"], richtig: 2, erklaerung: "Ein automatischer Sparplan eliminiert die häufigste emotionale Entscheidung: 'Investiere ich diesen Monat?' Die Antwort ist immer Ja – automatisch." },
+        { text: "Was ist Pre-Commitment beim Investieren?", antworten: ["Früh im Leben anfangen", "Im Ruhezustand Regeln für Krisensituationen festlegen bevor die Emotion einsetzt", "Langfristig investieren", "Einem Sparplan beitreten"], richtig: 1, erklaerung: "Pre-Commitment bedeutet: Entscheide heute im Ruhezustand wie du bei -30% handelst. Schreib es auf. Im Crash hältst du dich daran statt emotional zu reagieren." }
+      ]
+    },
+    {
+      id: 1405,
+      titel: "Dopamin und Trading: Die Sucht-Mechanik",
+      inhalt: `Casinos und Trading-Apps nutzen dieselbe Psychologie. Kein Zufall – es ist Design.
+
+Variable Ratio Reinforcement – das mächtigste Sucht-Prinzip:
+
+B.F. Skinner entdeckte: Unregelmäßige, unvorhersehbare Belohnungen sind am stärksten süchtigmachend. Nicht feste Belohnungen – variable. Das ist das Prinzip hinter Spielautomaten, Social Media Likes und leider auch Trading.
+
+Beim Trading: Manchmal gewinnst du, manchmal verlierst du – unvorhersehbar. Dein Gehirn liebt das. Die Unvorhersehbarkeit hält dich am Bildschirm.
+
+Dopamin beim Trading:
+
+Gewinn-Trade → Dopamin-Ausschüttung → Euphorie → Verlangen nach mehr Trading.
+Verlust-Trade → Cortisol (Stresshormone) → Drang den Verlust auszugleichen → noch mehr Trading.
+Beide Reaktionen führen zu mehr Handeln – unabhängig von der tatsächlichen Rendite.
+
+Design von Trading-Apps:
+
+Echtzeit-Kurse: Jede Bewegung ist sichtbar – Aufmerksamkeit gebunden.
+Push-Notifications: "Deine Aktie bewegt sich" – Dopamin-Trigger.
+Konfetti-Animationen beim Kauf: Positive Verstärkung für das Handeln selbst, nicht für gutes Investieren.
+Ein-Klick-Kauf: Impulsives Handeln so einfach wie möglich machen.
+
+Warnsignale für problematisches Trading-Verhalten:
+Gedanken kreisen ständig um Trading und Kurse
+Man handelt mehr als geplant und kann schwer aufhören
+Schlafprobleme durch Trading-Stress
+Vernachlässigung von Arbeit, Familie, Freizeit`,
+      xp: 20,
+      fragen: [
+        { text: "Was ist Variable Ratio Reinforcement?", antworten: ["Eine Trading-Strategie", "Unregelmäßige Belohnungen die am stärksten süchtig machen – wie Spielautomaten", "Ein Risikomaß", "Eine Art ETF"], richtig: 1, erklaerung: "Variable Ratio Reinforcement (unregelmäßige Belohnungen) ist das stärkste verhaltenspsychologische Konditionierungsprinzip – genutzt von Spielautomaten, Social Media und leider auch Trading-Apps." },
+        { text: "Warum ist Day-Trading psychologisch gefährlich?", antworten: ["Es ist zu langweilig", "Gewinne lösen Dopamin aus das zu mehr Handeln verleitet – selbst wenn die Strategie langfristig verliert", "Es ist zu zeitaufwendig", "Es gibt zu wenige Handelsoptionen"], richtig: 1, erklaerung: "Das Dopamin-System unterscheidet nicht zwischen gutem und schlechtem Trading. Der Gewinn-Rausch kann zu zwanghaftem Handeln führen unabhängig von der tatsächlichen Rendite." },
+        { text: "Was ist ein Warnsignal für Trading-Sucht?", antworten: ["Man investiert monatlich in ETFs", "Man denkt ständig an Trading, handelt mehr als geplant und vernachlässigt andere Lebensbereiche", "Man hat einen Sparplan", "Man liest Geschäftsberichte"], richtig: 1, erklaerung: "Trading-Sucht ähnelt anderen Verhaltenssüchten: Kontrollverlust, zunehmende Zeit damit verbringen, negative Konsequenzen ignorieren, Entzugserscheinungen." }
+      ]
+    },
+    {
+      id: 1406,
+      titel: "Finanzielle Selbstdisziplin aufbauen",
+      inhalt: `Disziplin ist nicht Willenskraft. Willenskraft erschöpft sich. Disziplin ist ein System das Willenskraft überflüssig macht.
+
+Habit Stacking – Neue Gewohnheiten ankern:
+
+James Clear erklärt in Atomic Habits: Neue Gewohnheiten schlagen sich am besten durch wenn man sie an bestehende koppelt.
+
+Formel: Nach [bestehender Gewohnheit] werde ich [neue Finanzgewohnheit tun].
+
+Beispiele:
+Nach Gehaltseingang → automatischer Sparplan läuft (keine Entscheidung nötig)
+Jeden ersten Sonntag im Monat → Finanzüberblick 10 Minuten
+
+Implementation Intentions – Wenn-Dann-Pläne:
+
+Statt vager Ziele ("Ich will mehr sparen") konkrete Wenn-Dann-Pläne:
+"Wenn mein Gehalt eingeht, überweise ich sofort 20% auf mein Investmentkonto."
+"Wenn ich eine große Ausgabe plane, warte ich 48 Stunden."
+
+Studien zeigen: Implementation Intentions verdoppeln die Wahrscheinlichkeit Ziele zu erreichen.
+
+Umgebungsdesign – Mach gutes Verhalten einfach:
+
+Banking-App aus dem Hauptscreen entfernen
+Broker-App schwerer zugänglich machen (Face-ID deaktivieren, extra Passwort)
+Investmentkonto auf anderer Bank – physische Distanz hilft
+
+Identity-based Habits:
+
+"Ich bin ein langfristiger Investor" führt zu anderen Entscheidungen als "Ich versuche zu sparen." Die Identität formt das Verhalten – nicht umgekehrt.
+
+Fortschritt tracken: Was gemessen wird, verbessert sich. Monatliche Nettovermögens-Aufstellung ist mehr Motivation als jede App.`,
+      xp: 25,
+      fragen: [
+        { text: "Was ist Habit Stacking?", antworten: ["Viele Gewohnheiten gleichzeitig ändern", "Neue Gewohnheit an eine bestehende koppeln für automatische Ausführung", "Schlechte Gewohnheiten stapeln", "Tägliche Routine aufschreiben"], richtig: 1, erklaerung: "Habit Stacking nutzt bestehende neuronale Pfade: Nach [bestehender Gewohnheit] mache ich [neue Gewohnheit]. Beispiel: Nach Gehaltseingang → Sparplan läuft automatisch." },
+        { text: "Was ist eine Implementation Intention?", antworten: ["Ein Investmentplan", "Ein Wenn-Dann-Plan der konkret festlegt wann und wie man handelt", "Eine Absichtserklärung gegenüber dem Broker", "Ein langfristiges Finanzziel"], richtig: 1, erklaerung: "Implementation Intentions sind konkrete Wenn-Dann-Pläne: 'Wenn X passiert, tue ich Y.' Studien zeigen sie verdoppeln die Wahrscheinlichkeit Ziele zu erreichen." },
+        { text: "Was meint Identity-based Habits beim Investieren?", antworten: ["Sich als Daytrader identifizieren", "Die Identität 'Ich bin ein Investor' verinnerlichen statt zu versuchen Investor zu werden", "Investieren als Job betrachten", "Finanzielle Identität im Lebenslauf angeben"], richtig: 1, erklaerung: "James Clear zeigt in Atomic Habits: Verhaltensänderung ist nachhaltig wenn sie mit der Identität verknüpft ist. 'Ich bin ein Investor' führt zu anderen Entscheidungen als 'Ich versuche zu sparen'." }
+      ]
+    }
   ]
 }
