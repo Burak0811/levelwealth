@@ -2455,5 +2455,244 @@ Einmal pro Jahr prüfen ob deine Allokation noch stimmt. Haben Aktien stark zuge
         { text: "Warum ist Rebalancing zwischen Aktien und Anleihen wichtig?", antworten: ["Um täglich zu handeln", "Um die ursprüngliche Risikoallokation beizubehalten", "Um Steuern zu sparen", "Es ist nicht wichtig"], richtig: 1, erklaerung: "Ohne Rebalancing verschiebt sich die Allokation – nach starken Aktienjahren hat man mehr Risiko als geplant." }
       ]
     }
+  ],
+  11: [
+    {
+      id: 1101,
+      titel: "Was sind Rohstoffe als Investment?",
+      inhalt: `Rohstoffe sind die Bausteine der Weltwirtschaft – und gleichzeitig eine eigene Anlageklasse.
+
+Es gibt vier Hauptkategorien:
+
+Edelmetalle: Gold, Silber, Platin, Palladium. Historisch als Wertaufbewahrung genutzt, heute auch als Industrierohstoffe.
+
+Energie: Rohöl, Erdgas, Heizöl. Die Grundlage der modernen Industrie – und Gegenstand der größten Preisschwankungen.
+
+Industriemetalle: Kupfer, Aluminium, Lithium, Nickel, Kobalt. Treiber der Energiewende und Digitalisierung.
+
+Agrarrohstoffe: Weizen, Mais, Soja, Kaffee, Kakao. Nahrung und Rohstoffe für Millionen Menschen.
+
+Drei Wege um in Rohstoffe zu investieren:
+
+Physisch: Echtes Gold oder Silber kaufen und lagern. Direkt, aber teuer in der Verwahrung.
+
+ETCs (Exchange Traded Commodities): Wie ETFs, aber speziell für Rohstoffe. Können physisch besichert sein (echtes Gold im Tresor) oder futures-basiert.
+
+Rohstoff-Aktien: Aktien von Bergbauunternehmen, Ölkonzernen oder Agrarunternehmen. Indirektes Engagement mit Unternehmensrisiko obendrauf.
+
+Warum investieren? Rohstoffe korrelieren oft niedrig mit Aktien und Anleihen – das macht sie zur echten Diversifikation im Portfolio.`,
+      xp: 20,
+      fragen: [
+        { text: "Welche Kategorien gibt es bei Rohstoffen?", antworten: ["Nur Gold und Öl", "Edelmetalle, Energie, Industriemetalle, Agrar", "Nur physische Güter", "Rohstoffe und Derivate"], richtig: 1, erklaerung: "Rohstoffe umfassen vier Hauptkategorien: Edelmetalle, Energie, Industriemetalle und Agrarrohstoffe." },
+        { text: "Was ist ein ETC?", antworten: ["Ein Rohstoff-ETF", "Exchange Traded Commodity – speziell für Rohstoffe wie Gold", "Ein Zertifikat auf Aktien", "Ein staatlicher Rohstoff-Fonds"], richtig: 1, erklaerung: "ETCs sind wie ETFs aber speziell für Rohstoffe. Sie können physisch besichert sein (z.B. echtes Gold im Tresor)." },
+        { text: "Warum sind Rohstoffe zur Portfolio-Diversifikation interessant?", antworten: ["Sie haben die höchste Rendite", "Sie korrelieren oft niedrig oder negativ mit Aktien", "Sie sind risikolos", "Sie zahlen hohe Dividenden"], richtig: 1, erklaerung: "Rohstoffe bewegen sich oft anders als Aktien – das kann ein Portfolio in Krisenzeiten stabilisieren." }
+      ]
+    },
+    {
+      id: 1102,
+      titel: "Gold: Krisenwährung oder schlechtes Investment?",
+      inhalt: `Warren Buffett hasst Gold. Ray Dalio empfiehlt 5-10%. Beide haben Recht – je nach Perspektive.
+
+Buffetts Kritik: Gold liegt einfach da. Es produziert nichts, zahlt keine Dividende, generiert keine Cashflows. Wenn du 1.000€ in Gold steckst, hast du in 30 Jahren vielleicht mehr Euro – aber das Gold hat nichts getan. Ein Unternehmen wächst, innoviert, schafft Wert. Gold nicht.
+
+Dalios Argument: Gold ist echtes Geld. Wenn Zentralbanken Geld drucken, behält Gold seinen Wert. Als Absicherung gegen systemische Risiken – Währungskrisen, Krieg, Hyperinflation – hat Gold sich historisch bewährt.
+
+Als Inflationsschutz: Gemischt. Gold hat die Inflation über sehr lange Zeiträume geschlagen – aber es kann jahrzehntelang real an Wert verlieren. Keine zuverlässige kurzfristige Absicherung.
+
+Als Krisenwährung: Stark. In der Finanzkrise 2008, im COVID-Crash 2020, bei geopolitischen Spannungen – Gold steigt oft wenn alles andere fällt.
+
+Historisch: 1.000€ in Gold vor 20 Jahren (2004) wären heute ca. 6.500€ – ca. 10% Rendite p.a. Respektabel, aber MSCI World hat ähnlich abgeschnitten mit mehr Volatilität.
+
+Praktisch investieren:
+Physisches Gold: Goldmünzen, Goldbarren. Lagerkosten: Bankschließfach 50-200€/Jahr.
+Xetra-Gold: ETC mit physischer Goldbesicherung, handelbar wie eine Aktie. TER 0,36% p.a. Steuervorteil: nach 1 Jahr Haltedauer steuerfrei.`,
+      xp: 20,
+      fragen: [
+        { text: "Warum kritisiert Warren Buffett Gold als Investment?", antworten: ["Es ist zu teuer", "Gold zahlt keine Dividenden und generiert keine Cashflows", "Gold ist zu volatil", "Es gibt zu wenig Gold"], richtig: 1, erklaerung: "Buffett bevorzugt produktive Assets. Gold liegt nur im Tresor – es produziert nichts, zahlt keine Dividende." },
+        { text: "Was ist Xetra-Gold?", antworten: ["Eine Goldmine an der Börse", "Ein physisch besichertes ETC auf Gold handelbar an der Börse", "Ein Gold-Sparplan", "Ein staatlicher Goldkauf"], richtig: 1, erklaerung: "Xetra-Gold ist ein ETC bei dem jeder Anteil durch echtes Gold in deutschen Tresoren besichert ist." },
+        { text: "Welchen Anteil empfiehlt Ray Dalio für Gold im Portfolio?", antworten: ["0% – Gold ist nutzlos", "5-10%", "50%", "100% in Krisenzeiten"], richtig: 1, erklaerung: "Dalio empfiehlt Gold als Diversifikation und Absicherung – nicht als Hauptinvestment sondern als Beimischung." }
+      ]
+    },
+    {
+      id: 1103,
+      titel: "Öl und Energie-Rohstoffe",
+      inhalt: `Wie bestimmt sich der Ölpreis? Und warum wurde er 2020 kurzzeitig negativ?
+
+Die wichtigsten Einflussfaktoren:
+
+OPEC und OPEC+: Das Kartell ölproduzierender Länder (Saudi-Arabien, Russland, VAE und andere) kontrolliert ca. 40% der globalen Förderung. Entscheiden sie sich für Kürzungen, steigt der Preis. Das war 2022 zu beobachten als die Preise auf über 100 Dollar stiegen.
+
+Angebot und Nachfrage: US-Schieferöl hat die Welt verändert – Amerika ist heute der größte Ölproduzent. Das hat die OPEC-Macht geschwächt.
+
+Geopolitik: Kriege, Sanktionen, Handelsembargos – Öl und Politik sind untrennbar verbunden.
+
+Das negative Öl-Phänomen 2020: Als COVID die Nachfrage kollabieren ließ, waren die Lagerstätten voll. Futures-Kontrakte für Öl-Lieferung im Mai 2020 fielen auf -37 Dollar – Verkäufer zahlten Käufer um das Öl abzunehmen. Das ist möglich weil Futures physische Lieferung beinhalten können.
+
+Für Privatanleger: Direktes Handeln von Öl-Futures ist extrem riskant (Contango-Kosten, Hebelwirkung). Bessere Alternativen:
+- Energie-ETFs (z.B. iShares Oil & Gas Exploration & Production ETF)
+- Aktien von Shell, BP, TotalEnergies, ExxonMobil
+- Breite Rohstoff-ETFs mit Energie-Anteil
+
+Langfristiger Ausblick: Energiewende reduziert Ölnachfrage strukturell – aber der Übergang dauert Jahrzehnte. Gas als Brückenenergie bleibt relevant.`,
+      xp: 20,
+      fragen: [
+        { text: "Was ist OPEC und welchen Einfluss hat sie?", antworten: ["Eine Ölbörse in Dubai", "Kartell ölproduzierender Länder das Fördermengen koordiniert", "Eine US-Regierungsbehörde", "Ein internationaler Energie-ETF"], richtig: 1, erklaerung: "OPEC kontrolliert ca. 40% der weltweiten Ölproduktion und kann durch Fördermengen-Entscheidungen den Preis stark beeinflussen." },
+        { text: "Warum ist direktes Investieren in Öl-Futures für Privatanleger riskant?", antworten: ["Zu hohe Steuern", "Contango-Effekt frisst langfristig die Rendite auf", "Nur institutionelle Anleger dürfen", "Zu geringe Liquidität"], richtig: 1, erklaerung: "Contango bedeutet dass Futures-Preise höher sind als Spot-Preise. Beim Rollieren der Futures entstehen kontinuierliche Kosten." },
+        { text: "Wie können Privatanleger am einfachsten in Energie-Rohstoffe investieren?", antworten: ["Direkt Öl kaufen und lagern", "Öl-Futures handeln", "Energie-ETFs oder Aktien von Energieunternehmen", "Über die Zentralbank"], richtig: 2, erklaerung: "Energie-ETFs oder Aktien von Shell, BP, TotalEnergies sind der einfachste und liquideste Weg für Privatanleger." }
+      ]
+    },
+    {
+      id: 1104,
+      titel: "Industriemetalle und die Energiewende",
+      inhalt: `Kupfer wird das neue Öl genannt – und das aus gutem Grund.
+
+Ein normaler Verbrenner enthält ca. 23 kg Kupfer. Ein Elektroauto braucht ca. 83 kg. Eine Windkraftanlage: 3-4 Tonnen. Solaranlagen, Ladeinfrastruktur, Smart Grids – überall mehr Kupfer. Und die Kupferproduktion wächst nur langsam, weil neue Minen 10-20 Jahre Entwicklungszeit brauchen.
+
+Die kritischen Metalle der Energiewende:
+
+Kupfer: Elektrische Leitungen, Motoren, Transformatoren. Der universelle Leiter.
+
+Lithium: Batterien für Elektroautos und Energiespeicher. Chile, Australien und Argentinien (das "Lithium-Dreieck") dominieren die Produktion.
+
+Kobalt: Wichtig für Batteriechemie. Problem: 70% kommen aus der Demokratischen Republik Kongo – mit erheblichen ethischen und politischen Risiken.
+
+Nickel und Mangan: Ebenfalls wichtig für Batterien der nächsten Generation.
+
+Die Angebotsseite: Viele Minen liegen in politisch instabilen Ländern. Sanktionen, Bürgerkriege, Nationalisierungen können die Versorgung stören. Das ist das größte Risiko bei Investitionen in Industriemetalle.
+
+Investitionsmöglichkeiten:
+- Mining-ETFs: MSCI World Metals & Mining ETF – breite Diversifikation über Bergbauunternehmen
+- Einzelaktien: Rio Tinto, BHP, Glencore, Freeport-McMoRan (Kupfer)
+- Einzelne Metalle: Kupfer-ETCs, Lithium-ETFs (konzentrierter, riskanter)`,
+      xp: 20,
+      fragen: [
+        { text: "Warum ist Kupfer für die Energiewende so wichtig?", antworten: ["Es ist am günstigsten", "Elektroautos und Solaranlagen brauchen deutlich mehr Kupfer als fossile Alternativen", "Es wird für Batterien gebraucht", "Kupfer ist der beste Leiter überhaupt"], richtig: 1, erklaerung: "Ein Elektroauto benötigt ca. 83kg Kupfer vs. 23kg in einem Verbrenner. Windräder und Solaranlagen brauchen ebenfalls viel Kupfer." },
+        { text: "Was ist ein Risiko bei Industriemetall-Investments?", antworten: ["Zu hohe Dividenden", "Viele Minen liegen in politisch instabilen Regionen", "Zu geringe Nachfrage", "Keine Handelbarkeit"], richtig: 1, erklaerung: "Kobalt kommt zu 70% aus der DRC, Lithium aus Chile/Australien/Argentinien – politische Risiken können Versorgung stören." },
+        { text: "Wie investiert man am einfachsten in Industriemetalle?", antworten: ["Metalle physisch kaufen und lagern", "Über Mining-ETFs oder Aktien von Bergbauunternehmen", "Direkt an der LME handeln", "Über Staatsanleihen aus Rohstoffländern"], richtig: 1, erklaerung: "Mining-ETFs wie der MSCI World Metals & Mining ETF bieten breite Diversifikation über viele Bergbauunternehmen." }
+      ]
+    },
+    {
+      id: 1105,
+      titel: "Agrarrohstoffe: Zwischen Investment und Ethik",
+      inhalt: `Weizen, Mais, Soja, Kakao, Kaffee – alles handelbare Rohstoffe. Aber sollte man damit Geld verdienen?
+
+Wie Agrarrohstoff-Preise entstehen:
+
+Wetter ist der wichtigste Faktor. Eine Dürre in der Ukraine (Weizenkammer Europas) kann die Weltmarktpreise sofort treiben. 2022 tat der Ukraine-Krieg genau das – Weizenpreise verdoppelten sich.
+
+Ernten und Lagerbestände: USDA (US-Landwirtschaftsministerium) veröffentlicht regelmäßig Ernte-Prognosen – jeder Report kann Preise bewegen.
+
+Nachfrage aus Schwellenländern: Chinas wachsende Mittelschicht isst mehr Fleisch → mehr Soja für Tierfutter → steigende Soja-Preise. Dieser Mechanismus hat die Agrarpreise 2005-2012 stark getrieben.
+
+Spekulation: Finanzinvestoren handeln Agrarrohstoffe über Futures. Das erhöht Liquidität – aber auch Volatilität.
+
+Die Ethik-Debatte:
+
+Kritiker: Wenn Goldman Sachs und Hedgefonds auf Weizen spekulieren, steigen die Preise in armen Ländern. Das ist Hunger durch Finanzmarkt-Exzesse.
+
+Befürworter: Spekulation schafft Liquidität und hilft Bauern, Preisrisiken abzusichern. Ohne Futures-Märkte wären Getreidepreise noch volatiler.
+
+Praktische Alternativen für ethisch-bewusste Anleger:
+Aktien von nachhaltigen Lebensmittelunternehmen: Nestlé, Unilever, Danone
+Agrar-ETFs die Unternehmen statt Rohstoffe halten: VanEck Agribusiness ETF`,
+      xp: 20,
+      fragen: [
+        { text: "Was sind die Haupttreiber für Agrarrohstoff-Preise?", antworten: ["Nur Angebot und Nachfrage", "Wetter, Ernten, geopolitische Faktoren und Spekulation", "Nur politische Entscheidungen", "Nur Währungsschwankungen"], richtig: 1, erklaerung: "Agrarrohstoffpreise werden von Wetter (Dürren, Überschwemmungen), Ernteergebnissen, Nachfrageänderungen und Spekulation beeinflusst." },
+        { text: "Welche ethische Frage stellt sich bei Agrarrohstoff-Investments?", antworten: ["Sind sie legal?", "Treibt Spekulation die Nahrungsmittelpreise und verschlimmert Hunger?", "Sind Gewinne steuerpflichtig?", "Dürfen Privatanleger das?"], richtig: 1, erklaerung: "Kritiker argumentieren dass Finanzspekulation Nahrungsmittelpreise künstlich erhöht und in armen Ländern zu Hunger beiträgt." },
+        { text: "Was ist eine ethischere Alternative zu direkten Agrarrohstoff-Investments?", antworten: ["Gar nicht investieren", "Aktien von nachhaltigen Lebensmittelunternehmen", "Nur in Bio-Rohstoffe", "In staatliche Agrarunternehmen"], richtig: 1, erklaerung: "Aktien von Lebensmittelunternehmen (Nestlé, Unilever) ermöglichen Teilhabe am Agrarsektor ohne direkte Rohstoffspekulation." }
+      ]
+    },
+    {
+      id: 1106,
+      titel: "Rohstoff-ETFs und ETCs im Vergleich",
+      inhalt: `Physische ETCs vs. Swap-basierte ETFs – welches Produkt passt zu dir?
+
+Physische ETCs (Gold, Silber):
+Das ETC hält echtes Metall in einem Tresor. Xetra-Gold lagert Gold bei der Deutschen Börse Commodities GmbH. Jeder Anteil = 1 Gramm Gold (angepasst nach Kosten).
+
+Vorteile: Kein Gegenparteirisiko, echte Wertaufbewahrung.
+Nachteil: Etwas höhere Kosten als Swap-basiert.
+
+Kosten-Vergleich:
+iShares Physical Gold ETC: TER 0,12% p.a.
+Xetra-Gold ETC: TER 0,36% p.a. (aber Steuervorteil nach 1 Jahr)
+WisdomTree Physical Silver: TER 0,49% p.a.
+
+Swap-basierte Rohstoff-ETFs:
+Diese ETFs bilden Rohstoff-Indizes über Derivate nach. Kein echtes Gold im Tresor – stattdessen ein Swap-Vertrag mit einer Bank.
+
+Vorteil: Oft günstiger, breite Diversifikation.
+Nachteil: Gegenparteirisiko (was passiert wenn die Bank ausfällt?), steuerlich weniger günstig.
+
+Beispiel: iShares Diversified Commodity Swap UCITS ETF – enthält Energie, Metalle, Agrar in einem Produkt.
+
+Der entscheidende Steuervorteil physisch besicherter Gold-ETCs in Deutschland:
+Physisches Gold gilt als Privatveräußerungsgeschäft. Hältst du es länger als 1 Jahr, sind Gewinne komplett steuerfrei. Das gilt für Xetra-Gold und ähnliche physisch besicherte Produkte – aber nicht für swap-basierte ETFs.`,
+      xp: 25,
+      fragen: [
+        { text: "Was ist der Steuervorteil von physisch besichertem Gold (z.B. Xetra-Gold)?", antworten: ["Keine Steuern je", "Nach 1 Jahr Haltedauer sind Gewinne steuerfrei", "25% Abgeltungssteuer entfällt immer", "Nur 10% Steuer"], richtig: 1, erklaerung: "Physisch besichertes Gold gilt als Privatveräußerungsgeschäft – nach 1 Jahr Haltedauer sind Gewinne komplett steuerfrei." },
+        { text: "Was ist der Nachteil von Rohstoff-ETFs die Futures nutzen?", antworten: ["Zu hohe Dividenden", "Contango-Kosten fressen langfristig Rendite", "Nur für institutionelle Anleger", "Keine Regulierung"], richtig: 1, erklaerung: "Futures-basierte ETFs müssen regelmäßig Kontrakte rollen. Im Contango (Normalzustand) entstehen dabei kontinuierliche Kosten." },
+        { text: "Für wen eignen sich breit diversifizierte Rohstoff-ETFs am besten?", antworten: ["Als Haupt-Investment", "Als kleine Beimischung zur Portfolio-Diversifikation (5-10%)", "Nur als Krisenabsicherung", "Für aktive Trader"], richtig: 1, erklaerung: "Rohstoff-ETFs eignen sich als Beimischung – sie diversifizieren das Portfolio ohne es zu dominieren." }
+      ]
+    },
+    {
+      id: 1107,
+      titel: "Rohstoff-Zyklen verstehen",
+      inhalt: `Rohstoffe sind zyklisch – und wer die Zyklen versteht, investiert besser.
+
+SuperCycles sind lange Phasen strukturell steigender Rohstoffpreise, die 15-20 Jahre dauern können. Sie entstehen wenn eine massive strukturelle Nachfragesteigerung auf unelastisches Angebot trifft.
+
+Der letzte große SuperCycle: 2000-2010
+Auslöser: Chinas Aufstieg zur Weltfabrik. In 10 Jahren urbanisierte China mehr Menschen als in den USA je gelebt haben. Das bedeutete gigantische Mengen an Stahl (Gebäude), Kupfer (Leitungen), Öl (Transport, Industrie). Preise für Kupfer stiegen um 500%, Öl von 20 auf 150 Dollar.
+
+Der mögliche nächste SuperCycle: Energiewende
+Solaranlagen, Windräder, Elektroautos, Batteriespeicher – all das braucht enorme Mengen an Kupfer, Lithium, Kobalt, Nickel. Gleichzeitig wird kaum in neue Minen investiert (wegen ESG-Druck und langen Genehmigungszeiten). Das klassische Setup für einen SuperCycle.
+
+Wie man Rohstoff-Zyklen erkennt:
+Lagerbestände: Niedrige globale Bestände = Angebotsknappheit = Preisdruck nach oben.
+Kapitalinvestitionen in neue Minen: Niedrig nach Bärenmarkt = zukünftiges Unterangebot.
+Nachfragetrends: Wächst die strukturelle Nachfrage schneller als das Angebot?
+
+Mean Reversion: Rohstoffe kehren langfristig zu ihren Produktionskosten zurück. Wer zu teuer kauft, wartet vielleicht 10 Jahre auf den Break-even.`,
+      xp: 25,
+      fragen: [
+        { text: "Was ist ein Rohstoff-SuperCycle?", antworten: ["Ein täglicher Preiszyklus", "Eine lange Phase (15-20 Jahre) strukturell steigender Rohstoffpreise", "Saisonale Schwankungen", "Wöchentliche Handelszyklen"], richtig: 1, erklaerung: "SuperCycles entstehen wenn strukturelle Nachfrageänderungen (wie Chinas Industrialisierung) auf unelastisches Angebot treffen." },
+        { text: "Welches Ereignis trieb den Rohstoff-SuperCycle 2000-2010 an?", antworten: ["Die Dotcom-Blase", "Chinas rasante Industrialisierung und Urbanisierung", "Der Irak-Krieg", "Die Finanzkrise 2008"], richtig: 1, erklaerung: "Chinas Aufstieg zur Weltfabrik erzeugte gigantische Nachfrage nach Stahl, Kupfer, Öl und anderen Rohstoffen." },
+        { text: "Was könnte den nächsten Rohstoff-SuperCycle antreiben?", antworten: ["Rückgang erneuerbarer Energien", "Die globale Energiewende mit massivem Bedarf an Kupfer, Lithium und seltenen Erden", "Rückkehr zur Kohle", "Bevölkerungsrückgang"], richtig: 1, erklaerung: "Solaranlagen, Windräder, Elektroautos und Batterien brauchen enorme Mengen an Industriemetallen – das könnte Preise langfristig treiben." }
+      ]
+    },
+    {
+      id: 1108,
+      titel: "Rohstoffe im Portfolio: Wie viel ist sinnvoll?",
+      inhalt: `Rohstoffe haben langfristig schlechter abgeschnitten als Aktien. Trotzdem sind sie nützlich – wenn man es richtig macht.
+
+Historische Rendite-Vergleich (1970-2023):
+MSCI World Aktien: ca. 10-11% p.a.
+Breit diversifizierte Rohstoffe: ca. 3-5% p.a. nominal
+Gold: ca. 7-8% p.a. (aber mit langen Verlustzeiträumen)
+
+Aktien gewinnen klar im langfristigen Renditevergleich. Aber das ist nicht der Punkt.
+
+Der Wert von Rohstoffen: Diversifikation
+In Phasen hoher Inflation (1970er, 2021-2023) haben Rohstoffe Aktien und Anleihen deutlich geschlagen.
+In geopolitischen Krisen steigen Edelmetalle oft wenn Aktien fallen.
+Die Korrelation zu Aktien ist historisch niedrig – das reduziert die Portfolio-Volatilität.
+
+Empfehlung nach Anleger-Typ:
+
+Einsteiger (unter 5 Jahre Erfahrung): 0% Rohstoffe. Konzentriere dich auf globale Aktien-ETFs. Rohstoffe sind optionale Komplexität.
+
+Fortgeschrittene (5-10% Rohstoff-Anteil): Gold als Krisenabsicherung über physisch besichertes ETC. Steuervorteil nach 1 Jahr.
+
+Erfahrene Anleger (5-10% diversifizierte Rohstoffe): Breiter Rohstoff-ETF (Energie, Metalle, Agrar) als echter Diversifikator. Nicht als Renditebooster, sondern als Portfolio-Stabilisator.
+
+Fazit: Rohstoffe sind Beimischung, nicht Kern. Wer den einfachen Weg will: MSCI World + Anleihen reicht. Rohstoffe sind das i-Tüpfelchen für fortgeschrittene Anleger.`,
+      xp: 30,
+      fragen: [
+        { text: "Wie haben sich Rohstoffe historisch im Vergleich zu Aktien entwickelt?", antworten: ["Rohstoffe deutlich besser", "Etwa gleich", "Aktien deutlich besser langfristig", "Rohstoffe in Krisen immer besser"], richtig: 2, erklaerung: "Langfristig haben globale Aktien-ETFs Rohstoffe deutlich übertroffen – Rohstoffe punkten durch Diversifikation, nicht Rendite." },
+        { text: "Wie viel Rohstoff-Anteil empfiehlt sich für Einsteiger?", antworten: ["50%", "20-30%", "0-5% als optionale Beimischung", "Mindestens 10%"], richtig: 2, erklaerung: "Einsteiger sollten sich auf günstige globale Aktien-ETFs konzentrieren. Rohstoffe sind optionale Beimischung für Fortgeschrittene." },
+        { text: "Was ist die sinnvollste Rohstoff-Beimischung für die meisten Privatanleger?", antworten: ["Breiter Rohstoff-ETF mit allen Kategorien", "Nur physisches Gold als Krisenabsicherung", "Nur Öl-Aktien", "Nur Agrarrohstoffe"], richtig: 0, erklaerung: "Ein breiter Rohstoff-ETF diversifiziert über alle Kategorien und reduziert das Einzelrohstoff-Risiko am stärksten." }
+      ]
+    }
   ]
 }
