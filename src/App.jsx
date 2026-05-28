@@ -323,12 +323,30 @@ const ONBOARDING_SCREENS = [
 function ScreenWillkommen() {
   return (
     <div style={{ textAlign: "center" }}>
-      <div style={{ fontSize: "4rem", marginBottom: "1.25rem" }}>💡</div>
-      <h1 style={{ fontSize: "2.5rem", fontWeight: 900, letterSpacing: "0.1em", background: "linear-gradient(135deg, #a78bfa, #f43f5e)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", marginBottom: "0.625rem" }}>LUMIO</h1>
-      <p style={{ fontSize: "1.05rem", color: "#8B8399", lineHeight: 1.5, marginBottom: "2rem" }}>Dein Weg zur finanziellen Freiheit.</p>
+      <div style={{
+        fontSize: "4rem",
+        marginBottom: "1.5rem",
+        background: "linear-gradient(135deg, #7C3AED, #9D174D)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        fontWeight: 900
+      }}>Lumio</div>
+      <h1 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: "1rem", lineHeight: 1.3 }}>
+        Finanzbildung die wirklich zu dir passt.
+      </h1>
+      <p style={{ color: "#8B8399", fontSize: "1rem", lineHeight: 1.6, marginBottom: "2rem" }}>
+        In 2 Minuten erstellen wir deinen persönlichen Lernplan – basierend auf deinen Zielen und deinem Wissensstand.
+      </p>
       <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-        {["📈 Personalisierter Lernpfad", "🎯 Tägliche Quests & Challenges", "🏆 XP-System & Level-Aufstieg"].map((f, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.75rem", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", padding: "0.75rem 1rem", fontSize: "0.9rem", color: "rgba(255,255,255,0.82)" }}>{f}</div>
+        {["📚 30+ Lektionen zu ETFs, Aktien, Krypto & mehr", "🎮 Gamifiziert mit XP, Streak und Badges", "🔓 Komplett kostenlos – kein Abo"].map((f, i) => (
+          <div key={i} style={{
+            background: "#1A1525",
+            border: "1px solid #2A2040",
+            borderRadius: "12px",
+            padding: "0.875rem 1rem",
+            textAlign: "left",
+            fontSize: "0.9rem"
+          }}>{f}</div>
         ))}
       </div>
     </div>
@@ -338,38 +356,72 @@ function ScreenWillkommen() {
 function ScreenName({ daten, setDatenFeld }) {
   return (
     <div>
-      <h2 className="ob-new-headline">Wie heißt du?</h2>
-      <p className="ob-new-sub">Wir personalisieren dein Erlebnis.</p>
+      <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: "0.5rem" }}>Wie heißt du?</h2>
+      <p style={{ color: "#8B8399", marginBottom: "2rem" }}>Wir personalisieren dein Erlebnis.</p>
       <input
-        className="ob-name-input"
+        autoFocus
         type="text"
         placeholder="Dein Vorname..."
         value={daten.name}
         onChange={e => setDatenFeld("name", e.target.value)}
         maxLength={30}
-        autoFocus
+        style={{
+          width: "100%",
+          background: "none",
+          border: "none",
+          borderBottom: "2px solid #7C3AED",
+          color: "#fff",
+          fontSize: "1.8rem",
+          fontWeight: 600,
+          padding: "0.5rem 0",
+          outline: "none",
+          fontFamily: "inherit"
+        }}
       />
+      {daten.name.length > 0 && daten.name.length < 2 && (
+        <p style={{ color: "#EF4444", fontSize: "0.8rem", marginTop: "0.5rem" }}>
+          Mindestens 2 Zeichen
+        </p>
+      )}
     </div>
   )
 }
 
 function ScreenAlter({ daten, setDatenFeld }) {
   const optionen = [
-    { id: "unter18", label: "Unter 18", icon: "🌱" },
-    { id: "18-24",   label: "18 – 24",  icon: "⚡" },
-    { id: "25-34",   label: "25 – 34",  icon: "🚀" },
-    { id: "35plus",  label: "35+",       icon: "💎" },
+    { wert: "unter18", label: "Unter 18", beschreibung: "Schüler, früher Einstieg" },
+    { wert: "18-24", label: "18 – 24", beschreibung: "Student, Ausbildung, Berufseinstieg" },
+    { wert: "25-34", label: "25 – 34", beschreibung: "Karriere aufbauen, erste Investments" },
+    { wert: "35plus", label: "35+", beschreibung: "Vermögen optimieren, Altersvorsorge" }
   ]
   return (
     <div>
-      <h2 className="ob-new-headline">Wie alt bist du?</h2>
-      <p className="ob-new-sub">Wir passen deine Risikoempfehlung an.</p>
-      <div className="ob-alter-cards">
-        {optionen.map(a => (
-          <div key={a.id} className={`ob-alter-card${daten.alter === a.id ? " ob-sel-new" : ""}`} onClick={() => setDatenFeld("alter", a.id)}>
-            <span className="ob-alter-card-icon">{a.icon}</span>
-            <span className="ob-alter-card-label">{a.label}</span>
-          </div>
+      <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: "0.5rem" }}>
+        Wie alt bist du{daten.name ? `, ${daten.name}` : ""}?
+      </h2>
+      <p style={{ color: "#8B8399", marginBottom: "1.5rem" }}>Wir passen die Inhalte an deine Lebensphase an.</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        {optionen.map(o => (
+          <button key={o.wert} onClick={() => setDatenFeld("alter", o.wert)}
+            style={{
+              background: daten.alter === o.wert ? "linear-gradient(135deg, #7C3AED22, #9D174D22)" : "#1A1525",
+              border: daten.alter === o.wert ? "2px solid #7C3AED" : "1px solid #2A2040",
+              borderRadius: "14px",
+              padding: "1rem 1.25rem",
+              cursor: "pointer",
+              textAlign: "left",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              transition: "all 0.15s",
+              fontFamily: "inherit"
+            }}>
+            <div>
+              <p style={{ color: "#fff", fontWeight: 600, fontSize: "1rem" }}>{o.label}</p>
+              <p style={{ color: "#8B8399", fontSize: "0.8rem", marginTop: "2px" }}>{o.beschreibung}</p>
+            </div>
+            {daten.alter === o.wert && <span style={{ color: "#7C3AED", fontSize: "1.2rem" }}>✓</span>}
+          </button>
         ))}
       </div>
     </div>
@@ -378,25 +430,38 @@ function ScreenAlter({ daten, setDatenFeld }) {
 
 function ScreenLebenssituation({ daten, setDatenFeld }) {
   const optionen = [
-    { id: "schueler",         icon: "🎓", titel: "Schüler / Student",  sub: "In Ausbildung oder Studium" },
-    { id: "berufseinsteiger", icon: "💼", titel: "Berufseinstieg",      sub: "Frisch im Job" },
-    { id: "berufstaetig",     icon: "🏢", titel: "Berufstätig",         sub: "Regelmäßiges Einkommen" },
-    { id: "selbststaendig",   icon: "🚀", titel: "Selbstständig",       sub: "Eigenes Business" },
+    { wert: "schueler", label: "🎓 Schüler / Student", beschreibung: "Wenig Einkommen, lerne noch" },
+    { wert: "azubi", label: "🔧 Azubi / Werkstudent", beschreibung: "Erstes eigenes Einkommen" },
+    { wert: "berufseinsteiger", label: "💼 Berufseinstieg", beschreibung: "1-3 Jahre im Job" },
+    { wert: "berufstaetig", label: "🏢 Berufstätig", beschreibung: "3+ Jahre, stabiles Einkommen" },
+    { wert: "selbststaendig", label: "🚀 Selbstständig", beschreibung: "Unternehmer, Freelancer" }
   ]
   return (
     <div>
-      <h2 className="ob-new-headline">Was beschreibt dich?</h2>
-      <p className="ob-new-sub">Für eine passende Empfehlung.</p>
-      <div className="ob-leben-cards">
-        {optionen.map(l => (
-          <div key={l.id} className={`ob-leben-card${daten.lebenssituation === l.id ? " ob-sel-new" : ""}`} onClick={() => setDatenFeld("lebenssituation", l.id)}>
-            <span className="ob-leben-icon">{l.icon}</span>
-            <div className="ob-leben-text">
-              <span className="ob-leben-titel">{l.titel}</span>
-              <span className="ob-leben-sub">{l.sub}</span>
+      <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: "0.5rem" }}>Was beschreibt dich?</h2>
+      <p style={{ color: "#8B8399", marginBottom: "1.5rem" }}>Deine Lebenssituation beeinflusst die beste Strategie.</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        {optionen.map(o => (
+          <button key={o.wert} onClick={() => setDatenFeld("lebenssituation", o.wert)}
+            style={{
+              background: daten.lebenssituation === o.wert ? "linear-gradient(135deg, #7C3AED22, #9D174D22)" : "#1A1525",
+              border: daten.lebenssituation === o.wert ? "2px solid #7C3AED" : "1px solid #2A2040",
+              borderRadius: "14px",
+              padding: "1rem 1.25rem",
+              cursor: "pointer",
+              textAlign: "left",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              transition: "all 0.15s",
+              fontFamily: "inherit"
+            }}>
+            <div>
+              <p style={{ color: "#fff", fontWeight: 600, fontSize: "0.95rem" }}>{o.label}</p>
+              <p style={{ color: "#8B8399", fontSize: "0.8rem", marginTop: "2px" }}>{o.beschreibung}</p>
             </div>
-            {daten.lebenssituation === l.id && <span className="ob-new-check">✓</span>}
-          </div>
+            {daten.lebenssituation === o.wert && <span style={{ color: "#7C3AED", fontSize: "1.2rem" }}>✓</span>}
+          </button>
         ))}
       </div>
     </div>
@@ -405,25 +470,64 @@ function ScreenLebenssituation({ daten, setDatenFeld }) {
 
 function ScreenAnlageziel({ daten, setDatenFeld }) {
   const optionen = [
-    { id: "vermögensaufbau", icon: "📈", titel: "Vermögensaufbau",     sub: "Langfristig Reichtum aufbauen" },
-    { id: "altersvorsorge",  icon: "🏡", titel: "Altersvorsorge",       sub: "Fürs Alter absichern" },
-    { id: "freiheit",        icon: "🦅", titel: "Finanzielle Freiheit", sub: "Von Kapital leben" },
-    { id: "sparen",          icon: "🎯", titel: "Gezielt sparen",       sub: "Für ein bestimmtes Ziel" },
+    {
+      wert: "vermögen_aufbauen",
+      label: "💰 Vermögen aufbauen",
+      beschreibung: "Langfristig Kapital akkumulieren für Freiheit, Rente oder große Ziele",
+      beispiel: "z.B. In 20 Jahren 200.000€ angespart haben"
+    },
+    {
+      wert: "vermögen_steigern",
+      label: "🚀 Vermögen deutlich steigern",
+      beschreibung: "Bestehende Mittel aggressiv wachsen lassen, höheres Risiko akzeptabel",
+      beispiel: "z.B. 50.000€ in 10 Jahren auf 150.000€ wachsen lassen"
+    },
+    {
+      wert: "vermögen_erhalten",
+      label: "🛡️ Vermögen erhalten",
+      beschreibung: "Vorhandenes Kapital gegen Inflation schützen, Stabilität wichtiger als Wachstum",
+      beispiel: "z.B. 100.000€ sichern und reale Kaufkraft erhalten"
+    },
+    {
+      wert: "kurzfristig",
+      label: "⚡ Kurzfristiges Sparziel",
+      beschreibung: "Für ein konkretes Ziel in 1-5 Jahren sparen",
+      beispiel: "z.B. Auto, Urlaub, Eigenkapital für Wohnung"
+    },
+    {
+      wert: "passives_einkommen",
+      label: "💸 Passives Einkommen",
+      beschreibung: "Regelmäßige Ausschüttungen die das monatliche Einkommen ergänzen",
+      beispiel: "z.B. 500€/Monat aus Dividenden und Zinsen"
+    }
   ]
   return (
     <div>
-      <h2 className="ob-new-headline">Was ist dein Ziel?</h2>
-      <p className="ob-new-sub">Wähle dein wichtigstes Anlageziel.</p>
-      <div className="ob-leben-cards">
+      <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: "0.5rem" }}>Was ist dein Anlageziel?</h2>
+      <p style={{ color: "#8B8399", marginBottom: "1.5rem" }}>Das bestimmt welche Strategie und welche Lernpfade für dich am relevantesten sind.</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
         {optionen.map(o => (
-          <div key={o.id} className={`ob-leben-card${daten.anlageziel === o.id ? " ob-sel-new" : ""}`} onClick={() => setDatenFeld("anlageziel", o.id)}>
-            <span className="ob-leben-icon">{o.icon}</span>
-            <div className="ob-leben-text">
-              <span className="ob-leben-titel">{o.titel}</span>
-              <span className="ob-leben-sub">{o.sub}</span>
+          <button key={o.wert} onClick={() => setDatenFeld("anlageziel", o.wert)}
+            style={{
+              background: daten.anlageziel === o.wert ? "linear-gradient(135deg, #7C3AED22, #9D174D22)" : "#1A1525",
+              border: daten.anlageziel === o.wert ? "2px solid #7C3AED" : "1px solid #2A2040",
+              borderRadius: "14px",
+              padding: "1rem 1.25rem",
+              cursor: "pointer",
+              textAlign: "left",
+              transition: "all 0.15s",
+              fontFamily: "inherit",
+              width: "100%"
+            }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+              <div style={{ flex: 1 }}>
+                <p style={{ color: "#fff", fontWeight: 700, fontSize: "0.95rem" }}>{o.label}</p>
+                <p style={{ color: "#8B8399", fontSize: "0.8rem", marginTop: "4px", lineHeight: 1.4 }}>{o.beschreibung}</p>
+                <p style={{ color: "#7C3AED", fontSize: "0.75rem", marginTop: "4px", fontStyle: "italic" }}>{o.beispiel}</p>
+              </div>
+              {daten.anlageziel === o.wert && <span style={{ color: "#7C3AED", fontSize: "1.2rem", marginLeft: "0.5rem" }}>✓</span>}
             </div>
-            {daten.anlageziel === o.id && <span className="ob-new-check">✓</span>}
-          </div>
+          </button>
         ))}
       </div>
     </div>
@@ -432,21 +536,40 @@ function ScreenAnlageziel({ daten, setDatenFeld }) {
 
 function ScreenZeithorizont({ daten, setDatenFeld }) {
   const optionen = [
-    { id: "kurz",      label: "Unter 5 Jahre",  icon: "⚡" },
-    { id: "mittel",    label: "5 – 10 Jahre",   icon: "📅" },
-    { id: "lang",      label: "10 – 20 Jahre",  icon: "🚀" },
-    { id: "sehr_lang", label: "20+ Jahre",       icon: "💎" },
+    { wert: "unter2", label: "Unter 2 Jahre", beschreibung: "Kurzfristig – Tagesgeld oder Festgeld sinnvoller als ETFs", risiko: "Sehr niedrig", farbe: "#10B981" },
+    { wert: "2bis5", label: "2 – 5 Jahre", beschreibung: "Mittelfristig – konservative Mischung aus Anleihen und Aktien", risiko: "Niedrig-Mittel", farbe: "#3B82F6" },
+    { wert: "5bis10", label: "5 – 10 Jahre", beschreibung: "Guter Horizont für ETF-Investments mit moderatem Aktienanteil", risiko: "Mittel", farbe: "#7C3AED" },
+    { wert: "10bis20", label: "10 – 20 Jahre", beschreibung: "Langer Horizont – hoher Aktienanteil sinnvoll, Zinseszins wirkt stark", risiko: "Mittel-Hoch", farbe: "#F59E0B" },
+    { wert: "über20", label: "Über 20 Jahre", beschreibung: "Optimaler Horizont – maximaler Zinseszins-Effekt, historisch kaum Verlustrisiko", risiko: "Kann hoch sein", farbe: "#EF4444" }
   ]
   return (
     <div>
-      <h2 className="ob-new-headline">Zeithorizont</h2>
-      <p className="ob-new-sub">Wie lange planst du zu investieren?</p>
-      <div className="ob-alter-cards">
+      <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: "0.5rem" }}>Wie lange möchtest du investieren?</h2>
+      <p style={{ color: "#8B8399", marginBottom: "1.5rem" }}>Der Zeithorizont ist die wichtigste Entscheidung – er bestimmt wie viel Risiko du eingehen kannst.</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
         {optionen.map(o => (
-          <div key={o.id} className={`ob-alter-card${daten.zeithorizont === o.id ? " ob-sel-new" : ""}`} onClick={() => setDatenFeld("zeithorizont", o.id)}>
-            <span className="ob-alter-card-icon">{o.icon}</span>
-            <span className="ob-alter-card-label">{o.label}</span>
-          </div>
+          <button key={o.wert} onClick={() => setDatenFeld("zeithorizont", o.wert)}
+            style={{
+              background: daten.zeithorizont === o.wert ? "linear-gradient(135deg, #7C3AED22, #9D174D22)" : "#1A1525",
+              border: daten.zeithorizont === o.wert ? "2px solid #7C3AED" : "1px solid #2A2040",
+              borderRadius: "14px",
+              padding: "1rem 1.25rem",
+              cursor: "pointer",
+              textAlign: "left",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              transition: "all 0.15s",
+              fontFamily: "inherit"
+            }}>
+            <div style={{ flex: 1 }}>
+              <p style={{ color: "#fff", fontWeight: 700, fontSize: "0.95rem" }}>{o.label}</p>
+              <p style={{ color: "#8B8399", fontSize: "0.78rem", marginTop: "4px", lineHeight: 1.4 }}>{o.beschreibung}</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "4px", marginLeft: "0.75rem" }}>
+              {daten.zeithorizont === o.wert && <span style={{ color: "#7C3AED" }}>✓</span>}
+            </div>
+          </button>
         ))}
       </div>
     </div>
@@ -455,26 +578,62 @@ function ScreenZeithorizont({ daten, setDatenFeld }) {
 
 function ScreenFinanzsituation({ daten, setDatenFeld }) {
   const optionen = [
-    { id: "schulden",    icon: "💳", label: "Schulden vorhanden" },
-    { id: "ersparnisse", icon: "🏦", label: "Geld auf dem Konto" },
-    { id: "investiert",  icon: "📊", label: "Bereits investiert" },
-    { id: "null",        icon: "🎯", label: "Fange bei null an" },
+    { wert: "schulden", label: "💳 Ich habe Konsumschulden", beschreibung: "Kreditkarte, Raten, Kredit" },
+    { wert: "kein_notgroschen", label: "⚠️ Ich habe keinen Notgroschen", beschreibung: "Kein Puffer für Notfälle" },
+    { wert: "geld_auf_konto", label: "🏦 Geld liegt nur auf dem Konto", beschreibung: "Unverzinst, Inflation frisst es auf" },
+    { wert: "bereits_investiert", label: "📊 Ich investiere bereits", beschreibung: "Depot, ETF oder Aktien vorhanden" },
+    { wert: "bei_null", label: "🎯 Ich fange bei null an", beschreibung: "Kein Depot, kein Ersparnisse" }
   ]
-  function toggle(id) {
-    const curr = daten.finanzsituation
-    setDatenFeld("finanzsituation", curr.includes(id) ? curr.filter(x => x !== id) : [...curr, id])
+
+  function toggle(wert) {
+    const aktuell = daten.finanzsituation || []
+    if (aktuell.includes(wert)) {
+      setDatenFeld("finanzsituation", aktuell.filter(v => v !== wert))
+    } else {
+      setDatenFeld("finanzsituation", [...aktuell, wert])
+    }
   }
+
   return (
     <div>
-      <h2 className="ob-new-headline">Deine Situation</h2>
-      <p className="ob-new-sub">Mehrere Antworten möglich.</p>
-      <div className="ob-finanztoggles">
-        {optionen.map(f => (
-          <div key={f.id} className={`ob-finanz-toggle${daten.finanzsituation.includes(f.id) ? " ob-toggle-aktiv" : ""}`} onClick={() => toggle(f.id)}>
-            <span className="ob-toggle-icon">{f.icon}</span>
-            <span className="ob-toggle-label">{f.label}</span>
-          </div>
-        ))}
+      <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: "0.5rem" }}>Deine aktuelle Lage</h2>
+      <p style={{ color: "#8B8399", marginBottom: "0.5rem" }}>Mehrere Antworten möglich. Das hilft uns die richtigen Lernpfade zu empfehlen.</p>
+      <p style={{ color: "#4A4460", fontSize: "0.8rem", marginBottom: "1.5rem" }}>Optional – du kannst auch überspringen.</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        {optionen.map(o => {
+          const aktiv = (daten.finanzsituation || []).includes(o.wert)
+          return (
+            <button key={o.wert} onClick={() => toggle(o.wert)}
+              style={{
+                background: aktiv ? "linear-gradient(135deg, #7C3AED22, #9D174D22)" : "#1A1525",
+                border: aktiv ? "2px solid #7C3AED" : "1px solid #2A2040",
+                borderRadius: "14px",
+                padding: "1rem 1.25rem",
+                cursor: "pointer",
+                textAlign: "left",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                transition: "all 0.15s",
+                fontFamily: "inherit"
+              }}>
+              <div>
+                <p style={{ color: "#fff", fontWeight: 600, fontSize: "0.9rem" }}>{o.label}</p>
+                <p style={{ color: "#8B8399", fontSize: "0.78rem", marginTop: "2px" }}>{o.beschreibung}</p>
+              </div>
+              <div style={{
+                width: "20px", height: "20px",
+                borderRadius: "6px",
+                border: aktiv ? "none" : "2px solid #2A2040",
+                background: aktiv ? "#7C3AED" : "transparent",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                flexShrink: 0, marginLeft: "0.75rem"
+              }}>
+                {aktiv && <span style={{ color: "#fff", fontSize: "0.8rem" }}>✓</span>}
+              </div>
+            </button>
+          )
+        })}
       </div>
     </div>
   )
@@ -482,26 +641,80 @@ function ScreenFinanzsituation({ daten, setDatenFeld }) {
 
 function ScreenErfahrung({ daten, setDatenFeld }) {
   const optionen = [
-    { id: "keine",           icon: "🌱", titel: "Keine Ahnung",      sub: "Absoluter Neuling" },
-    { id: "basics",          icon: "📚", titel: "Basics bekannt",    sub: "Kenne Sparbuch & Co." },
-    { id: "etwas",           icon: "📈", titel: "Etwas Erfahrung",   sub: "Habe schon etwas investiert" },
-    { id: "fortgeschritten", icon: "🧠", titel: "Fortgeschritten",   sub: "ETFs, Aktien, Portfolios" },
-    { id: "experte",         icon: "🏆", titel: "Experte",            sub: "Tiefes Finanzwissen" },
+    {
+      wert: "keine",
+      label: "🌱 Kompletter Einsteiger",
+      beschreibung: "Ich kenne mich mit Finanzen und Investieren kaum aus",
+      details: "Kein Depot, kaum Vorwissen, starte bei den Basics",
+      xp: 0,
+      startLevel: "Level 1 – Finanz-Neuling"
+    },
+    {
+      wert: "basics",
+      label: "📖 Ich kenne die Basics",
+      beschreibung: "Ich weiß was ein ETF und Aktien sind, habe aber noch nicht investiert",
+      details: "Grundbegriffe bekannt, aber noch keine praktische Erfahrung",
+      xp: 25,
+      startLevel: "Level 1 – Sparfuchs"
+    },
+    {
+      wert: "etwas",
+      label: "📊 Etwas Erfahrung",
+      beschreibung: "Ich habe bereits ein Depot und investiere sporadisch",
+      details: "Grundkenntnisse vorhanden, erster Sparplan oder Aktien im Depot",
+      xp: 50,
+      startLevel: "Level 2 – ETF-Entdecker"
+    },
+    {
+      wert: "fortgeschritten",
+      label: "💼 Fortgeschritten",
+      beschreibung: "Ich investiere regelmäßig und kenne Konzepte wie Rebalancing und TER",
+      details: "Aktives Portfolio, Kenntnisse zu Steuern, verschiedene Anlageklassen",
+      xp: 100,
+      startLevel: "Level 3 – Markt-Beobachter"
+    },
+    {
+      wert: "experte",
+      label: "🚀 Experte",
+      beschreibung: "Ich kenne mich tief mit Märkten, Bewertungen und Strategien aus",
+      details: "Factor Investing, Options, Portfolio-Optimierung, Steuerstrategien",
+      xp: 200,
+      startLevel: "Level 5 – Aktien-Kenner"
+    }
   ]
+
   return (
     <div>
-      <h2 className="ob-new-headline">Dein Wissenslevel</h2>
-      <p className="ob-new-sub">Ehrlichkeit hilft uns, dich besser zu begleiten.</p>
-      <div className="ob-leben-cards">
+      <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: "0.5rem" }}>Wie viel Erfahrung hast du?</h2>
+      <p style={{ color: "#8B8399", marginBottom: "0.5rem" }}>Sei ehrlich – wir passen deinen Startpunkt an.</p>
+      <p style={{ color: "#7C3AED", fontSize: "0.8rem", marginBottom: "1.5rem" }}>💡 Mehr Erfahrung = höheres Start-Level = schwierigere Inhalte sofort verfügbar</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
         {optionen.map(o => (
-          <div key={o.id} className={`ob-leben-card${daten.erfahrung === o.id ? " ob-sel-new" : ""}`} onClick={() => setDatenFeld("erfahrung", o.id)}>
-            <span className="ob-leben-icon">{o.icon}</span>
-            <div className="ob-leben-text">
-              <span className="ob-leben-titel">{o.titel}</span>
-              <span className="ob-leben-sub">{o.sub}</span>
+          <button key={o.wert} onClick={() => setDatenFeld("erfahrung", o.wert)}
+            style={{
+              background: daten.erfahrung === o.wert ? "linear-gradient(135deg, #7C3AED22, #9D174D22)" : "#1A1525",
+              border: daten.erfahrung === o.wert ? "2px solid #7C3AED" : "1px solid #2A2040",
+              borderRadius: "14px",
+              padding: "1rem 1.25rem",
+              cursor: "pointer",
+              textAlign: "left",
+              transition: "all 0.15s",
+              fontFamily: "inherit",
+              width: "100%"
+            }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+              <div style={{ flex: 1 }}>
+                <p style={{ color: "#fff", fontWeight: 700, fontSize: "0.95rem" }}>{o.label}</p>
+                <p style={{ color: "#8B8399", fontSize: "0.78rem", marginTop: "4px", lineHeight: 1.4 }}>{o.beschreibung}</p>
+                {daten.erfahrung === o.wert && (
+                  <p style={{ color: "#7C3AED", fontSize: "0.75rem", marginTop: "6px", fontWeight: 600 }}>
+                    → {o.startLevel} · +{o.xp} Start-XP
+                  </p>
+                )}
+              </div>
+              {daten.erfahrung === o.wert && <span style={{ color: "#7C3AED", fontSize: "1.2rem", marginLeft: "0.5rem" }}>✓</span>}
             </div>
-            {daten.erfahrung === o.id && <span className="ob-new-check">✓</span>}
-          </div>
+          </button>
         ))}
       </div>
     </div>
@@ -509,33 +722,96 @@ function ScreenErfahrung({ daten, setDatenFeld }) {
 }
 
 function ScreenErgebnis({ daten, onAbschliessen }) {
-  const xpMap = { experte: 200, fortgeschritten: 100, etwas: 50, basics: 25, keine: 0 }
-  const startXP = xpMap[daten.erfahrung] || 0
-  const zielLabel = { vermögensaufbau: "Vermögensaufbau", altersvorsorge: "Altersvorsorge", freiheit: "Fin. Freiheit", sparen: "Gezielt sparen" }
-  const horizLabel = { kurz: "Unter 5 Jahre", mittel: "5–10 Jahre", lang: "10–20 Jahre", sehr_lang: "20+ Jahre" }
-  const erfLabel   = { keine: "Neuling", basics: "Sparfuchs", etwas: "ETF-Entdecker", fortgeschritten: "Aktien-Kenner", experte: "Markt-Profi" }
+  const erfahrungXP = { keine: 0, basics: 25, etwas: 50, fortgeschritten: 100, experte: 200 }
+  const startXP = erfahrungXP[daten.erfahrung] || 0
+
+  const zielEmpfehlung = {
+    vermögen_aufbauen: { lernpfad: "ETF & Indexfonds", grund: "ETFs sind der effizienteste Weg langfristig Vermögen aufzubauen" },
+    vermögen_steigern: { lernpfad: "Aktien & Portfolio-Strategie", grund: "Für aggressives Wachstum brauchst du Aktien und eine solide Strategie" },
+    vermögen_erhalten: { lernpfad: "Anleihen & Budgetierung", grund: "Kapitalerhalt braucht Diversifikation und Inflationsschutz" },
+    kurzfristig: { lernpfad: "Banking & Konten", grund: "Für kurzfristige Ziele sind Tagesgeld und Festgeld die beste Wahl" },
+    passives_einkommen: { lernpfad: "ETF & Dividendenstrategie", grund: "Ausschüttende ETFs und Dividendenaktien sind der Schlüssel zu passivem Einkommen" }
+  }
+
+  const empfehlung = zielEmpfehlung[daten.anlageziel] || { lernpfad: "ETF & Indexfonds", grund: "ETFs sind der ideale Einstieg für jeden Anleger" }
+
+  const zeithorizontWarnung = daten.zeithorizont === "unter2"
+    ? "⚠️ Bei unter 2 Jahren Horizont empfehlen wir Tagesgeld statt ETFs – wir erklären warum in Banking & Konten."
+    : null
+
   return (
     <div style={{ textAlign: "center" }}>
-      <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>🎉</div>
-      <h2 style={{ fontSize: "1.75rem", fontWeight: 900, color: "#fff", marginBottom: "0.5rem", letterSpacing: "-0.02em" }}>
-        {daten.name ? `${daten.name}, dein` : "Dein"} Plan ist bereit!
-      </h2>
-      <p style={{ color: "#8B8399", fontSize: "0.92rem", marginBottom: "1.5rem" }}>Personalisiert für deine Ziele.</p>
-      <div style={{ background: "linear-gradient(135deg, #1A0A2E, #2D0A1E)", border: "1px solid #7C3AED33", borderRadius: "16px", padding: "1.25rem", marginBottom: "1.5rem", textAlign: "left" }}>
-        <p style={{ fontSize: "0.68rem", color: "#8B8399", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>Dein Profil</p>
-        {[
-          ["Zeithorizont", horizLabel[daten.zeithorizont] || "–"],
-          ["Ziel",         zielLabel[daten.anlageziel]    || "–"],
-          ["Erfahrung",    erfLabel[daten.erfahrung]       || "–"],
-          ["Start-XP",     `⚡ ${startXP} XP`],
-        ].map(([label, value]) => (
-          <div key={label} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.88rem", padding: "0.45rem 0", borderBottom: "1px solid #ffffff0d" }}>
-            <span style={{ color: "#8B8399" }}>{label}</span>
-            <span style={{ color: "#fff", fontWeight: 600 }}>{value}</span>
+      <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🎉</div>
+      <h1 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: "0.5rem" }}>
+        Hey {daten.name || "Investor"},<br />dein Plan ist bereit!
+      </h1>
+
+      <div style={{
+        background: "linear-gradient(135deg, #7C3AED22, #9D174D22)",
+        border: "1px solid #7C3AED44",
+        borderRadius: "16px",
+        padding: "1.25rem",
+        margin: "1.5rem 0",
+        textAlign: "left"
+      }}>
+        <p style={{ fontSize: "0.75rem", color: "#7C3AED", fontWeight: 600, marginBottom: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>Dein Profil</p>
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span style={{ color: "#8B8399", fontSize: "0.85rem" }}>Anlageziel</span>
+            <span style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 600 }}>
+              {daten.anlageziel?.replace(/_/g, " ") || "-"}
+            </span>
           </div>
-        ))}
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span style={{ color: "#8B8399", fontSize: "0.85rem" }}>Zeithorizont</span>
+            <span style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 600 }}>{daten.zeithorizont || "-"}</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span style={{ color: "#8B8399", fontSize: "0.85rem" }}>Erfahrung</span>
+            <span style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 600 }}>{daten.erfahrung || "-"}</span>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <span style={{ color: "#8B8399", fontSize: "0.85rem" }}>Start-XP</span>
+            <span style={{ color: "#7C3AED", fontSize: "0.85rem", fontWeight: 700 }}>+{startXP} XP</span>
+          </div>
+        </div>
       </div>
-      <button className="weiter-btn" onClick={onAbschliessen}>Jetzt starten 🚀</button>
+
+      <div style={{
+        background: "#1A1525",
+        border: "1px solid #2A2040",
+        borderRadius: "16px",
+        padding: "1.25rem",
+        marginBottom: "1rem",
+        textAlign: "left"
+      }}>
+        <p style={{ fontSize: "0.75rem", color: "#8B8399", marginBottom: "0.5rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>Empfohlener Start</p>
+        <p style={{ color: "#fff", fontWeight: 700, fontSize: "1rem", marginBottom: "0.25rem" }}>📚 {empfehlung.lernpfad}</p>
+        <p style={{ color: "#8B8399", fontSize: "0.82rem" }}>{empfehlung.grund}</p>
+      </div>
+
+      {zeithorizontWarnung && (
+        <div style={{
+          background: "#F59E0B22",
+          border: "1px solid #F59E0B44",
+          borderRadius: "12px",
+          padding: "0.875rem",
+          marginBottom: "1rem",
+          textAlign: "left",
+          fontSize: "0.82rem",
+          color: "#F59E0B"
+        }}>
+          {zeithorizontWarnung}
+        </div>
+      )}
+
+      <button
+        className="weiter-btn"
+        onClick={onAbschliessen}
+        style={{ marginTop: "0.5rem" }}
+      >
+        Jetzt loslegen 🚀
+      </button>
     </div>
   )
 }
@@ -583,9 +859,9 @@ function OnboardingFlow({ onComplete }) {
   }
 
   function finSitZuString(arr) {
-    if (arr.includes("investiert"))  return "viel"
-    if (arr.includes("ersparnisse")) return "mittel"
-    if (arr.includes("schulden"))    return "wenig"
+    if (arr.includes("bereits_investiert")) return "viel"
+    if (arr.includes("geld_auf_konto"))     return "mittel"
+    if (arr.includes("schulden"))           return "wenig"
     return "nichts"
   }
 
