@@ -68,11 +68,11 @@ const CONFETTI = Array.from({ length: 20 }, (_, i) => ({
 const LEVEL_XP = [0, 100, 250, 450, 700, 1000, 1350, 1700, 2050, 2400, 2750, 3250, 3750, 4250, 4750, 5250, 6000, 6750, 7500, 8250, 9000]
 
 const LEVEL_NAMEN = [
-  "", "Finanz-Neuling", "Sparfuchs", "ETF-Entdecker", "Markt-Beobachter",
-  "Aktien-Kenner", "Dividenden-Sammler", "Portfolio-Builder", "Krypto-Neugieriger",
-  "Steuer-Optimierer", "Vermögens-Planer", "Investment-Stratege", "Markt-Analyst",
-  "Finanz-Architekt", "Alpha-Sucher", "Risk-Manager", "Portfolio-Profi",
-  "Wealth-Builder", "Finanz-Mentor", "Investment-Experte", "Lumio Master",
+  "", "Finanz-Neuling 🌱", "Sparfuchs 🦊", "ETF-Entdecker 🔭", "Markt-Beobachter 👀",
+  "Aktien-Kenner 📊", "Dividenden-Sammler 💰", "Portfolio-Builder 🏗️", "Krypto-Neugieriger ₿",
+  "Steuer-Optimierer 📋", "Vermögens-Planer 🎯", "Investment-Stratege ⚡", "Markt-Analyst 🔬",
+  "Finanz-Architekt 🏛️", "Alpha-Sucher 🚀", "Risk-Manager 🛡️", "Portfolio-Profi 💼",
+  "Wealth-Builder 🏆", "Finanz-Mentor 🎓", "Investment-Experte 💎", "Lumio Master 👑",
 ]
 
 const LEVEL_ICONS = [
@@ -123,12 +123,26 @@ const ACHIEVEMENTS_DEF = [
 ]
 
 function berechneLevel(xp) {
-  let level = 1
-  for (let i = 1; i < LEVEL_XP.length; i++) {
-    if (xp >= LEVEL_XP[i]) level = i + 1
-    else break
-  }
-  return Math.min(level, 20)
+  if (xp >= 1500) return 20
+  if (xp >= 1200) return 19
+  if (xp >= 950)  return 18
+  if (xp >= 750)  return 17
+  if (xp >= 580)  return 16
+  if (xp >= 430)  return 15
+  if (xp >= 300)  return 14
+  if (xp >= 200)  return 13
+  if (xp >= 150)  return 12
+  if (xp >= 110)  return 11
+  if (xp >= 100)  return 10
+  if (xp >= 75)   return 9
+  if (xp >= 50)   return 8
+  if (xp >= 25)   return 7
+  if (xp >= 10)   return 6
+  if (xp >= 5)    return 5
+  if (xp >= 3)    return 4
+  if (xp >= 2)    return 3
+  if (xp >= 1)    return 2
+  return 1
 }
 
 function getLevelInfo(xp) {
@@ -175,9 +189,16 @@ function getTagestipp(wissenslevel) {
   return TIPPS.einsteiger[tag]
 }
 
-function getNextStep(abgeschlosseneLektionen, userWissenslevel) {
+function getNextStep(abgeschlosseneLektionen, userWissenslevel, userZiel) {
   if (abgeschlosseneLektionen.length === 0) {
-    return { text: "Starte mit ETF Basics", sub: "Deine erste Lektion · ca. 5 Min" }
+    const zielStart = {
+      vermögen_aufbauen:  { text: "Starte mit ETF Basics",              sub: "Deine erste Lektion · ca. 5 Min" },
+      vermögen_steigern:  { text: "Starte mit Aktien Grundlagen",       sub: "Deine erste Lektion · ca. 5 Min" },
+      vermögen_erhalten:  { text: "Starte mit Banking & Konten",        sub: "Deine erste Lektion · ca. 5 Min" },
+      kurzfristig:        { text: "Starte mit Banking & Konten",        sub: "Deine erste Lektion · ca. 5 Min" },
+      passives_einkommen: { text: "Starte mit ETF Dividendenstrategie", sub: "Deine erste Lektion · ca. 5 Min" },
+    }
+    return zielStart[userZiel] || { text: "Starte mit ETF Basics", sub: "Deine erste Lektion · ca. 5 Min" }
   }
   const etfLektionen = lernpfad[1] || []
   const etfDone = etfLektionen.filter(l => abgeschlosseneLektionen.includes(l.id))
@@ -199,10 +220,11 @@ function getBudgetDefault(userFinanzsituation) {
   return 100
 }
 
-function getEmpfohleneKatId(userWissenslevel) {
+function getEmpfohleneKatId(userWissenslevel, userZiel) {
   if (userWissenslevel >= 4) return 7
   if (userWissenslevel >= 3) return 2
-  return 1
+  const zielKatMap = { vermögen_steigern: 2, vermögen_erhalten: 6, kurzfristig: 6 }
+  return zielKatMap[userZiel] || 1
 }
 
 function getEmpfehlung(abgeschlosseneLektionen, userWissenslevel, userAktuelleSituation) {
@@ -239,10 +261,15 @@ function getEmpfehlung(abgeschlosseneLektionen, userWissenslevel, userAktuelleSi
 }
 
 function getZielText(userZiel) {
-  if (userZiel === "etf")    return "Dein Ziel: Ersten ETF-Sparplan starten 📈"
-  if (userZiel === "krypto") return "Dein Ziel: Krypto verstehen ₿"
-  if (userZiel === "aktien") return "Dein Ziel: Aktien analysieren 📊"
-  return "Dein Ziel: Finanzwissen aufbauen 🧠"
+  if (userZiel === "vermögen_aufbauen")  return "Ziel: Vermögen aufbauen 💰"
+  if (userZiel === "vermögen_steigern")  return "Ziel: Vermögen steigern 🚀"
+  if (userZiel === "vermögen_erhalten")  return "Ziel: Vermögen erhalten 🛡️"
+  if (userZiel === "kurzfristig")        return "Ziel: Kurzfristiges Sparziel ⚡"
+  if (userZiel === "passives_einkommen") return "Ziel: Passives Einkommen 💸"
+  if (userZiel === "etf")    return "Ziel: Ersten ETF-Sparplan starten 📈"
+  if (userZiel === "krypto") return "Ziel: Krypto verstehen ₿"
+  if (userZiel === "aktien") return "Ziel: Aktien analysieren 📊"
+  return "Ziel: Finanzwissen aufbauen 🧠"
 }
 
 function getPersonalizedGreeting(userName, onboardingDate, abgeschlosseneLektionen) {
@@ -1130,10 +1157,10 @@ function Startscreen({ xp, streak, onHauptkategorieClick, userName, abgeschlosse
   const xpHeute    = xpTaeglich[heute] || 0
   const xpZielPct  = Math.min(Math.round((xpHeute / 30) * 100), 100)
   const tipp       = getTagestipp(userWissenslevel || 1)
-  const nextStep   = getNextStep(abgeschlosseneLektionen, userWissenslevel || 1)
+  const nextStep   = getNextStep(abgeschlosseneLektionen, userWissenslevel || 1, userZiel)
   const zielText   = getZielText(userZiel)
   const greeting   = getPersonalizedGreeting(userName, onboardingDate, abgeschlosseneLektionen)
-  const empKatId   = getEmpfohleneKatId(userWissenslevel || 1)
+  const empKatId   = getEmpfohleneKatId(userWissenslevel || 1, userZiel)
   const level      = berechneLevel(xp)
   const hatKeineLektionen = abgeschlosseneLektionen.length === 0
   const empfehlung = abgeschlosseneLektionen.length > 0 ? getEmpfehlung(abgeschlosseneLektionen, userWissenslevel, userAktuelleSituation) : null
@@ -10801,13 +10828,14 @@ function App() {
 
   function onboardingAbschliessen(startXP, name) {
     setUserName(name)
-    setUserZiel(localStorage.getItem("userZiel") || "wissen")
+    setUserZiel(localStorage.getItem("userAnlageziel") || "vermögen_aufbauen")
     setUserAlter(localStorage.getItem("userAlter") || "")
     setUserLebenssituation(localStorage.getItem("userLebenssituation") || "")
     setUserFinanzsituation(localStorage.getItem("userFinanzsituation") || "")
     setUserWissenslevel(Number(localStorage.getItem("userWissenslevel")) || 1)
     setXp(startXP)
     localStorage.setItem("xp", startXP)
+    localStorage.setItem("onboardingComplete", "true")
     if (!localStorage.getItem("onboardingDate")) {
       localStorage.setItem("onboardingDate", getHeute())
     }
