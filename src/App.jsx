@@ -308,352 +308,342 @@ async function navigatorTeilen(text) {
   return false
 }
 
-function OnboardingFlow({ onComplete }) {
-  const [screen, setScreen]                       = useState(0)
-  const [name, setName]                           = useState("")
-  const [alter, setAlter]                         = useState(null)
-  const [lebenssituation, setLebenssituation]     = useState(null)
-  const [finanzsituationToggle, setFinSitToggle]  = useState([])
-  const [budget, setBudget]                       = useState(50)
-  const [wissenslevel, setWissenslevel]           = useState(null)
-  const [splashDone, setSplashDone]               = useState(false)
-  const [planCount, setPlanCount]                 = useState(0)
-  const slideRef                                  = useRef(null)
+const ONBOARDING_SCREENS = [
+  "willkommen",
+  "name",
+  "alter",
+  "lebenssituation",
+  "anlageziel",
+  "zeithorizont",
+  "finanzsituation",
+  "erfahrung",
+  "ergebnis",
+]
 
-  const TOTAL_SCREENS = 8
+function ScreenWillkommen() {
+  return (
+    <div style={{ textAlign: "center" }}>
+      <div style={{ fontSize: "4rem", marginBottom: "1.25rem" }}>💡</div>
+      <h1 style={{ fontSize: "2.5rem", fontWeight: 900, letterSpacing: "0.1em", background: "linear-gradient(135deg, #a78bfa, #f43f5e)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", marginBottom: "0.625rem" }}>LUMIO</h1>
+      <p style={{ fontSize: "1.05rem", color: "#8B8399", lineHeight: 1.5, marginBottom: "2rem" }}>Dein Weg zur finanziellen Freiheit.</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        {["📈 Personalisierter Lernpfad", "🎯 Tägliche Quests & Challenges", "🏆 XP-System & Level-Aufstieg"].map((f, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: "0.75rem", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", padding: "0.75rem 1rem", fontSize: "0.9rem", color: "rgba(255,255,255,0.82)" }}>{f}</div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
-  const r20 = 0.07 / 12
-  const n20 = 20 * 12
-  const projection = Math.round(budget * ((Math.pow(1 + r20, n20) - 1) / r20))
-  const eingezahlt20 = budget * n20
-  const eingezahltPct20 = projection > 0 ? Math.min(98, Math.round((eingezahlt20 / projection) * 100)) : 50
-  const multiplier20 = projection > 0 && eingezahlt20 > 0 ? (projection / eingezahlt20).toFixed(1) : "?"
+function ScreenName({ daten, setDatenFeld }) {
+  return (
+    <div>
+      <h2 className="ob-new-headline">Wie heißt du?</h2>
+      <p className="ob-new-sub">Wir personalisieren dein Erlebnis.</p>
+      <input
+        className="ob-name-input"
+        type="text"
+        placeholder="Dein Vorname..."
+        value={daten.name}
+        onChange={e => setDatenFeld("name", e.target.value)}
+        maxLength={30}
+        autoFocus
+      />
+    </div>
+  )
+}
 
-  function getBudgetKontext(bud) {
-    if (bud <= 25)  return "💡 Entspricht einem Kaffee pro Tag"
-    if (bud <= 50)  return "📱 Weniger als ein Handyvertrag pro Monat"
-    if (bud <= 100) return "🎬 Ein Streaming-Abo im Monat"
-    if (bud <= 150) return "🍕 Zwei Restaurantbesuche weniger"
-    if (bud <= 200) return "🚇 Dein Nahverkehrsticket im Monat"
-    return "🚀 Starkes Fundament für deine Zukunft"
-  }
-
-  const lernplanSchritte = {
-    1: ["Was ist ein ETF? – und warum er dein bester Freund ist", "Zinseszins: Die mächtigste Kraft beim Investieren", "Deinen ersten Sparplan einrichten – Schritt für Schritt"],
-    2: ["Inflation bekämpfen – warum Geld auf dem Konto schrumpft", "ETF Basics – ohne Vorkenntnisse loslegen", "Budgetierung: Dein Finanzfundament legen"],
-    3: ["ETF vs. Aktien – was passt zu dir?", "Portfolio-Aufbau: Diversifikation verstehen", "Steuern auf Kapitalerträge legal minimieren"],
-    4: ["Tax-Loss-Harvesting optimieren", "Faktoren-ETFs & Smart Beta erklärt", "Portfoliooptimierung mit modernem Ansatz"],
-    5: ["Erweiterte Steuerstrategien für Profis", "Hebel & Optionen verstehen", "Vollständige Portfolioanalyse & Rebalancing"],
-  }
-
-  useEffect(() => {
-    if (screen !== 7) return
-    setPlanCount(0)
-    let current = 0
-    const steps = 60
-    const increment = projection / steps
-    const timer = setInterval(() => {
-      current += increment
-      if (current >= projection) { setPlanCount(projection); clearInterval(timer) }
-      else setPlanCount(Math.round(current))
-    }, 1600 / steps)
-    return () => clearInterval(timer)
-  }, [screen, projection])
-
-  useEffect(() => {
-    if (screen !== 0) return
-    const t = setTimeout(() => { setSplashDone(true); setScreen(1) }, 2200)
-    return () => clearTimeout(t)
-  }, [screen])
-
-  function goTo(s) {
-    setScreen(s)
-  }
-
-  function toggleFinSit(id) {
-    setFinSitToggle(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
-  }
-
-  function deriveFinanzsituation(bud) {
-    if (bud <= 25) return "nichts"
-    if (bud <= 80) return "wenig"
-    if (bud <= 200) return "mittel"
-    return "viel"
-  }
-
-  function abschliessen() {
-    const finalName = name.trim() || "Investor"
-    const finalWissen = wissenslevel || 1
-    const startXP = (finalWissen - 1) * 25
-    const finanzsituation = deriveFinanzsituation(budget)
-    if (!localStorage.getItem("onboardingDate")) {
-      localStorage.setItem("onboardingDate", getHeute())
-    }
-    localStorage.setItem("onboardingComplete", "true")
-    localStorage.setItem("userName", finalName)
-    localStorage.setItem("userZiel", "etf")
-    localStorage.setItem("userAlter", alter || "")
-    localStorage.setItem("userLebenssituation", lebenssituation || "")
-    localStorage.setItem("userFinanzsituation", finanzsituation)
-    localStorage.setItem("userAktuelleSituation", JSON.stringify(finanzsituationToggle))
-    localStorage.setItem("userWissenslevel", String(finalWissen))
-    onComplete(startXP, finalName)
-  }
-
-  const alterOptionen = [
-    { id: "unter18", label: "Unter 18",  icon: "🌱" },
-    { id: "18-24",   label: "18 – 24",   icon: "⚡" },
-    { id: "25-34",   label: "25 – 34",   icon: "🚀" },
-    { id: "35plus",  label: "35+",        icon: "💎" },
+function ScreenAlter({ daten, setDatenFeld }) {
+  const optionen = [
+    { id: "unter18", label: "Unter 18", icon: "🌱" },
+    { id: "18-24",   label: "18 – 24",  icon: "⚡" },
+    { id: "25-34",   label: "25 – 34",  icon: "🚀" },
+    { id: "35plus",  label: "35+",       icon: "💎" },
   ]
+  return (
+    <div>
+      <h2 className="ob-new-headline">Wie alt bist du?</h2>
+      <p className="ob-new-sub">Wir passen deine Risikoempfehlung an.</p>
+      <div className="ob-alter-cards">
+        {optionen.map(a => (
+          <div key={a.id} className={`ob-alter-card${daten.alter === a.id ? " ob-sel-new" : ""}`} onClick={() => setDatenFeld("alter", a.id)}>
+            <span className="ob-alter-card-icon">{a.icon}</span>
+            <span className="ob-alter-card-label">{a.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
-  const lebensOptionen = [
+function ScreenLebenssituation({ daten, setDatenFeld }) {
+  const optionen = [
     { id: "schueler",         icon: "🎓", titel: "Schüler / Student",  sub: "In Ausbildung oder Studium" },
     { id: "berufseinsteiger", icon: "💼", titel: "Berufseinstieg",      sub: "Frisch im Job" },
     { id: "berufstaetig",     icon: "🏢", titel: "Berufstätig",         sub: "Regelmäßiges Einkommen" },
     { id: "selbststaendig",   icon: "🚀", titel: "Selbstständig",       sub: "Eigenes Business" },
   ]
+  return (
+    <div>
+      <h2 className="ob-new-headline">Was beschreibt dich?</h2>
+      <p className="ob-new-sub">Für eine passende Empfehlung.</p>
+      <div className="ob-leben-cards">
+        {optionen.map(l => (
+          <div key={l.id} className={`ob-leben-card${daten.lebenssituation === l.id ? " ob-sel-new" : ""}`} onClick={() => setDatenFeld("lebenssituation", l.id)}>
+            <span className="ob-leben-icon">{l.icon}</span>
+            <div className="ob-leben-text">
+              <span className="ob-leben-titel">{l.titel}</span>
+              <span className="ob-leben-sub">{l.sub}</span>
+            </div>
+            {daten.lebenssituation === l.id && <span className="ob-new-check">✓</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
-  const finSitOptionen = [
-    { id: "schulden",    icon: "💳", label: "Schulden" },
-    { id: "ersparnisse", icon: "🏦", label: "Geld auf Konto" },
+function ScreenAnlageziel({ daten, setDatenFeld }) {
+  const optionen = [
+    { id: "vermögensaufbau", icon: "📈", titel: "Vermögensaufbau",     sub: "Langfristig Reichtum aufbauen" },
+    { id: "altersvorsorge",  icon: "🏡", titel: "Altersvorsorge",       sub: "Fürs Alter absichern" },
+    { id: "freiheit",        icon: "🦅", titel: "Finanzielle Freiheit", sub: "Von Kapital leben" },
+    { id: "sparen",          icon: "🎯", titel: "Gezielt sparen",       sub: "Für ein bestimmtes Ziel" },
+  ]
+  return (
+    <div>
+      <h2 className="ob-new-headline">Was ist dein Ziel?</h2>
+      <p className="ob-new-sub">Wähle dein wichtigstes Anlageziel.</p>
+      <div className="ob-leben-cards">
+        {optionen.map(o => (
+          <div key={o.id} className={`ob-leben-card${daten.anlageziel === o.id ? " ob-sel-new" : ""}`} onClick={() => setDatenFeld("anlageziel", o.id)}>
+            <span className="ob-leben-icon">{o.icon}</span>
+            <div className="ob-leben-text">
+              <span className="ob-leben-titel">{o.titel}</span>
+              <span className="ob-leben-sub">{o.sub}</span>
+            </div>
+            {daten.anlageziel === o.id && <span className="ob-new-check">✓</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function ScreenZeithorizont({ daten, setDatenFeld }) {
+  const optionen = [
+    { id: "kurz",      label: "Unter 5 Jahre",  icon: "⚡" },
+    { id: "mittel",    label: "5 – 10 Jahre",   icon: "📅" },
+    { id: "lang",      label: "10 – 20 Jahre",  icon: "🚀" },
+    { id: "sehr_lang", label: "20+ Jahre",       icon: "💎" },
+  ]
+  return (
+    <div>
+      <h2 className="ob-new-headline">Zeithorizont</h2>
+      <p className="ob-new-sub">Wie lange planst du zu investieren?</p>
+      <div className="ob-alter-cards">
+        {optionen.map(o => (
+          <div key={o.id} className={`ob-alter-card${daten.zeithorizont === o.id ? " ob-sel-new" : ""}`} onClick={() => setDatenFeld("zeithorizont", o.id)}>
+            <span className="ob-alter-card-icon">{o.icon}</span>
+            <span className="ob-alter-card-label">{o.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function ScreenFinanzsituation({ daten, setDatenFeld }) {
+  const optionen = [
+    { id: "schulden",    icon: "💳", label: "Schulden vorhanden" },
+    { id: "ersparnisse", icon: "🏦", label: "Geld auf dem Konto" },
     { id: "investiert",  icon: "📊", label: "Bereits investiert" },
     { id: "null",        icon: "🎯", label: "Fange bei null an" },
   ]
+  function toggle(id) {
+    const curr = daten.finanzsituation
+    setDatenFeld("finanzsituation", curr.includes(id) ? curr.filter(x => x !== id) : [...curr, id])
+  }
+  return (
+    <div>
+      <h2 className="ob-new-headline">Deine Situation</h2>
+      <p className="ob-new-sub">Mehrere Antworten möglich.</p>
+      <div className="ob-finanztoggles">
+        {optionen.map(f => (
+          <div key={f.id} className={`ob-finanz-toggle${daten.finanzsituation.includes(f.id) ? " ob-toggle-aktiv" : ""}`} onClick={() => toggle(f.id)}>
+            <span className="ob-toggle-icon">{f.icon}</span>
+            <span className="ob-toggle-label">{f.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
-  const wissensLabels = ["Keine Ahnung", "Basics", "Etwas", "Gut", "Experte"]
-  const schritte = lernplanSchritte[wissenslevel || 1] || lernplanSchritte[1]
+function ScreenErfahrung({ daten, setDatenFeld }) {
+  const optionen = [
+    { id: "keine",           icon: "🌱", titel: "Keine Ahnung",      sub: "Absoluter Neuling" },
+    { id: "basics",          icon: "📚", titel: "Basics bekannt",    sub: "Kenne Sparbuch & Co." },
+    { id: "etwas",           icon: "📈", titel: "Etwas Erfahrung",   sub: "Habe schon etwas investiert" },
+    { id: "fortgeschritten", icon: "🧠", titel: "Fortgeschritten",   sub: "ETFs, Aktien, Portfolios" },
+    { id: "experte",         icon: "🏆", titel: "Experte",            sub: "Tiefes Finanzwissen" },
+  ]
+  return (
+    <div>
+      <h2 className="ob-new-headline">Dein Wissenslevel</h2>
+      <p className="ob-new-sub">Ehrlichkeit hilft uns, dich besser zu begleiten.</p>
+      <div className="ob-leben-cards">
+        {optionen.map(o => (
+          <div key={o.id} className={`ob-leben-card${daten.erfahrung === o.id ? " ob-sel-new" : ""}`} onClick={() => setDatenFeld("erfahrung", o.id)}>
+            <span className="ob-leben-icon">{o.icon}</span>
+            <div className="ob-leben-text">
+              <span className="ob-leben-titel">{o.titel}</span>
+              <span className="ob-leben-sub">{o.sub}</span>
+            </div>
+            {daten.erfahrung === o.id && <span className="ob-new-check">✓</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
-  const sliderBgOb = (val, min, max) => {
-    const pct = ((val - min) / (max - min)) * 100
-    return `linear-gradient(to right, #7C3AED ${pct}%, #2a2040 ${pct}%)`
+function ScreenErgebnis({ daten, onAbschliessen }) {
+  const xpMap = { experte: 200, fortgeschritten: 100, etwas: 50, basics: 25, keine: 0 }
+  const startXP = xpMap[daten.erfahrung] || 0
+  const zielLabel = { vermögensaufbau: "Vermögensaufbau", altersvorsorge: "Altersvorsorge", freiheit: "Fin. Freiheit", sparen: "Gezielt sparen" }
+  const horizLabel = { kurz: "Unter 5 Jahre", mittel: "5–10 Jahre", lang: "10–20 Jahre", sehr_lang: "20+ Jahre" }
+  const erfLabel   = { keine: "Neuling", basics: "Sparfuchs", etwas: "ETF-Entdecker", fortgeschritten: "Aktien-Kenner", experte: "Markt-Profi" }
+  return (
+    <div style={{ textAlign: "center" }}>
+      <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>🎉</div>
+      <h2 style={{ fontSize: "1.75rem", fontWeight: 900, color: "#fff", marginBottom: "0.5rem", letterSpacing: "-0.02em" }}>
+        {daten.name ? `${daten.name}, dein` : "Dein"} Plan ist bereit!
+      </h2>
+      <p style={{ color: "#8B8399", fontSize: "0.92rem", marginBottom: "1.5rem" }}>Personalisiert für deine Ziele.</p>
+      <div style={{ background: "linear-gradient(135deg, #1A0A2E, #2D0A1E)", border: "1px solid #7C3AED33", borderRadius: "16px", padding: "1.25rem", marginBottom: "1.5rem", textAlign: "left" }}>
+        <p style={{ fontSize: "0.68rem", color: "#8B8399", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>Dein Profil</p>
+        {[
+          ["Zeithorizont", horizLabel[daten.zeithorizont] || "–"],
+          ["Ziel",         zielLabel[daten.anlageziel]    || "–"],
+          ["Erfahrung",    erfLabel[daten.erfahrung]       || "–"],
+          ["Start-XP",     `⚡ ${startXP} XP`],
+        ].map(([label, value]) => (
+          <div key={label} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.88rem", padding: "0.45rem 0", borderBottom: "1px solid #ffffff0d" }}>
+            <span style={{ color: "#8B8399" }}>{label}</span>
+            <span style={{ color: "#fff", fontWeight: 600 }}>{value}</span>
+          </div>
+        ))}
+      </div>
+      <button className="weiter-btn" onClick={onAbschliessen}>Jetzt starten 🚀</button>
+    </div>
+  )
+}
+
+function OnboardingFlow({ onComplete }) {
+  const [schritt, setSchritt] = useState(0)
+  const [daten, setDaten] = useState({
+    name: "",
+    alter: null,
+    lebenssituation: null,
+    anlageziel: null,
+    zeithorizont: null,
+    finanzsituation: [],
+    erfahrung: null,
+  })
+
+  function weiter() {
+    if (schritt < ONBOARDING_SCREENS.length - 1) setSchritt(s => s + 1)
   }
 
+  function zurueck() {
+    if (schritt > 0) setSchritt(s => s - 1)
+  }
+
+  function setDatenFeld(feld, wert) {
+    setDaten(prev => ({ ...prev, [feld]: wert }))
+  }
+
+  function kannWeiter() {
+    switch (ONBOARDING_SCREENS[schritt]) {
+      case "willkommen":     return true
+      case "name":           return daten.name.trim().length >= 2
+      case "alter":          return daten.alter !== null
+      case "lebenssituation":return daten.lebenssituation !== null
+      case "anlageziel":     return daten.anlageziel !== null
+      case "zeithorizont":   return daten.zeithorizont !== null
+      case "finanzsituation":return true
+      case "erfahrung":      return daten.erfahrung !== null
+      default:               return true
+    }
+  }
+
+  function erfahrungZuWissenslevel() {
+    return { keine: 1, basics: 2, etwas: 3, fortgeschritten: 4, experte: 5 }[daten.erfahrung] || 1
+  }
+
+  function finSitZuString(arr) {
+    if (arr.includes("investiert"))  return "viel"
+    if (arr.includes("ersparnisse")) return "mittel"
+    if (arr.includes("schulden"))    return "wenig"
+    return "nichts"
+  }
+
+  function abschliessen() {
+    const startXP   = { experte: 200, fortgeschritten: 100, etwas: 50, basics: 25, keine: 0 }[daten.erfahrung] || 0
+    const finalName = daten.name.trim() || "Investor"
+    if (!localStorage.getItem("onboardingDate")) localStorage.setItem("onboardingDate", getHeute())
+    localStorage.setItem("onboardingComplete",   "true")
+    localStorage.setItem("userName",             finalName)
+    localStorage.setItem("userAlter",            daten.alter            || "")
+    localStorage.setItem("userLebenssituation",  daten.lebenssituation  || "")
+    localStorage.setItem("userZiel",             daten.anlageziel       || "wissen")
+    localStorage.setItem("userAnlageziel",       daten.anlageziel       || "")
+    localStorage.setItem("userZeithorizont",     daten.zeithorizont     || "")
+    localStorage.setItem("userFinanzsituation",  finSitZuString(daten.finanzsituation))
+    localStorage.setItem("userAktuelleSituation",JSON.stringify(daten.finanzsituation))
+    localStorage.setItem("userErfahrung",        daten.erfahrung        || "")
+    localStorage.setItem("userWissenslevel",     String(erfahrungZuWissenslevel()))
+    onComplete(startXP, finalName)
+  }
+
+  const aktuellerScreen = ONBOARDING_SCREENS[schritt]
+  const fortschritt     = (schritt / (ONBOARDING_SCREENS.length - 1)) * 100
+
   return (
-    <div className="ob-new-wrap">
-      <div
-        className="ob-slides"
-        ref={slideRef}
-        style={{ transform: `translateX(-${screen * 100}%)` }}
-      >
-
-        {/* ── Screen 0: Splash ── */}
-        <div className="ob-slide ob-slide-splash">
-          <div className={`ob-splash-logo ${splashDone ? "ob-splash-logo-done" : ""}`}>
-            <span className="ob-splash-emoji">💡</span>
-            <span className="ob-splash-brand">LUMIO</span>
-          </div>
-          <p className="ob-splash-tagline">Dein Weg zur finanziellen Freiheit.</p>
-        </div>
-
-        {/* ── Screen 1: Name ── */}
-        <div className="ob-slide ob-slide-inner">
-          <div className="ob-slide-top">
-            <div className="ob-new-progress">
-              <div className="ob-new-progress-fill" style={{ width: `${(1 / 7) * 100}%` }} />
-            </div>
-          </div>
-          <div className="ob-name-content">
-            <h1 className="ob-name-headline">Wie heißt du?</h1>
-            <p className="ob-name-sub">Wir personalisieren dein Erlebnis.</p>
-            <input
-              className="ob-name-input"
-              type="text"
-              placeholder="Dein Vorname..."
-              value={name}
-              onChange={e => setName(e.target.value)}
-              maxLength={30}
-              autoFocus
-            />
-            <button
-              className={`ob-name-btn ${name.length >= 2 ? "ob-name-btn-visible" : ""}`}
-              disabled={name.length < 2}
-              onClick={() => goTo(2)}
-            >
-              Weiter →
-            </button>
-          </div>
-        </div>
-
-        {/* ── Screen 2: Alter ── */}
-        <div className="ob-slide ob-slide-inner">
-          <div className="ob-slide-top">
-            <button className="ob-new-back" onClick={() => goTo(1)}>←</button>
-            <div className="ob-new-progress">
-              <div className="ob-new-progress-fill" style={{ width: `${(2 / 7) * 100}%` }} />
-            </div>
-          </div>
-          <h2 className="ob-new-headline">Wie alt bist du?</h2>
-          <p className="ob-new-sub">Wir passen deine Risikoempfehlung an.</p>
-          <div className="ob-alter-cards">
-            {alterOptionen.map(a => (
-              <div
-                key={a.id}
-                className={`ob-alter-card ${alter === a.id ? "ob-sel-new" : ""}`}
-                onClick={() => setAlter(a.id)}
-              >
-                <span className="ob-alter-card-icon">{a.icon}</span>
-                <span className="ob-alter-card-label">{a.label}</span>
-              </div>
-            ))}
-          </div>
-          <button className="ob-new-btn" disabled={!alter} onClick={() => goTo(3)}>Weiter →</button>
-        </div>
-
-        {/* ── Screen 3: Lebenssituation ── */}
-        <div className="ob-slide ob-slide-inner">
-          <div className="ob-slide-top">
-            <button className="ob-new-back" onClick={() => goTo(2)}>←</button>
-            <div className="ob-new-progress">
-              <div className="ob-new-progress-fill" style={{ width: `${(3 / 7) * 100}%` }} />
-            </div>
-          </div>
-          <h2 className="ob-new-headline">Was beschreibt dich?</h2>
-          <p className="ob-new-sub">Für eine passende Empfehlung.</p>
-          <div className="ob-leben-cards">
-            {lebensOptionen.map(l => (
-              <div
-                key={l.id}
-                className={`ob-leben-card ${lebenssituation === l.id ? "ob-sel-new" : ""}`}
-                onClick={() => setLebenssituation(l.id)}
-              >
-                <span className="ob-leben-icon">{l.icon}</span>
-                <div className="ob-leben-text">
-                  <span className="ob-leben-titel">{l.titel}</span>
-                  <span className="ob-leben-sub">{l.sub}</span>
-                </div>
-                {lebenssituation === l.id && <span className="ob-new-check">✓</span>}
-              </div>
-            ))}
-          </div>
-          <button className="ob-new-btn" disabled={!lebenssituation} onClick={() => goTo(4)}>Weiter →</button>
-        </div>
-
-        {/* ── Screen 4: Finanzsituation (multi-select) ── */}
-        <div className="ob-slide ob-slide-inner">
-          <div className="ob-slide-top">
-            <button className="ob-new-back" onClick={() => goTo(3)}>←</button>
-            <div className="ob-new-progress">
-              <div className="ob-new-progress-fill" style={{ width: `${(4 / 7) * 100}%` }} />
-            </div>
-          </div>
-          <h2 className="ob-new-headline">Was trifft auf dich zu?</h2>
-          <p className="ob-new-sub">Mehrere Antworten möglich.</p>
-          <div className="ob-finanztoggles">
-            {finSitOptionen.map(f => (
-              <div
-                key={f.id}
-                className={`ob-finanz-toggle ${finanzsituationToggle.includes(f.id) ? "ob-toggle-aktiv" : ""}`}
-                onClick={() => toggleFinSit(f.id)}
-              >
-                <span className="ob-toggle-icon">{f.icon}</span>
-                <span className="ob-toggle-label">{f.label}</span>
-              </div>
-            ))}
-          </div>
-          <button className="ob-new-btn" onClick={() => goTo(5)}>Weiter →</button>
-        </div>
-
-        {/* ── Screen 5: Budget ── */}
-        <div className="ob-slide ob-slide-inner">
-          <div className="ob-slide-top">
-            <button className="ob-new-back" onClick={() => goTo(4)}>←</button>
-            <div className="ob-new-progress">
-              <div className="ob-new-progress-fill" style={{ width: `${(5 / 7) * 100}%` }} />
-            </div>
-          </div>
-          <h2 className="ob-new-headline">Wie viel pro Monat?</h2>
-          <p className="ob-new-sub">Kein Mindestbetrag – jeder fängt irgendwo an.</p>
-          <p className="ob-budget-context">{getBudgetKontext(budget)}</p>
-          <div className="ob-budget-giant">{budget} €</div>
-          <input
-            type="range"
-            min={10} max={500} step={5}
-            value={budget}
-            onChange={e => setBudget(Number(e.target.value))}
-            className="ob-budget-slider"
-            style={{ background: sliderBgOb(budget, 10, 500) }}
-          />
-          <div className="ob-budget-bars">
-            <div className="ob-bb-row">
-              <span className="ob-bb-label">Eingezahlt</span>
-              <div className="ob-bb-track"><div className="ob-bb-fill ob-bb-eingezahlt" style={{ width: `${eingezahltPct20}%` }} /></div>
-              <span className="ob-bb-val">{eingezahlt20.toLocaleString("de-DE")} €</span>
-            </div>
-            <div className="ob-bb-row">
-              <span className="ob-bb-label">Mit Zinseszins</span>
-              <div className="ob-bb-track"><div className="ob-bb-fill ob-bb-zinseszins" style={{ width: "100%" }} /></div>
-              <span className="ob-bb-val ob-bb-val-hl">{projection.toLocaleString("de-DE")} €</span>
-            </div>
-          </div>
-          <p className="ob-budget-multiplier">Das ist <strong>{multiplier20}×</strong> dein Einsatz · bei 7% p.a.</p>
-          <button className="ob-new-btn" onClick={() => goTo(6)}>Weiter →</button>
-        </div>
-
-        {/* ── Screen 6: Wissenslevel ── */}
-        <div className="ob-slide ob-slide-inner">
-          <div className="ob-slide-top">
-            <button className="ob-new-back" onClick={() => goTo(5)}>←</button>
-            <div className="ob-new-progress">
-              <div className="ob-new-progress-fill" style={{ width: `${(6 / 7) * 100}%` }} />
-            </div>
-          </div>
-          <h2 className="ob-new-headline">Dein Wissenslevel</h2>
-          <p className="ob-new-sub">Ehrlichkeit hilft uns, dich besser zu begleiten.</p>
-          <div className="ob-wissen-circles">
-            {[1, 2, 3, 4, 5].map(stufe => (
-              <div
-                key={stufe}
-                className={`ob-wissen-circle ${wissenslevel && wissenslevel >= stufe ? "ob-wc-aktiv" : ""}`}
-                onClick={() => setWissenslevel(stufe)}
-              >
-                {stufe}
-              </div>
-            ))}
-          </div>
-          <div className="ob-wissen-labels">
-            {wissensLabels.map((l, i) => (
-              <span key={i} className={`ob-wc-label ${wissenslevel === i + 1 ? "ob-wc-label-aktiv" : ""}`}>{l}</span>
-            ))}
-          </div>
-          <button
-            className="ob-new-btn"
-            disabled={!wissenslevel}
-            onClick={() => goTo(7)}
-          >
-            Weiter →
-          </button>
-        </div>
-
-        {/* ── Screen 7: Personalized Plan ── */}
-        <div className="ob-slide ob-slide-inner ob-plan-slide">
-          <div className="ob-slide-top">
-            <button className="ob-new-back" onClick={() => goTo(6)}>←</button>
-          </div>
-          <div className="ob-plan-emoji-big">🎉</div>
-          <h2 className="ob-plan-name-titel">
-            {name.trim() || "Hey du"},<br/>dein Plan ist bereit!
-          </h2>
-          <div className="ob-plan-count-wrap">
-            <p className="ob-plan-count-label">Mit {budget}€/Monat → in 20 Jahren</p>
-            <div className="ob-plan-count-zahl">{planCount.toLocaleString("de-DE")} €</div>
-          </div>
-          <p className="ob-plan-xp-hint">⚡ Du startest mit {((wissenslevel || 1) - 1) * 25} XP</p>
-          <div className="ob-plan-new-card">
-            <p className="ob-plan-new-label">Deine ersten 3 Schritte</p>
-            {schritte.map((s, i) => (
-              <div key={i} className="ob-plan-new-row">
-                <span className="ob-plan-new-nr">{i + 1}</span>
-                <span className="ob-plan-new-text">{s}</span>
-              </div>
-            ))}
-          </div>
-          <button className="ob-plan-start-btn" onClick={abschliessen}>
-            Jetzt starten 🚀
-          </button>
-        </div>
-
+    <div className="onboarding-container">
+      <div className="onboarding-progress-bar">
+        <div className="onboarding-progress-fill" style={{ width: `${fortschritt}%` }} />
       </div>
+
+      {schritt > 0 && aktuellerScreen !== "ergebnis" && (
+        <button className="onboarding-back" onClick={zurueck}>←</button>
+      )}
+
+      <div className="onboarding-screen-content">
+        {aktuellerScreen === "willkommen"      && <ScreenWillkommen />}
+        {aktuellerScreen === "name"            && <ScreenName            daten={daten} setDatenFeld={setDatenFeld} />}
+        {aktuellerScreen === "alter"           && <ScreenAlter           daten={daten} setDatenFeld={setDatenFeld} />}
+        {aktuellerScreen === "lebenssituation" && <ScreenLebenssituation daten={daten} setDatenFeld={setDatenFeld} />}
+        {aktuellerScreen === "anlageziel"      && <ScreenAnlageziel      daten={daten} setDatenFeld={setDatenFeld} />}
+        {aktuellerScreen === "zeithorizont"    && <ScreenZeithorizont    daten={daten} setDatenFeld={setDatenFeld} />}
+        {aktuellerScreen === "finanzsituation" && <ScreenFinanzsituation daten={daten} setDatenFeld={setDatenFeld} />}
+        {aktuellerScreen === "erfahrung"       && <ScreenErfahrung       daten={daten} setDatenFeld={setDatenFeld} />}
+        {aktuellerScreen === "ergebnis"        && <ScreenErgebnis        daten={daten} onAbschliessen={abschliessen} />}
+      </div>
+
+      {aktuellerScreen !== "ergebnis" && (
+        <div className="onboarding-weiter-container">
+          <button
+            className="weiter-btn"
+            onClick={weiter}
+            disabled={!kannWeiter()}
+            style={{ opacity: kannWeiter() ? 1 : 0.4, cursor: kannWeiter() ? "pointer" : "not-allowed" }}
+          >
+            {aktuellerScreen === "willkommen" ? "Loslegen →" : "Weiter →"}
+          </button>
+        </div>
+      )}
     </div>
   )
 }

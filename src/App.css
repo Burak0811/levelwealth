@@ -6848,3 +6848,18 @@ button {
 .uk-pfad-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
 .uk-pfad-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
 .uk-pfad-meta { font-size: 0.72rem; color: var(--text-muted); flex-shrink: 0; }
+
+/* ── Onboarding ─────────────────────────────────────────────────────────── */
+.onboarding-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-bg);
+  padding: 0;
+  position: relative;
+}
+.onboarding-progress-bar { height: 3px; background: #2A2040; width: 100%; }
+.onboarding-progress-fill { height: 100%; background: linear-gradient(90deg, #7C3AED, #9D174D); transition: width 0.4s ease; }
+.onboarding-back { position: absolute; top: 16px; left: 16px; background: none; border: none; color: #8B8399; font-size: 1.2rem; cursor: pointer; padding: 8px; z-index: 10; }
+.onboarding-screen-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 2rem 1.5rem; max-width: 480px; margin: 0 auto; width: 100%; }
+.onboarding-weiter-container { padding: 1rem 1.5rem 2rem; max-width: 480px; margin: 0 auto; width: 100%; }
