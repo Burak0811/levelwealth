@@ -8,9 +8,15 @@
 
 html {
   overflow-x: hidden;
+  overflow-y: auto;
   overscroll-behavior: none;
   height: auto;
   min-height: 100%;
+}
+
+#root {
+  height: auto;
+  min-height: 100vh;
 }
 
 :root {
@@ -5129,7 +5135,7 @@ button {
 ============================================= */
 .ws2-screen {
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
   min-height: 100vh;
   padding-bottom: 5rem;
   background: linear-gradient(180deg, #0D0A14 0%, #1A0A2E 50%, #0D0A14 100%);
@@ -6212,10 +6218,13 @@ button {
   }
 
   .app {
+    display: block;
     max-width: 100%;
     width: 100%;
     padding-top: 0;
     min-height: 100vh;
+    height: auto;
+    overflow: visible;
   }
 
   .sidebar {
@@ -6227,7 +6236,7 @@ button {
     position: fixed;
     left: 0;
     top: 0;
-    bottom: 0;
+    height: 100vh;
     width: 260px;
     z-index: 100;
     overflow-y: auto;
@@ -6238,9 +6247,9 @@ button {
     max-width: 760px;
     padding: 2rem;
     padding-bottom: 2rem;
-    overflow-y: auto;
+    min-height: 100vh;
+    height: auto;
     overflow-x: hidden;
-    height: 100vh;
   }
 
   .bottom-nav {
@@ -6272,8 +6281,8 @@ button {
 
 @media (max-width: 767px) {
   .content {
-    overflow-y: auto;
-    height: calc(100vh - 64px);
+    min-height: calc(100vh - 64px);
+    height: auto;
     padding-bottom: 80px;
   }
 }
