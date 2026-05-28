@@ -9,6 +9,8 @@
 html {
   overflow-x: hidden;
   overscroll-behavior: none;
+  height: auto;
+  min-height: 100%;
 }
 
 :root {
@@ -66,10 +68,12 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
   min-height: 100vh;
   min-height: 100dvh;
+  height: auto;
   display: flex;
   justify-content: center;
   overflow-x: hidden;
   overscroll-behavior: none;
+  overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -92,6 +96,8 @@ button {
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
+  height: auto;
+  overflow: visible;
   position: relative;
   padding-top: env(safe-area-inset-top);
 }
@@ -100,6 +106,8 @@ button {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  height: auto;
+  min-height: 0;
   padding-bottom: 80px;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
@@ -6230,6 +6238,9 @@ button {
     max-width: 760px;
     padding: 2rem;
     padding-bottom: 2rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100vh;
   }
 
   .bottom-nav {
@@ -6256,6 +6267,14 @@ button {
   .xp-toast {
     bottom: 40px;
     left: calc(260px + 380px);
+  }
+}
+
+@media (max-width: 767px) {
+  .content {
+    overflow-y: auto;
+    height: calc(100vh - 64px);
+    padding-bottom: 80px;
   }
 }
 
