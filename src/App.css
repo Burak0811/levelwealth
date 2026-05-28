@@ -6116,6 +6116,149 @@ button {
   color: #fff;
 }
 
+/* =============================================
+   SIDEBAR (Desktop only)
+============================================= */
+.sidebar {
+  display: none;
+}
+
+.sidebar-logo { margin-bottom: 1.5rem; }
+
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #1A1525;
+  border-radius: 12px;
+}
+
+.sidebar-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7C3AED, #9D174D);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.sidebar-xp { margin-bottom: 1.5rem; }
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sidebar-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: none;
+  border: none;
+  color: #8B8399;
+  font-size: 0.95rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.sidebar-nav-btn:hover {
+  background: #1A1525;
+  color: #fff;
+}
+
+.sidebar-nav-btn.aktiv {
+  background: linear-gradient(135deg, #7C3AED22, #9D174D22);
+  color: #fff;
+  border-left: 3px solid #7C3AED;
+  padding-left: calc(1rem - 3px);
+}
+
+.sidebar-streak {
+  background: #1A1525;
+  border: 1px solid #2A2040;
+  border-radius: 10px;
+  padding: 0.6rem 0.875rem;
+  font-size: 0.85rem;
+  color: #fff;
+}
+
+/* =============================================
+   RESPONSIVE LAYOUT — DESKTOP (≥768px)
+============================================= */
+@media (min-width: 768px) {
+  body {
+    display: block;
+  }
+
+  .app {
+    max-width: 100%;
+    width: 100%;
+    padding-top: 0;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    background: #12101A;
+    border-right: 1px solid #2A2040;
+    padding: 1.5rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 260px;
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .content {
+    margin-left: 260px;
+    max-width: 760px;
+    padding: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .bottom-nav {
+    display: none !important;
+  }
+
+  .screen {
+    padding: 0;
+  }
+
+  /* Fab no longer needs bottom-nav offset */
+  .fab-start {
+    bottom: 24px;
+  }
+
+  /* Nudge banner should align with content, not viewport center */
+  .nudge-banner {
+    left: 260px;
+    transform: none;
+    max-width: 760px;
+  }
+
+  /* XP toast center relative to content area */
+  .xp-toast {
+    bottom: 40px;
+    left: calc(260px + 380px);
+  }
+}
+
 .ch-liste {
   padding-bottom: 1rem;
 }

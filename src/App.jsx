@@ -10106,6 +10106,54 @@ function XpToast({ amount, onDone }) {
   return <div className="xp-toast">+{amount} XP</div>
 }
 
+function Sidebar({ aktiverTab, setAktiverTab, xp, streak, userName }) {
+  const lvl = getLevelInfo(xp)
+  return (
+    <aside className="sidebar">
+      <div className="sidebar-logo">
+        <h1 style={{ background: "linear-gradient(135deg, #7C3AED, #9D174D)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontSize: "1.8rem", fontWeight: 800 }}>Lumio</h1>
+      </div>
+      <div className="sidebar-user">
+        <div className="sidebar-avatar">{(userName || "L")[0].toUpperCase()}</div>
+        <div>
+          <p style={{ fontWeight: 700 }}>{userName || "Investor"}</p>
+          <p style={{ fontSize: "0.75rem", color: "#8B8399" }}>Level {lvl.level} · {lvl.name}</p>
+        </div>
+      </div>
+      <div className="sidebar-xp">
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "#8B8399", marginBottom: "4px" }}>
+          <span>{lvl.xpAktuell} XP</span>
+          <span>{lvl.xpBenoetigt} XP</span>
+        </div>
+        <div style={{ height: "4px", background: "#2A2040", borderRadius: "2px" }}>
+          <div style={{ height: "100%", width: `${lvl.fortschritt}%`, background: "linear-gradient(135deg, #7C3AED, #9D174D)", borderRadius: "2px" }} />
+        </div>
+      </div>
+      <nav className="sidebar-nav">
+        {[
+          { id: "home",      icon: "🏠", label: "Home" },
+          { id: "quest",     icon: "⚔️", label: "Daily Quest" },
+          { id: "profil",    icon: "👤", label: "Profil" },
+          { id: "entdecken", icon: "🧭", label: "Entdecken" },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            className={`sidebar-nav-btn${aktiverTab === tab.id ? " aktiv" : ""}`}
+            onClick={() => setAktiverTab(tab.id)}
+          >
+            <span>{tab.icon}</span>
+            <span>{tab.label}</span>
+          </button>
+        ))}
+      </nav>
+      <div style={{ marginTop: "auto" }}>
+        <div className="sidebar-streak">🔥 {streak} Tage Streak</div>
+        <p style={{ fontSize: "0.7rem", color: "#4A4460", marginTop: "1rem" }}>© 2025 Lumio</p>
+      </div>
+    </aside>
+  )
+}
+
 function App() {
   const [onboardingComplete, setOnboardingComplete] = useState(() => !!localStorage.getItem("onboardingComplete"))
   const [welcomeScreenSeen, setWelcomeScreenSeen]   = useState(() => !!localStorage.getItem("welcomeScreenSeen"))
@@ -10557,6 +10605,7 @@ function App() {
 
   return (
     <div className="app">
+      <Sidebar aktiverTab={aktiverTab} setAktiverTab={(tab) => { setAktiverTab(tab); resetNav() }} xp={xp} streak={streak} userName={userName} />
       <div className="content">
         {aktiverTab === "home" && streakMsg && (
           <div className="streak-msg-banner" onClick={() => setStreakMsg(null)}>
