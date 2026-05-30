@@ -10673,6 +10673,158 @@ function FinancialRealityLektion({ lektion, kategorie, userName, userBudget, use
     )
   }
 
+  if (phase === 5) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#0D0A14', padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ maxWidth: '480px', margin: '0 auto', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+
+          <p style={{ color: '#8B8399', fontSize: '0.82rem', marginBottom: '0.5rem' }}>DEIN NÄCHSTER SCHRITT</p>
+          <h2 style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.5rem', lineHeight: 1.3 }}>
+            Eine Sache. Heute. Jetzt.
+          </h2>
+          <p style={{ color: '#4A4460', fontSize: '0.85rem', marginBottom: '2rem' }}>
+            Kein großer Plan. Nur ein kleiner Schritt.
+          </p>
+
+          <div style={{
+            background: 'linear-gradient(135deg, #7C3AED11, #9D174D11)',
+            border: '1px solid #7C3AED44',
+            borderRadius: '20px',
+            padding: '1.5rem',
+            marginBottom: '1.5rem'
+          }}>
+            <p style={{ color: '#7C3AED', fontSize: '0.75rem', fontWeight: 600, marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Deine Aufgabe</p>
+            <p style={{ color: '#fff', fontSize: '1rem', lineHeight: 1.6, marginBottom: '1rem' }}>
+              Öffne <strong>justetf.com</strong> in einem neuen Tab. Suche nach "MSCI World". Schau wie viele ETFs es auf diesen Index gibt und was der günstigste kostet.
+            </p>
+            <p style={{ color: '#8B8399', fontSize: '0.82rem' }}>
+              Dauert 2 Minuten. Kein Kauf nötig. Nur schauen.
+            </p>
+          </div>
+
+          <button
+            onClick={() => setPhase(6)}
+            style={{
+              background: '#12101A',
+              border: '1px solid #2A2040',
+              borderRadius: '14px',
+              padding: '1rem 1.25rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.875rem',
+              marginBottom: '1rem',
+              fontFamily: 'inherit',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = '#7C3AED' }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = '#2A2040' }}
+          >
+            <div style={{
+              width: '24px', height: '24px',
+              borderRadius: '8px',
+              border: '2px solid #7C3AED',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0
+            }}>
+              <span style={{ color: '#7C3AED', fontSize: '0.9rem' }}>✓</span>
+            </div>
+            <span style={{ color: '#fff', fontSize: '0.95rem', fontWeight: 600 }}>Habe ich gemacht</span>
+          </button>
+
+          <button
+            onClick={() => setPhase(6)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#4A4460',
+              fontSize: '0.82rem',
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+              padding: '0.5rem'
+            }}
+          >
+            Später erledigen →
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  if (phase === 6) {
+    const reflexionOptionen = [
+      { id: 'jetzt', text: '🎯 Ich richte heute noch einen Sparplan ein', reaktion: 'Das ist der beste erste Schritt. Auch 25€/Monat machen über 20 Jahre einen riesigen Unterschied.' },
+      { id: 'mehr', text: '📚 Ich will erst mehr verstehen', reaktion: 'Klug. Wissen vor Handeln. Die nächsten Lektionen zeigen dir genau wie ETFs funktionieren und welcher zu dir passt.' },
+      { id: 'zeit', text: '🤔 Ich brauche noch Zeit zum Nachdenken', reaktion: 'Völlig okay. Finanzentscheidungen brauchen Zeit. Komm wieder wenn du bereit bist – wir sind hier.' }
+    ]
+    return (
+      <div style={{ minHeight: '100vh', background: '#0D0A14', padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ maxWidth: '480px', margin: '0 auto', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+
+          {!reflexion ? (
+            <>
+              <p style={{ color: '#8B8399', fontSize: '0.82rem', marginBottom: '0.5rem' }}>EINE LETZTE FRAGE</p>
+              <h2 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: 800, marginBottom: '0.5rem', lineHeight: 1.3 }}>
+                Du hast gerade gesehen was möglich ist.
+              </h2>
+              <p style={{ color: '#8B8399', fontSize: '0.95rem', marginBottom: '2rem' }}>
+                Was ist dein nächster Schritt?
+              </p>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+                {reflexionOptionen.map(o => (
+                  <button key={o.id} onClick={() => setReflexion(o)}
+                    style={{
+                      background: '#12101A',
+                      border: '1px solid #2A2040',
+                      borderRadius: '16px',
+                      padding: '1.125rem 1.25rem',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      color: '#fff',
+                      fontSize: '0.95rem',
+                      fontWeight: 500,
+                      fontFamily: 'inherit',
+                      transition: 'all 0.15s',
+                      lineHeight: 1.4
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = '#7C3AED'; e.currentTarget.style.background = '#1A1525' }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = '#2A2040'; e.currentTarget.style.background = '#12101A' }}
+                  >
+                    {o.text}
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div style={{ textAlign: 'center', animation: 'fadeInUp 0.5s ease forwards' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>💡</div>
+              <p style={{ color: '#fff', fontSize: '1.1rem', lineHeight: 1.7, marginBottom: '2rem', fontWeight: 500 }}>
+                {reflexion.reaktion}
+              </p>
+
+              <div style={{
+                background: 'linear-gradient(135deg, #7C3AED22, #9D174D22)',
+                border: '1px solid #7C3AED44',
+                borderRadius: '16px',
+                padding: '1.25rem',
+                marginBottom: '2rem'
+              }}>
+                <p style={{ color: '#7C3AED', fontSize: '0.8rem', marginBottom: '0.25rem' }}>LEKTION ABGESCHLOSSEN</p>
+                <p style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 800 }}>+{lektion.xp} XP</p>
+                <p style={{ color: '#8B8399', fontSize: '0.8rem', marginTop: '0.25rem' }}>{lektion.titel}</p>
+              </div>
+
+              <button className="weiter-btn" onClick={() => onAbgeschlossen(lektion.xp)}>
+                Weiter lernen →
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
+
   const optionen = [
     { id: 'konto', icon: '💳', titel: 'Auf dem Konto lassen', beschreibung: 'Ist ja sicher. Jederzeit verfügbar.' },
     { id: 'ausgeben', icon: '🛍️', titel: 'Ausgeben & genießen', beschreibung: 'Man lebt nur einmal. Heute zählt.' },
@@ -11309,7 +11461,22 @@ function App() {
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ === "cards" && (
           <CardLektionScreen lektion={aktiveLektion} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} onAskAssistant={setAssistentContextFrage} />
         )}
-        {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ !== "cards" && (
+        {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ === "reality" && (() => {
+          const budgetMap = { 'unter50': 30, '10bis50': 30, '50bis200': 100, '200plus': 250, 'nichts': 25 }
+          const userBudget = budgetMap[userFinanzsituation] || budgetMap[localStorage.getItem('userFinanzsituation')] || profil?.budget || Number(localStorage.getItem('userBudget')) || 100
+          return (
+            <FinancialRealityLektion
+              lektion={aktiveLektion}
+              kategorie={aktiveKategorie}
+              userName={userName}
+              userBudget={userBudget}
+              userAlter={profil?.alter || localStorage.getItem('userAlter') || userAlter || '18-24'}
+              onZurueck={() => { setAktiveLektion(null) }}
+              onAbgeschlossen={lektionAbschliessen}
+            />
+          )
+        })()}
+        {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ !== "cards" && aktiveLektion.typ !== "reality" && (
           <LektionScreen lektion={aktiveLektion} kategorie={aktiveKategorie} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} />
         )}
         {aktiverTab === "quest" && (

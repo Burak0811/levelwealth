@@ -513,7 +513,7 @@ export const lernpfad = {
   1: [
     {
       id: 1,
-      typ: "cards",
+      typ: "reality",
       titel: "Was ist ein ETF – und warum sollte dich das interessieren?",
       inhalt: `Stell dir vor, du hast 100€ und willst investieren. Du könntest Apple-Aktien kaufen – aber was wenn Apple nächstes Jahr abstürzt? Oder du kaufst Volkswagen – und dann kommt ein Dieselskandal.
 
