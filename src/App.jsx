@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef, Component } from "react"
 import "./App.css"
+import { supabase } from "./supabase"
+import AuthScreen from "./AuthScreen"
+import { useUserData } from "./useUserData"
 import EmailSubscribe from "./EmailSubscribe.jsx"
 import {
   HomeIcon, QuestIcon, ProfilIcon, RanglisteIcon,
@@ -1741,7 +1744,7 @@ function EntdeckenScreen({ userFinanzsituation, onRechnerOeffnung, onNewsOeffnen
   )
 }
 
-function L1Screen({ lektion, onZurueck, onAbgeschlossen }) {
+function L1Screen({ lektion, onZurueck, onAbgeschlossen, onAskAssistant }) {
   const [sparrate, setSparrate] = useState(100)
   const [jahre, setJahre]       = useState(20)
 
@@ -9263,7 +9266,7 @@ function AktionsplanScreen({ planId, aktionsplaene, onSchrittToggle, onBonusXP, 
   )
 }
 
-function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWissenslevel, achievements, xpTaeglich, streakFreezes, onStreakFreeze, aktionsplaene, onAktionsplanOeffnen }) {
+function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWissenslevel, achievements, xpTaeglich, streakFreezes, onStreakFreeze, aktionsplaene, onAktionsplanOeffnen, onLogout }) {
   const [soundOn, setSoundOn] = useState(() => localStorage.getItem("soundEnabled") === "true")
   function toggleSound() {
     const neu = !soundOn
@@ -9513,6 +9516,20 @@ function ProfilScreen({ xp, streak, abgeschlosseneLektionen, userName, userWisse
         </div>
         <button className={`sound-switch ${soundOn ? "on" : ""}`} onClick={toggleSound} aria-label={soundOn ? "Sounds deaktivieren" : "Sounds aktivieren"} />
       </div>
+
+      <button onClick={onLogout} style={{
+        background: 'none',
+        border: '1px solid #2A2040',
+        borderRadius: '12px',
+        padding: '0.75rem',
+        color: '#8B8399',
+        cursor: 'pointer',
+        width: '100%',
+        marginTop: '1rem',
+        fontFamily: 'inherit'
+      }}>
+        Abmelden
+      </button>
 
     </div>
   )
@@ -10447,25 +10464,103 @@ function Sidebar({ aktiverTab, setAktiverTab, xp, streak, userName }) {
   )
 }
 
+function FinancialRealityLektion({ lektion, kategorie, userName, userBudget, userAlter, onZurueck, onAbgeschlossen }) {
+  const [phase, setPhase] = useState(1)
+  const [userWahl, setUserWahl] = useState(null)
+  const [reflexion, setReflexion] = useState(null)
+  const [phase1Bereit, setPhase1Bereit] = useState(false)
+
+  useEffect(() => {
+    if (phase === 1) {
+      const timer = setTimeout(() => setPhase1Bereit(true), 3500)
+      return () => clearTimeout(timer)
+    }
+  }, [phase])
+
+  if (phase === 1) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#0D0A14', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', gap: '1rem' }}>
+        <p className="phase1-text" style={{ fontSize: '2.5rem', fontWeight: 900, color: '#fff', animationDelay: '0.2s' }}>{userName || "Du"}.</p>
+        <p className="phase1-text" style={{ fontSize: '1.2rem', color: '#8B8399', animationDelay: '0.8s' }}>Du bist {userAlter || "jung"}.</p>
+        <p className="phase1-text" style={{ fontSize: '1.8rem', fontWeight: 700, background: 'linear-gradient(135deg, #7C3AED, #9D174D)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', animationDelay: '1.4s' }}>{userBudget || 100}€ übrig jeden Monat.</p>
+        <p className="phase1-text" style={{ fontSize: '1rem', color: '#4A4460', fontStyle: 'italic', animationDelay: '2.0s' }}>Eine Entscheidung wird alles verändern.</p>
+
+        {phase1Bereit && (
+          <button className="weiter-btn" style={{ marginTop: '2rem', animation: 'fadeInUp 0.5s ease forwards' }} onClick={() => setPhase(2)}>
+            Zeig mir wie →
+          </button>
+        )}
+      </div>
+    )
+  }
+
+  const optionen = [
+    { id: 'konto', icon: '💳', titel: 'Auf dem Konto lassen', beschreibung: 'Ist ja sicher. Jederzeit verfügbar.' },
+    { id: 'ausgeben', icon: '🛍️', titel: 'Ausgeben & genießen', beschreibung: 'Man lebt nur einmal. Heute zählt.' },
+    { id: 'investieren', icon: '📈', titel: 'Investieren', beschreibung: 'Aber wie? Und worin?' }
+  ]
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#0D0A14', padding: '2rem 1.5rem', display: 'flex', flexDirection: 'column' }}>
+      <button className="zurueck-btn" onClick={onZurueck}>← Zurück</button>
+
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '1.5rem' }}>
+        <div>
+          <p style={{ color: '#8B8399', fontSize: '0.85rem', marginBottom: '0.5rem' }}>DEINE ENTSCHEIDUNG</p>
+          <h2 style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 800, lineHeight: 1.3 }}>
+            Was machst du mit deinen {userBudget || 100}€ jeden Monat?
+          </h2>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+          {optionen.map(o => (
+            <button key={o.id} onClick={() => { setUserWahl(o.id); setPhase(3) }}
+              style={{
+                background: '#12101A',
+                border: '1px solid #2A2040',
+                borderRadius: '18px',
+                padding: '1.25rem 1.5rem',
+                cursor: 'pointer',
+                textAlign: 'left',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                transition: 'all 0.2s',
+                fontFamily: 'inherit'
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#7C3AED'; e.currentTarget.style.background = '#1A1525' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#2A2040'; e.currentTarget.style.background = '#12101A' }}
+            >
+              <span style={{ fontSize: '2rem' }}>{o.icon}</span>
+              <div>
+                <p style={{ color: '#fff', fontWeight: 700, fontSize: '1rem' }}>{o.titel}</p>
+                <p style={{ color: '#8B8399', fontSize: '0.82rem', marginTop: '2px' }}>{o.beschreibung}</p>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function App() {
-  const [onboardingComplete, setOnboardingComplete] = useState(() => !!localStorage.getItem("onboardingComplete"))
+  const [onboardingComplete, setOnboardingComplete] = useState(false)
   const [welcomeScreenSeen, setWelcomeScreenSeen]   = useState(() => !!localStorage.getItem("welcomeScreenSeen"))
-  const [onboardingDate]                             = useState(() => localStorage.getItem("onboardingDate") || getHeute())
-  const [userName, setUserName]                       = useState(() => localStorage.getItem("userName") || "")
-  const [userZiel, setUserZiel]                       = useState(() => localStorage.getItem("userZiel") || "")
-  const [userAlter, setUserAlter]                     = useState(() => localStorage.getItem("userAlter") || "")
-  const [userLebenssituation, setUserLebenssituation] = useState(() => localStorage.getItem("userLebenssituation") || "")
-  const [userFinanzsituation, setUserFinanzsituation] = useState(() => localStorage.getItem("userFinanzsituation") || "")
+  const [onboardingDate]                             = useState(getHeute)
+  const [userName, setUserName]                       = useState("")
+  const [userZiel, setUserZiel]                       = useState("")
+  const [userAlter, setUserAlter]                     = useState("")
+  const [userLebenssituation, setUserLebenssituation] = useState("")
+  const [userFinanzsituation, setUserFinanzsituation] = useState("")
   const [userWissenslevel, setUserWissenslevel]       = useState(() => Number(localStorage.getItem("userWissenslevel")) || 0)
-  const [xp, setXp]         = useState(() => Number(localStorage.getItem("xp")) || 0)
-  const [streak, setStreak] = useState(() => Number(localStorage.getItem("streak")) || 0)
-  const [letzterTag, setLetzterTag]   = useState(() => localStorage.getItem("letzterTag") || "")
+  const [xp, setXp]         = useState(0)
+  const [streak, setStreak] = useState(0)
+  const [letzterTag, setLetzterTag]   = useState("")
   const [aktiverTab, setAktiverTab]   = useState("home")
   const [aktiveHauptkategorie, setAktiveHauptkategorie] = useState(null)
   const [aktiveKategorie, setAktiveKategorie] = useState(null)
   const [aktiveLektion, setAktiveLektion]     = useState(null)
-  const [abgeschlosseneLektionen, setAbgeschlosseneLektionen] = useState(() => JSON.parse(localStorage.getItem("abgeschlosseneLektionen") || "[]"))
-  const [abgeschlosseneQuests, setAbgeschlosseneQuests]       = useState(() => JSON.parse(localStorage.getItem("abgeschlosseneQuests") || "{}"))
   const [levelUpInfo, setLevelUpInfo]   = useState(null)
   const [xpToast, setXpToast]           = useState(null)
   const [streakMsg, setStreakMsg]       = useState(null)
@@ -10490,22 +10585,57 @@ function App() {
   const [challengesClaimed, setChallengesClaimed]     = useState(() => JSON.parse(localStorage.getItem("challengesClaimed") || "{}"))
   const [perfektQuizzeGesamt, setPerfektQuizzeGesamt] = useState(() => Number(localStorage.getItem("perfektQuizzeGesamt") || 0))
 
+  const [user, setUser] = useState(null)
+  const [authLaedt, setAuthLaedt] = useState(true)
+
+  const {
+    profil,
+    abgeschlosseneLektionen,
+    abgeschlosseneQuests,
+    laedt: dataLaedt,
+    updateProfil,
+    lektionAbschliessen: lektionInDB,
+    questAbschliessen: questInDB,
+  } = useUserData(user?.id)
+
   useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+      setAuthLaedt(false)
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
+
+  useEffect(() => {
+    if (!profil) return
+    setXp(profil.xp || 0)
+    setStreak(profil.streak || 0)
+    setLetzterTag(profil.letzter_tag || "")
+    setOnboardingComplete(profil.onboarding_complete || false)
+    setUserName(profil.name || "")
+    setUserZiel(profil.anlageziel || "")
+    setUserAlter(profil.alter || "")
+    setUserLebenssituation(profil.lebenssituation || "")
+
+    // Streak-Reset-Check nach Profil-Laden
     const heute = getHeute()
     const gestern = new Date(Date.now() - 86400000).toISOString().split("T")[0]
-    if (letzterTag && letzterTag !== heute && letzterTag !== gestern) {
-      const diffTage = Math.floor((Date.now() - new Date(letzterTag).getTime()) / 86400000)
+    const tag = profil.letzter_tag || ""
+    if (tag && tag !== heute && tag !== gestern) {
+      const diffTage = Math.floor((Date.now() - new Date(tag).getTime()) / 86400000)
       if (diffTage >= 3) freischaltenAchievement("comeback_kid")
-      if (streak > 0) {
-        setStreakMsg(`Dein ${streak}-Tage Streak ist abgelaufen. Fang heute neu an! 🔥`)
-      }
+      if (profil.streak > 0) setStreakMsg(`Dein ${profil.streak}-Tage Streak ist abgelaufen. Fang heute neu an! 🔥`)
       setStreak(0)
-      localStorage.setItem("streak", 0)
-    } else if (letzterTag === gestern) {
-      if (streak > 0) {
-        setStreakMsg(`Dein ${streak}-Tage Streak wartet auf dich! Leg heute los. 🔥`)
-      }
+      updateProfil({ streak: 0 })
+    } else if (tag === gestern && profil.streak > 0) {
+      setStreakMsg(`Dein ${profil.streak}-Tage Streak wartet auf dich! Leg heute los. 🔥`)
     }
+  }, [profil])
+
+  useEffect(() => {
     if (!achievements["erster_tag"]) freischaltenAchievement("erster_tag")
   }, [])
 
@@ -10561,12 +10691,11 @@ function App() {
     })
   }
 
-  function updateStreak() {
+  async function updateStreak() {
     const heute = getHeute()
     const gestern = new Date(Date.now() - 86400000).toISOString().split("T")[0]
     if (letzterTag === heute) return
     const neuerStreak = letzterTag === gestern ? streak + 1 : 1
-    // Streak-Freeze vergeben: 1 pro 7-Tage-Meilenstein
     if (neuerStreak % 7 === 0) {
       setStreakFreezes(prev => {
         const n = prev + 1
@@ -10576,9 +10705,7 @@ function App() {
     }
     setStreak(neuerStreak)
     setLetzterTag(heute)
-    localStorage.setItem("streak", neuerStreak)
-    localStorage.setItem("letzterTag", heute)
-    // Streak milestones: 7, 14, 30
+    await updateProfil({ streak: neuerStreak, letzter_tag: heute })
     const milestones = [7, 14, 30]
     for (const m of milestones) {
       if (neuerStreak === m && !streakMilestonesShown[m]) {
@@ -10600,13 +10727,13 @@ function App() {
       const altesLevel = berechneLevel(prev)
       const neueXP     = prev + menge
       const neuesLevel = berechneLevel(neueXP)
-      localStorage.setItem("xp", neueXP)
+      updateProfil({ xp: neueXP })
       if (neuesLevel > altesLevel) { setLevelUpInfo({ newLevel: neuesLevel, oldLevel: altesLevel }); playSound("levelup") }
       return neueXP
     })
   }
 
-  function lektionAbschliessen(verdientXP, perfekt = true) {
+  async function lektionAbschliessen(verdientXP, perfekt = true) {
     const heute = getHeute()
     const stunde = new Date().getHours()
     let bonusXP = 0
@@ -10614,8 +10741,7 @@ function App() {
 
     if (!abgeschlosseneLektionen.includes(aktiveLektion.id)) {
       neueAbgeschlossen = [...abgeschlosseneLektionen, aktiveLektion.id]
-      setAbgeschlosseneLektionen(neueAbgeschlossen)
-      localStorage.setItem("abgeschlosseneLektionen", JSON.stringify(neueAbgeschlossen))
+      await lektionInDB(aktiveLektion.id)
 
       challengeTracking("lektion")
       const katId = aktiveKategorie?.id
@@ -10693,7 +10819,7 @@ function App() {
       localStorage.setItem("perfekteQuizze", 0)
     }
 
-    if (verdientXP > 0) updateStreak()
+    if (verdientXP > 0) await updateStreak()
     addXP(verdientXP + bonusXP)
 
     // Aktionsplan-Trigger prüfen
@@ -10716,13 +10842,10 @@ function App() {
     setAktiveLektion(null)
   }
 
-  function questAbschliessen(questId, verdientXP) {
+  async function questAbschliessen(questId, verdientXP) {
     const heute = getHeute()
-    const neue = { ...abgeschlosseneQuests, [heute]: questId }
-    setAbgeschlosseneQuests(neue)
-    localStorage.setItem("abgeschlosseneQuests", JSON.stringify(neue))
-    updateStreak()
-    // Streak-Bonus auf Quest
+    await questInDB(questId, heute)
+    await updateStreak()
     let bonus = 0
     if (streak >= 7)      bonus = 10
     else if (streak >= 3) bonus = 5
@@ -10787,10 +10910,9 @@ function App() {
     const n = streakFreezes - 1
     setStreakFreezes(n)
     localStorage.setItem("streakFreezes", n)
-    // Streak auf aktuellen Tag setzen (verhindert Reset)
     const heute = getHeute()
     setLetzterTag(heute)
-    localStorage.setItem("letzterTag", heute)
+    updateProfil({ letzter_tag: heute })
   }
 
   function resetNav() {
@@ -10826,22 +10948,48 @@ function App() {
     setAktiversAktionsplanId(planId)
   }
 
-  function onboardingAbschliessen(startXP, name) {
+  async function onboardingAbschliessen(startXP, name) {
+    const anlageziel     = localStorage.getItem("userAnlageziel")     || ""
+    const alter          = localStorage.getItem("userAlter")          || ""
+    const lebenssituation= localStorage.getItem("userLebenssituation")|| ""
+    const zeithorizont   = localStorage.getItem("userZeithorizont")   || ""
+    const erfahrung      = localStorage.getItem("userErfahrung")      || ""
+    const finanzsituation= JSON.parse(localStorage.getItem("userAktuelleSituation") || "[]")
+    const wissenslevel   = Number(localStorage.getItem("userWissenslevel")) || 1
+
     setUserName(name)
-    setUserZiel(localStorage.getItem("userAnlageziel") || "vermögen_aufbauen")
-    setUserAlter(localStorage.getItem("userAlter") || "")
-    setUserLebenssituation(localStorage.getItem("userLebenssituation") || "")
+    setUserZiel(anlageziel)
+    setUserAlter(alter)
+    setUserLebenssituation(lebenssituation)
     setUserFinanzsituation(localStorage.getItem("userFinanzsituation") || "")
-    setUserWissenslevel(Number(localStorage.getItem("userWissenslevel")) || 1)
+    setUserWissenslevel(wissenslevel)
     setXp(startXP)
-    localStorage.setItem("xp", startXP)
-    localStorage.setItem("onboardingComplete", "true")
-    if (!localStorage.getItem("onboardingDate")) {
-      localStorage.setItem("onboardingDate", getHeute())
-    }
     setOnboardingComplete(true)
+
+    await updateProfil({
+      name,
+      xp: startXP,
+      onboarding_complete: true,
+      anlageziel,
+      alter,
+      lebenssituation,
+      zeithorizont,
+      erfahrung,
+      finanzsituation,
+    })
+
     freischaltenAchievement("erster_tag")
+    localStorage.clear()
   }
+
+  if (authLaedt || (user && dataLaedt)) return (
+    <div style={{ minHeight: '100vh', background: '#0D0A14', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '1rem' }}>
+      <div style={{ fontSize: '2rem', fontWeight: 900, background: 'linear-gradient(135deg, #7C3AED, #9D174D)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Lumio</div>
+      {user && <div style={{ color: '#8B8399', fontSize: '0.85rem' }}>Dein Profil wird geladen...</div>}
+    </div>
+  )
+
+  if (!user) return <AuthScreen onAuth={() => {}} />
 
   if (!onboardingComplete) {
     return (
@@ -10864,11 +11012,21 @@ function App() {
     )
   }
 
+  // XP aus Profil nehmen wenn App-State noch 0 (vor profil-useEffect)
+  const effectiveXp = (profil?.xp != null ? profil.xp : xp) || 0
+  // Defensive Absicherung: abgeschlosseneLektionen immer als Array
+  const sichereLektionen = Array.isArray(abgeschlosseneLektionen) ? abgeschlosseneLektionen : []
+
+  console.log('[Lumio] user:', user?.id)
+  console.log('[Lumio] profil:', profil)
+  console.log('[Lumio] xp (state):', xp, '→ effectiveXp:', effectiveXp)
+  console.log('[Lumio] abgeschlosseneLektionen:', sichereLektionen)
+
   // Compute active nudge (only one at a time)
   const heute = getHeute()
   const hatAktivitaetHeute = letzterTag === heute
   const gestern2 = new Date(Date.now() - 86400000).toISOString().split("T")[0]
-  const lvlInfo = getLevelInfo(xp)
+  const lvlInfo = getLevelInfo(effectiveXp)
   let aktuellerNudge = null
   if (!aktuellerNudge && streak > 0 && !hatAktivitaetHeute && letzterTag === gestern2 && !dismissedNudges["streak_warn"]) {
     aktuellerNudge = { id: "streak_warn", typ: "streak", icon: "⚠️", text: `Dein ${streak}-Tage Streak ist in Gefahr! Mach heute noch eine Lektion.` }
@@ -10880,7 +11038,7 @@ function App() {
     for (const kat of kategorien) {
       const ls = lernpfad[kat.id] || []
       if (ls.length === 0) continue
-      const abg = ls.filter(l => abgeschlosseneLektionen.includes(l.id)).length
+      const abg = ls.filter(l => sichereLektionen.includes(l.id)).length
       const pctKat = abg / ls.length
       const nudgeId = "kat_nudge_" + kat.id
       if (pctKat >= 0.8 && pctKat < 1 && !dismissedNudges[nudgeId]) {
@@ -10899,7 +11057,7 @@ function App() {
 
   return (
     <div className="app">
-      <Sidebar aktiverTab={aktiverTab} setAktiverTab={(tab) => { setAktiverTab(tab); resetNav() }} xp={xp} streak={streak} userName={userName} />
+      <Sidebar aktiverTab={aktiverTab} setAktiverTab={(tab) => { setAktiverTab(tab); resetNav() }} xp={effectiveXp} streak={streak} userName={userName} />
       <div className="content">
         {aktiverTab === "home" && streakMsg && (
           <div className="streak-msg-banner" onClick={() => setStreakMsg(null)}>
@@ -10918,12 +11076,12 @@ function App() {
         )}
         {aktiverTab === "home" && !aktiversAktionsplanId && !aktiveHauptkategorie && !aktiveLektion && (
           <Startscreen
-            xp={xp} streak={streak}
+            xp={effectiveXp} streak={streak}
             onHauptkategorieClick={(id) => setAktiveHauptkategorie(id)}
             userName={userName}
             abgeschlosseneQuests={abgeschlosseneQuests}
             xpTaeglich={xpTaeglich}
-            abgeschlosseneLektionen={abgeschlosseneLektionen}
+            abgeschlosseneLektionen={sichereLektionen}
             userWissenslevel={userWissenslevel}
             userZiel={userZiel}
             userFinanzsituation={userFinanzsituation}
@@ -10958,7 +11116,7 @@ function App() {
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveHauptkategorie === "challenges" && (
           <ChallengesScreen
             onZurueck={() => setAktiveHauptkategorie(null)}
-            abgeschlosseneLektionen={abgeschlosseneLektionen}
+            abgeschlosseneLektionen={sichereLektionen}
             streak={streak}
             rechnerOeffnungen={rechnerOeffnungen}
             newsOeffnungen={newsOeffnungen}
@@ -10966,7 +11124,7 @@ function App() {
             perfektQuizzeGesamt={perfektQuizzeGesamt}
             challengesClaimed={challengesClaimed}
             onChallengeEinloesen={challengeEinloesen}
-            xp={xp}
+            xp={effectiveXp}
           />
         )}
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ === "cards" && (
@@ -10979,21 +11137,21 @@ function App() {
           <DailyQuestScreen abgeschlosseneQuests={abgeschlosseneQuests} onQuestAbgeschlossen={questAbschliessen} />
         )}
         {aktiverTab === "profil" && (
-          <ProfilScreen xp={xp} streak={streak} abgeschlosseneLektionen={abgeschlosseneLektionen} userName={userName} userWissenslevel={userWissenslevel} achievements={achievements} xpTaeglich={xpTaeglich} streakFreezes={streakFreezes} onStreakFreeze={streakFreeze} aktionsplaene={aktionsplaene} onAktionsplanOeffnen={aktionsplanOeffnen} />
+          <ProfilScreen xp={effectiveXp} streak={streak} abgeschlosseneLektionen={sichereLektionen} userName={userName} userWissenslevel={userWissenslevel} achievements={achievements} xpTaeglich={xpTaeglich} streakFreezes={streakFreezes} onStreakFreeze={streakFreeze} aktionsplaene={aktionsplaene} onAktionsplanOeffnen={aktionsplanOeffnen} onLogout={() => supabase.auth.signOut()} />
         )}
         {aktiverTab === "entdecken" && !zeigeRangliste && (
           <EntdeckenScreen
             userFinanzsituation={userFinanzsituation}
             onRechnerOeffnung={rechnerOeffnen}
             onNewsOeffnen={newsOeffnen}
-            xp={xp}
+            xp={effectiveXp}
             xpTaeglich={xpTaeglich}
             userName={userName}
             onRanglisteOeffnen={() => setZeigeRangliste(true)}
           />
         )}
         {aktiverTab === "entdecken" && zeigeRangliste && (
-          <RanglisteScreen xp={xp} xpTaeglich={xpTaeglich} userName={userName} onZurueck={() => setZeigeRangliste(false)} />
+          <RanglisteScreen xp={effectiveXp} xpTaeglich={xpTaeglich} userName={userName} onZurueck={() => setZeigeRangliste(false)} />
         )}
       </div>
       {xpToast && <XpToast key={xpToast.key} amount={xpToast.amount} onDone={() => setXpToast(null)} />}
@@ -11009,8 +11167,8 @@ function App() {
       {zeigeFeedbackModal && <FeedbackModal onClose={() => setZeigeFeedbackModal(false)} />}
       {!aktiveLektion && (
         <FinanzAssistent
-          abgeschlosseneLektionen={abgeschlosseneLektionen}
-          level={berechneLevel(xp)}
+          abgeschlosseneLektionen={sichereLektionen}
+          level={berechneLevel(effectiveXp)}
           contextFrage={assistentContextFrage}
           onContextFrageUsed={() => setAssistentContextFrage(null)}
         />
