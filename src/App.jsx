@@ -10469,6 +10469,7 @@ function FinancialRealityLektion({ lektion, kategorie, userName, userBudget, use
   const [userWahl, setUserWahl] = useState(null)
   const [reflexion, setReflexion] = useState(null)
   const [phase1Bereit, setPhase1Bereit] = useState(false)
+  const [animiert, setAnimiert] = useState(false)
 
   useEffect(() => {
     if (phase === 1) {
@@ -10476,6 +10477,26 @@ function FinancialRealityLektion({ lektion, kategorie, userName, userBudget, use
       return () => clearTimeout(timer)
     }
   }, [phase])
+
+  useEffect(() => {
+    if (phase === 3) {
+      setTimeout(() => setAnimiert(true), 500)
+    }
+  }, [phase])
+
+  const budget = userBudget || 100
+  const jahre = 20
+  const rendite = 0.07
+  const monate = jahre * 12
+
+  const kontoNominal = budget * monate
+  const kontoReal = kontoNominal * Math.pow(0.98, jahre)
+
+  const etfEndwert = budget * (Math.pow(1 + rendite/12, monate) - 1) / (rendite/12)
+  const etfEingezahlt = budget * monate
+  const etfGewinn = etfEndwert - etfEingezahlt
+
+  const unterschied = Math.round(etfEndwert - kontoReal)
 
   if (phase === 1) {
     return (
@@ -10490,6 +10511,164 @@ function FinancialRealityLektion({ lektion, kategorie, userName, userBudget, use
             Zeig mir wie →
           </button>
         )}
+      </div>
+    )
+  }
+
+  if (phase === 3) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#0D0A14', padding: '1.5rem', overflowY: 'auto' }}>
+        <div style={{ maxWidth: '480px', margin: '0 auto' }}>
+
+          <p style={{ color: '#8B8399', fontSize: '0.82rem', marginBottom: '0.5rem' }}>20 JAHRE SPÄTER...</p>
+          <h2 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>
+            Drei Entscheidungen. Drei Leben.
+          </h2>
+          <p style={{ color: '#4A4460', fontSize: '0.85rem', marginBottom: '2rem' }}>
+            Alle mit deinen {budget}€/Monat.
+          </p>
+
+          <div style={{
+            background: '#12101A',
+            border: userWahl === 'konto' ? '2px solid #7C3AED' : '1px solid #2A2040',
+            borderRadius: '18px',
+            padding: '1.25rem',
+            marginBottom: '1rem'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+              <p style={{ color: '#fff', fontWeight: 700 }}>💳 Auf dem Konto</p>
+              {userWahl === 'konto' && <span style={{ background: '#7C3AED', color: '#fff', fontSize: '0.7rem', padding: '2px 8px', borderRadius: '20px' }}>Deine Wahl</span>}
+            </div>
+            <p style={{ fontSize: '1.8rem', fontWeight: 800, color: '#8B8399' }}>
+              {Math.round(kontoReal).toLocaleString('de-DE')}€
+            </p>
+            <p style={{ color: '#4A4460', fontSize: '0.78rem', marginTop: '4px' }}>
+              Eingezahlt: {kontoNominal.toLocaleString('de-DE')}€ · Inflation hat {Math.round(kontoNominal - kontoReal).toLocaleString('de-DE')}€ gefressen
+            </p>
+            <div style={{ marginTop: '0.75rem', height: '6px', background: '#1A1525', borderRadius: '3px' }}>
+              <div style={{
+                height: '100%',
+                width: animiert ? '45%' : '0%',
+                background: '#4A4460',
+                borderRadius: '3px',
+                transition: 'width 1.5s ease'
+              }} />
+            </div>
+          </div>
+
+          <div style={{
+            background: '#12101A',
+            border: userWahl === 'ausgeben' ? '2px solid #7C3AED' : '1px solid #2A2040',
+            borderRadius: '18px',
+            padding: '1.25rem',
+            marginBottom: '1rem'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+              <p style={{ color: '#fff', fontWeight: 700 }}>🛍️ Ausgegeben</p>
+              {userWahl === 'ausgeben' && <span style={{ background: '#7C3AED', color: '#fff', fontSize: '0.7rem', padding: '2px 8px', borderRadius: '20px' }}>Deine Wahl</span>}
+            </div>
+            <p style={{ fontSize: '1.8rem', fontWeight: 800, color: '#EF4444' }}>0€</p>
+            <p style={{ color: '#4A4460', fontSize: '0.78rem', marginTop: '4px' }}>
+              {Math.round(etfEingezahlt).toLocaleString('de-DE')}€ ausgegeben · Erlebnisse, Urlaub, Shopping
+            </p>
+            <div style={{ marginTop: '0.75rem', height: '6px', background: '#1A1525', borderRadius: '3px' }}>
+              <div style={{ height: '100%', width: '0%', background: '#EF4444', borderRadius: '3px' }} />
+            </div>
+          </div>
+
+          <div style={{
+            background: 'linear-gradient(135deg, #7C3AED11, #9D174D11)',
+            border: userWahl === 'investieren' ? '2px solid #7C3AED' : '1px solid #7C3AED44',
+            borderRadius: '18px',
+            padding: '1.25rem',
+            marginBottom: '1.5rem'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+              <p style={{ color: '#fff', fontWeight: 700 }}>📈 ETF Sparplan</p>
+              {userWahl === 'investieren' && <span style={{ background: '#7C3AED', color: '#fff', fontSize: '0.7rem', padding: '2px 8px', borderRadius: '20px' }}>Deine Wahl</span>}
+            </div>
+            <p style={{ fontSize: '1.8rem', fontWeight: 800, background: 'linear-gradient(135deg, #7C3AED, #9D174D)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              {Math.round(etfEndwert).toLocaleString('de-DE')}€
+            </p>
+            <p style={{ color: '#8B8399', fontSize: '0.78rem', marginTop: '4px' }}>
+              Eingezahlt: {etfEingezahlt.toLocaleString('de-DE')}€ · Zinseszins: +{Math.round(etfGewinn).toLocaleString('de-DE')}€
+            </p>
+            <div style={{ marginTop: '0.75rem', height: '6px', background: '#1A1525', borderRadius: '3px' }}>
+              <div style={{
+                height: '100%',
+                width: animiert ? '100%' : '0%',
+                background: 'linear-gradient(90deg, #7C3AED, #9D174D)',
+                borderRadius: '3px',
+                transition: 'width 2s ease'
+              }} />
+            </div>
+          </div>
+
+          <div style={{
+            background: '#12101A',
+            border: '1px solid #2A2040',
+            borderRadius: '16px',
+            padding: '1.25rem',
+            textAlign: 'center',
+            marginBottom: '1.5rem'
+          }}>
+            <p style={{ color: '#8B8399', fontSize: '0.8rem', marginBottom: '0.5rem' }}>DER UNTERSCHIED</p>
+            <p style={{ fontSize: '2rem', fontWeight: 900, background: 'linear-gradient(135deg, #7C3AED, #9D174D)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              +{unterschied.toLocaleString('de-DE')}€
+            </p>
+            <p style={{ color: '#4A4460', fontSize: '0.8rem', marginTop: '4px' }}>
+              zwischen Konto und ETF – nur durch Zinseszins
+            </p>
+          </div>
+
+          <button className="weiter-btn" onClick={() => setPhase(4)}>
+            Warum ist das so? →
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  if (phase === 4) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#0D0A14', padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ maxWidth: '480px', margin: '0 auto', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+
+          <p style={{ color: '#8B8399', fontSize: '0.82rem', marginBottom: '1rem' }}>DAS STECKT DAHINTER</p>
+
+          {[
+            { icon: '🔄', titel: 'Zinseszins', text: 'Dein Gewinn macht selbst Gewinn. Jeden Monat. 20 Jahre lang. Das ist Mathematik, keine Magie.' },
+            { icon: '📊', titel: 'ETF = Autopilot', text: 'Ein ETF investiert automatisch in hunderte Unternehmen weltweit. Kein Aufwand, maximale Streuung.' },
+            { icon: '⏰', titel: 'Zeit ist dein Vorteil', text: 'Mit 20 hast du 40+ Jahre vor dir. Das ist mehr wert als jedes Gehalt.' }
+          ].map((p, i) => (
+            <div key={i} style={{
+              display: 'flex',
+              gap: '1rem',
+              alignItems: 'flex-start',
+              marginBottom: '1.5rem',
+              animation: 'fadeInUp 0.5s ease forwards',
+              animationDelay: `${i * 0.2}s`,
+              opacity: 0
+            }}>
+              <div style={{
+                width: '48px', height: '48px',
+                background: 'linear-gradient(135deg, #7C3AED22, #9D174D22)',
+                border: '1px solid #7C3AED44',
+                borderRadius: '14px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '1.4rem', flexShrink: 0
+              }}>{p.icon}</div>
+              <div>
+                <p style={{ color: '#fff', fontWeight: 700, marginBottom: '4px' }}>{p.titel}</p>
+                <p style={{ color: '#8B8399', fontSize: '0.875rem', lineHeight: 1.6 }}>{p.text}</p>
+              </div>
+            </div>
+          ))}
+
+          <button className="weiter-btn" style={{ marginTop: '1rem' }} onClick={() => setPhase(5)}>
+            Was tue ich jetzt? →
+          </button>
+        </div>
       </div>
     )
   }
