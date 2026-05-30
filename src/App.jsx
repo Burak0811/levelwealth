@@ -8707,7 +8707,9 @@ function LektionScreen({ lektion, kategorie, onZurueck, onAbgeschlossen }) {
   const [gewaehlt, setGewaehlt] = useState(null)
   const [richtige, setRichtige] = useState(0)
 
-  const fragen = lektion.fragen
+  if (lektion.typ === "reality") return null
+
+  const fragen = lektion.fragen || []
   const aktuelleFrage = fragen[aktualeFrage]
   const readTime = calcReadTime(lektion.inhalt)
 

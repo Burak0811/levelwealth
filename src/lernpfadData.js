@@ -514,37 +514,9 @@ export const lernpfad = {
     {
       id: 1,
       typ: "reality",
-      titel: "Was ist ein ETF – und warum sollte dich das interessieren?",
-      inhalt: `Stell dir vor, du hast 100€ und willst investieren. Du könntest Apple-Aktien kaufen – aber was wenn Apple nächstes Jahr abstürzt? Oder du kaufst Volkswagen – und dann kommt ein Dieselskandal.
-
-Das Problem mit Einzelaktien: du setzt alles auf eine Karte. Und selbst die klügsten Investoren der Welt liegen regelmäßig falsch.
-
-Ein ETF löst dieses Problem elegant. ETF steht für Exchange Traded Fund – ein Fonds, der an der Börse gehandelt wird wie eine normale Aktie. Statt in ein Unternehmen investierst du in hunderte gleichzeitig.
-
-Beispiel: Der MSCI World ETF enthält über 1.500 Unternehmen aus 23 Ländern. Mit 100€ bist du anteilig Miteigentümer von Apple, Microsoft, Samsung, Nestlé und tausend anderen. Geht eines pleite – kaum spürbar. Wächst die Weltwirtschaft – du wächst mit.
-
-Das ist keine Magie. Das ist Mathematik: Risiko verteilen nennt man Diversifikation, und ETFs machen das automatisch für dich.`,
-      xp: 20,
-      fragen: [
-        {
-          text: "Was ist ein ETF?",
-          antworten: ["Eine einzelne Aktie", "Ein Fonds der viele Aktien bündelt und an der Börse handelbar ist", "Ein Sparkonto mit fester Rendite", "Eine Kryptowährung"],
-          richtig: 1,
-          erklaerung: "ETF steht für Exchange Traded Fund – ein Fonds der an der Börse gehandelt wird. Er enthält viele Aktien gleichzeitig und kann wie eine normale Aktie ge- und verkauft werden."
-        },
-        {
-          text: "Anna investiert 100€/Monat für 25 Jahre bei 7% Rendite. Was hat sie am Ende ungefähr?",
-          antworten: ["30.000€", "45.000€", "81.000€", "120.000€"],
-          richtig: 2,
-          erklaerung: "Bei 7% Rendite und Cost-Averaging über 25 Jahre ergibt sich ca. 81.000€. Du hast 30.000€ eingezahlt – die restlichen 51.000€ sind reiner Zinseszins."
-        },
-        {
-          text: "Was ist TER und warum ist sie wichtig?",
-          antworten: ["Eine Steuer auf ETF-Gewinne", "Die jährliche Kostenquote – sie reduziert deine Rendite direkt", "Die Mindestinvestitionssumme", "Der Name des Index"],
-          richtig: 1,
-          erklaerung: "TER (Total Expense Ratio) ist die jährliche Kostenquote. Sie wird automatisch aus dem ETF-Wert abgezogen. Für 10.000€ investiert kostet ein ETF mit 0,2% TER nur 20€ pro Jahr."
-        }
-      ]
+      titel: "Dein erstes Gehalt",
+      xp: 30,
+      fragen: []
     },
     {
       id: 2,
