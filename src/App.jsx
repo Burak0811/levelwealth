@@ -11388,6 +11388,9 @@ function App() {
     localStorage.setItem("dismissedNudges", JSON.stringify(neu))
   }
 
+  const _bm = { 'unter50': 30, '10bis50': 30, '50bis200': 100, '200plus': 250, 'nichts': 25 }
+  const realityBudget = _bm[userFinanzsituation] || _bm[localStorage.getItem('userFinanzsituation')] || profil?.budget || Number(localStorage.getItem('userBudget')) || 100
+
   return (
     <div className="app">
       <Sidebar aktiverTab={aktiverTab} setAktiverTab={(tab) => { setAktiverTab(tab); resetNav() }} xp={effectiveXp} streak={streak} userName={userName} />
@@ -11463,21 +11466,17 @@ function App() {
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ === "cards" && (
           <CardLektionScreen lektion={aktiveLektion} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} onAskAssistant={setAssistentContextFrage} />
         )}
-        {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ === "reality" && (() => {
-          const budgetMap = { 'unter50': 30, '10bis50': 30, '50bis200': 100, '200plus': 250, 'nichts': 25 }
-          const userBudget = budgetMap[userFinanzsituation] || budgetMap[localStorage.getItem('userFinanzsituation')] || profil?.budget || Number(localStorage.getItem('userBudget')) || 100
-          return (
-            <FinancialRealityLektion
-              lektion={aktiveLektion}
-              kategorie={aktiveKategorie}
-              userName={userName}
-              userBudget={userBudget}
-              userAlter={profil?.alter || localStorage.getItem('userAlter') || userAlter || '18-24'}
-              onZurueck={() => { setAktiveLektion(null) }}
-              onAbgeschlossen={lektionAbschliessen}
-            />
-          )
-        })()}
+        {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ === "reality" && (
+          <FinancialRealityLektion
+            lektion={aktiveLektion}
+            kategorie={aktiveKategorie}
+            userName={userName || "Du"}
+            userBudget={realityBudget}
+            userAlter={profil?.alter || localStorage.getItem('userAlter') || userAlter || '18-24'}
+            onZurueck={() => { setAktiveLektion(null) }}
+            onAbgeschlossen={lektionAbschliessen}
+          />
+        )}
         {aktiverTab === "home" && !aktiversAktionsplanId && aktiveLektion && aktiveLektion.typ !== "cards" && aktiveLektion.typ !== "reality" && (
           <LektionScreen lektion={aktiveLektion} kategorie={aktiveKategorie} onZurueck={() => { setAktiveLektion(null) }} onAbgeschlossen={lektionAbschliessen} />
         )}
